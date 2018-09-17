@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+  
+<!DOCTYPE struts PUBLIC  
+    "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"  
+    "http://struts.apache.org/dtds/struts-2.5.dtd">  
+  
+<struts>  
+<constant name="struts.custom.i18n.resources" value="ApplicationResources" />
+<constant name="struts.i18n.encoding" value="utf-8"></constant>
+<constant name="struts.multipart.maxSize" value="209715200" />
+
+<package name="cityInterceptor" extends="struts-default,json-default">
+<!-- 定义一个拦截器 --> 
+	<interceptors>
+      <interceptor name="cityInterceptor" class="com.ziyi.listener.LoginListener" />
+            <!-- 定义拦截器栈 -->
+            <interceptor-stack name="mydefault">
+                <!-- 引用拦截器一（默认拦截器） -->
+                <interceptor-ref name="defaultStack"/> 
+                <!-- 引用拦截器二（自定义拦截器） --> 
+                <interceptor-ref name="cityInterceptor" />
+            </interceptor-stack>
+      </interceptors>
+      <!--将自定义的拦截器栈设置为默认调用，这会覆盖系统struts的默认设置--> 
+      <default-interceptor-ref name="mydefault"></default-interceptor-ref>
+       <!--定义全局Result-->
+       <global-results>
+       <result name="logins" type="redirect">/login.jsp</result>
+       </global-results>
+ </package>
+     <package name="struts_json" extends="cityInterceptor" >
+          <action name="get_*" class="com.ziyi.control.TableServlet" method="{1}">
+     		<result type="json"></result>
+     		<result name="main">main.jsp</result>
+     		<allowed-methods>main,table_state</allowed-methods>
+     	</action>
+     	 <action name="admin_*" class="com.ziyi.control.adminServlet" method="{1}">
+     		<result type="json"></result>
+     		<result name="login">admin/index.jsp</result>
+         	<result name="main">admin/index.jsp</result>
+         	<result name="list">admin/user.jsp</result>
+         	<result name="get_card_type">admin/card_type.jsp</result>
+         	<result name="get_card">admin/card.jsp</result>
+         	<result name="get_selling_type">admin/selling_type.jsp</result>
+         	<result name="get_selling">admin/selling.jsp</result>
+     		<allowed-methods>login,user,cardType,card,sellingtype,selling</allowed-methods>
+     	</action>
+     	 <action name="cmd_*_*" class="com.ziyi.control.cmdServlet" method="{1}_{2}">
+     		<result name="json" type="json"></result>
+     		<result name="update_user_id">admin/update/user.jsp</result>
+     		<result name="update_cardtype">admin/update/card_type.jsp</result>
+     		<result name="update_card">admin/update/card.jsp</result>
+     		<result name="update_selling_type">admin/update/selling_type.jsp</result>
+     		<result name="del_user" type="chain">admin_user</result>
+     		<result name="del_cardtype" type="chain">admin_cardType</result>
+     		<result name="del_card" type="chain">admin_card</result>
+     		<result name="del_selling_type" type="chain">admin_sellingtype</result>
+     		<allowed-methods>add_user,update_user,xiu_user,del_user , add_cardtype ,update_cardtype,xiu_cardtype, del_cardtype,
+     		update_card , xiu_card, del_card , 
+     		add_sellingtype , del_sellingtype , update_sellingtype , xiu_sellingtype
+     		</allowed-methods>
+     	</action>
+      </package>
+      
+      <!--不需要监听的继承默认的拦截器包-->
+	<package name="p1" extends="struts-default">
+		 <action name="login" class="com.ziyi.control.LoginServlet" method="login">
+         	<result name="login">main.jsp</result>
+         	<result name="main">main.jsp</result>
+         	<allowed-methods>login</allowed-methods>
+         </action>
+         <action name="adminlogin" class="com.ziyi.control.adminLoginServlet" method="adminlogin">
+         	<result name="login">admin/index.jsp</result>
+         	<result name="main">admin/index.jsp</result>
+         	<allowed-methods>adminlogin</allowed-methods>
+         </action>
+	</package>
+</struts>
