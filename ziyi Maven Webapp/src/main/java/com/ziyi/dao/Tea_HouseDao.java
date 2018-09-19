@@ -46,4 +46,17 @@ public interface Tea_HouseDao {
 	 */
 	public boolean del_house(int id);
 	
+	/**
+	 * 添加桌子信息
+	 * @param th
+	 * @returne
+	 */
+	public boolean insert_house(Tea_House th);
+	/**
+	 * 根据ID 修改桌位信息
+	 * @param th
+	 * @return
+	 */
+	public boolean update_house(Tea_House th);
+	
 }

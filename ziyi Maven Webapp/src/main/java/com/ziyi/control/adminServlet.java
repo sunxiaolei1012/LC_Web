@@ -6,6 +6,7 @@ import com.ziyi.control.cmd.CardControl;
 import com.ziyi.control.cmd.CardTypeControl;
 import com.ziyi.control.cmd.SellingControl;
 import com.ziyi.control.cmd.SellingTypeControl;
+import com.ziyi.control.cmd.TeaHouseControl;
 /**
  * 处理用户登录请求
  * @author 陈玉博
@@ -75,7 +76,14 @@ public class adminServlet extends ActionSupport{
 	{
 		return new SellingControl().get_selling(page);
 	}
-	
+	/**
+	 * 添加房屋位置信息
+	 * @return
+	 */
+	public String teahouse()
+	{
+		return new TeaHouseControl().get_tea_house();
+	}
 	
 	public String getName() {
 		return name;

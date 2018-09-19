@@ -15,7 +15,7 @@ public class Tea_HouseDaoImpl implements Tea_HouseDao{
 	}
 
 	public List<Tea_House> select_House() {
-		List<Tea_House> list = Common.UTIL.query("select * from t_tea_house ", null, Tea_House.class);
+		List<Tea_House> list = Common.UTIL.query("select * from t_tea_house ORDER BY position", null, Tea_House.class);
 		if(null != list && list.size() >0)
 		{
 			return list;
@@ -39,6 +39,17 @@ public class Tea_HouseDaoImpl implements Tea_HouseDao{
 
 	public boolean del_house(int id) {
 		int a =Common.UTIL.getRes("delete from t_tea_house where houseid=?", new Object[]{id});
+		return a>0?true:false;
+	}
+
+	public boolean insert_house(Tea_House th) {
+		int a = Common.UTIL.getRes("insert into t_tea_house values(null ,? ,0 , ?)", new Object[]{th.getHousename() , th.getPosition()});
+		return a>0?true:false;
+	}
+
+	public boolean update_house(Tea_House th) {
+		int a = Common.UTIL.getRes("update t_tea_house set housename=?,status=?,position=? where houseid=?", new Object[]{th.getHousename(),th.getStatus(),th.getPosition(),th.getHouseid()});
+		
 		return a>0?true:false;
 	}
 

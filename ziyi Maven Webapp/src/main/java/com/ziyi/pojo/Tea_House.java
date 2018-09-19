@@ -10,6 +10,7 @@ public class Tea_House {
 	private Integer houseid;
 	private String housename;
 	private Integer status;
+	private Integer position;
 	public Integer getHouseid() {
 		return houseid;
 	}
@@ -28,12 +29,19 @@ public class Tea_House {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
+	public Integer getPosition() {
+		return position;
+	}
+	public void setPosition(Integer position) {
+		this.position = position;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((houseid == null) ? 0 : houseid.hashCode());
 		result = prime * result + ((housename == null) ? 0 : housename.hashCode());
+		result = prime * result + ((position == null) ? 0 : position.hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		return result;
 	}
@@ -56,6 +64,11 @@ public class Tea_House {
 				return false;
 		} else if (!housename.equals(other.housename))
 			return false;
+		if (position == null) {
+			if (other.position != null)
+				return false;
+		} else if (!position.equals(other.position))
+			return false;
 		if (status == null) {
 			if (other.status != null)
 				return false;
@@ -63,17 +76,22 @@ public class Tea_House {
 			return false;
 		return true;
 	}
+	@Override
 	public String toString() {
-		return "Tea_House [houseid=" + houseid + ", housename=" + housename + ", status=" + status + "]";
+		return "Tea_House [houseid=" + houseid + ", housename=" + housename + ", status=" + status + ", position="
+				+ position + "]";
 	}
-	public Tea_House(String housename, Integer status) {
+	public Tea_House(String housename, Integer status, Integer position) {
 		super();
 		this.housename = housename;
 		this.status = status;
+		this.position = position;
 	}
 	public Tea_House() {
 		super();
 	}
+	
+	
 	
 	
 }

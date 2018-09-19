@@ -19,13 +19,109 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.ServletActionContext;
 
+import com.atgeretg.serialport.exception.SendDataToSerialPortFailure;
+import com.atgeretg.serialport.exception.SerialPortOutputStreamCloseFailure;
+import com.atgeretg.serialport.manage.SerialPortManager;
+import com.atgeretg.serialport.utils.MyUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.port.main.Main;
 
 
 
 public class Tools {
+	
+	/**
+	 * bcc校验
+	 */
+	public static String getBCC(byte[] data) {
+
+		  String ret = "";
+		  byte BCC[]= new byte[1];
+		  for(int i=0;i<data.length;i++)
+		  {
+		  BCC[0]=(byte) (BCC[0] ^ data[i]);
+		  }
+		  String hex = Integer.toHexString(BCC[0] & 0xFF);
+		  if (hex.length() == 1) {
+		  hex = '0' + hex;
+		  }
+		  ret += hex.toUpperCase();
+		  return ret;
+		}
+	
+	
+	/**
+	 * 写卡
+	 * 
+	 */
+	public void white_card()
+	{
+		try {
+			Main.sendData("10");
+			Thread.sleep(300);
+			byte by =  MyUtils.HexString2Bytes(getBCC(config.WHITE))[0];
+			config.WHITE[config.WHITE.length-1] = by;
+			SerialPortManager.sendToPort(Main.serialport, config.WHITE);
+			Thread.sleep(500);
+		} catch (SendDataToSerialPortFailure e) {
+			e.printStackTrace();
+		} catch (SerialPortOutputStreamCloseFailure e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	/**
+	 * 读卡
+	 * @throws InterruptedException 
+	 */
+	public String read_card() throws InterruptedException
+	{
+		
+		try {
+			Main.sendData("9");
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Date da = new Date();
+		StringBuffer sb = new StringBuffer();
+		while(true)
+		{
+			if(config.READ_CARD_MAP.get(1).getRead() == null || da.getTime() > config.READ_CARD_MAP.get(1).getDate().getTime())
+				Thread.sleep(200);
+			else
+			{
+				sb.append(MyUtils.byteArray2HexString(config.READ_CARD_MAP.get(1).getRead(), config.READ_CARD_MAP.get(1).getRead().length, true));
+				break;
+			}
+		}
+		while(true)
+		{
+			if(config.READ_CARD_MAP.get(2).getRead() == null || da.getTime() > config.READ_CARD_MAP.get(2).getDate().getTime())
+				Thread.sleep(200);
+			else
+			{
+				sb.append(MyUtils.byteArray2HexString(config.READ_CARD_MAP.get(2).getRead(), config.READ_CARD_MAP.get(2).getRead().length, true));
+				break;
+			}
+		}
+		while(true)
+		{
+			if(config.READ_CARD_MAP.get(3).getRead() == null || da.getTime() > config.READ_CARD_MAP.get(3).getDate().getTime())
+				Thread.sleep(200);
+			else
+			{
+				sb.append(MyUtils.byteArray2HexString(config.READ_CARD_MAP.get(3).getRead(), config.READ_CARD_MAP.get(3).getRead().length, true));
+				break;
+			}
+		}
+			
+		return sb.toString();
+	}
 	
 	/**
 	 * 返回

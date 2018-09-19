@@ -32,6 +32,12 @@ var navs = [{
 		"icon": "fa-navicon",
 		"href": "admin_selling"
 	}]
+},
+{
+	"title": "位置管理",
+	"icon": "fa-stop-circle",
+	"href": "admin_teahouse",
+	"spread": false
 }
 
 ];

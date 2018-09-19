@@ -4,6 +4,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.ziyi.control.cmd.CardControl;
 import com.ziyi.control.cmd.CardTypeControl;
 import com.ziyi.control.cmd.SellingTypeControl;
+import com.ziyi.control.cmd.TeaHouseControl;
 import com.ziyi.control.cmd.User_Control;
 /**
  * 处理后台admin功能
@@ -33,6 +34,10 @@ public class cmdServlet extends ActionSupport{
 	private String remain;
 	
 	private String type_name;
+	
+	private String housename;
+	private String position;
+	private String sta;
 	
 	/**
 	 * 添加用户
@@ -170,7 +175,38 @@ public class cmdServlet extends ActionSupport{
 		return new SellingTypeControl().xiu_selling_type(id, type_name);
 	}
 	
-	
+	/**
+	 * 桌位信息
+	 * @return
+	 */
+	public String add_teahouse()
+	{
+		return new TeaHouseControl().add_tea_house(housename , position);
+	}
+	/**
+	 * 根据桌位ID 查询桌位信息
+	 * @return
+	 */
+	public String update_teahouse()
+	{
+		return new TeaHouseControl().get_tea_house(id);
+	}
+	/**
+	 * 根据桌位ID 修改桌位信息
+	 * @return
+	 */
+	public  String xiu_teahouse()
+	{
+		return new TeaHouseControl().xiu_card(id, housename, sta, position);
+	}
+	/**
+	 * 根据桌位ID 删除桌位信息
+	 * @return
+	 */
+	public String del_teahouse()
+	{
+		return new TeaHouseControl().del_card(id);
+	}
 	
 	public String getName() {
 		return name;
@@ -261,6 +297,24 @@ public class cmdServlet extends ActionSupport{
 	}
 	public void setType_name(String type_name) {
 		this.type_name = type_name;
+	}
+	public String getHousename() {
+		return housename;
+	}
+	public void setHousename(String housename) {
+		this.housename = housename;
+	}
+	public String getPosition() {
+		return position;
+	}
+	public void setPosition(String position) {
+		this.position = position;
+	}
+	public String getSta() {
+		return sta;
+	}
+	public void setSta(String sta) {
+		this.sta = sta;
 	}
 	
 	

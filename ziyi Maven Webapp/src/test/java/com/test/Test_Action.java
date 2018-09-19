@@ -62,7 +62,7 @@ public class Test_Action {
 	@Test
 	public void test5()
 	{
-		System.out.println(4%3);
-//		System.out.println(new JDBC().count_zong("cardid", "t_card"));
+		
+		//		System.out.println(new JDBC().count_zong("cardid", "t_card"));
 	}
 }
