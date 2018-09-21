@@ -29,7 +29,7 @@ public class TeaHouseControl {
 		return "get_tea_house";
 	}
 	/**
-	 * 添加会员卡信息
+	 * 添加桌子信息
 	 * @return
 	 */
 	public String add_tea_house(String housename , String position)

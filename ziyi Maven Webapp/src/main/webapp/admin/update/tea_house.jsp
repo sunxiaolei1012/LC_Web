@@ -47,16 +47,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<option value="0" selected="">空闲</option>
 								<option value="1" >占用</option>
 								<option value="2">预约</option>
+								<option value="3">其他</option>
 							</c:if>
 								<c:if test="${house.status==1 }">
 								<option value="0" >空闲</option>
 								<option value="1"  selected="">占用</option>
 								<option value="2">预约</option>
+								<option value="3">其他</option>
 							</c:if>	
 								<c:if test="${house.status==2 }">
 								<option value="0" >空闲</option>
 								<option value="1" >占用</option>
 								<option value="2" selected="">预约</option>
+								<option value="3">其他</option>
+							</c:if>	
+							<c:if test="${house.status!=0 &&house.status!=1&&house.status!=2 }">
+								<option value="0" >空闲</option>
+								<option value="1" >占用</option>
+								<option value="2" >预约</option>
+								<option value="3" selected="">其他</option>
 							</c:if>	
 						</select>
 					</div>

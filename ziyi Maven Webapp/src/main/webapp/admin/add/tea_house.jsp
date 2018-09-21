@@ -18,6 +18,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="format-detection" content="telephone=no">
 		<script type="text/javascript" src="../../js/jquery-2.1.1.min.js"></script>
+		<script src="../../layui/layui.js"></script>
 		<script type="text/javascript" src="../../js/chen.js"></script>
 		<link rel="stylesheet" href="../../plugins/layui/css/layui.css" media="all" />
 		<link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
@@ -28,7 +29,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
 				<legend>添加桌位信息</legend>
 			</fieldset>
-			<form id="form2" class="layui-form">
+			<form id="form2" class="layui-form"   onsubmit="return false">
 				<div class="layui-form-item">
 					<label class="layui-form-label">桌子名称</label>
 					<div class="layui-input-block">
@@ -38,12 +39,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="layui-form-item">
 					<label class="layui-form-label">桌子位置</label>
 					<div class="layui-input-block">
-						<input type="text" name="position" lay-verify="title" autocomplete="off" placeholder="请输入位置" class="layui-input">
+						<input type="text" name="position" lay-verify="num" autocomplete="off" placeholder="请输入位置" class="layui-input">
 					</div>
 				</div>
 				<div class="layui-form-item">
 					<div class="layui-input-block">
-						<button class="layui-btn" onclick="save('add','teahouse')">立即提交</button>
+						<button class="layui-btn" lay-submit="" lay-filter="tableAdd" onclick="save('add','teahouse')">立即提交</button>
 					</div>
 				</div>
 			</form>
@@ -51,6 +52,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 	</body>
 <script type="text/javascript">
+	layui.use(['form', 'layedit', 'laydate'], function(){
+  var form = layui.form
+  ,layer = layui.layer
+  ,layedit = layui.layedit
+  ,laydate = layui.laydate;
+  
+  //自定义验证规则
+  form.verify({
+  	// 验证
+    title: function(value){
+      if(value.length <= 0){
+        return '桌子名称不能为空';
+      }
+    },
+    num: function(value){
+      if(value.length <= 0){
+        return '桌子位置不能为空';
+      }
+    },
+  });
 
+  //监听提交
+  form.on('submit(tableAdd)', function(){
+     save('add','teahouse');
+  });
+});
 </script>
 </html>

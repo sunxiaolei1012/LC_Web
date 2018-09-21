@@ -42,4 +42,11 @@ public class Order_listDaoImpl implements Order_listDao{
 		return a>0?true:false;
 	}
 
+	public List<Order_list> select_number_order(Integer order) {
+		List<Order_list> list = Common.UTIL.query("select * from t_order_list where orderid=?", new Object[]{order}, Order_list.class);
+		if(null != list && list.size()>0)
+			return list;
+		return null;
+	}
+
 }

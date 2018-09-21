@@ -1,5 +1,7 @@
 package com.ziyi.dao;
 
+import java.util.List;
+
 import com.ziyi.pojo.Order_list;
 
 /**
@@ -35,5 +37,12 @@ public interface Order_listDao {
 	 * @return
 	 */
 	public boolean del_id(Integer id , Double price , Integer orderid);
+	
+	/**
+	 * 根据订单ID 查询订单信息
+	 * @param order
+	 * @return
+	 */
+	public List<Order_list> select_number_order(Integer order);
 
 }

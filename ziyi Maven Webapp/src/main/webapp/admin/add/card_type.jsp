@@ -18,6 +18,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="format-detection" content="telephone=no">
 		<script type="text/javascript" src="../../js/jquery-2.1.1.min.js"></script>
+		<script type="text/javascript" src="../../js/layui.js"></script>
 		<script type="text/javascript" src="../../js/chen.js"></script>
 		<link rel="stylesheet" href="../../plugins/layui/css/layui.css" media="all" />
 		<link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
@@ -28,7 +29,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
 				<legend>添加新卡</legend>
 			</fieldset>
-			<form id="form2" class="layui-form">
+			<form id="form2" class="layui-form" onsubmit="return false">
 				<div class="layui-form-item">
 					<label class="layui-form-label">卡名称</label>
 					<div class="layui-input-block">
@@ -43,7 +44,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<div class="layui-form-item">
 					<div class="layui-input-block">
-						<button class="layui-btn" onclick="save('add','cardtype')">立即提交</button>
+						<button class="layui-btn" lay-submit="" lay-filter="cardAdd"  onclick="save('add','cardtype')">立即提交</button>
 					</div>
 				</div>
 			</form>
@@ -51,6 +52,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 	</body>
 <script type="text/javascript">
+	layui.use(['form', 'layedit', 'laydate'], function(){
+  var form = layui.form
+  ,layer = layui.layer
+  ,layedit = layui.layedit
+  ,laydate = layui.laydate;
+  
+  //自定义验证规则
+  form.verify({
+  	// 验证
+    title: function(value){
+      if(value.length <= 0){
+        return '卡名称不能为空';
+      }
+    },
+    // 卡折率
 
+  });
+  
+
+  //监听提交
+  form.on('submit(cardAdd)', function(){
+   save('add','cardtype');
+  });
+});
 </script>
 </html>

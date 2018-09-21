@@ -62,11 +62,17 @@ public class SerialListener implements SerialPortEventListener {
 						rc.setDate(new Date());
 						rc.setRead(data);
 						if(data[0]==85 && data[1] == 0 && data[2] == 0 && data[3] == -112)
+						{
 							config.READ_CARD_MAP.put(1, rc);
+						}
 						else if(data.length == 25)
+						{
 							config.READ_CARD_MAP.put(3, rc);
+						}
 						else
+						{
 							config.READ_CARD_MAP.put(2, rc);
+						}
 						
 					}
 				}

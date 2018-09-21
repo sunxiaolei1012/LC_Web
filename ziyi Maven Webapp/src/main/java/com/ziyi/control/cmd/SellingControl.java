@@ -1,17 +1,23 @@
 package com.ziyi.control.cmd;
 
-import java.util.HashMap;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
-import java.util.Map;
+
+import org.apache.struts2.ServletActionContext;
 
 import com.cyb.util.Common;
 import com.cyb.util.Util;
 import com.cyb.util.config;
-import com.google.gson.Gson;
 import com.opensymphony.xwork2.ActionContext;
 import com.ziyi.pojo.Card;
-import com.ziyi.pojo.Card_type;
+import com.ziyi.pojo.Selling_Image;
 import com.ziyi.pojo.Selling_list;
+import com.ziyi.pojo.Users;
 
 /**
  * 商品管理
@@ -34,7 +40,6 @@ public class SellingControl {
 		int a =Util.sqlCount("select COUNT(sellingid) from t_selling_list");
 		if(a != 0)
 		{
-			
 			int zong = a/config.PAGE_CARD_SHOW_NUMBER;
 			//判断总共有多少页，
 			if(a%config.PAGE_CARD_SHOW_NUMBER != 0)
@@ -56,36 +61,64 @@ public class SellingControl {
 	/**
 	 * 添加会员卡信息
 	 * @return
+	 * @throws IOException 
 	 */
-	public String add_card_type(String cardtype , String rebate)
+	public String add_selling(String name , String price , String unit , String rebate , String proportion , String typeid , String xiangxi , String number , List<File> file,List<String> fileFileName , List<String> fileContentType) throws IOException
 	{
-		Map<String , String> map = new HashMap<String , String>();
-		
-		Card_type cardtypes = Common.CARDTYPE.select_name(cardtype);
-		if(cardtypes != null)
+		Users user = (Users) ActionContext.getContext().getSession().get("user");	
+		Selling_list sell = new Selling_list();
+		sell.setName(name);
+		sell.setNumber(new Integer(number));
+		sell.setPrice(new Double(price));
+		sell.setProportion(new Double(proportion));
+		sell.setPycode("cs");
+		sell.setRebate(new Integer(rebate));
+		sell.setTypeid(new Integer(typeid));
+		sell.setUnit(unit);
+		sell.setUserid(user.getUserid());
+		sell.setXiangxi(xiangxi);
+		System.out.println(file);
+		int bool = Common.SLD.insert_Selling_list(sell);
+		if(file!=null)
 		{
-			map.put("state", "false");
-			map.put("msg", config.ADD_CARD_TYPE_ERROR_MSG);
+		String path = ServletActionContext.getRequest().getRealPath("/upload");  
+	        for(int i = 0 ; i < file.size() ; i++ )  
+	        {  
+	        	String file_name = Common.TOOLS.getRandomFileName()+"."+Common.TOOLS.ext(fileFileName.get(i));
+	            OutputStream os = new FileOutputStream(new File(path,file_name));  
+	              System.out.println(fileContentType.get(i));
+	            InputStream is = new FileInputStream(file.get(i));  
+	             
+	            byte[] buf = new byte[1024];  
+	            int length = 0 ;  
+	              
+	            while(-1 != (length = is.read(buf) ) )  
+	            {  
+	                os.write(buf, 0, length) ;  
+	            } 
+	            is.close();  
+	            os.close();  
+	            //添加图片信息
+	            Common.SID.insert_selling_image(bool, file_name);
+	        } 
 		}
-		else
-		{
-			Common.CARDTYPE.insert_card(cardtype, new Double(rebate));
-			map.put("state", "true");
-			map.put("msg", config.ADD_USER_RIGHT_MSG);
-		}
-		Common.TOOLS.return_object(new Gson().toJson(map));
+		Common.TOOLS.return_map_object(bool>0?true:false, config.ADD_USER_RIGHT_MSG, config.ADD_ERROR_MSG);
 		return "json";
 	}
 	
 	/**
-	 * 根据会员卡ID 获取会员卡信息
+	 * 根据商品ID 获取商品信息
 	 */
-	public String get_card_id(String id)
+	public String get_selling_id(String id)
 	{
-		Card card = Common.CARDDAO.select_card_id(new Integer(id));
-		ActionContext.getContext().put("card", card);
-		ActionContext.getContext().put("card_type", Common.CARDTYPE.select_card_type());
-		return "update_card";
+		//查询商品信息
+		Selling_list sl = Common.SLD.selecct_id_list(new Integer(id));
+		//根据商品查询图片信息
+		List<Selling_Image> si = Common.SID.select_selling_image(new Integer(id));
+		
+		ActionContext.getContext().put("sl", sl);
+		ActionContext.getContext().put("si", si);
+		return "update_selling";
 	}
 	
 	/**
@@ -113,9 +146,9 @@ public class SellingControl {
 	 * @param id
 	 * @return
 	 */
-	public String del_card(String id)
+	public String del_selling(String id)
 	{
-		Common.CARDDAO.del_card_id(new Integer(id));
-		return "del_card";
+		Common.SLD.del_selling_list(new Integer(id));
+		return "del_selling";
 	}
 }

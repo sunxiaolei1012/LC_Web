@@ -21,6 +21,12 @@ public class config {
 	public static final String ADD_CARD_TYPE_ERROR_MSG = "该卡类型已存在"; 
 	public static final String ADD_SELLING_TYPE_ERROR_MSG = "该商品类型已存在"; 
 	
+	public static final String ORDER_NULL_ERROR_MSG="订单不存在";
+	public static final String SELLING_NULL_ERROR_MSG="商品不存在";
+	public static final String SELLING_NULL_ERROR_MSG_FALSE="该商品不在订单中";
+
+	
+	
 	
 	//认证
 	public static final byte[] CARD_LOGIN = new byte[]{(byte) 0xAA,(byte) 0xB9,0x00,0x05,(byte) 0x80,0x00,0x00,0x00,0x00,(byte) 0x96};
@@ -38,7 +44,6 @@ public class config {
 	public static final byte[] READ_CARD_TWO = new byte[]{(byte) 0xAA, 0x61 ,0x00 ,0x07, 0x79, 0x00, 0x00,0x00, (byte) 0x90,0x00 ,0x70, 0x55};
 	//核对密码
 	public static final byte[] CARD_PASSWORD_COMPARE = new byte[]{(byte) 0xAA,0x64,0x00,0x08,0x79,0x00,0x00,0x00,0x00,(byte) 0xFF,(byte) 0xFF,(byte) 0xFF,0x40};
-	
 	
 	//统一写卡AA 60 00 95 79 00 00 00 20 FF FF FF FF 11 11 11 FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF 11 11 FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF 11 FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF 11 FF FF FF FF FF FF E8 
 	public static byte[] WHITE_CARD = new byte[]{(byte) 0xAA,(byte) 0x60,(byte) 0x00,(byte) 0x95,(byte) 0x79,(byte) 0x00,(byte) 0x00,(byte) 0x00,(byte) 0x20,

@@ -19,7 +19,7 @@ public class OrderDaoImpl implements OrderDao{
 		return null;
 	}
 	public boolean insert_number_order(Order order) {
-		int a = Common.UTIL.getRes("insert into t_order values(null ,?,?,?,?,?,?,?,?,?)", new Object[]{order.getNumber() , order.getOrdertime() , order.getPrice() , order.getUserid() ,order.getStatus() , order.getType() , order.getCheckouttime() , order.getPay_price() , order.getCardid()});
+		int a = Common.UTIL.getRes("insert into t_order values(null ,?,?,?,?,?,?,?,?,?,?)", new Object[]{order.getNumber() , order.getOrdertime() , order.getPrice() , order.getUserid() ,order.getStatus() , order.getType() , order.getCheckouttime() , order.getPay_price() , order.getCardid(),order.getHouseid()});
 		return a>0?true:false;
 	}
 
@@ -66,5 +66,40 @@ public class OrderDaoImpl implements OrderDao{
 			return list.get(0);
 		return null;
 	}
+	
+	//sxl
+	public List<Order> select_IcOrder(String sql) {
+		List<Order> list=Common.UTIL.query(sql, null, Order.class);
+		if(list.size()>0&&list!=null)
+			return list;
+		return null;
+	}
+
+	
+
+	
+	public List<Order> select_XjOrder(String sql) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+	public List<Order> select_ZfOrder(String sql) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+	public List<Order> select_WxOrder(String sql) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+	public List<Order> select_YhOrder(String sql) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

@@ -71,5 +71,64 @@ public class CardDaoImpl implements CardDao{
 		String sql = "select * from t_card limit "+(page-1)*count+","+count+"";
 		return Common.UTIL.query(sql, null, Card.class);
 	}
+	
+	//sxl
+	public List<Card> showCardType() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	public List<Card> showCardByTime() {
+		String sql="select *  from t_card where date(selltime) = curdate();  ";
+			List<Card> list=Common.UTIL.query(sql, null, Card.class);
+		return list;
+	}
+
+	
+	public int addCard(Card card) {
+		String sql="insert into  t_card  values(null,?,?,?,?,?,?,?,?,?,?,?,?)";
+			int a =Util.getRes(sql, new Object[]{card.getCtid(),card.getNumber(),card.getName(),
+					card.getPhone(),card.getAddress(),card.getIdcard(),card.getPrice(),card.getSpend(),
+					card.getRemain(),card.getSelltime(),card.getStatus(),card.getUserid()});
+		return a;
+	}
+
+	
+	public int checkCardId(String  number) {
+			String sql="select * from t_card where number=?";
+			List<Card> list=Common.UTIL.query(sql, new Object[]{number}, Card.class);
+			if(list.size()>0 && list!=null)
+				return 1;
+		return 0;
+	}
+
+
+	public List<Card> select_card(String sql) {
+		List<Card> list=Common.UTIL.query(sql, null, Card.class);
+		if(list.size()>0 && list!=null)
+			return list;
+	return null;
+	}
+
+	
+	public int allCount() {
+		  String sql ="select count(ctid) from t_card ";
+		   int a=Common.UTIL.sqlCount(sql);
+		   
+		return a;
+	}
+
+	
+	public List<Card> icCount(String begintime, String endtime) {
+		String  sql="select * from t_card where selltime between '?' and '?'";
+		List<Card> list=Common.UTIL.query(sql, new Object[]{begintime ,endtime}, Card.class);
+		if(list.size()>0&& list!=null)
+			return list;
+		
+		return null;
+	}
+		
+	
 
 }

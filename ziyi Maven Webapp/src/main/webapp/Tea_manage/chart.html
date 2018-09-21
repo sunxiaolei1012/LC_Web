@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="css/layui/css/layui.css">
+	<script type="text/javascript" src="js/wjs.js"></script>
+	<script type="text/javascript" src="js/highcharts.js"></script>
+	<script type="text/javascript" src="js/exporting.js"></script>
+	<script type="text/javascript" src="js/highcharts_zh_CN.js"></script>
+   <style type="text/css">
+   	.showhide{
+   		display: none;
+   	}
+   	.layui-btn{
+   		/*margin-top: 2%;*/
+   		margin-left: 2%;
+   	}
+   </style>
+</head>
+<body>
+	<div id="container"></div>
+	<div id="container1" style="min-width:400px;height:400px;" class="showhide"></div>
+    <button class="layui-btn">数据切换</button>
+</body>
+<script type="text/javascript">
+	var chart = Highcharts.chart('container', {
+	title: {
+		text: '图表变换'
+	},
+	subtitle: {
+		text: '普通的'
+	},
+	xAxis: {
+		categories: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']
+	},
+	series: [{
+		type: 'column',
+		colorByPoint: true,
+		data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
+		showInLegend: false
+	}]
+});
+
+	// 2
+
+    Highcharts.setOptions({
+	global: {
+		useUTC: false
+	}
+});
+
+function activeLastPointToolip(chart) {
+	var points = chart.series[0].points;
+	chart.tooltip.refresh(points[points.length -1]);
+}
+var chart = Highcharts.chart('container1', {
+	chart: {
+		type: 'spline',
+		marginRight: 10,
+		events: {
+			load: function () {
+				var series = this.series[0],
+					chart = this;
+				activeLastPointToolip(chart);
+				setInterval(function () {
+					var x = (new Date()).getTime(), // 当前时间
+						y = Math.random();          // 随机值
+					series.addPoint([x, y], true, true);
+					activeLastPointToolip(chart);
+				}, 1000);
+			}
+		}
+	},
+	title: {
+		text: '动态模拟实时数据'
+	},
+	xAxis: {
+		type: 'datetime',
+		tickPixelInterval: 150
+	},
+	yAxis: {
+		title: {
+			text: null
+		}
+	},
+	tooltip: {
+		formatter: function () {
+			return '<b>' + this.series.name + '</b><br/>' +
+				Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
+				Highcharts.numberFormat(this.y, 2);
+		}
+	},
+	legend: {
+		enabled: false
+	},
+	series: [{
+		name: '随机数据',
+		data: (function () {
+			// 生成随机值
+			var data = [],
+				time = (new Date()).getTime(),
+				i;
+			for (i = -19; i <= 0; i += 1) {
+				data.push({
+					x: time + i * 1000,
+					y: Math.random()
+				});
+			}
+			return data;
+		}())
+	}]
+});
+
+$(document).ready(function(){
+	$('.layui-btn').click(function(){
+		$("#container").toggleClass("showhide");
+		$("#container1").toggleClass("showhide");
+    })
+})
+
+
+
+
+</script>
+</html>

@@ -27,11 +27,49 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.port.main.Main;
+import com.ziyi.pojo.Log;
+import com.ziyi.pojo.Order;
 
 
 
 public class Tools {
+	/**
+	 * 返回唯一订单码  
+	 * @return
+	 */
+	public String return_orderid()
+	{
+		String str = getRandomFileName();
+		Order order = Common.ORDER.select_number_order(str);
+		if(null == order)
+			return str;
+		return return_orderid();
+	}
 	
+	public void log_time(String value , Integer type)
+	{
+		
+		Log log = new Log();
+		log.setValue(value);
+		log.setType(type);
+		log.setTime(Common.df.format(new Date()));
+		Common.LOG.insert_log_time(log);
+	}
+	
+	
+	/**
+     * 获取文件扩展名
+     * @return
+     */
+    public static String ext(String filename) {
+        int index = filename.lastIndexOf(".");
+ 
+        if (index == -1) {
+            return null;
+        }
+        String result = filename.substring(index + 1);
+        return result;
+    }
 	/**
 	 * bcc校验
 	 */
@@ -82,17 +120,20 @@ public class Tools {
 		
 		try {
 			Main.sendData("9");
-			Thread.sleep(500);
+			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 		Date da = new Date();
 		StringBuffer sb = new StringBuffer();
 		while(true)
 		{
 			if(config.READ_CARD_MAP.get(1).getRead() == null || da.getTime() > config.READ_CARD_MAP.get(1).getDate().getTime())
+			{
 				Thread.sleep(200);
+			
+			}
 			else
 			{
 				sb.append(MyUtils.byteArray2HexString(config.READ_CARD_MAP.get(1).getRead(), config.READ_CARD_MAP.get(1).getRead().length, true));
@@ -102,7 +143,9 @@ public class Tools {
 		while(true)
 		{
 			if(config.READ_CARD_MAP.get(2).getRead() == null || da.getTime() > config.READ_CARD_MAP.get(2).getDate().getTime())
+			{
 				Thread.sleep(200);
+			}
 			else
 			{
 				sb.append(MyUtils.byteArray2HexString(config.READ_CARD_MAP.get(2).getRead(), config.READ_CARD_MAP.get(2).getRead().length, true));
@@ -112,8 +155,10 @@ public class Tools {
 		while(true)
 		{
 			if(config.READ_CARD_MAP.get(3).getRead() == null || da.getTime() > config.READ_CARD_MAP.get(3).getDate().getTime())
+			{
 				Thread.sleep(200);
-			else
+			
+			}else
 			{
 				sb.append(MyUtils.byteArray2HexString(config.READ_CARD_MAP.get(3).getRead(), config.READ_CARD_MAP.get(3).getRead().length, true));
 				break;
@@ -154,6 +199,33 @@ public class Tools {
 	        writer.close();  
 	}
 	
+	public void return_map_object_id(boolean bool , String true_str , String error_str,String id)
+	{
+		Map<String , String> map = new HashMap<String , String>(); 
+		if(bool)
+		{
+			map.put("state", "true");
+			map.put("id", id);
+			map.put("msg", true_str);
+		}
+		else
+		{
+			map.put("state", "false");
+			map.put("msg", error_str);
+		}
+		HttpServletResponse response = ServletActionContext.getResponse(); 
+		response.setContentType("text/html;charset=utf-8");
+		response.setCharacterEncoding("UTF-8");
+		 PrintWriter writer = null;
+			try {
+				writer = response.getWriter();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}   
+	        writer.print(new Gson().toJson(map));  
+	        writer.flush();  
+	        writer.close();  
+	}
 
 	/**
 	 * 获取终端IP

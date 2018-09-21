@@ -6,13 +6,14 @@ import com.cyb.util.Common;
 import com.ziyi.dao.Selling_listDao;
 import com.ziyi.pojo.Card;
 import com.ziyi.pojo.Selling_list;
+import com.ziyi.pojo.Selling_type;
 
 
 public class Selling_listDaoImpl implements Selling_listDao{
 
 	public int insert_Selling_list(Selling_list sl) {
-		int a =Common.UTIL.getRes("insert into t_selling_list values(null ,?,?,?,?,?,?,?,?,?,0)", 
-				new Object[]{sl.getName() , sl.getPrice() , sl.getUnit() , sl.getRebate() , sl.getProportion() , sl.getUserid() , sl.getPycode() , sl.getTypeid(),sl.getXiangxi()});
+		int a =Common.UTIL.getRes("insert into t_selling_list values(null ,?,?,?,?,?,?,?,?,?,?)", 
+				new Object[]{sl.getName() , sl.getPrice() , sl.getUnit() , sl.getRebate() , sl.getProportion() , sl.getUserid() , sl.getPycode() , sl.getTypeid(),sl.getXiangxi(),sl.getNumber()});
 		
 		if(a > 0)
 		{
@@ -63,5 +64,65 @@ public class Selling_listDaoImpl implements Selling_listDao{
 		String sql = "select * from t_selling_list limit "+(page-1)*count+","+count+"";
 		return Common.UTIL.query(sql, null, Selling_list.class);
 	}
+
+	public List<Selling_list> select_selling_type(int id) {
+		List<Selling_list> list = Common.UTIL.query("select * from t_selling_list where typeid=?", new Object[]{id}, Selling_list.class);
+		if(null != list && list.size()>0)
+		{
+			return list;
+		}
+		return null;
+	}
+
+
+//sxl
+	public List<Selling_type> show_productSort() {
+		String sql = "select type_id, type_name from t_selling_type ";
+		List<Selling_type> list=Common.UTIL.query(sql, null, Selling_type.class);
+		return list;
+	}
+
+
+	public int add_productSort(String name) {
+		String sql ="insert into t_selling_type set type_name=? ";
+		int a=Common.UTIL.getRes(sql, new Object[]{name});
+		
+		return a;
+	}
+
+	
+	public int del_productSort(int type_id) {
+		String sql="delete from t_selling_type where type_id=?";
+		int a=Common.UTIL.getRes(sql, new Object[]{type_id});
+		return a;
+	}
+
+	
+	public List<Selling_list> show_sortProduct(int sellingid) {
+		String sql="select * from t_selling_list where typeid=?";
+		List<Selling_list> list=Common.UTIL.query(sql, new Object[]{sellingid}, Selling_list.class);
+		
+ 		return list;
+	}
+
+	
+	public int Ic_Card_AllMoney() {
+		String sql="select SUM(pay_price) from t_order where   date(ordertime) = curdate(); ";
+	      int a=Common.UTIL.sqlCount(sql);
+		
+		
+		return a;
+	}
+
+	
+	public int check_pname(String name) {
+		
+		String sql="select * from t_selling_list where name=? ";
+			List<Selling_list> list =Common.UTIL.query(sql, new Object[]{name},Selling_list.class);
+			if(list != null && list.size()>0)
+				return 1;
+		return 0;
+	}
+	
 
 }

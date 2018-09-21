@@ -56,10 +56,10 @@ public class Common {
 	 static final String PASSWORD=pros.getProperty("password");
 	 
 	 
-	 static{
-		 Main.openSerialPort(pros.getProperty("com"));
-		 Main.chen();
-	 }
+//	 static{
+//		 Main.openSerialPort(pros.getProperty("com"));
+//		 Main.chen();
+//	 }
 	
 	 
 	 

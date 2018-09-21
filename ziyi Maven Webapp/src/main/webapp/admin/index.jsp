@@ -29,26 +29,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="layui-main">
 					<div class="admin-login-box">
 						<a class="logo" style="left: 0;" href="#">
-							<span style="font-size: 22px;">BeginnerAdmin</span>
+							<span style="font-size: 22px;">紫怡茶室</span>
 						</a>
 						<div class="admin-side-toggle">
 							<i class="fa fa-bars" aria-hidden="true"></i>
 						</div>
 					</div>
 					<ul class="layui-nav admin-header-item">
-						<li class="layui-nav-item">
-							<a href="javascript:;">清除缓存</a>
-						</li>
-						<li class="layui-nav-item">
-							<a href="javascript:;">浏览网站</a>
-						</li>
-						<li class="layui-nav-item" id="video1">
-							<a href="javascript:;">视频</a>
-						</li>
+						
 						<li class="layui-nav-item">
 							<a href="javascript:;" class="admin-header-user">
 								<img src="images/0.jpg" />
-								<span>beginner</span>
+								<span>${user.name}</span>
 							</a>
 							<dl class="layui-nav-child">
 								<dd>
@@ -95,8 +87,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 			<div class="layui-footer footer footer-demo" id="admin-footer">
 				<div class="layui-main">
-					<p>2016 &copy;
-						<a href="#">beginner.zhengjinfan.cn</a> LGPL license
+					<p>2018 &copy;
+						零尘科技
 					</p>
 				</div>
 			</div>

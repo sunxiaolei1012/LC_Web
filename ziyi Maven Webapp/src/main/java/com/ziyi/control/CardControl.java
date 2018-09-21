@@ -6,7 +6,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 public class CardControl extends ActionSupport{
 
-	public void chen()
+	public 	String chen()
 	{
 //		System.out.println("-------------");
 ////		config.READ_CARD.delete(0, config.READ_CARD.length());
@@ -15,15 +15,16 @@ public class CardControl extends ActionSupport{
 		System.out.println("-------+------");
 		
 		Common.TOOLS.white_card();
+		return "json";
 	}
 	
 	public void yu()
 	{
 		try {
 			System.out.println(Common.TOOLS.read_card());
+//			Common.TOOLS.return_object(Common.TOOLS.read_card());
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Common.TOOLS.return_object("error");
 		}
 	}
 }

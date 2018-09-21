@@ -30,6 +30,8 @@ public class Main {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		sendData("5");
+		
 	}
 	public static void openSerialPort(String com) {
 		// 获取波特率

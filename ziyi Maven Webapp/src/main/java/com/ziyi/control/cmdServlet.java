@@ -1,8 +1,13 @@
 package com.ziyi.control;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+
 import com.opensymphony.xwork2.ActionSupport;
 import com.ziyi.control.cmd.CardControl;
 import com.ziyi.control.cmd.CardTypeControl;
+import com.ziyi.control.cmd.SellingControl;
 import com.ziyi.control.cmd.SellingTypeControl;
 import com.ziyi.control.cmd.TeaHouseControl;
 import com.ziyi.control.cmd.User_Control;
@@ -38,6 +43,16 @@ public class cmdServlet extends ActionSupport{
 	private String housename;
 	private String position;
 	private String sta;
+	
+	private String unit;
+	private String typeid;
+	private String xiangxi ;
+	private String proportion;
+	
+	
+	private List<File> file ; 
+	private List<String> fileFileName ;  
+	private List<String> fileContentType ; 
 	
 	/**
 	 * 添加用户
@@ -207,6 +222,34 @@ public class cmdServlet extends ActionSupport{
 	{
 		return new TeaHouseControl().del_card(id);
 	}
+
+	
+	/**
+	 * 根据ID 删除商品信息
+	 * @return
+	 */
+	public String del_selling()
+	{
+		return new SellingControl().del_selling(id);
+	}
+	/**
+	 * 添加商品信息
+	 * @return
+	 * @throws IOException 
+	 */
+	public String add_selling() throws IOException
+	{
+		return new SellingControl().add_selling(name, price, unit, rebate, proportion, typeid, xiangxi, number, file, fileFileName, fileContentType);
+	}
+	/**
+	 * 根据ID 查询商品信息
+	 * @return
+	 */
+	public String update_selling()
+	{
+		return new SellingControl().get_selling_id(id);
+	}
+	
 	
 	public String getName() {
 		return name;
@@ -315,6 +358,48 @@ public class cmdServlet extends ActionSupport{
 	}
 	public void setSta(String sta) {
 		this.sta = sta;
+	}
+	public String getUnit() {
+		return unit;
+	}
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
+	public String getTypeid() {
+		return typeid;
+	}
+	public void setTypeid(String typeid) {
+		this.typeid = typeid;
+	}
+	public String getXiangxi() {
+		return xiangxi;
+	}
+	public void setXiangxi(String xiangxi) {
+		this.xiangxi = xiangxi;
+	}
+	public List<File> getFile() {
+		return file;
+	}
+	public void setFile(List<File> file) {
+		this.file = file;
+	}
+	public List<String> getFileFileName() {
+		return fileFileName;
+	}
+	public void setFileFileName(List<String> fileFileName) {
+		this.fileFileName = fileFileName;
+	}
+	public List<String> getFileContentType() {
+		return fileContentType;
+	}
+	public void setFileContentType(List<String> fileContentType) {
+		this.fileContentType = fileContentType;
+	}
+	public String getProportion() {
+		return proportion;
+	}
+	public void setProportion(String proportion) {
+		this.proportion = proportion;
 	}
 	
 	

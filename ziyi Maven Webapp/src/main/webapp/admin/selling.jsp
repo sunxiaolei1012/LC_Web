@@ -15,6 +15,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
 		<link rel="stylesheet" href="css/table.css" />
 		<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+		
 	</head>
 	<script type="text/javascript">
 	
@@ -69,8 +70,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										<td>${i.xiangxi}</td>
 										<td>${i.number}</td>
 										<td>
-										<a href="javascript:update('card','${i.sellingid}');" class="layui-btn layui-btn-mini">编辑</a>
-										<a href="javascript:del('card','${i.sellingid }')" data-id="1" data-opt="del" class="layui-btn layui-btn-danger layui-btn-mini">删除</a>
+										<a href="javascript:update('selling','${i.sellingid}');" class="layui-btn layui-btn-mini">编辑</a>
+										<a href="javascript:del('selling','${i.sellingid }')" data-id="1" data-opt="del" class="layui-btn layui-btn-danger layui-btn-mini">删除</a>
 										</td>
 									</tr>
 						</c:forEach>
@@ -110,7 +111,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						//得到了当前页，用于向服务端请求对应数据
 						var curr = obj.curr;
 						if(!first) {
-							window.location.href='http://localhost/ziyi/admin_card?page='+obj.curr;
+							window.location.href='http://localhost/ziyi/admin_selling?page='+obj.curr;
 							layer.msg('第 '+ obj.curr +' 页');
 							
 						}

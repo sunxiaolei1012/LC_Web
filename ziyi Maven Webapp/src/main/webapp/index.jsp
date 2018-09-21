@@ -15,9 +15,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="css/iconfont.css">
 	<link rel="stylesheet" type="text/css" href="css/home.css">
 	 
-
+<script type="text/javascript" src="js/chen.js"></script>
 </head>
-<body>
+<body onload="tableShow()">
 	<div class="mui-content">
 	    <div class="nav-header">
 			<ul class="layui-nav">
@@ -43,7 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<li><a href="#item1" class="mui-control-item mui-active"><span class="mui-icon iconfont icon-canzhuo"></span>餐桌管理</a></li>
 							<li><a href="#item2" class="mui-control-item"><span class="mui-icon iconfont icon-daocha-copy"></span>店内下单</a></li>
 							<li><a href="#item3" class="mui-control-item"><span class="mui-icon iconfont icon-icon17"></span>订单管理</a></li>
-							<li><a href="#" class=""><span class="mui-icon iconfont icon-shezhi"></span>系统设置</a></li>
+							<li><a href="javascript:main()" class=""><span class="mui-icon iconfont icon-shezhi"></span>系统设置</a></li>
 							<li><a href="#" class=""><span class="mui-icon iconfont icon-logout"></span>退出登录</a></li>
 						</ul>
 			        </div>
@@ -57,7 +57,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								 	<div class="middle-center-tableLayout">
 								 		<!-- <img class="tableImg" src="images/tableLayout.png"> -->
 								 		<div class="middle-center-tableList">
-								 			<button class="layui-btn">A1</button>
+								 		    
+								 			<button class="layui-btn" >A1</button>
 								 			<button class="layui-btn">A2</button>
 								 			<button class="layui-btn">A3</button>
 								 			<button class="layui-btn">A4</button>
@@ -65,16 +66,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								 			<button class="layui-btn">A6</button>
 								 			<button class="layui-btn">A7</button>
 								 			<button class="layui-btn">A8</button>
-								 		<br/><br/>
+								 		</div>
+								 		<div class="middle-center-tableList">
 								 			<button class="layui-btn">B1</button>
 								 			<button class="layui-btn">B2</button>
 								 			<button class="layui-btn">B3</button>
 								 			<button class="layui-btn">B4</button>
 								 			<button class="layui-btn">B5</button>
 								 			<button class="layui-btn">B6</button>
-								 		<br/><br/>
+								 		</div>
+								 		<div class="middle-center-tableList">
 								 			<button class="layui-btn">C1</button>
-								 			<button class="layui-btn">C2</button>
+								 			<button  class="layui-btn">C2</button>
 								 			<button class="layui-btn">C3</button>
 								 			<button class="layui-btn">C4</button>
 								 			<button class="layui-btn">C5</button>
@@ -82,7 +85,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								 			<button class="layui-btn">C7</button>
 								 			<button class="layui-btn">C8</button>
 								 		</div>
-
 								 	</div>
 								 	<div class="middle-center-tableStatue">
 								 		<div class="middle-center-tablebox">
@@ -95,7 +97,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									 			<div class="middle-btnList"><button class="layui-btn layui-btn-grey"></button><span>空闲</span></div>
 									 			<div class="middle-btnList"><button class="layui-btn layui-btn-orange"></button><span>占用</span></div>
 									 			<div class="middle-btnList"><button class="layui-btn layui-btn-green"></button><span>预定</span></div>
-									 			<div class="middle-btnList"><button class="layui-btn layui-btn-blue"></button><span>请求结算</span></div>
+									 			<div class="middle-btnList"><button class="layui-btn layui-btn-blue"></button><span>打扫中</span></div>
 									 			<!-- <div class="middle-btnList"><button class="layui-btn layui-btn-purple"></button><span>已结算，客户未离开</span></div>	 -->
 									 		</div>
 								 		</div>
@@ -110,144 +112,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</div>
 							<div class="middle-center-middle">					
 									
-								<div class="layui-tab layui-tab-brief" style="height: 100%" lay-filter="docDemoTabBrief">
+								<div class="layui-tab layui-tab-brief" style="height: 100%;" lay-filter="docDemoTabBrief">
 									<!-- <div class=""> -->
-										<ul class="layui-tab-title" style="">
-										    <li class="layui-this">花茶类</li>
-										    <li>小吃类</li>
-										    <li>果盘类</li>
-										    <li>饮料类</li>
-										    <li>酒水类</li>
-										    <li>其他</li>										    
-										</ul>
+									<ul class="layui-tab-title">
+										    								    
+									</ul>
 									<!-- </div> -->
-									<div class="layui-tab-content middle-center-bottom">
-									  	<!-- start item1 -->
-									    <div class="layui-tab-item layui-show">
-									    	  <!-- start -->
-                                            <div class="mui-table-view-list">
-												<div class="mui-card pattern-list">				 
-													<div class="mui-card-header">
-														<img class="w100" src="images/goods.png"/>
-													</div>
-													<div class="mui-card-content">
-														<div class="mui-card-content-inner" >
-															<p>碧螺春</p>
-														</div>
-													</div>
-													<div class="pattern-list__p" style="">
-														<p class="font-color-pink">￥<label>128</label></p>
-														<p class="font-color-gray"><a href="#popover"><span class="mui-icon mui-icon-plus"></a></p>
-													</div>				
-									            </div>
-									            <div class="mui-card pattern-list">				 
-													<div class="mui-card-header">
-														<img class="w100" src="images/goods.png"/>
-													</div>
-													<div class="mui-card-content">
-														<div class="mui-card-content-inner" >
-															<p>碧螺春</p>
-														</div>
-													</div>
-
-													<div class="pattern-list__p" style="">
-														<p class="font-color-pink">￥<label>128</label></p>
-														<p class="font-color-gray"><a href="#popover"><span class="mui-icon mui-icon-plus"></a></p>
-													</div>				
-									            </div>
-									            <div class="mui-card pattern-list">				 
-													<div class="mui-card-header">
-														<img class="w100" src="images/goods.png"/>
-													</div>
-													<div class="mui-card-content">
-														<div class="mui-card-content-inner" >
-															<p>碧螺春</p>
-														</div>
-													</div>
-
-													<div class="pattern-list__p" style="">
-														<p class="font-color-pink">￥<label>128</label></p>
-														<p class="font-color-gray"><a href="#popover"><span class="mui-icon mui-icon-plus"></a></p>
-													</div>				
-									            </div>
-									            <div class="mui-card pattern-list">				 
-													<div class="mui-card-header">
-														<img class="w100" src="images/goods.png"/>
-													</div>
-													<div class="mui-card-content">
-														<div class="mui-card-content-inner" >
-															<p>碧螺春</p>
-														</div>
-													</div>
-
-													<div class="pattern-list__p" style="">
-														<p class="font-color-pink">￥<label>128</label></p>
-														<p class="font-color-gray"><a href="#popover"><span class="mui-icon mui-icon-plus"></a></p>
-													</div>				
-									            </div>
-
-						                    </div>
-									    	<!-- end -->
-									    </div>
-									    <!-- end item1 -->
-
-									    <!-- start item2 -->
-									    <div class="layui-tab-item">
-									    	<!-- start -->                                                
-                                            <div class="mui-table-view-list">
-												<div class="mui-card pattern-list">				 
-													<div class="mui-card-header">
-														<img class="w100" src="images/goods.png"/>
-													</div>
-													<div class="mui-card-content">
-														<div class="mui-card-content-inner" >
-															<p>碧螺春</p>
-														</div>
-													</div>
-													<div class="pattern-list__p" style="">
-														<p class="font-color-pink">￥<label>128</label></p>
-														<p class="font-color-gray"><a href="#popover"><span class="mui-icon mui-icon-plus"></a></p>
-													</div>				
-									            </div>
-									            <div class="mui-card pattern-list">				 
-													<div class="mui-card-header">
-														<img class="w100" src="images/goods.png"/>
-													</div>
-													<div class="mui-card-content">
-														<div class="mui-card-content-inner" >
-															<p>碧螺春</p>
-														</div>
-													</div>
-
-													<div class="pattern-list__p" style="">
-														<p class="font-color-pink">￥<label>128</label></p>
-														<p class="font-color-gray"><a href="#popover"><span class="mui-icon mui-icon-plus"></a></p>
-													</div>				
-									            </div>
-									            <div class="mui-card pattern-list">				 
-													<div class="mui-card-header">
-														<img class="w100" src="images/goods.png"/>
-													</div>
-													<div class="mui-card-content">
-														<div class="mui-card-content-inner" >
-															<p>碧螺春</p>
-														</div>
-													</div>
-
-													<div class="pattern-list__p" style="">
-														<p class="font-color-pink">￥<label>128</label></p>
-														<p class="font-color-gray"><a href="#popover"><span class="mui-icon mui-icon-plus"></a></p>
-													</div>				
-									            </div>
-									        </div>
-
-									    	<!-- end -->
-									    </div>
-									    <!-- end item2 -->
-									    <div class="layui-tab-item">内容3</div>
-									    <div class="layui-tab-item">内容4</div>
-									    <div class="layui-tab-item">内容5</div>
-									    <div class="layui-tab-item">内容6</div>
+									<div id="layui-tab-content" class="layui-tab-content middle-center-bottom" style='b'>
+									  	 
 									</div>
 								</div> 
 							</div>
@@ -259,21 +131,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								</p>
 								<div  class="middle-center-select" >
 							      <div class="float"> 
-							        <!-- <select id="">
+							        
+							        <select>
 					                    <option>按日期查询...</option>
-					                    <option>003</option>
-					                    <option>005</option>
-					                    <option>003</option>
-					                    <option>004</option>
-							        </select> -->
-							        <form class="layui-form" action="">
-								        <div class="layui-form-item" style="">
-										    <!-- <label class="layui-form-label">搜索</label> -->
-										    <div class="layui-input-block">
-										      <input type="text" name="" placeholder="按日期查询..." class="layui-input">
-										    </div>
-										</div>
-								    </form>
+					                    <optgroup label="">
+					                    	<option>一</option>
+					                    </optgroup>
+					                    <optgroup label="按星期查询">
+					                    	<option>一</option>
+					                    	<option>二</option>
+					                    	<option>三</option>
+					                    </optgroup>
+					                    <optgroup label="按月查询">
+					                        <option>1</option>
+					                        <option>2</option>
+					                        <option>3</option>
+					                    </optgroup>
+					                    <optgroup label="按年份查询">
+					                    	<option>2018</option>
+					                    	<option>2017</option>
+					                    	<option>2016</option>
+					                    </optgroup>
+							        </select>
 							        <button><i class="iconfont icon-sousuo"></i></button>		          
 							      </div>
 							    </div> 
@@ -397,7 +276,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							    </style>
 							    <div class="middle-tab-change-btnlist">
 									<button type="button" class="mui-btn mui-btn-primary mui-btn-add" >添加订单</button>
-									<button type="button" class="mui-btn mui-btn-primary mui-btn-del" >删除订单</button>
+									<!--<button type="button" class="mui-btn mui-btn-primary mui-btn-del" >删除订单</button>-->
 								</div>
 							</div>
 						</div>
@@ -429,79 +308,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="devider"></div>
 					<div class="left-middle">
 						<ul class="mui-table-view">
-						    <li class="mui-table-view-cell"><a href="#item4" class="mui-control-item">当日售卡记录</a></li>
-						    <li class="mui-table-view-cell">非D型卡销售</li>
-						    <li class="mui-table-view-cell">阅读非D型卡上信息</li>
-						    <li class="mui-table-view-cell">非D型卡列表</li>
-						    <li class="mui-table-view-cell">IC卡消费记录</li>
-						    <li class="mui-table-view-cell"><a href="leftT.html">茶品维护</a></li>
+						    <li class="mui-table-view-cell"><a href="javascript:void(0);" onclick="sellCard()"  class="mui-control-item">售卡记录</a></li>
+						    <li class="mui-table-view-cell"><a href="javascript:void(0);" onclick="opens()" >会员开卡</a></li>
+						    <li class="mui-table-view-cell"><a href="javascript:void(0);" onclick="sumPrice()" >营业额</a></li>
+						    <li class="mui-table-view-cell">香烟</li>
+						    <li class="mui-table-view-cell"><a href="javascript:add_chart('chart');" >报表</a></li>
+						    <li class="mui-table-view-cell"><a href="login.jsp">后台管理</a></li>
 						</ul>
 					</div>
 					<div class="devider1"></div>
 					<div class="left-time left-bottom">
 						<p class="fontSmall mui-ellipsis">今日营业总额</p>
-						<p class="fontBig mui-ellipsis">￥<span>38,540.07</span></p>
+						<p class="fontBig mui-ellipsis">￥<span id='priceAll'>0</span></p>
 					</div>
 				</div>
 			</div>
 			<div class="right">
                 <div id='right-content' class="right-content common-content">
-                    <div class="right-top">						 
-						<ul class="mui-table-view">
-						    <li class="mui-table-view-cell mui-media">
-						        <a href="javascript:;">
-						            <!-- <img class="mui-media-object mui-pull-left" src="images/head.png"> -->
-						            <div class="mui-media-body">
-						                <span class="title titleName mui-table-view-cell">订单列表</span> 
-						                <p class="mui-ellipsis mui-table-view-cell">订单号：<span>2018000001</span><span class="mui-badge mui-badge-inverted"><span class="mui-ellipsis">桌号&nbsp;</span><span class="mui-ellipsis" style="font-size: 30px">A03</span></span></p>
-						            </div>
-						        </a>
-						    </li>							     
-						</ul>						 
-					</div>
-					<div class="right-middle common-content">
-						<div class="right-middle-top">
-							<ul class="mui-table-view">
-							    <li class="mui-table-view-cell mui-media">
-							        <a href="javascript:;">
-							            <img class="mui-media-object mui-pull-left" src="images/headMeb.png">
-							            <div class="mui-media-body">
-							                <span class="title mebTitle">会员名:孙先生</span>
-							                <p class="mui-ellipsis mebNum">会员号：888888</p>
-							            </div>
-							        </a>
-							    </li>							     
-						    </ul>
-						</div>
-						<div class="devider2"></div>
-						<div class="right-middle-middle right-middle-scroll">							 
-							<ul class="mui-table-view">
-							    <li class="mui-table-view-cell mui-media">
-							        <a href="javascript:;">
-							            <div class="mui-media-body">
-							                <span class="mebNum mui-table-view-cell">ZY003</span>
-							                <p class="mui-ellipsis mui-table-view-cell"><span class="title mebTitle">碧螺春</span>
-							                	<span class="mui-badge mui-badge-inverted"><span class="mui-ellipsis mebTitle">×<label>1</label>壶</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="mui-ellipsis title mebTitle">100.00</span>&nbsp;&nbsp;<span class="iconfont icon-shanchu"></span><span class="iconfont icon-tianjia"></span></span>
-							                </p>
-							            </div>
-							        </a>
-							    </li>
-							  
-						    </ul>    
-						</div>
-						<div class="right-middle-bottom" >
-							<div class="right-middle-bottom-pay">
-								<p class="title mebNum">消费总金额</p><p class="title mui-ellipsis">100.00</p>
-							</div>
-							 
-							<div class="right-middle-bottom-pay">
-								<div class=""><p class="mebNum">结账状况</p><p class="title mebTitle">已结算</p></div>								
-								<button type="button" class="mui-btn mui-btn-warning">结算</button>
-							</div>
-						</div>
-						<!-- display:none -->
-						<!-- <div class="">pay</div> -->						
-					</div>
+                	<!-- 右边订单 -->
+ 
 			    </div>
 		    </div>
 			 
@@ -510,6 +335,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </body>
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script src="layui/layui.js"></script>
+    <script type="text/javascript" src="js/sxl.js"></script>
     <script type="text/javascript" src="js/mui.min.js"></script>
     <script>
 		//注意：导航 依赖 element 模块，否则无法进行功能性操作
@@ -548,14 +374,37 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			function toLow(n){			  	 
 			  	return n<10 ? '0'+n : n;
 			}
-
+			
+			//总金额显示
+			function priceAll(){
+			     $.ajax({
+				       type:"post",
+				       url:"main_price",
+				       dataType:"json",
+				       cache:false,
+				       async: false,
+				       success:function(d){
+				              console.log(d.price);
+				    	      //$("#priceAll").innerText = d.price;
+				    	      $("#priceAll").text(d.price);				    	     			
+				       }
+				   
+				   });
+			}
+			var interverPrice = setInterval(priceAll,5000);
+			//金额显示结束
+			//餐桌状态
+            var interverTabel = setInterval(tableShow,5000);
+            //var interverTabel = setInterval(orderShow,3000);
+            //商品种类
+            category();
 			// 餐桌状态
-			var timenull = null;
+			var timenull = null;						
 			$('.middle-center-tableLayout button').addClass('layui-btn-grey');		
-			$(".middle-center-tableLayout button").bind('click',function(index){
+			$(".middle-center-tableLayout button").bind('click',function(){
 				clearTimeout(timenull);
 				var ele = $(this);
-				console.log(ele.index());
+				/* console.log(ele.index()); */
 				timenull = setTimeout(function(){
 				// alert("1");
 				    if(ele.hasClass('layui-btn-grey')){
@@ -573,9 +422,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				       layer.msg('该桌号已被预订',{icon:6});
 				       $(".right-top").css('display','none');
                        $(".right-middle").css('display','none');
-				    }else if(ele.hasClass('layui-btn-blue')){
+				    }
+				    else if(ele.hasClass('layui-btn-blue')){
 				    	// alert("4");
-				    	layer.msg('该桌号等待结算中',{icon:6});
+				    	layer.msg('该桌号打扫中',{icon:6});
 				    	$(".right-top").css('display','block');
                         $(".right-middle").css('display','block');
 				    }
@@ -583,26 +433,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}).bind('dblclick',function(){
 				clearTimeout(timenull);
 				var ele = $(this);
+				var ele_id = ele.context.id;
 				layer.open({
 						title: '修改餐桌状态',
 						// content: '餐桌状态修改',
 						// offset: 'c',
 						skin: 'layui-layer-skin', //样式类名
-						btn:['空闲','占用','预定','请求结算'],
+						btn:['空闲','占用','预定','打扫中'],
 						yes:function(index,layero){
-							// alert("test1");
+// 							alert("test1");
+							console.log(index);
 							ele.removeClass();
 						    ele.addClass('layui-btn-grey');
 						    $(".right-top").css('display','none');
                             $(".right-middle").css('display','none');
-						    layer.close(index);
+// 						    layer.close(index);
+						    update_state(ele_id , index);
 						},
+						
 						btn2:function(index,layero){
 						// alert("test2");
 							ele.removeClass();
 						    ele.addClass('layui-btn-orange');
 						    $(".right-top").css('display','block');
                             $(".right-middle").css('display','block');
+                            update_state(ele_id , index);
 						},
 						btn3:function(index,layero){
 							// alert("test3")

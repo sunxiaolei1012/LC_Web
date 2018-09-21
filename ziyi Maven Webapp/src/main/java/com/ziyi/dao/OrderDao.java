@@ -75,6 +75,26 @@ public interface OrderDao {
 	public Order select_houseid_state(int status , int houseid);
 	
 	
+	/**
+	 * StringBuffer 添加  时间区间，分页,付款类型（0：现金； 1：会员卡  2：支付宝  3：微信   4：银行卡）来查询 sum(pay_price)
+	 */
+	public List<Order> select_IcOrder(String sql);
 	
+	/**
+	 * StringBuffer 添加  时间区间，分页,付款类型（0：现金； 1：会员卡  2：支付宝  3：微信   4：银行卡）来查询 sum(pay_price)
+	 */
+	public List<Order> select_XjOrder(String sql);
+	/**
+	 * StringBuffer 添加  时间区间，分页,付款类型（0：现金； 1：会员卡  2：支付宝  3：微信   4：银行卡）来查询 sum(pay_price)
+	 */
+	public List<Order> select_ZfOrder(String sql);
+	/**
+	 * StringBuffer 添加  时间区间，分页,付款类型（0：现金； 1：会员卡  2：支付宝  3：微信   4：银行卡）来查询 sum(pay_price)
+	 */
+	public List<Order> select_WxOrder(String sql);
+	/**
+	 * StringBuffer 添加  时间区间，分页,付款类型（0：现金； 1：会员卡  2：支付宝  3：微信   4：银行卡）来查询 sum(pay_price)
+	 */
+	public List<Order> select_YhOrder(String sql);
 	
 }
