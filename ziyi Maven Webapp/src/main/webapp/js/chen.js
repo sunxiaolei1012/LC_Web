@@ -363,7 +363,7 @@ function goodslist(type_id){
 	var eles="";
 	$.ajax({
 	       type:"post",
-	       url:"main_value?id="+type_id,
+	       url:"main_value?id="+1,
 	       dataType:"json",
 	       cache:false,
 	       async: false,
