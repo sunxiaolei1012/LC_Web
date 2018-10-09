@@ -34,7 +34,8 @@ public class ReadCom implements SerialPortEventListener {
     private InputStream inputStream;
     private OutputStream outputStream;
 
-    public void getPortList() {
+    @SuppressWarnings("restriction")
+	public void getPortList() {
         // 获得系统支持的所有端口（串口，并口）
         portList = CommPortIdentifier.getPortIdentifiers();
 

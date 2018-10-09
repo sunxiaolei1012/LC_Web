@@ -342,7 +342,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							    <li class="mui-table-view-cell"><a href="javascript:void(0);" onclick="sumPrice()" >营业额</a></li>
 							    <li class="mui-table-view-cell">香烟</li>
 							    <li class="mui-table-view-cell"><a href="javascript:add_chart('chart');" >报表</a></li>
-							    <li class="mui-table-view-cell"><a href="login.jsp">后台管理</a></li>
+							    <li class="mui-table-view-cell"><a href="adminindex">后台管理</a></li>
 							    
 							</c:if>
 						   

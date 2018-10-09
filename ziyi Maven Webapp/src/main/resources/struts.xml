@@ -42,8 +42,9 @@
      		<allowed-methods>login,user,cardType,card,sellingtype,selling,teahouse
      		</allowed-methods>
      	</action>
-     	
-     	
+     	<action name="adminindex" class="com.ziyi.control.AdminIndex" method="adminindex">
+     		<result name="index">admin/index.jsp</result>
+     	</action>
      	 <action name="cmd_*_*" class="com.ziyi.control.cmdServlet" method="{1}_{2}">
      		<result name="json" type="json"></result>
      		<result name="update_user_id">admin/update/user.jsp</result>

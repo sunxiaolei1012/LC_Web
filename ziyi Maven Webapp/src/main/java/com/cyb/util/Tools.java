@@ -112,7 +112,38 @@ public class Tools {
 		}
 	}
 	/**
-	 * 读卡
+	 * 读卡2
+	 * @throws InterruptedException 
+	 */
+	public String read_card_two() throws InterruptedException
+	{
+		try {
+			Main.sendData("9");
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+//			e.printStackTrace();
+		}
+		Date da = new Date();
+		StringBuffer sb = new StringBuffer();
+		while(true)
+		{
+			if(!config.BOOL)
+			{
+				Thread.sleep(200);
+			}
+			else
+			{
+				for (Byte by : config.READ_CARD) {
+					sb.append(by);
+				}
+				break;
+			}
+		}
+		return sb.toString();
+	}
+	/**
+	 * 读卡1
 	 * @throws InterruptedException 
 	 */
 	public String read_card() throws InterruptedException
@@ -129,10 +160,9 @@ public class Tools {
 		StringBuffer sb = new StringBuffer();
 		while(true)
 		{
-			if(config.READ_CARD_MAP.get(1).getRead() == null || da.getTime() > config.READ_CARD_MAP.get(1).getDate().getTime())
+			if(da.getTime() > config.READ_CARD_MAP.get(1).getDate().getTime())
 			{
 				Thread.sleep(200);
-			
 			}
 			else
 			{

@@ -1,6 +1,9 @@
 package com.cyb.util;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.atgeretg.serialport.ui.Read_Card;
@@ -78,4 +81,18 @@ public class config {
 	 * 会员卡每页显示条数
 	 */
 	public static final int PAGE_CARD_SHOW_NUMBER = 15;
+	
+	/**
+	 * 用来保存读卡信息
+	 */
+	public static boolean BOOL = false;
+	/**
+	 * 用来保存读卡时间
+	 */
+//	public static Date TIME = null;
+	/**
+	 * 用来保存读到的卡
+	 */
+	public static List<Byte> READ_CARD = new ArrayList<Byte>();
+	
 }

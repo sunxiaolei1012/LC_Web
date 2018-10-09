@@ -21,8 +21,9 @@ public class CardControl extends ActionSupport{
 	public void yu()
 	{
 		try {
-			System.out.println(Common.TOOLS.read_card());
-//			Common.TOOLS.return_object(Common.TOOLS.read_card());
+			Common.TOOLS.return_object(Common.TOOLS.read_card_two());
+			config.BOOL=false;
+			config.READ_CARD.clear();
 		} catch (InterruptedException e) {
 			Common.TOOLS.return_object("error");
 		}

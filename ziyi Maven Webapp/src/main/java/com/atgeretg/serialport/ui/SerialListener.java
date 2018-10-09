@@ -23,6 +23,7 @@ public class SerialListener implements SerialPortEventListener {
 	/**
 	 * 处理监控到的串口事件
 	 */
+	@SuppressWarnings("restriction")
 	public void serialEvent(SerialPortEvent serialPortEvent) {
 
 		switch (serialPortEvent.getEventType()) {
@@ -55,31 +56,39 @@ public class SerialListener implements SerialPortEventListener {
 					DialogShowUtils.errorMessage("串口对象为空！监听失败！");
 				} else {
 					data = SerialPortManager.readFromPort(serialport);
-					System.out.println(MyUtils.byteArray2HexString(data, data.length, true));
-					if(data.length == 62 || data.length == 25)
+//					System.out.println(MyUtils.byteArray2HexString(data, data.length, true));
+					if(data.length > 24)
 					{
-						Read_Card rc = new Read_Card();
-						rc.setDate(new Date());
-						rc.setRead(data);
-						if(data[0]==85 && data[1] == 0 && data[2] == 0 && data[3] == -112)
-						{
-							config.READ_CARD_MAP.put(1, rc);
+//						config.TIME = new Date();
+						for (int i = 0; i < data.length; i++) {
+							config.READ_CARD.add(data[i]);
 						}
-						else if(data.length == 25)
-						{
-							config.READ_CARD_MAP.put(3, rc);
-						}
-						else
-						{
-							config.READ_CARD_MAP.put(2, rc);
-						}
+						config.BOOL=true;
 						
 					}
+//					if(data.length == 62 || data.length == 25)
+//					{
+//						Read_Card rc = new Read_Card();
+//						rc.setDate(new Date());
+//						rc.setRead(data);
+//						
+//						if(data[0]==85 && data[1] == 0 && data[2] == 0 )
+//						{
+//							config.READ_CARD_MAP.put(1, rc);
+//						}
+//						else if(data.length == 25)
+//						{
+//							config.READ_CARD_MAP.put(3, rc);
+//						}
+//						else
+//						{
+//							config.READ_CARD_MAP.put(2, rc);
+//						}
+//						
+//					}
 				}
 			} catch (Exception e) {
 				DialogShowUtils.errorMessage(e.toString());
-				// 发生读取错误时显示错误信息后退出系统
-//				System.exit(0);
 			}
 			break;
 		}

@@ -25,12 +25,6 @@ public class Main {
 			e.printStackTrace();
 		}
 		sendData("3");
-		try {
-			Thread.sleep(300);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		sendData("5");
 		
 	}
 	public static void openSerialPort(String com) {

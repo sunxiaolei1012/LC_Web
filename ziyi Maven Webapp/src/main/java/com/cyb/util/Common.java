@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+import com.port.main.Main;
 import com.ziyi.dao.BannerDao;
 import com.ziyi.dao.CardDao;
 import com.ziyi.dao.Card_typeDao;
@@ -57,10 +58,10 @@ public class Common {
 	 static final String PASSWORD=pros.getProperty("password");
 	 
 	 
-//	 static{
-//		 Main.openSerialPort(pros.getProperty("com"));
-//		 Main.chen();
-//	 }
+	 static{
+		 Main.openSerialPort(pros.getProperty("com"));
+		 Main.chen();
+	 }
 	
 	 
 	 
