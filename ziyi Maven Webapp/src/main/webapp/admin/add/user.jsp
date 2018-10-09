@@ -44,8 +44,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 				</div>
 				<div class="layui-form-item">
+					<label class="layui-form-label">用户角色</label>
 					<div class="layui-input-block">
-						<button class="layui-btn" lay-submit="" lay-filter="userAdd" onclick="save('add','user')">立即提交</button>
+						<select name="userrole">
+									<option value="3" selected="">服务员</option>
+									<option value="2">吧台</option>
+									<option value="1">管理员</option>
+						</select>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<div class="layui-input-block">
+						<button class="layui-btn" lay-submit="" lay-filter="userAdd" >立即提交</button>
 					</div>
 				</div>
 			</form>

@@ -60,7 +60,7 @@ public class cmdServlet extends ActionSupport{
 	 */
 	public String add_user()
 	{
-		return new User_Control().insert(name, password);
+		return new User_Control().insert(name, password,userrole);
 		
 	}
 	/**
@@ -69,7 +69,6 @@ public class cmdServlet extends ActionSupport{
 	 */
 	public String update_user()
 	{
-		System.out.println(id);
 		return new User_Control().update_select(id);
 	}
 	/**

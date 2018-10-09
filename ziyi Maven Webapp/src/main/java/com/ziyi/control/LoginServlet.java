@@ -1,9 +1,12 @@
 package com.ziyi.control;
 
+import java.util.List;
+
 import com.cyb.util.Common;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.ziyi.control.cmd.Admin;
+import com.ziyi.pojo.Role;
 import com.ziyi.pojo.Users;
 /**
  * 处理用户登录请求
@@ -36,6 +39,7 @@ public class LoginServlet extends ActionSupport{
 		else
 		{
 			ActionContext.getContext().getSession().put("user", user);
+			ActionContext.getContext().getSession().put("role", Common.ROLE.showRole());
 			return "main";
 		}
 	}

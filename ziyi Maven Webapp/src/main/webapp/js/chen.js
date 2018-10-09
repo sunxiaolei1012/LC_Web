@@ -1,6 +1,5 @@
 function add(cmd)
 {
-
 	layer.open({
 		  type: 2,
 		  skin: 'layui-layer-rim',
@@ -8,6 +7,18 @@ function add(cmd)
 		  fixed: false, //不固定
 		  maxmin: true,
 		  content: 'admin/add/'+cmd+'.jsp',
+		});
+	
+}
+function update_user_password(cmd)
+{
+	layer.open({
+		  type: 2,
+		  skin: 'layui-layer-rim',
+		  area: ['700px', '450px'],
+		  fixed: false, //不固定
+		  maxmin: true,
+		  content: 'admin/update/'+cmd+'.jsp',
 		});
 	
 }
@@ -226,7 +237,6 @@ function orderShow(tableid)
        cache:false,
        async: false,
        success:function(date){
-//    	   alert("123");
     	       var state = date.status;
     	       if(state == 0){
     	    	  var inner = "未结算";

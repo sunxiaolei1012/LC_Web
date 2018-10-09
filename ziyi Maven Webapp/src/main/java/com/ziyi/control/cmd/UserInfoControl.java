@@ -33,15 +33,9 @@ public class UserInfoControl extends ActionSupport{
 	
 	System.out.println(a);
 			if(a==0){
-				
 				ActionContext.getContext().put("logionError", "用户名密码不匹配，请检查后在登陆----");
-				
-			
-				
 			}else{
-				
 				ActionContext.getContext().put("logionSuccess", "登陆成功！！！！");
-				
 			}
 		
 			return "login";
@@ -56,7 +50,6 @@ public class UserInfoControl extends ActionSupport{
 		if(pageNo==0){
 			pageNo=1;
 		}
-			System.out.println("show——Product---------");
 			List<Selling_list> list=Common.USERS.showProductList(pageNo-1,pageCount);
 			
 				int totalCount=Common.USERS.allCount();

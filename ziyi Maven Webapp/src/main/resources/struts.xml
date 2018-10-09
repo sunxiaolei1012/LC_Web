@@ -39,12 +39,9 @@
          	<result name="get_selling_type">admin/selling_type.jsp</result>
          	<result name="get_selling">admin/selling.jsp</result>
          	<result name="get_tea_house">admin/tea_house.jsp</result>
-     		<allowed-methods>login,user,cardType,card,sellingtype,selling,
-     		teahouse
+     		<allowed-methods>login,user,cardType,card,sellingtype,selling,teahouse
      		</allowed-methods>
      	</action>
-     	
-     	
      	
      	
      	 <action name="cmd_*_*" class="com.ziyi.control.cmdServlet" method="{1}_{2}">
@@ -73,8 +70,8 @@
       <!--不需要监听的继承默认的拦截器包-->
 	<package name="p1" extends="struts-default,json-default">
 		 <action name="login" class="com.ziyi.control.LoginServlet" method="login">
-         	<result name="login">main.jsp</result>
-         	<result name="main">main.jsp</result>
+         	<result name="login">login.jsp</result>
+         	<result name="main">index.jsp</result>
          	<allowed-methods>login</allowed-methods>
          </action>
          <action name="adminlogin" class="com.ziyi.control.adminLoginServlet" method="adminlogin">
@@ -82,7 +79,6 @@
          	<result name="main">admin/index.jsp</result>
          	<allowed-methods>adminlogin</allowed-methods>
          </action>
-         
           <action name="card_*" class="com.ziyi.control.CardControl" method="{1}">
             <result name="json" type="json"></result>
          	<allowed-methods>chen,yu</allowed-methods>

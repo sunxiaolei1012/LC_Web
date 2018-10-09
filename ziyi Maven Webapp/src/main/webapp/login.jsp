@@ -21,7 +21,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<h1>后台登录</h1>
 			</header>
 			<div class="beg-login-main">
-				<form action="adminlogin" class="layui-form" method="post">
+				<form action="login" class="layui-form" method="post">
 					<div class="layui-form-item">
 						<label class="beg-login-icon">
                         <i class="layui-icon">&#xe612;</i>
@@ -37,6 +37,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="layui-form-item">
 						
 						<div class="beg-pull-right">
+							${list }
 							<button class="layui-btn layui-btn-primary" lay-submit lay-filter="login">
                             <i class="layui-icon">&#xe650;</i> 登录
                         </button>

@@ -46,7 +46,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<tr>
 										<td>${i.name}</td>
 										<td>${i.password}</td>
-										<td>${i.userrole}</td>
+										<c:if test="${i.userrole==1 }">
+									       <td>管理员</td>
+									   </c:if>
+										<c:if test="${i.userrole==2 }">
+									       <td>吧台</td>
+									   </c:if>
+									   <c:if test="${i.userrole==3 }">
+									       <td>服务员</td>
+									   </c:if>
 										<td>
 										<a href="javascript:update('user','${i.userid }');" class="layui-btn layui-btn-mini">编辑</a>
 										<a href="javascript:del('user','${i.userid }')" data-id="1" data-opt="del" class="layui-btn layui-btn-danger layui-btn-mini">删除</a>

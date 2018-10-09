@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -16,8 +17,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="css/home.css">
 	 
 <script type="text/javascript" src="js/chen.js"></script>
+	<script type="text/javascript">
+		function load()
+		{
+			if(${empty user})
+			{
+				top.location.href="login.jsp";
+			}
+		}
+	</script>
 </head>
-<body onload="tableShow()">
+<body onload="load();tableShow()">
 	<div class="mui-content">
 	    <div class="nav-header">
 			<ul class="layui-nav">
@@ -25,10 +35,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    <a href=""><img src="images/logo.png" class="layui-nav-img">紫怡茶道 POS 管理系统 V2018</a>
 			  </li>			  
 			  <li class="layui-nav-item mui-pull-right">
-			    <a href=""><img src="images/admin.png" class="layui-nav-img">管理员</a>
+			    <a href="#"><img src="images/admin.png" class="layui-nav-img">
+			    	<c:forEach var="i" items="${role}">
+			    		<c:if test="${i.roleid == user.userrole }">
+			    			${i.name }
+			    		</c:if>
+			    	</c:forEach>
+			    </a>
 			    <dl class="layui-nav-child">
-			      <dd><a href="javascript:;">修改信息</a></dd>
-			      <dd><a href="javascript:;">退出</a></dd>
+			      <dd><a href="login.jsp">退出</a></dd>
 			    </dl>
 			  </li>
 			</ul>
@@ -40,10 +55,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<!-- <div class="middle-content"> -->
 					<div class="middle-top common-content">
 						<ul class="new-min-title-list">
+
 							<li><a href="#item1" class="mui-control-item mui-active"><span class="mui-icon iconfont icon-canzhuo"></span>餐桌管理</a></li>
 							<li><a href="#item2" class="mui-control-item"><span class="mui-icon iconfont icon-daocha-copy"></span>店内下单</a></li>
-							<li><a href="#item3" class="mui-control-item"><span class="mui-icon iconfont icon-icon17"></span>订单管理</a></li>
-							<li><a href="javascript:main()" class=""><span class="mui-icon iconfont icon-shezhi"></span>系统设置</a></li>
+<!-- 							<li><a href="#item3" class="mui-control-item"><span class="mui-icon iconfont icon-icon17"></span>订单管理</a></li> -->
+<!-- 							<li><a href="javascript:main()" class=""><span class="mui-icon iconfont icon-shezhi"></span>系统设置</a></li> -->
 							<li><a href="#" class=""><span class="mui-icon iconfont icon-logout"></span>退出登录</a></li>
 						</ul>
 			        </div>
@@ -294,8 +310,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						        <a href="javascript:;">
 						            <img class="mui-media-object mui-pull-left" src="images/head.png">
 						            <div class="mui-media-body">
-						                <span class="title titleName">小丸子</span>
-						                <p class="mui-ellipsis">收银员</p>
+						                <span class="title titleName">${user.name }</span>
+						                <p class="mui-ellipsis">
+						                <c:forEach var="i" items="${role}">
+			    		<c:if test="${i.roleid == user.userrole }">
+			    			${i.name }
+			    		</c:if>
+			    	</c:forEach></p>
 						            </div>
 						        </a>
 						    </li>							     
@@ -308,12 +329,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="devider"></div>
 					<div class="left-middle">
 						<ul class="mui-table-view">
-						    <li class="mui-table-view-cell"><a href="javascript:void(0);" onclick="sellCard()"  class="mui-control-item">售卡记录</a></li>
-						    <li class="mui-table-view-cell"><a href="javascript:void(0);" onclick="opens()" >会员开卡</a></li>
-						    <li class="mui-table-view-cell"><a href="javascript:void(0);" onclick="sumPrice()" >营业额</a></li>
-						    <li class="mui-table-view-cell">香烟</li>
-						    <li class="mui-table-view-cell"><a href="javascript:add_chart('chart');" >报表</a></li>
-						    <li class="mui-table-view-cell"><a href="login.jsp">后台管理</a></li>
+<!-- 							服务员  吧台-->
+							<c:if test="${user.userrole == 3 || user.userrole == 2 }">
+								 <li class="mui-table-view-cell"><a href="javascript:void(0);" onclick="sellCard()"  class="mui-control-item">会员卡查询</a></li>
+								 <li class="mui-table-view-cell"><a href="javascript:void(0);" onclick="update_user_password('user_password')" class="mui-control-item">密码修改</a></li>
+							</c:if>
+<!-- 							管理员 -->
+							<c:if test="${user.userrole == 1 }">
+								<li class="mui-table-view-cell"><a href="javascript:void(0);" onclick="sellCard()"  class="mui-control-item">会员卡查询</a></li>
+								<li class="mui-table-view-cell"><a href="javascript:void(0);" onclick="sellCard()"  class="mui-control-item">售卡记录</a></li>
+							    <li class="mui-table-view-cell"><a href="javascript:void(0);" onclick="opens()" >会员开卡</a></li>
+							    <li class="mui-table-view-cell"><a href="javascript:void(0);" onclick="sumPrice()" >营业额</a></li>
+							    <li class="mui-table-view-cell">香烟</li>
+							    <li class="mui-table-view-cell"><a href="javascript:add_chart('chart');" >报表</a></li>
+							    <li class="mui-table-view-cell"><a href="login.jsp">后台管理</a></li>
+							    
+							</c:if>
+						   
 						</ul>
 					</div>
 					<div class="devider1"></div>

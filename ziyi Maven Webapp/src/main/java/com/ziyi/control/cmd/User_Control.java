@@ -11,7 +11,7 @@ import com.ziyi.pojo.Users;
 
 public class User_Control {
 	
-	public String insert(String name , String password)
+	public String insert(String name , String password, String userrole)
 	{
 		Map<String , String> map = new HashMap<String , String>();
 		//1、判断用户名是否存在
@@ -26,7 +26,7 @@ public class User_Control {
 			Users user = new Users();
 			user.setName(name);
 			user.setPassword(password);
-			user.setUserrole("3");
+			user.setUserrole(userrole);
 			Common.USERS.insert_user(user);
 			map.put("state", "true");
 			map.put("msg", config.ADD_USER_RIGHT_MSG);
@@ -46,19 +46,19 @@ public class User_Control {
 	public String xiu_user(String id , String name , String password , String userrole)
 	{
 		Map<String , String> map = new HashMap<String , String>(); 
-		Users user_name = Common.USERS.select_name_user(name);
-		if(user_name != null)
-		{
-			map.put("state", "false");
-			map.put("msg", config.ADD_USER_ERROR_MSG);
-		}
-		else
-		{
+//		Users user_name = Common.USERS.select_name_user(name);
+//		if(user_name != null)
+//		{
+//			map.put("state", "false");
+//			map.put("msg", config.ADD_USER_ERROR_MSG);
+//		}
+//		else
+//		{
 			Users user = new Users();
 			user.setName(name);
 			user.setPassword(password);
 			user.setUserid(new Integer(id));
-			user.setUserrole(userrole);
+			user.setUserrole(userrole.split(",")[1].trim());
 			boolean bool = Common.USERS.update_user(user);
 			if(bool)
 			{
@@ -70,7 +70,7 @@ public class User_Control {
 				map.put("state", "false");
 				map.put("msg", config.XIU_USER_ERROR_MSG);
 			}
-		}
+//		}
 		Common.TOOLS.return_object(new Gson().toJson(map));
 
 		return "json";

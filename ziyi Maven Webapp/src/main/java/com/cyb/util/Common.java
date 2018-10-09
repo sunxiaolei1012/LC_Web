@@ -5,13 +5,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import com.port.main.Main;
 import com.ziyi.dao.BannerDao;
 import com.ziyi.dao.CardDao;
 import com.ziyi.dao.Card_typeDao;
 import com.ziyi.dao.LogDao;
 import com.ziyi.dao.OrderDao;
 import com.ziyi.dao.Order_listDao;
+import com.ziyi.dao.RoleDao;
 import com.ziyi.dao.Selling_ImageDao;
 import com.ziyi.dao.Selling_listDao;
 import com.ziyi.dao.Selling_typeDao;
@@ -24,6 +24,7 @@ import com.ziyi.dao.impl.Card_typeDaoImpl;
 import com.ziyi.dao.impl.LogDaoImpl;
 import com.ziyi.dao.impl.OrderDaoImpl;
 import com.ziyi.dao.impl.Order_listDaoImpl;
+import com.ziyi.dao.impl.RoleDaoImpl;
 import com.ziyi.dao.impl.Selling_ImageDaoImpl;
 import com.ziyi.dao.impl.Selling_listDaoImpl;
 import com.ziyi.dao.impl.Selling_typeDaoImpl;
@@ -95,6 +96,9 @@ public class Common {
 	 public static final SumDao SUMDAO = new SumDaoImpl();
 	 //桌子状态接口
 	 public static final Tea_HouseDao HOUSE = new Tea_HouseDaoImpl();
+	 //角色接口
+	 public static final RoleDao ROLE = new RoleDaoImpl();
+	 
 	 /**
 	  * 会员卡类型接口
 	  */
@@ -103,5 +107,7 @@ public class Common {
 	 public static final CardDao CARDDAO = new CardDaoImpl();
 	 
 	 public static final int PAGE_CARD_SHOW_NUMBER = 20;
+	 
+	 
 	 
 }
