@@ -12,7 +12,7 @@ public class CardControl extends ActionSupport{
 ////		config.READ_CARD.delete(0, config.READ_CARD.length());
 //		System.out.println(Common.TOOLS.read_card());
 ////		config.READ_CARD.delete(0, config.READ_CARD.length());
-		System.out.println("-------+------");
+//		System.out.println("-------+------");
 		
 		Common.TOOLS.white_card();
 		return "json";
