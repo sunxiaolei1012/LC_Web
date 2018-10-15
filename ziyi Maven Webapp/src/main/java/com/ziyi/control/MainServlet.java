@@ -11,12 +11,17 @@ import com.cyb.util.JDBC;
 import com.cyb.util.Tools;
 import com.cyb.util.config;
 import com.google.gson.Gson;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import com.ziyi.dao.YuYueDao;
+import com.ziyi.dao.impl.YuYueDaoImpl;
 import com.ziyi.pojo.Order;
 import com.ziyi.pojo.Order_list;
 import com.ziyi.pojo.Selling_list;
 import com.ziyi.pojo.Selling_type;
 import com.ziyi.pojo.Tea_House;
+import com.ziyi.pojo.Users;
+import com.ziyi.pojo.YuYue;
 
 /**
  * 主页面请求
@@ -28,6 +33,11 @@ public class MainServlet extends ActionSupport{
 	private String id;
 	private String index;
 	private String number;
+	
+	
+	private String name;
+	private String phone;
+	private String state;
 	
 	public String price()
 	{
@@ -57,6 +67,17 @@ public class MainServlet extends ActionSupport{
 		{
 			create();
 		}
+		else if (index.equals("2"))
+		{
+			YuYueDao yu = new YuYueDaoImpl();
+			YuYue yy = new YuYue();
+			yy.setName(name);
+			yy.setPhone(phone);
+			yy.setState(0);
+			yy.setTid(new Integer(index));
+			yy.setTime(Common.df.format(new Date()));
+			yu.insert_yuyue(yy);
+		}
 		else
 		{  
 			try{
@@ -73,6 +94,17 @@ public class MainServlet extends ActionSupport{
 		return "json";
 		
 	}
+	/**
+	 * 预约
+	 * @return
+	 */
+	public String yuyue()
+	{
+		YuYueDao yu = new YuYueDaoImpl();
+		YuYue yuyue = yu.select_yuyue_tid(new Integer(index));
+		Common.TOOLS.return_object(new Gson().toJson(yuyue));
+		return "json";
+	}
 	
 	public String order()
 	{
@@ -84,6 +116,11 @@ public class MainServlet extends ActionSupport{
 			map.put("ordertime", order.getOrdertime());
 			map.put("price", order.getPrice());
 			map.put("status", order.getStatus());
+			Users user = (Users) ActionContext.getContext().getSession().get("user");
+			if(user.getUserrole().equals("3"))
+				map.put("bool", false);
+			else
+				map.put("bool", true);
 			map.put("table", Common.HOUSE.select_House_id(new Integer(id)).getHousename());
 			
 			List<Order_list> order_list = Common.OLD.select_number_order(order.getOrderid());
@@ -329,6 +366,30 @@ public class MainServlet extends ActionSupport{
 
 	public void setNumber(String number) {
 		this.number = number;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
 	}
 	
 	

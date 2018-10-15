@@ -10,9 +10,12 @@ import com.atgeretg.serialport.utils.MyUtils;
 import com.cyb.util.Common;
 import com.cyb.util.JDBC;
 import com.cyb.util.config;
+import com.ziyi.dao.YuYueDao;
+import com.ziyi.dao.impl.YuYueDaoImpl;
 import com.ziyi.pojo.Card;
 import com.ziyi.pojo.Tea_House;
 import com.ziyi.pojo.Users;
+import com.ziyi.pojo.YuYue;
 
 public class Test_Action {
 
@@ -131,5 +134,18 @@ public class Test_Action {
 	{
 		
 		System.out.println((char)50);
+	}
+	
+	@Test
+	public void test13()
+	{
+		YuYueDao yu = new YuYueDaoImpl();
+		YuYue yy = new YuYue();
+		yy.setName("123");
+		yy.setPhone("123123");
+		yy.setState(0);
+		yy.setTime(Common.df.format(new Date()));
+		yu.insert_yuyue(yy);
+		
 	}
 }

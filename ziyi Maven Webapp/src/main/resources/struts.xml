@@ -86,7 +86,7 @@
          </action>
          <action name="main_*" class="com.ziyi.control.MainServlet" method="{1}">
             <result name="json" type="json"></result>
-         	<allowed-methods>price,table,state,order,type,value,create,selling,delgoods</allowed-methods>
+         	<allowed-methods>price,table,state,order,type,value,create,selling,delgoods , yuyue</allowed-methods>
          </action>
          	
          	<!-- sxl -->
@@ -114,6 +114,5 @@
         	<result type="json"></result>  
         	<allowed-methods>sortProduct,showSort,updateName,delProduct,changeNum,showSort,addSort,delSort</allowed-methods> 
          </action> 
-         
 	</package>
 </struts>
