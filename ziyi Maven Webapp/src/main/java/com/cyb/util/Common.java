@@ -10,6 +10,7 @@ import com.ziyi.dao.BannerDao;
 import com.ziyi.dao.CardDao;
 import com.ziyi.dao.Card_typeDao;
 import com.ziyi.dao.LogDao;
+import com.ziyi.dao.Old_CardDao;
 import com.ziyi.dao.OrderDao;
 import com.ziyi.dao.Order_listDao;
 import com.ziyi.dao.RoleDao;
@@ -23,6 +24,7 @@ import com.ziyi.dao.impl.BannerDaoImpl;
 import com.ziyi.dao.impl.CardDaoImpl;
 import com.ziyi.dao.impl.Card_typeDaoImpl;
 import com.ziyi.dao.impl.LogDaoImpl;
+import com.ziyi.dao.impl.Old_CardDaoImpl;
 import com.ziyi.dao.impl.OrderDaoImpl;
 import com.ziyi.dao.impl.Order_listDaoImpl;
 import com.ziyi.dao.impl.RoleDaoImpl;
@@ -99,6 +101,8 @@ public class Common {
 	 public static final Tea_HouseDao HOUSE = new Tea_HouseDaoImpl();
 	 //角色接口
 	 public static final RoleDao ROLE = new RoleDaoImpl();
+	 //老卡接口
+	 public static final Old_CardDao OLDDAO = new Old_CardDaoImpl();
 	 
 	 /**
 	  * 会员卡类型接口

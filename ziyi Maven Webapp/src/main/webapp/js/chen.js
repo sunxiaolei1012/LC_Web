@@ -114,7 +114,15 @@ function clc(cl_id , sta)
 		}
 		else if(sta == 2)
 			{
-			layer.msg('该桌号预约',{icon:6});
+			//预约信息显示
+			layer.open({
+				type:1,
+				title:'预定信息查看',
+				area:['300px','200px'],
+				content:"<div class='layui-text' style='margin:5%;line-height:40px'><p>联系人：<span>123</span></p><p>手机号：<span>123</span></p><p>预定时间：<span>123</span></p></div>"
+		        ,shade: 0 //不显示遮罩		         				
+			})
+//			layer.msg('该桌号预约',{icon:6});
 			}
 		else 
 			{
@@ -139,7 +147,42 @@ function clc(cl_id , sta)
 }, 300);*/
 	
 }
-
+function yuding(ele_id)
+{
+	layer.open({
+		title:'预定信息提交',
+        content: "<div id='layform'><form class='layui-form' id='reform'><div class='layui-form-item'><label class='layui-form-label'>联系人</label><div class='layui-input-block'><input type='text' name='title' lay-verify='title' autocomplete='off' placeholder='请输入姓名' class='layui-input'></div></div><div class='layui-form-item'><label class='layui-form-label'>手机号</label><div class='layui-input-block'><input type='text' name='phone' lay-verify='phone' autocomplete='off' placeholder='请输入手机号' class='layui-input'></div></div><div class='layui-form-item'><label class='layui-form-label'>预定时间</label><div class='layui-input-block'><input type='text' name='retime' lay-verify='reserve' autocomplete='off' placeholder='请输入预定时间' class='layui-input'></div></div></form></div>"
+        ,btn: ['提交', '关闭']
+        ,btnAlign: 'c' //按钮居中
+        ,shade: 0 //不显示遮罩
+        ,yes:function(index){	
+			 var date = $("#reform").serialize();
+			 alert(date);
+        	update_state(ele_id,2);
+//        	layer.close(index);
+        	
+        	/*$.ajax({
+        	       type:"post",
+        	       url:"",
+        	       dataType:"json",
+        	       cache:false,
+        	       async: false,
+        	       data: $("#reform").serialize(),
+        	       success:function(d){
+	                    layer.msg('提交成功')
+        	       }
+        	   });*/
+        	
+		},
+		
+		btn2:function(){	
+			layer.msg('关闭');
+			doube(ele_id);
+		},
+		
+	})
+	
+}
 //按钮触发双击事件修改餐桌状态
 function doube(ele_id)
 {
@@ -156,14 +199,13 @@ function doube(ele_id)
 			btn:['空闲','占用','预定','打扫中'],
 			yes:function(){	
 			    update_state(ele_id,0);
-//			    layer.close(index);
 			},
 			
-			btn2:function(){
+			btn2:function(){				
                 update_state(ele_id,1);
 			},
 			btn3:function(){
-				update_state(ele_id,2);
+				yuding(ele_id);
 			},
 			btn4:function(){
 				update_state(ele_id,3);
@@ -180,12 +222,15 @@ function update_state(id, index)
 	       cache:false,
 	       async: false,
 	       success:function(date){
-	    	   if(date.state)
+	    	   if(index == 2){
+	    		   tableShow();
+//		    	   layer.close(index);	
+	    	   }else if(date.state)
 	    		{
 	    		  layer.msg(date.msg,{icon:6});
 	    		  //刷新一次
 	    		  tableShow();
-	    		  layer.close(index);	    		  
+//	    		  layer.close(index);	    		  
 	    		}
 	    	   else
 	    		   {
@@ -195,7 +240,36 @@ function update_state(id, index)
 	  });
 	
 }
-
+//桌子列表
+function tablebox(){
+	$.ajax({
+	       type:"post",
+	       url:"main_table",
+	       dataType:"json",
+	       cache:false,
+	       async: false,
+	       success:function(d){	    	    
+	    	   var tablebox = $(".middle-center-tableLayout");
+	    	   var n=[];
+	    	   var tablength = 0;
+	    	    for(var i = 0;i<d.length;i++){
+	    	    	if(n.indexOf(d[i].position)==-1){
+	    	    		n.push(d[i].position);
+	    	    		tablength++;
+	    	    	}	
+	    	    }
+	    	    for(var i = 0;i<tablength;i++){
+	    	    	var divbox = document.createElement('div');
+	    	    	    divbox.className='middle-center-tableList';
+	    	    	    tablebox.append(divbox);
+	    	    }
+//	    	    var ele =  $(".middle-center-tableList");
+//	    	    alert(ele.length);
+	    	     
+	       }
+	   
+	   });
+}
 function tableShow()
 {
    $.ajax({
@@ -207,6 +281,7 @@ function tableShow()
        success:function(d){
     	     var btns = $(".middle-center-tableList button");
     	     var ele =  $(".middle-center-tableList");
+//    	     alert(ele.length);
     	     for(var i = 0;i<btns.length;i++){
     	    	 btns[i].parentNode.removeChild(btns[i]);
     	     }
@@ -216,11 +291,11 @@ function tableShow()
     	    	 var id = d[i].houseid;
     	    	 var sta = d[i].status; 
     	    	 if(pos!=posi)
-    	    		posi = pos;
-    	    	 
+    	    		posi = pos;	    	 
     	    	 var abtn = "<button id='"+id+"' onclick='clc("+id+","+sta+")' ondblclick='doube("+id+")' class='layui-btn "+cs_s(sta)+"'>"+d[i].housename+"</button>";
     	    	 ele[--pos].innerHTML+=abtn; 
-    	     }	    	    	
+    	     }
+    	    
        }
    
    });
@@ -237,6 +312,7 @@ function orderShow(tableid)
        cache:false,
        async: false,
        success:function(date){
+//    	   alert("123");
     	       var state = date.status;
     	       if(state == 0){
     	    	  var inner = "未结算";
@@ -373,28 +449,31 @@ function goodslist(type_id){
 	var eles="";
 	$.ajax({
 	       type:"post",
-	       url:"main_value?id="+1,
+	       url:"main_value?id="+type_id,
 	       dataType:"json",
 	       cache:false,
 	       async: false,
 	       success:function(date){
-	    	   
-	    	    for(var i = 0;i<date.length;i++){
-	    	    	eles+="<div class='mui-card pattern-list'>"+				 
-					"<div class='mui-card-header'>"+
-					"<img class='w100' src='images/goods.png'/>"+
-				"</div>"+
-				"<div class='mui-card-content'>"+
-					"<div class='mui-card-content-inner'>"+
-						"<p>"+date[i].name+"</p>"+
+	    	   if(date != null)
+	    		   {
+		    	    for(var i = 0;i<date.length;i++){
+		    	    	eles+="<div class='mui-card pattern-list'>"+				 
+						"<div class='mui-card-header'>"+
+						"<img class='w100' src='images/goods.png'/>"+
 					"</div>"+
-				"</div>"+
-				"<div class='pattern-list__p'>"+
-					"<p class='font-color-pink'>￥<label>"+date[i].price+"</label></p>"+
-					"<p class='font-color-gray'><a href='#'><span onclick='goodsAdd("+date[i].sellingid+")' class='iconfont icon-tianjia'></a></p>"+
-				"</div>"+				
-            "</div>";
-	    	    }
+					"<div class='mui-card-content'>"+
+						"<div class='mui-card-content-inner'>"+
+							"<p>"+date[i].name+"</p>"+
+						"</div>"+
+					"</div>"+
+					"<div class='pattern-list__p'>"+
+						"<p class='font-color-pink'>￥<label>"+date[i].price+"</label></p>"+
+						"<p class='font-color-gray'><a href='#'><span onclick='goodsAdd("+date[i].sellingid+")' class='iconfont icon-tianjia'></a></p>"+
+					"</div>"+				
+	            "</div>";
+		    	    }
+		    	    
+	    		   }
 //	    	    alert("1");
 	    	   
 	       }
@@ -429,7 +508,7 @@ function goodsAdd(id){
 function goodsDel(id){
 //	ordernum:订单编号，id:商品id
 	var ordernum = document.getElementById("orderNum").innerText;
-	$.ajax({
+	$.ajax({  
 	       type:"post",
 	       url:"main_delgoods?number="+ordernum+"&id="+id,
 	       dataType:"json",
@@ -447,4 +526,67 @@ function goodsDel(id){
 }
 
       
- 
+//
+//       var json = [{'name':'第一个桌子','position':'1','id':'2','state':'0'},
+//       				{'name':'第二个桌子','position':'1','id':'1','state':'1'}，
+//       				{'name':'第三个桌子','position':'1','id':'3','state':'2'}
+//       				{'name':'第4个桌子','position':'2','id':'4','state':'0'}
+//       				{'name':'第五个桌子','position':'2','id':'5','state':'0'}
+//
+//];
+//
+//       if(d.state=="true")
+//       		{
+//       			var posi =d[0].position ;
+//       			for (var i = 0; i < d.length; i++) {
+//       				if(d[i].position == posi)
+//       				{
+//
+//
+//       					li.innerHTML = '<a href="detail.html">'+
+//				            '<img class="mui-media-object mui-pull-left" src="images/goods.png">'+
+//				            '<div class="mui-media-body">'+
+//				            	'<p class="mui-table-view-cell mui-table-view-cell-title">碧螺春 <span class="mui-badge">绿茶类</span></p>'+				                                        				                
+//					                '<p class="mui-ellipsis">中国传统名茶（十大名茶之一）</p>'+
+//					                '<p class="mui-price">价格：<span class="mui-price-hu">78元/壶</span></p>'+
+//					                '<div style="height: 15px;"></div>'+
+//					                '<p class="mui-sale">'+
+//					                	'<span class="mui-date-sale">近期出售128份</span>'+
+//					                	'<span class="mui-table-view-cell">'+
+//					                		'<span class="mui-icon iconfont icon-start1"></span>'+
+//						                	'<span class="mui-icon iconfont icon-start1"></span>'+
+//						                	'<span class="mui-icon iconfont icon-start1"></span>'+
+//						                	'<span class="mui-icon iconfont icon-start1"></span>'+
+//						                	'<span class="mui-icon iconfont icon-banxing"></span>'+'&nbsp;'+'&nbsp;'+
+//						                	'<span class="mui-good" >238好评</span>'+
+//					                	'</span>'+					                	
+//					                '</p>'+				                
+//				           '</div>'+
+//				        '</a>';
+//       					 $(".right-top").css('name',=d[i].name);
+//       					 $(".right-top").css('id',=d[i].id);
+//       					 $(".right-top").css('state',=d[i].state);
+//       				}
+//       				else
+//       				{
+//       					li.innerHTML = '<br/>';
+//       				}
+//       			
+//       				
+//       			}
+//       			
+//       			buttion.name ;
+//       			buttinon.
+//				alert(d.msg);  
+//			 	parent.layer.closeAll();
+//		       	parent.location.reload();
+//       		}
+//       	else
+//       		{
+//       			alert(d.msg);
+//       		}
+//      
+
+
+
+

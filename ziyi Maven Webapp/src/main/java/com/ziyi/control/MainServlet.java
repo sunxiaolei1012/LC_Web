@@ -51,17 +51,21 @@ public class MainServlet extends ActionSupport{
 	public String state()
 	{
 		boolean bool = Common.HOUSE.update_house_tea(new Integer(id), new Integer(index));
-		
 //		Tea_House tea = Common.HOUSE.select_House_id(new Integer(id));
 		Order order = Common.ORDER.select_houseid_state(0, new Integer(id));
 		if(index.equals("1"))
 		{
-			//0空闲
 			create();
 		}
 		else
 		{
-			Common.ORDER.delete_order_list(order.getOrderid());
+			try{
+				Common.ORDER.delete_order_list(order.getOrderid());
+			}
+			catch(Exception e)
+			{
+				System.out.println("状态不在");
+			}
 			//3其他
 		}
 		
@@ -122,6 +126,7 @@ public class MainServlet extends ActionSupport{
 		if(id != null && !id.equals(""))
 			a= new Integer(id);
 		List<Selling_list> list = Common.SLD.select_selling_type(a);
+//		System.out.println(list.size());
 		Common.TOOLS.return_object(new Gson().toJson(list));
 		return "json";
 	}

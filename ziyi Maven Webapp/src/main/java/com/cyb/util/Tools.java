@@ -10,6 +10,7 @@ import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
@@ -28,11 +29,108 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.port.main.Main;
 import com.ziyi.pojo.Log;
+import com.ziyi.pojo.Old_Card;
 import com.ziyi.pojo.Order;
 
 
 
 public class Tools {
+	/**
+	 * 返回读新卡时的卡号
+	 * @param list
+	 * @return
+	 */
+	public String return_read_card_number(List<Byte> list)
+	{
+		StringBuffer sb = new StringBuffer();
+		//新卡，读取会员卡的
+		
+		for (int i = 44; i < 50; i++) {
+			
+			if(list.get(i).equals((byte)-1))
+			{
+				return null;
+			}
+			sb.append((char)MyUtils.byteToInt(list.get(i)));
+		}
+		return sb.toString();
+	}
+	/**
+	 * 激活老卡
+	 * @param number
+	 */
+	public void ji_old_card(String number)
+	{
+		try {
+			int a = read_card_two();
+			if(a == 2)
+			{
+				//读卡失败
+				Common.TOOLS.return_object(config.READ_CARD_TEXT);
+			}
+			else if (a== 0) // 新卡
+			{
+				Common.TOOLS.return_object(config.READ_CARD_TEXT_NEW);
+			}
+			else
+			{
+				//老卡
+				//根据编号与卡内容查询该老卡是否已经激活
+				Old_Card oc = Common.OLDDAO.select_number_value(number);
+				if(oc == null)
+				{
+					
+					//为空，根据编号 把卡信息插入表中
+//					StringBuffer sb = new StringBuffer();
+//					for (byte by : config.READ_CARD) {
+//						sb.append(by);
+//					}
+					Common.OLDDAO.insert_old_card(new Old_Card(list_String(config.READ_CARD),number ));
+					Common.TOOLS.return_object(1);
+				}
+				else//该卡编号已经存在
+				{
+					Common.TOOLS.return_object(config.READ_CARD_NULL);
+				}
+			}
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public String list_String(List<Byte> list)
+	{
+		StringBuffer sb = new StringBuffer();
+		for (byte by : list) {
+			sb.append(by);
+		}
+		return sb.toString();
+	}
+	
+	 /**
+     * 对一个数字进行异或加解密
+     */
+    public int code(int res, String key) {
+        return res ^ key.hashCode();
+    }
+	
+	/**
+	 * 用来判断是新卡 还是老卡
+	 * @return
+	 */
+	public int new_old_card()
+	{
+//		for (Byte by : config.READ_CARD) {
+//			System.out.println(by);
+//		}
+		if(config.READ_CARD.get(12).equals((byte)-1) && config.READ_CARD.get(13).equals((byte)-1) && config.READ_CARD.get(14).equals((byte)-1)
+				&& config.READ_CARD.get(15).equals((byte)-1) && config.READ_CARD.get(16).equals((byte)-1) && config.READ_CARD.get(17).equals((byte)-1))
+		{
+			return 0;
+		}
+		return 1;
+	}
 	/**
 	 * 返回唯一订单码  
 	 * @return
@@ -77,7 +175,7 @@ public class Tools {
 
 		  String ret = "";
 		  byte BCC[]= new byte[1];
-		  for(int i=0;i<data.length;i++)
+		  for(int i=0;i<data.length-1;i++)
 		  {
 		  BCC[0]=(byte) (BCC[0] ^ data[i]);
 		  }
@@ -89,7 +187,56 @@ public class Tools {
 		  return ret;
 		}
 	
-	
+	/**
+	 * 写卡2
+	 */
+	public void white_card(String number)
+	{
+		try {
+			
+			//写卡流程
+			//判断是新卡还是老卡
+			int retu = Common.TOOLS.read_card_two();
+			if(retu == 2)
+			{
+				//读卡失败
+				Common.TOOLS.return_object(config.READ_CARD_TEXT);
+			}
+			else if (retu== 0) // 新卡
+			{
+				//解析新卡 读取卡号
+				Main.sendData("10");
+				Thread.sleep(300);
+				//替换数据
+				int a = Common.TOOLS.code(new Integer(number), config.KEY);
+				byte[] bys = (a+"").getBytes();
+				for (int i = 0; i < bys.length; i++) {
+					config.WHITE_CARD[i+17] = bys[i];
+				}
+				
+				
+				byte by = MyUtils.HexString2Bytes(getBCC(config.WHITE_CARD))[0];
+				config.WHITE_CARD[config.WHITE_CARD.length-1] = by;
+				
+				
+				System.out.println(by);
+				SerialPortManager.sendToPort(Main.serialport, config.WHITE_CARD);
+				Thread.sleep(500);
+			}
+			else//老卡
+			{
+				Common.TOOLS.return_object(config.READ_CARD_TEXT_OLD);
+			}
+		}
+		 catch (SendDataToSerialPortFailure e) {
+				e.printStackTrace();
+			} catch (SerialPortOutputStreamCloseFailure e) {
+				e.printStackTrace();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			
+	}
 	/**
 	 * 写卡
 	 * 
@@ -97,25 +244,23 @@ public class Tools {
 	public void white_card()
 	{
 		try {
+			//解析新卡 读取卡号
 			Main.sendData("10");
 			Thread.sleep(300);
-			byte by =  MyUtils.HexString2Bytes(getBCC(config.WHITE))[0];
-			config.WHITE[config.WHITE.length-1] = by;
-			SerialPortManager.sendToPort(Main.serialport, config.WHITE);
+			byte by =  MyUtils.HexString2Bytes(getBCC(config.WHITE_CARD))[0];
+			config.WHITE_CARD[config.WHITE_CARD.length-1] = by;
+			System.out.println(by);
+			SerialPortManager.sendToPort(Main.serialport, config.WHITE_CARD);
 			Thread.sleep(500);
-		} catch (SendDataToSerialPortFailure e) {
-			e.printStackTrace();
-		} catch (SerialPortOutputStreamCloseFailure e) {
-			e.printStackTrace();
-		} catch (InterruptedException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	/**
-	 * 读卡2
+	 * 读卡3
 	 * @throws InterruptedException 
 	 */
-	public String read_card_two() throws InterruptedException
+	public String read_card_three() throws InterruptedException
 	{
 		try {
 			Main.sendData("9");
@@ -126,21 +271,80 @@ public class Tools {
 		}
 		Date da = new Date();
 		StringBuffer sb = new StringBuffer();
+		int a = 0;
 		while(true)
 		{
+			
 			if(!config.BOOL)
 			{
+				if(a<5)
+				{
+					return config.READ_CARD_TEXT;
+				}
+				a++;
 				Thread.sleep(200);
 			}
 			else
 			{
+//				int news = Common.TOOLS.new_old_card();
+//				if(news == 0 )//新卡
+//				{
+//					//1、新卡判断卡位置
+//				}
+//				else//老卡
+//				{
+//					//老卡查询数据库
+//				}
 				for (Byte by : config.READ_CARD) {
-					sb.append(by);
+					sb.append(by+"&");
 				}
-				break;
+				return sb.toString();
 			}
 		}
-		return sb.toString();
+	}
+	/**
+	 * 读卡2
+	 * @throws InterruptedException 
+	 */
+	public int read_card_two() throws InterruptedException
+	{
+		try {
+			Main.sendData("9");
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			
+		}
+		
+		int a = 0;
+		while(true)
+		{
+			
+			if(!config.BOOL)
+			{
+				if(a<5)
+				{
+					return 2;
+				}
+				a++;
+				Thread.sleep(200);
+			}
+			else
+			{
+//				int news = Common.TOOLS.new_old_card();
+//				if(news == 0 )//新卡
+//				{
+//					//1、新卡判断卡位置
+//				}
+//				else//老卡
+//				{
+//					//老卡查询数据库
+//				}
+////				for (Byte by : config.READ_CARD) {
+////					sb.append(by+"&");
+////				}
+				return Common.TOOLS.new_old_card();
+			}
+		}
 	}
 	/**
 	 * 读卡1
