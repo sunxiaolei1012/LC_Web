@@ -58,7 +58,7 @@ public class MainServlet extends ActionSupport{
 			create();
 		}
 		else
-		{
+		{  
 			try{
 				Common.ORDER.delete_order_list(order.getOrderid());
 			}
