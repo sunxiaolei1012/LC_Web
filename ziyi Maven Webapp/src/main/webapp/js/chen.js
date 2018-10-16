@@ -390,17 +390,32 @@ function orderShow(tableid)
 	}
 }
 //结算页面
-function pay()
-{
-	layer.open({
-		  type: 1,
-		  title: false,
-		  closeBtn: 0,
-		  shadeClose: true,
-		  skin: 'yourclass',
-		  content: ''
-		});
+function pay(){
+  	var index = layer.open({
+				type: 1,
+				shade: false,
+				btn:['支付','取消'],
+				btnAlign:'c',
+				// offset:'t',   //弹出框位置
+				closeBtn:1,      //按钮位置
+                anim: 1,         //弹窗弹出动画
+                maxmin:true,
+                fixed:true,
+				skin: 'layui-layer-molv', //加上边框
+				area: ['500px', '400px'], //宽高
+				content: $("#layform1"),   //引入html内容
+				yes:function(index,layero){
+					// var num = $('#selectBox option:checked').val();					 
+					 // alert(num);
+                    layer.msg('支付成功',{icon:6});
+                    layer.close(index);
+				},
+				btn1:function(index,layero){
+                   
+				}
+			});
 }
+ 
 //商品种类列表
 function category(){
 	$.ajax({
