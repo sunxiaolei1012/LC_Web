@@ -378,11 +378,15 @@ function orderShow(tableid)
 					"</div>"+					 
 					"<div class='right-middle-bottom-pay'>"+
 						"<div class=''><p class='mebNum'>"+"结账状况"+"</p><p class='title mebTitle'>"+inner+"</p></div>"+								
-						"<button type='button' class='mui-btn mui-btn-warning' onclick='pay()'>结算</button>"+
+						"<button type='button' id='pay' class='mui-btn mui-btn-warning' onclick='pay()'>结算</button>"+
 					"</div>"+
 				"</div>"+				 						
 			"</div>";
-             document.getElementById("right-content").innerHTML=ele; 
+             document.getElementById("right-content").innerHTML=ele;
+             if(!date.bool){
+            	 $('#pay').attr('disabled','disabled');
+             }
+             
        }
    
    
@@ -406,11 +410,63 @@ function pay(){
 				content: $("#layform1"),   //引入html内容
 				yes:function(index,layero){
 					// var num = $('#selectBox option:checked').val();					 
-					 // alert(num);
-                    layer.msg('支付成功',{icon:6});
+					 // alert(num);                    
                     layer.close(index);
+//                    layer.msg('支付成功',{icon:6});
+                    if(1==0){                    	
+                    	layer.confirm('是否打印订单？', {
+                    		btn:['打印','关闭'],
+                    		skin: 'layui-layer-molv',
+                    		btnAlign: 'c',
+                    		}, 
+                    		function(){
+                    		  layer.msg('打印', {icon: 1});
+                    		}, 
+                    		function(){
+                    		  layer.msg('支付关闭', {});
+                    	});
+                    }else{
+                    	layer.confirm('返回重新选择支付方式？', {
+                    		btn:['返回','关闭'],
+                    		skin: 'layui-layer-molv',
+                    		btnAlign: 'c',
+                    		}, 
+                    		function(index,layero){
+//                    		  layer.msg('返回', {icon: 1});
+                    			layer.close(index);
+                    			pay();
+                    		}, 
+                    		function(){
+                    		  layer.msg('支付关闭', {});
+                    	});
+                    }
+                    /*layer.open({
+                    	type: 1,
+                		shade: false,
+                		btn:['确定','返回','关闭'],
+                		btnAlign:'c',
+                		// offset:'t',   //弹出框位置
+                		closeBtn:1,      //按钮位置
+                        anim: 1,         //弹窗弹出动画
+                        maxmin:true,
+                        fixed:true,
+                		skin: 'layui-layer-molv', //加上边框
+                		area: ['500px', '400px'], //宽高
+                		content: "<div>123</div>",   //引入html内容
+                		yes:function(index,layero){			 
+                            layer.msg('确定',{icon:6});
+                            layer.close(index);
+                		},
+                		btn1:function(index,layero){
+                           
+                		},
+                		btn2:function(index,layero){
+                			//返回重新选择支付方式
+                			pay();
+                		}
+                    })*/
 				},
-				btn1:function(index,layero){
+				btn2:function(index,layero){
                    
 				}
 			});
@@ -472,7 +528,40 @@ function goodslist(type_id){
 	    	   if(date != null)
 	    		   {
 		    	    for(var i = 0;i<date.length;i++){
-		    	    	eles+="<div class='mui-card pattern-list'>"+				 
+		    	    	//其他商品操作
+		    	    	if(date[i].rebate==1){
+		    	    		eles+="<div class='mui-card pattern-list'>"+				 
+							    "<div class='mui-card-header'>"+
+							      "<img class='w100' src='images/goods.png' onclick=''/>"+
+								"</div>"+
+								"<div class='mui-card-content'>"+
+									"<div class='mui-card-content-inner'>"+
+										"<p>"+date[i].name+"</p>"+
+									"</div>"+
+								"</div>"+
+								"<div class='pattern-list__p'>"+
+									"<p class='font-color-pink'>￥<label>"+date[i].price+"</label></p>"+
+									"<p class='font-color-gray'><a href='#'><span onclick='rebate()' class='iconfont icon-tianjia'></a></p>"+
+								"</div>"+				
+				            "</div>";
+		    	    	}else{
+		    	    		eles+="<div class='mui-card pattern-list'>"+				 
+						    "<div class='mui-card-header'>"+
+						      "<img class='w100' src='images/goods.png'/>"+
+							"</div>"+
+							"<div class='mui-card-content'>"+
+								"<div class='mui-card-content-inner'>"+
+									"<p>"+date[i].name+"</p>"+
+								"</div>"+
+							"</div>"+
+							"<div class='pattern-list__p'>"+
+								"<p class='font-color-pink'>￥<label>"+date[i].price+"</label></p>"+
+								"<p class='font-color-gray'><a href='#'><span onclick='goodsAdd("+date[i].sellingid+")' class='iconfont icon-tianjia'></a></p>"+
+							"</div>"+				
+			            "</div>";
+		    	    	}
+		    	    	//start
+		    	    	/*eles+="<div class='mui-card pattern-list'>"+				 
 						"<div class='mui-card-header'>"+
 						"<img class='w100' src='images/goods.png'/>"+
 					"</div>"+
@@ -485,16 +574,39 @@ function goodslist(type_id){
 						"<p class='font-color-pink'>￥<label>"+date[i].price+"</label></p>"+
 						"<p class='font-color-gray'><a href='#'><span onclick='goodsAdd("+date[i].sellingid+")' class='iconfont icon-tianjia'></a></p>"+
 					"</div>"+				
-	            "</div>";
+	            "</div>";*/
+		    	    	//end
 		    	    }
 		    	    
 	    		   }
-//	    	    alert("1");
-	    	   
 	       }
 	  });
-	 return eles;
-	
+	 return eles;	
+}
+
+//其他商品
+function rebate(){
+	layer.open({
+		type: 1,
+		shade: false,
+		btn:['确定','取消'],
+		btnAlign:'c',
+		// offset:'t',   //弹出框位置
+		closeBtn:1,      //按钮位置
+        anim: 1,         //弹窗弹出动画
+        maxmin:true,
+        fixed:true,
+		skin: 'layui-layer-molv', //加上边框
+		area: ['500px', '400px'], //宽高
+		content: "<div>123</div>",   //引入html内容
+		yes:function(index,layero){			 
+            layer.msg('确定',{icon:6});
+            layer.close(index);
+		},
+		btn1:function(index,layero){
+           
+		}
+	});
 }
 
 //添加商品

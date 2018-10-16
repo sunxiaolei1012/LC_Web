@@ -387,7 +387,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<br>		 
 		<form class='layui-form' id="payform">
 			<div class='layui-form-item'>
-			    <label class='layui-form-label'>支付方式</label>
+			    <label class='layui-form-label' style='padding-left:0;'>支付方式</label>
 			    <div class='layui-input-block'>
 				      <select id="selectBox" lay-filter='paybox'>
 				        <!-- <option value=''></option> -->
@@ -403,7 +403,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="cardbox">
 				<div class="layui-form-item">
 				    <div class="layui-input-block">
-				      <input type="text" class="meberNum" class="layui-input" disabled="">
+				      <input type="text" class="meberNum" class="layui-input">
 				    </div>
 				</div>								
 				<button type="button" id="card" class="mui-btn mui-btn-warning">刷卡</button>
