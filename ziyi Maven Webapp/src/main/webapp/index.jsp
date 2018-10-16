@@ -365,17 +365,101 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
     </div>
 </body>
+<!-- 弹出的支付表单 -->
+<style type="text/css">
+.crashcard{
+	display: none;
+}
+.cardbox{
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;	 
+}
+ 
+.crashcard button{
+	margin-left: 1%;
+	width: 50px;
+	height: 40px;
+	/*border:1px solid red;*/
+}
+</style>
+	<div id='layform1' style='display:none;'>
+		<br>		 
+		<form class='layui-form' id="payform">
+			<div class='layui-form-item'>
+			    <label class='layui-form-label'>支付方式</label>
+			    <div class='layui-input-block'>
+				      <select id="selectBox" lay-filter='paybox'>
+				        <!-- <option value=''></option> -->
+				        <option value='0' name='cash'>现金</option>
+				        <option value='1' name='weixin'>微信</option>
+				        <option value='2' name='zhifub'>支付宝</option>
+				        <option value='3' name='member'>会员卡</option>
+				      </select>
+			    </div>			    	
+			</div>			 		 
+		</form>
+		<div class="crashcard">
+			<div class="cardbox">
+				<div class="layui-form-item">
+				    <div class="layui-input-block">
+				      <input type="text" class="meberNum" class="layui-input" disabled="">
+				    </div>
+				</div>								
+				<button type="button" id="card" class="mui-btn mui-btn-warning">刷卡</button>
+			</div>
+		</div>
+
+		<div class="right-middle-middle">
+			<ul class="mui-table-view goodslist">			  
+			    <li class="mui-table-view-cell mui-media">
+			        <a href="javascript:;">
+			            <div class="mui-media-body">
+			                <!-- <span class="mebNum mui-table-view-cell">ZY003</span> -->
+			                <p class="mui-ellipsis mui-table-view-cell"><span class="title mebTitle">碧螺春</span>
+			                	<span class="mui-badge mui-badge-inverted"><span class="mui-ellipsis mebTitle">×<label>1</label>壶</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="mui-ellipsis title mebTitle">100.00</span>&nbsp;&nbsp;<span class="iconfont icon-shanchu"></span><span class='iconfont icon-tianjia'></span></span>
+			                </p>
+			            </div>
+			        </a>
+			    </li>
+			    <li class="mui-table-view-cell mui-media">
+			        <a href="javascript:;">
+			            <div class="mui-media-body">
+			                <p class="mui-ellipsis mui-table-view-cell"><span class="title mebTitle">碧螺春</span>
+			                	<span class="mui-badge mui-badge-inverted"><span class="mui-ellipsis mebTitle">×<label>1</label>壶</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="mui-ellipsis title mebTitle">100.00</span>&nbsp;&nbsp;<span class="iconfont icon-shanchu"></span><span class='iconfont icon-tianjia'></span></span>
+			                </p>
+			            </div>
+			        </a>
+			    </li>					     
+			</ul>
+		</div>
+		<div class="right-middle-bottom-pay" style="display: flex;justify-content: flex-end;padding-right: 10%">
+			<p class="title mebNum">消费总金额:<span class="title mui-ellipsis">100.00</span></p> 
+		</div>
+	</div>
+	
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script src="layui/layui.js"></script>
     <script type="text/javascript" src="js/sxl.js"></script>
     <script type="text/javascript" src="js/mui.min.js"></script>
     <script>
 		//注意：导航 依赖 element 模块，否则无法进行功能性操作
-		layui.use(['element','table','layer'], function(){
+		layui.use(['element','table','layer','form','layedit', 'laydate'], function(){
 		  var element = layui.element;
 		  var table = layui.table;
 		  var layer = layui.layer;
+		  var form = layui.form;
+		  var layedit = layui.layedit
+  		  var laydate = layui.laydate;
+  		  form.on('select(paybox)', function(data){
+			  if(data.value=='3'){
+	           $('.crashcard').css('display','block');
+	      	}else{
+	      		$('.crashcard').css('display','none');
+	      	}			  
 		});
+
+       });
 
 		$(document).ready(function(){
 			//时间
