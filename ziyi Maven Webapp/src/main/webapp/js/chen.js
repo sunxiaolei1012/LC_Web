@@ -151,7 +151,7 @@ function yuding(ele_id)
 {
 	layer.open({
 		title:'预定信息提交',
-        content: "<div id='layform'><form class='layui-form' id='reform'><div class='layui-form-item'><label class='layui-form-label'>联系人</label><div class='layui-input-block'><input type='text' name='title' lay-verify='title' autocomplete='off' placeholder='请输入姓名' class='layui-input'></div></div><div class='layui-form-item'><label class='layui-form-label'>手机号</label><div class='layui-input-block'><input type='text' name='phone' lay-verify='phone' autocomplete='off' placeholder='请输入手机号' class='layui-input'></div></div><div class='layui-form-item'><label class='layui-form-label'>预定时间</label><div class='layui-input-block'><input type='text' name='retime' lay-verify='reserve' autocomplete='off' placeholder='请输入预定时间' class='layui-input'></div></div></form></div>"
+        content: "<div id='layform'><form class='layui-form' id='reform'><div class='layui-form-item'><label class='layui-form-label'>联系人</label><div class='layui-input-block'><input type='text' name='title' lay-verify='title' autocomplete='off' placeholder='请输入姓名' class='layui-input'></div></div><div class='layui-form-item'><label class='layui-form-label'>手机号</label><div class='layui-input-block'><input type='text' name='phone' lay-verify='phone' autocomplete='off' placeholder='请输入手机号' class='layui-input'></div></div></form></div>"
         ,btn: ['提交', '关闭']
         ,btnAlign: 'c' //按钮居中
         ,shade: 0 //不显示遮罩
@@ -334,7 +334,7 @@ function orderShow(tableid)
 						"</ul>"+						 
 					"</div>"+
 					"<div class='right-middle common-content'>"+
-						"<div class='right-middle-top'>"+
+						/*"<div class='right-middle-top'>"+
 							"<ul class='mui-table-view'>"+
 							    "<li class='mui-table-view-cell mui-media'>"+
 							        "<a href='#'>"+
@@ -346,7 +346,7 @@ function orderShow(tableid)
 							        "</a>"+
 							    "</li>"+							     
 						    "</ul>"+
-						"</div>"+
+						"</div>"+*/
 						"<div class='devider2'></div>"+
 						"<div class='right-middle-middle right-middle-scroll'>"+							 
 							"<ul class='mui-table-view'>";
@@ -378,7 +378,7 @@ function orderShow(tableid)
 					"</div>"+					 
 					"<div class='right-middle-bottom-pay'>"+
 						"<div class=''><p class='mebNum'>"+"结账状况"+"</p><p class='title mebTitle'>"+inner+"</p></div>"+								
-						"<button type='button' class='mui-btn mui-btn-warning'>结算</button>"+
+						"<button type='button' class='mui-btn mui-btn-warning' onclick='pay()'>结算</button>"+
 					"</div>"+
 				"</div>"+				 						
 			"</div>";
