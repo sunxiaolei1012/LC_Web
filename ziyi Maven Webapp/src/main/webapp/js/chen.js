@@ -544,7 +544,7 @@ function goodslist(type_id){
 									"<p class='font-color-gray'><a href='#'><span onclick='rebate()' class='iconfont icon-tianjia'></a></p>"+
 								"</div>"+				
 				            "</div>";
-		    	    	}else{
+		    	    	}else{   
 		    	    		eles+="<div class='mui-card pattern-list'>"+				 
 						    "<div class='mui-card-header'>"+
 						      "<img class='w100' src='images/goods.png'/>"+
