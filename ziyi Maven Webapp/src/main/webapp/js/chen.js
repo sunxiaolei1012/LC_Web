@@ -114,14 +114,7 @@ function clc(cl_id , sta)
 		}
 		else if(sta == 2)
 			{
-			//预约信息显示
-			layer.open({
-				type:1,
-				title:'预定信息查看',
-				area:['300px','200px'],
-				content:"<div class='layui-text' style='margin:5%;line-height:40px'><p>联系人：<span>123</span></p><p>手机号：<span>123</span></p><p>预定时间：<span>123</span></p></div>"
-		        ,shade: 0 //不显示遮罩		         				
-			})
+			yuding_show(cl_id);
 //			layer.msg('该桌号预约',{icon:6});
 			}
 		else 
@@ -130,35 +123,42 @@ function clc(cl_id , sta)
 			}
 		
 	}, 300);
-	
-	/*timenull = setTimeout(function() {
-		$.ajax({
-		       type:"post",
-		       url:"main?id="+id+"&status="+status,
-		       dataType:"json",
-		       cache:false,
-		       async: false,
-		       success:function(date){
-		    	     
-		       }
-		  });
-		
-		
-}, 300);*/
+}
+
+function yuding_show(cl_id)
+{
+	  $.ajax({
+	       type:"post",
+	       url:"main_yuyue?index="+cl_id,
+	       dataType:"json",
+	       cache:false,
+	       async: false,
+	       success:function(date){
+	    	   console.log(date);
+	    	 //预约信息显示
+	    		layer.open({
+	    			type:1,
+	    			title:'预定信息查看',
+	    			area:['300px','200px'],
+	    			content:"<div class='layui-text' style='margin:5%;line-height:40px'><p>联系人：<span>"+date.name+"</span></p><p>手机号：<span>"+date.phone+"</span></p><p>预定时间：<span>"+date.time+"</span></p></div>"
+	    	        ,shade: 0 //不显示遮罩		         				
+	    		})
+	       }
+	  });
 	
 }
 function yuding(ele_id)
 {
 	layer.open({
 		title:'预定信息提交',
-        content: "<div id='layform'><form class='layui-form' id='reform'><div class='layui-form-item'><label class='layui-form-label'>联系人</label><div class='layui-input-block'><input type='text' name='title' lay-verify='title' autocomplete='off' placeholder='请输入姓名' class='layui-input'></div></div><div class='layui-form-item'><label class='layui-form-label'>手机号</label><div class='layui-input-block'><input type='text' name='phone' lay-verify='phone' autocomplete='off' placeholder='请输入手机号' class='layui-input'></div></div></form></div>"
+        content: "<div id='layform'><form class='layui-form' id='reform'><div class='layui-form-item'><label class='layui-form-label'>联系人</label><div class='layui-input-block'><input type='text' name='name' lay-verify='title' autocomplete='off' placeholder='请输入姓名' class='layui-input'></div></div><div class='layui-form-item'><label class='layui-form-label'>手机号</label><div class='layui-input-block'><input type='text' name='phone' lay-verify='phone' autocomplete='off' placeholder='请输入手机号' class='layui-input'></div></div></form></div>"
         ,btn: ['提交', '关闭']
         ,btnAlign: 'c' //按钮居中
         ,shade: 0 //不显示遮罩
         ,yes:function(index){	
 			 var date = $("#reform").serialize();
-			 alert(date);
-        	update_state(ele_id,2);
+			 
+			 update_state_two(ele_id,2,date);
 //        	layer.close(index);
         	
         	/*$.ajax({
@@ -211,6 +211,23 @@ function doube(ele_id)
 				update_state(ele_id,3);
 			}
 		});
+}
+//餐桌状态修改
+function update_state_two(id, index,datas)
+{
+	  $.ajax({
+	       type:"post",
+	       url:"main_state?id="+id+"&index="+index+"&"+datas,
+	       dataType:"json",
+	      
+	       cache:false,
+	       async: false,
+	       success:function(date){
+	    	   layer.msg(date.msg,{icon:6});
+	    	   tableShow();
+	       }
+	  });
+	
 }
 //餐桌状态修改
 function update_state(id, index)
@@ -312,7 +329,7 @@ function orderShow(tableid)
        cache:false,
        async: false,
        success:function(date){
-//    	   alert("123");
+    	   console.log(date);
     	       var state = date.status;
     	       if(state == 0){
     	    	  var inner = "未结算";
@@ -378,7 +395,7 @@ function orderShow(tableid)
 					"</div>"+					 
 					"<div class='right-middle-bottom-pay'>"+
 						"<div class=''><p class='mebNum'>"+"结账状况"+"</p><p class='title mebTitle'>"+inner+"</p></div>"+								
-						"<button type='button' id='pay' class='mui-btn mui-btn-warning' onclick='pay()'>结算</button>"+
+						"<button type='button' id='pay' class='mui-btn mui-btn-warning' onclick='pay("+date.number+",+"+date.houseid+")'>结算</button>"+
 					"</div>"+
 				"</div>"+				 						
 			"</div>";
@@ -394,82 +411,67 @@ function orderShow(tableid)
 	}
 }
 //结算页面
-function pay(){
-  	var index = layer.open({
-				type: 1,
-				shade: false,
-				btn:['支付','取消'],
-				btnAlign:'c',
-				// offset:'t',   //弹出框位置
-				closeBtn:1,      //按钮位置
-                anim: 1,         //弹窗弹出动画
-                maxmin:true,
-                fixed:true,
-				skin: 'layui-layer-molv', //加上边框
-				area: ['500px', '400px'], //宽高
-				content: $("#layform1"),   //引入html内容
-				yes:function(index,layero){
-					// var num = $('#selectBox option:checked').val();					 
-					 // alert(num);                    
-                    layer.close(index);
-//                    layer.msg('支付成功',{icon:6});
-                    if(1==0){                    	
-                    	layer.confirm('是否打印订单？', {
-                    		btn:['打印','关闭'],
-                    		skin: 'layui-layer-molv',
-                    		btnAlign: 'c',
-                    		}, 
-                    		function(){
-                    		  layer.msg('打印', {icon: 1});
-                    		}, 
-                    		function(){
-                    		  layer.msg('支付关闭', {});
-                    	});
-                    }else{
-                    	layer.confirm('返回重新选择支付方式？', {
-                    		btn:['返回','关闭'],
-                    		skin: 'layui-layer-molv',
-                    		btnAlign: 'c',
-                    		}, 
-                    		function(index,layero){
-//                    		  layer.msg('返回', {icon: 1});
-                    			layer.close(index);
-                    			pay();
-                    		}, 
-                    		function(){
-                    		  layer.msg('支付关闭', {});
-                    	});
-                    }
-                    /*layer.open({
-                    	type: 1,
-                		shade: false,
-                		btn:['确定','返回','关闭'],
-                		btnAlign:'c',
-                		// offset:'t',   //弹出框位置
-                		closeBtn:1,      //按钮位置
-                        anim: 1,         //弹窗弹出动画
-                        maxmin:true,
-                        fixed:true,
-                		skin: 'layui-layer-molv', //加上边框
-                		area: ['500px', '400px'], //宽高
-                		content: "<div>123</div>",   //引入html内容
-                		yes:function(index,layero){			 
-                            layer.msg('确定',{icon:6});
-                            layer.close(index);
-                		},
-                		btn1:function(index,layero){
-                           
-                		},
-                		btn2:function(index,layero){
-                			//返回重新选择支付方式
-                			pay();
-                		}
-                    })*/
-				},
-				btn2:function(index,layero){
-                   
-				}
-			});
+function pay(number,table){
+	
+	$.ajax({
+	       type:"post",
+	       url:"main_number?number="+number+"&id="+table,
+	       dataType:"json",
+	       cache:false,
+	       async: false,
+	       success:function(d){
+	    	   console.log(d);
+	    		var index = layer.open({
+					type: 1,
+					shade: false,
+					btn:['支付','取消'],
+					btnAlign:'c',
+					// offset:'t',   //弹出框位置
+					closeBtn:1,      //按钮位置
+	                anim: 1,         //弹窗弹出动画
+	                maxmin:true,
+	                fixed:true,
+					skin: 'layui-layer-molv', //加上边框
+					area: ['500px', '400px'], //宽高
+					content: $("#layform1"),   //引入html内容
+					yes:function(index,layero){
+	                    layer.close(index);
+	                    if(1==0){                    	
+	                    	layer.confirm('是否打印订单？', {
+	                    		btn:['打印','关闭'],
+	                    		skin: 'layui-layer-molv',
+	                    		btnAlign: 'c',
+	                    		}, 
+	                    		function(){
+	                    		  layer.msg('打印', {icon: 1});
+	                    		}, 
+	                    		function(){
+	                    		  layer.msg('支付关闭', {});
+	                    	});
+	                    }else{
+	                    	layer.confirm('返回重新选择支付方式？', {
+	                    		btn:['返回','关闭'],
+	                    		skin: 'layui-layer-molv',
+	                    		btnAlign: 'c',
+	                    		}, 
+	                    		function(index,layero){
+//	                    		  layer.msg('返回', {icon: 1});
+	                    			layer.close(index);
+	                    			pay();
+	                    		}, 
+	                    		function(){
+	                    		  layer.msg('支付关闭', {});
+	                    	});
+	                    }
+	               
+					},
+					btn2:function(index,layero){
+					}
+				});
+	       }
+	
+	})
+  
 }
  
 //商品种类列表
