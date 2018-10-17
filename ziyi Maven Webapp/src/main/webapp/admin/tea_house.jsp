@@ -29,7 +29,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</a>
 			</blockquote>
 			<fieldset class="layui-elem-field">
-			
 				<legend>桌位列表</legend>
 				<div class="layui-field-box">
 					<table class="site-table table-hover">
@@ -45,7 +44,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<c:forEach var="i" items="${list}">
 									<tr>
 										<td>${i.housename}</td>
-										<td>${i.status}</td>
+										<c:if test="${i.status == 0}">
+											<td>空闲</td>
+										</c:if>
+										<c:if test="${i.status == 1}">
+											<td>占用</td>
+										</c:if>
+										<c:if test="${i.status == 2}">
+											<td>预约</td>
+										</c:if>
+										<c:if test="${i.status == 3}">
+											<td>其他</td>
+										</c:if>
 										<td>${i.position}</td>
 										<td>
 										<a href="javascript:update('teahouse','${i.houseid }');" class="layui-btn layui-btn-mini">编辑</a>
@@ -59,14 +69,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 			</fieldset>
 		</div>
-<!-- 			<td> -->
-<!-- 									<a href="/detail-1" target="_blank" class="layui-btn layui-btn-normal layui-btn-mini">预览</a> -->
-<!-- 									<a href="/manage/article_edit_1" class="layui-btn layui-btn-mini">编辑</a> -->
-<!-- 									<a href="javascript:;" data-id="1" data-opt="del" class="layui-btn layui-btn-danger layui-btn-mini">删除</a> -->
-<!-- 								</td> -->
-	
-		<script type="text/javascript" src="http://res.layui.com/layui/release/layer/dist/layer.js?v=3111"></script>
-		<!-- <script type="text/javascript" src="icheck/icheck.js"></script> -->
+
 		<script type="text/javascript" src="plugins/layui/layui.js"></script>
 		<script type="text/javascript" src="js/chen.js"></script>
 			<script>

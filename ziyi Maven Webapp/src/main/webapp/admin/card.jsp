@@ -58,7 +58,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										<c:forEach var="c" items="${card_type}">
 											<c:if test="${c.ctid==i.ctid }">
 											<td>${c.cardtype}</td>
-										<td>${c.rebate}</td>
+									    	<td>${c.rebate}</td>
 											</c:if>
 										</c:forEach>
 										<td>${i.name}</td>

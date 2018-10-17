@@ -34,6 +34,20 @@ var navs = [{
 	}]
 },
 {
+	"title": "报表",
+	"icon": "fa-cogs",
+	"spread": false,
+	"children": [{
+		"title": "营业额",
+		"icon": "fa-table",
+		"href": "admin_sellingtype"
+	}, {
+		"title": "商品列表",
+		"icon": "fa-navicon",
+		"href": "admin_selling"
+	}]
+},
+{
 	"title": "位置管理",
 	"icon": "fa-stop-circle",
 	"href": "admin_teahouse",

@@ -66,6 +66,7 @@ public class MainServlet extends ActionSupport{
 		if(index.equals("1"))
 		{
 			create();
+			Common.TOOLS.return_map_object(bool, config.XIU_USER_RIGHT_MSG, config.XIU_USER_ERROR_MSG);
 		}
 		else if (index.equals("2"))
 		{
@@ -74,9 +75,10 @@ public class MainServlet extends ActionSupport{
 			yy.setName(name);
 			yy.setPhone(phone);
 			yy.setState(0);
-			yy.setTid(new Integer(index));
+			yy.setTid(new Integer(id));
 			yy.setTime(Common.df.format(new Date()));
 			yu.insert_yuyue(yy);
+			Common.TOOLS.return_map_object(bool, config.YUDING_TRUE, config.YUDING_FLASE);
 		}
 		else
 		{  
@@ -88,9 +90,9 @@ public class MainServlet extends ActionSupport{
 				System.out.println("状态不在");
 			}
 			//3其他
+			Common.TOOLS.return_map_object(bool, config.XIU_USER_RIGHT_MSG, config.XIU_USER_ERROR_MSG);
 		}
 		
-		Common.TOOLS.return_map_object(bool, config.XIU_USER_RIGHT_MSG, config.XIU_USER_ERROR_MSG);
 		return "json";
 		
 	}
@@ -115,6 +117,7 @@ public class MainServlet extends ActionSupport{
 			map.put("number", order.getNumber());
 			map.put("ordertime", order.getOrdertime());
 			map.put("price", order.getPrice());
+			map.put("houseid",order.getHouseid());
 			map.put("status", order.getStatus());
 			Users user = (Users) ActionContext.getContext().getSession().get("user");
 			if(user.getUserrole().equals("3"))
@@ -122,7 +125,7 @@ public class MainServlet extends ActionSupport{
 			else
 				map.put("bool", true);
 			map.put("table", Common.HOUSE.select_House_id(new Integer(id)).getHousename());
-			
+			   
 			List<Order_list> order_list = Common.OLD.select_number_order(order.getOrderid());
 			if(order_list != null)
 			{
@@ -165,6 +168,58 @@ public class MainServlet extends ActionSupport{
 		List<Selling_list> list = Common.SLD.select_selling_type(a);
 //		System.out.println(list.size());
 		Common.TOOLS.return_object(new Gson().toJson(list));
+		return "json";
+	}
+	
+	/**
+	 * 根据订单编号 查询订单下商品
+	 * @return
+	 */
+	public String number()
+	{
+		Map<String,Object> map = new HashMap<String , Object>();
+		if(number != null)
+		{
+			//根据编号查询订单信息
+			Order list = Common.ORDER.select_number_order(number);
+			if(list != null)
+			{
+				//根据订单信息，查询订单详情
+//				List<Order_list> list_order = Common.OLD.select_number_order(list.getOrderid());
+				
+				map.put("number", list.getNumber());
+				map.put("ordertime", list.getOrdertime());
+				map.put("price", list.getPrice());
+				map.put("status", list.getStatus());
+				Users user = (Users) ActionContext.getContext().getSession().get("user");
+				if(user.getUserrole().equals("3"))
+					map.put("bool", false);
+				else
+					map.put("bool", true);
+				map.put("table", Common.HOUSE.select_House_id(new Integer(id)).getHousename());
+				
+				List<Order_list> order_list = Common.OLD.select_number_order(list.getOrderid());
+				if(order_list != null)
+				{
+					List<Selling_list> selling_list = new ArrayList<Selling_list>();
+					for (Order_list se : order_list) {
+						Selling_list sl = Common.SLD.selecct_id_list(se.getSellingid());
+						sl.setNumber(se.getNumber());
+						selling_list.add(sl);
+					}
+					
+					map.put("sel", selling_list);
+				}
+				
+			}
+			else
+			{
+				map.put("state", false);
+				map.put("msg", config.NUMBER_NULL);
+			}
+			Common.TOOLS.return_object(new Gson().toJson(map));
+		}
+		
 		return "json";
 	}
 	
