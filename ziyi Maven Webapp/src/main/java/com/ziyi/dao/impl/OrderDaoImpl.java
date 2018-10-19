@@ -6,6 +6,7 @@ import com.cyb.util.Common;
 import com.cyb.util.Util;
 import com.ziyi.dao.OrderDao;
 import com.ziyi.pojo.Order;
+import com.ziyi.pojo.Selling_list;
 
 
 public class OrderDaoImpl implements OrderDao{
@@ -98,6 +99,12 @@ public class OrderDaoImpl implements OrderDao{
 	
 	public List<Order> select_YhOrder(String sql) {
 		// TODO Auto-generated method stub
+		return null;
+	}
+	public Selling_list select_xubei_order(String number) {
+		List<Selling_list> list = Common.UTIL.query("select * from t_selling_list where sellingid in (select sellingid from t_order_list where  orderid in (select orderid from t_order where number='"+number+"')) and typeid=1 ORDER BY price desc", null, Selling_list.class);
+		if(list.size()>0&&list!=null)
+			return list.get(0);
 		return null;
 	}
 

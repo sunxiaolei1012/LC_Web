@@ -105,7 +105,14 @@ public interface Selling_listDao {
 	
 	
 	
-	
+		/**
+		 * 用来处理商品价钱
+		 * @param price
+		 * @param in
+		 * @return
+		 */
+		public List<Selling_list> select_price_jusl(double price , String in);
+
 	
 
 }

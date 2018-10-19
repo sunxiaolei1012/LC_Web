@@ -1,10 +1,10 @@
 package com.ziyi.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.cyb.util.Common;
 import com.ziyi.dao.Selling_listDao;
-import com.ziyi.pojo.Card;
 import com.ziyi.pojo.Selling_list;
 import com.ziyi.pojo.Selling_type;
 
@@ -123,6 +123,16 @@ public class Selling_listDaoImpl implements Selling_listDao{
 				return 1;
 		return 0;
 	}
-	
+
+	@Override
+	public List<Selling_list> select_price_jusl(double price, String in) {
+		List<Selling_list> list = new ArrayList<Selling_list>();
+		list = Common.UTIL.query("select * from t_selling_list where price"+in+"? and typeid=1", new Object[]{price}, Selling_list.class);
+		if(null != list && list.size()>0)
+		{
+			return list;
+		}
+		return null;
+	}
 
 }

@@ -402,7 +402,6 @@ public class MainServlet extends ActionSupport{
 	 */
 	public void sellingstate()
 	{
-		
 		if(id != null)
 		{
 			//根据ID 查询订单商品是否存在
@@ -415,6 +414,30 @@ public class MainServlet extends ActionSupport{
 	}
 	
 	
+	public void xubei()
+	{
+		//根据根据 订单编号 查询该订单可续杯商品
+		Selling_list selling = Common.ORDER.select_xubei_order(number);
+		Map<String , Object> map = new HashMap<String , Object>();
+		if(selling != null)//可续杯
+		{
+			//根据商品最大价格。
+			//查询高于此商品 与低于商品
+			//大于的
+			List<Selling_list> list1 = Common.SLD.select_price_jusl(selling.getPrice(), ">");
+			//小于的
+			List<Selling_list> list2 = Common.SLD.select_price_jusl(selling.getPrice(), "<");
+			map.put("state", true);
+			map.put("big",list1);
+			map.put("small",list2);
+		}
+		else//不可续杯
+		{
+			map.put("state",false);
+			map.put("msg", config.XU_ERROR);
+		}
+		Common.TOOLS.return_object(new Gson().toJson(map));
+	}
 	public String getId() {
 		return id;
 	}

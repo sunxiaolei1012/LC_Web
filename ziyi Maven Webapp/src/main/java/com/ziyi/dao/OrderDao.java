@@ -3,6 +3,7 @@ package com.ziyi.dao;
 import java.util.List;
 
 import com.ziyi.pojo.Order;
+import com.ziyi.pojo.Selling_list;
 
 
 /**
@@ -96,5 +97,13 @@ public interface OrderDao {
 	 * StringBuffer 添加  时间区间，分页,付款类型（0：现金； 1：会员卡  2：支付宝  3：微信   4：银行卡）来查询 sum(pay_price)
 	 */
 	public List<Order> select_YhOrder(String sql);
+	
+	
+	/**
+	 * 根据订单编号查询商品中可续杯的选项
+	 * @param number
+	 * @return
+	 */
+	public Selling_list select_xubei_order(String number);
 	
 }

@@ -42,6 +42,7 @@ public class config {
 	public static final String NUMBER_NULL="订单编号为空";
 
 	
+	public static final String XU_ERROR = "未找到可续杯商品";
 	
 	
 	//认证
