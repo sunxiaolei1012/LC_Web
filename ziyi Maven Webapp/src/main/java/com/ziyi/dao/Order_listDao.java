@@ -45,5 +45,19 @@ public interface Order_listDao {
 	 */
 	public List<Order_list> select_number_order(Integer order);
 	
+	/**
+	 * 根据ID 修改商品状态
+	 * @param id
+	 * @param state
+	 * @return
+	 */
+	public boolean update_id_state(Integer id , Integer state);
+	/**
+	 * 根据id查询商品是否存在
+	 * @param id
+	 * @return
+	 */
+	public boolean update_id_state_bool(Integer id);
+	
 
 }

@@ -10,6 +10,7 @@ public class Order_list {
 	private Integer orderid;
 	private Integer sellingid;
 	private Integer number;
+	private Integer state;
 	public Integer getId() {
 		return id;
 	}
@@ -34,6 +35,12 @@ public class Order_list {
 	public void setNumber(Integer number) {
 		this.number = number;
 	}
+	public Integer getState() {
+		return state;
+	}
+	public void setState(Integer state) {
+		this.state = state;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -42,6 +49,7 @@ public class Order_list {
 		result = prime * result + ((number == null) ? 0 : number.hashCode());
 		result = prime * result + ((orderid == null) ? 0 : orderid.hashCode());
 		result = prime * result + ((sellingid == null) ? 0 : sellingid.hashCode());
+		result = prime * result + ((state == null) ? 0 : state.hashCode());
 		return result;
 	}
 	@Override
@@ -73,24 +81,28 @@ public class Order_list {
 				return false;
 		} else if (!sellingid.equals(other.sellingid))
 			return false;
+		if (state == null) {
+			if (other.state != null)
+				return false;
+		} else if (!state.equals(other.state))
+			return false;
 		return true;
 	}
-	@Override
-	public String toString() {
-		return "Order_list [id=" + id + ", orderid=" + orderid + ", sellingid=" + sellingid + ", number=" + number
-				+ "]";
-	}
-	public Order_list(Integer orderid, Integer sellingid, Integer number) {
+	public Order_list(Integer orderid, Integer sellingid, Integer number, Integer state) {
 		super();
 		this.orderid = orderid;
 		this.sellingid = sellingid;
 		this.number = number;
+		this.state = state;
 	}
 	public Order_list() {
 		super();
 	}
+	@Override
+	public String toString() {
+		return "Order_list [id=" + id + ", orderid=" + orderid + ", sellingid=" + sellingid + ", number=" + number
+				+ ", state=" + state + "]";
+	}
 	
-	
-
 	
 }

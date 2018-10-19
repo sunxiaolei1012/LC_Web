@@ -375,9 +375,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	flex-direction: row;
 	justify-content: flex-start;	 
 }
-#layform1 .layui-input-block{
-    width:55%;
-} 
+ 
 .crashcard button{
 	margin-left: 1%;
 	width: 60px;
@@ -398,9 +396,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 #rebategs{
     border-bottom:3px solid rgba(107,162,208,1);
 }
-#mebrebate{
-  display:none;
-}
 </style>
    <!-- 支付窗口 -->
 	<div id='layform1' style='display:none;'>
@@ -417,42 +412,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				        <option value='3' name='member'>会员卡</option>
 				      </select>
 			    </div>			    	
-			</div>
-			<div class="crashcard">
-				<div class="cardbox">
-				    <button type="button" id="card" class="mui-btn mui-btn-warning">刷卡</button>
-					<div class="layui-form-item" style='width:100%;'>
-					    <div class="layui-input-block" style="margin-left:48px;width:63%;">
-					      <input type="text" class="meberNum" class="layui-input">
-					    </div>
-					</div>												
-				</div>
-			</div>	
-		    <div class='layui-form-item' id='mebrebate'>
-			    <label class='layui-form-label' style='padding-left:0;'>是否打折</label>
-			    <div class='layui-input-block'>
-				      <select id="selectBox1" lay-filter='paybox1'>
-				        <!-- <option value=''></option> -->
-				        <option value='0' name='ndis'>不打折</option>
-				        <option value='1' name='ydis'>打折</option>
-				      </select>
-			    </div>			    	
-			</div>
-			<div class='discounts'>
-	           <div class="layui-form-item">
-				    <label class="layui-form-label">折扣率</label>
-				    <div class="layui-input-block">
-				      <input type="text" id="disnum" name="title" placeholder="请输入折扣率" class="layui-input">
-				    </div>
-			   </div>        
-	           <div class="layui-form-item layui-form-text">
-				    <label class="layui-form-label" style='padding-left:0;'>折扣说明</label>
-				    <div class="layui-input-block">
-				      <textarea placeholder="请输入内容" class="layui-textarea"></textarea>
-				    </div>
-			   </div>
-	        </div>			 		 
+			</div>			 		 
 		</form>
+		<div class="crashcard">
+			<div class="cardbox">
+			    <button type="button" id="card" class="mui-btn mui-btn-warning">刷卡</button>
+				<div class="layui-form-item" style='width:100%;'>
+				    <div class="layui-input-block" style="margin-left:45px;">
+				      <input type="text" class="meberNum" class="layui-input">
+				    </div>
+				</div>												
+			</div>
+		</div>
+		
+        <div class='discounts'>
+           <div class="layui-form-item">
+			    <label class="layui-form-label">折扣率</label>
+			    <div class="layui-input-block">
+			      <input type="text" id="disnum" name="title" placeholder="请输入折扣率" class="layui-input">
+			    </div>
+		   </div>        
+           <div class="layui-form-item layui-form-text">
+			    <label class="layui-form-label">折扣说明</label>
+			    <div class="layui-input-block">
+			      <textarea placeholder="请输入内容" class="layui-textarea"></textarea>
+			    </div>
+		   </div>
+        </div>
         
 		<div class="right-middle-middle">
 			<ul class="mui-table-view goodslists" id="goodslists">			  
@@ -485,29 +471,71 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!-- start continue -->
 	<div id="regoods" style="display: none;">
 		<div class="regoodlist">
-			<!-- start high -->		     		    	
-               <div class="mui-table-view-list" id="rebategs">
-			<!-- goodslist --> 
-               </div>		     
-               <!-- end high -->               
-               <!-- start low -->
-               <div class="mui-table-view-list" id="rebategs1">
-				<div class="mui-card pattern-list">				 
-					<div class="mui-card-header">
-						<img class="w100" src="images/goods.png"/>
-					</div>
-					<div class="mui-card-content">
-						<div class="mui-card-content-inner" >
-							<p>碧螺春</p>
+				<!-- start item1 -->		     
+		    	<!-- start -->
+                <div class="mui-table-view-list" id="rebategs">
+					<!-- <div class="mui-card pattern-list">				 
+						<div class="mui-card-header">
+							<img class="w100" src="images/goods.png"/>
 						</div>
-					</div>
-					<div class="pattern-list__p" style="">
-						<p class="font-color-pink">￥<label>128</label></p>
-						<p class="font-color-gray"><a href="#"><span class="iconfont icon-tianjia"></span></a></p>
-					</div>				
-	            </div>		          		             
-               </div>
-               <!-- end low -->
+						<div class="mui-card-content">
+							<div class="mui-card-content-inner" >
+								<p>碧螺春</p>
+							</div>
+						</div>
+						<div class="pattern-list__p">
+							<p class="font-color-pink">￥<label>128</label></p>
+							<p class="font-color-gray"><a href="#"><span class="iconfont icon-tianjia"></span></a></p>
+						</div>				
+		            </div>
+		            <div class="mui-card pattern-list">				 
+						<div class="mui-card-header">
+							<img class="w100" src="images/goods.png"/>
+						</div>
+						<div class="mui-card-content">
+							<div class="mui-card-content-inner" >
+								<p>碧螺春</p>
+							</div>
+						</div>
+						<div class="pattern-list__p">
+							<p class="font-color-pink">￥<label>128</label></p>
+							<p class="font-color-gray"><a href="#"><span class="iconfont icon-tianjia"></span></a></p>
+						</div>				
+		            </div>
+		            <div class="mui-card pattern-list">				 
+						<div class="mui-card-header">
+							<img class="w100" src="images/goods.png"/>
+						</div>
+						<div class="mui-card-content">
+							<div class="mui-card-content-inner" >
+								<p>碧螺春</p>
+							</div>
+						</div>
+						<div class="pattern-list__p">
+							<p class="font-color-pink">￥<label>128</label></p>
+							<p class="font-color-gray"><a href="#"><span class="iconfont icon-tianjia"></span></a></p>
+						</div>				
+		            </div>		 -->             
+                </div>		     
+                <!-- end item1 -->               
+                <!-- start low -->
+                <div class="mui-table-view-list" id="rebategs1">
+					<div class="mui-card pattern-list">				 
+						<div class="mui-card-header">
+							<img class="w100" src="images/goods.png"/>
+						</div>
+						<div class="mui-card-content">
+							<div class="mui-card-content-inner" >
+								<p>碧螺春</p>
+							</div>
+						</div>
+						<div class="pattern-list__p" style="">
+							<p class="font-color-pink">￥<label>128</label></p>
+							<p class="font-color-gray"><a href="#"><span class="iconfont icon-tianjia"></span></a></p>
+						</div>				
+		            </div>		          		             
+                </div>
+                <!-- end low -->
 	    </div>
 	</div>
 	<!-- end continue -->
@@ -527,17 +555,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		  form.on('select(paybox)', function(data){
 			  if(data.value=='3'){
 	           $('.crashcard').css('display','block');
-	      	  }else{
+	      	}else{
 	      		$('.crashcard').css('display','none');
-	      	  }			  
-		  });
-          form.on('select(paybox1)', function(data){
-			  if(data.value=='1'){
-	           $('.discounts').css('display','block');
-	      	  }else{
-	      		$('.discounts').css('display','none');
-	      	  }			  
-		  });
+	      	}			  
+		});
+
        });
 
 		$(document).ready(function(){
@@ -554,14 +576,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             //商品种类
             category();	
             $('#disnum').blur(function(){
-                var dis = $('#disnum').val();
-                var reg = /^(-?\d+)(\.\d+)?$/;
-                if(!reg.test(dis)||(dis>1||dis<0)){
-                   layer.tips('折扣率输入错误（折扣率在0~1之间，如0.8，不打折输入1）', '#disnum', {
-					  tips: [3, 'red'],time:3000
-				   });
-                }	                
-	        });	
+	                var dis = $('#disnum').val();
+	                var reg = /^(-?\d+)(\.\d+)?$/;
+	                if(!reg.test(dis)||(dis>1||dis<0)){
+	                   layer.tips('折扣率输入错误（折扣率在0~1之间，如0.8，不打折输入0）', '#disnum', {
+						  tips: [3, 'red']
+					   });
+	                }
+	                $('#disnum').focus();
+	       });	
         });
 		mui('.mui-scroll-wrapper').scroll({
 			 scrollY: true, //是否竖向滚动

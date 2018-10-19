@@ -133,6 +133,8 @@ public class MainServlet extends ActionSupport{
 				for (Order_list se : order_list) {
 					Selling_list sl = Common.SLD.selecct_id_list(se.getSellingid());
 					sl.setNumber(se.getNumber());
+					sl.setUserid(se.getState());
+					sl.setTypeid(se.getId());
 					selling_list.add(sl);
 				}
 				
@@ -192,7 +194,7 @@ public class MainServlet extends ActionSupport{
 				map.put("price", list.getPrice());
 				map.put("status", list.getStatus());
 				Users user = (Users) ActionContext.getContext().getSession().get("user");
-				if(user.getUserrole().equals("3"))
+				if(user.getUserrole().equals("2"))
 					map.put("bool", false);
 				else
 					map.put("bool", true);
@@ -264,6 +266,7 @@ public class MainServlet extends ActionSupport{
 						ol.setOrderid(order.getOrderid());
 						ol.setSellingid(goods);
 						ol.setNumber(1);
+						ol.setState(0);
 						bools = Common.OLD.insert_order_list(ol);
 					}
 					
@@ -295,8 +298,6 @@ public class MainServlet extends ActionSupport{
 		
 		return "json";
 	}
-	
-	
 	/**
 	 * 创建订单
 	 * @return
@@ -395,8 +396,23 @@ public class MainServlet extends ActionSupport{
 		}
 	}
 	
-	
-	
+	/**
+	 * 修改订单商品 是否已上
+	 * @return
+	 */
+	public void sellingstate()
+	{
+		
+		if(id != null)
+		{
+			//根据ID 查询订单商品是否存在
+			boolean bool = Common.OLD.update_id_state_bool(new Integer(id));
+			if(bool)
+			{
+				Common.OLD.update_id_state(new Integer(id), 1);
+			}
+		}
+	}
 	
 	
 	public String getId() {

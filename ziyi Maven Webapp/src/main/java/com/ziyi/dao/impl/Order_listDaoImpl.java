@@ -11,7 +11,7 @@ import com.ziyi.pojo.Order_list;
 public class Order_listDaoImpl implements Order_listDao{
 
 	public boolean insert_order_list(Order_list ol) {
-		int a = Common.UTIL.getRes("insert into t_order_list values(null , ? ,? ,?)", new Object[]{ol.getOrderid() , ol.getSellingid() , ol.getNumber()});
+		int a = Common.UTIL.getRes("insert into t_order_list values(null , ? ,? ,?,?)", new Object[]{ol.getOrderid() , ol.getSellingid() , ol.getNumber(),ol.getState()});
 		return a>0?true:false;
 	}
 
@@ -47,6 +47,20 @@ public class Order_listDaoImpl implements Order_listDao{
 		if(null != list && list.size()>0)
 			return list;
 		return null;
+	}
+
+	@Override
+	public boolean update_id_state(Integer id, Integer state) {
+		int a = Util.getRes("update t_order_list set state=? where id=?", new Object[]{state , id});
+		return a>0?true:false;
+	}
+
+	@Override
+	public boolean update_id_state_bool(Integer id) {
+		List<Order_list> list = Common.UTIL.query("select * from t_order_list where id=?", new Object[]{id}, Order_list.class);
+		if(null != list && list.size()>0)
+			return true;
+		return false;
 	}
 
 }

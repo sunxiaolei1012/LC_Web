@@ -81,8 +81,46 @@ function save(func,cmd)
    });
 
 }
-
-
+//时间显示
+function getTime(){
+    var datetime = new Date();
+    var year = datetime.getFullYear();
+    var month = datetime.getMonth()+1;
+    var day = datetime.getDate();
+    var hour = datetime.getHours();
+    var minute = datetime.getMinutes();
+    var second = datetime.getSeconds();
+    var myxingqi=datetime.getDay() 
+    var b=new Array("星期日","星期一","星期二","星期三","星期四","星期五","星期六"); 
+    hour = toLow(hour);
+    minute = toLow(minute);
+    second = toLow(second);
+    var inner = year + '年' + month + '月' + day + '日' + ' ' + b[myxingqi];
+    var time = hour + ':' + minute;
+    // getElementsByClassName()获得的是一个数组，若要设置其中元素内容，要设置下标
+    document.getElementsByClassName("timeHour")[0].innerHTML = time;
+    document.getElementsByClassName("timeYear")[0].innerHTML = inner;
+}
+function toLow(n){			  	 
+  	return n<10 ? '0'+n : n;
+}
+//总金额显示
+function priceAll(){
+     $.ajax({
+	       type:"post",
+	       url:"main_price",
+	       dataType:"json",
+	       cache:false,
+	       async: false,
+	       success:function(d){
+	              console.log(d.price);	    	
+	    	      $("#priceAll").text(d.price);				    	     			
+	       }
+	   
+	   });
+}
+//修改餐桌按钮颜色
+//num:餐桌状态(0 1 2 3)
 function cs_s(num)
 {
 	var c = "";
@@ -98,6 +136,7 @@ function cs_s(num)
 }
 
 //桌子按钮单击事件
+//cl_id:餐桌id  sta:餐桌状态
 var timenull = null;
 function clc(cl_id , sta)
 {
@@ -114,6 +153,7 @@ function clc(cl_id , sta)
 		}
 		else if(sta == 2)
 			{
+			//预定状态显示预定信息
 			yuding_show(cl_id);
 //			layer.msg('该桌号预约',{icon:6});
 			}
@@ -124,7 +164,8 @@ function clc(cl_id , sta)
 		
 	}, 300);
 }
-
+//预定信息显示
+//cl_id:餐桌id
 function yuding_show(cl_id)
 {
 	  $.ajax({
@@ -147,6 +188,8 @@ function yuding_show(cl_id)
 	  });
 	
 }
+//预定弹窗
+//ele_id:桌子id
 function yuding(ele_id)
 {
 	layer.open({
@@ -156,11 +199,11 @@ function yuding(ele_id)
         ,btnAlign: 'c' //按钮居中
         ,shade: 0 //不显示遮罩
         ,yes:function(index){	
-			 var date = $("#reform").serialize();
-			 
+			 var date = $("#reform").serialize();	
+			 //提交表单信息以及餐桌id和预定状态
+			 console.log(date);
 			 update_state_two(ele_id,2,date);
-//        	layer.close(index);
-        	
+//        	 layer.close(index);        	
         	/*$.ajax({
         	       type:"post",
         	       url:"",
@@ -177,6 +220,7 @@ function yuding(ele_id)
 		
 		btn2:function(){	
 			layer.msg('关闭');
+			//预定关闭返回该餐桌状态修改
 			doube(ele_id);
 		},
 		
@@ -184,13 +228,10 @@ function yuding(ele_id)
 	
 }
 //按钮触发双击事件修改餐桌状态
+//ele_id:桌子id
 function doube(ele_id)
 {
 	clearTimeout(timenull);
-//	console.log("2");
-//	var ele = $(this);
-//	var ele_id = id;
-//	var sta = state;
 	layer.open({
 			title: '修改餐桌状态',
 			// content: '餐桌状态修改',
@@ -199,12 +240,12 @@ function doube(ele_id)
 			btn:['空闲','占用','预定','打扫中'],
 			yes:function(){	
 			    update_state(ele_id,0);
-			},
-			
+			},			
 			btn2:function(){				
                 update_state(ele_id,1);
 			},
 			btn3:function(){
+				//预定信息填写弹窗
 				yuding(ele_id);
 			},
 			btn4:function(){
@@ -212,14 +253,14 @@ function doube(ele_id)
 			}
 		});
 }
-//餐桌状态修改
+//餐桌状态修改（预定）
+//id:餐桌状态  index:餐桌状态   datas:预定表单填写的数据
 function update_state_two(id, index,datas)
 {
 	  $.ajax({
 	       type:"post",
 	       url:"main_state?id="+id+"&index="+index+"&"+datas,
-	       dataType:"json",
-	      
+	       dataType:"json",	      
 	       cache:false,
 	       async: false,
 	       success:function(date){
@@ -230,6 +271,7 @@ function update_state_two(id, index,datas)
 	
 }
 //餐桌状态修改
+//id:餐桌id, index:餐桌状态(0 1 2 3)
 function update_state(id, index)
 {
 	  $.ajax({
@@ -239,25 +281,24 @@ function update_state(id, index)
 	       cache:false,
 	       async: false,
 	       success:function(date){
-	    	   if(index == 2){
+	    	   /*if(index == 2){
 	    		   tableShow();
 //		    	   layer.close(index);	
-	    	   }else if(date.state)
+	    	   }else */
+	    		if(date.state)
 	    		{
 	    		  layer.msg(date.msg,{icon:6});
 	    		  //刷新一次
 	    		  tableShow();
 //	    		  layer.close(index);	    		  
-	    		}
-	    	   else
-	    		   {
+	    		}else{
 	    		   layer.msg(date.msg,{icon:5});
 	    		   }
 	       }
 	  });
 	
 }
-//桌子列表
+//桌子列表length
 function tablebox(){
 	$.ajax({
 	       type:"post",
@@ -287,6 +328,7 @@ function tablebox(){
 	   
 	   });
 }
+//餐桌显示
 function tableShow()
 {
    $.ajax({
@@ -311,13 +353,12 @@ function tableShow()
     	    		posi = pos;	    	 
     	    	 var abtn = "<button id='"+id+"' onclick='clc("+id+","+sta+")' ondblclick='doube("+id+")' class='layui-btn "+cs_s(sta)+"'>"+d[i].housename+"</button>";
     	    	 ele[--pos].innerHTML+=abtn; 
-    	     }
-    	    
-       }
-   
+    	     }    	    
+       }   
    });
 }
 //订单创建显示列表
+//tableid:桌子id
 function orderShow(tableid)
 {
 	if (tableid != undefined)
@@ -329,7 +370,7 @@ function orderShow(tableid)
        cache:false,
        async: false,
        success:function(date){
-    	   console.log(date);
+//    	   console.log(date);
     	       var state = date.status;
     	       if(state == 0){
     	    	  var inner = "未结算";
@@ -378,7 +419,7 @@ function orderShow(tableid)
 								                	"<span class='mui-badge mui-badge-inverted'>"+"<span class='mui-ellipsis mebTitle'>"+"×"+"<label>"+date.sel[i].number+"</label>壶</span>"+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
 								                			"<span class='mui-ellipsis title mebTitle'>"+date.sel[i].price+"</span>" +
 								                					"&nbsp;&nbsp;<span onclick='goodsDel("+date.sel[i].sellingid+")' class='iconfont icon-shanchu'></span>" +
-								                					"<span onclick='goodsAdd("+date.sel[i].sellingid+")' class='iconfont icon-tianjia'></span></span>"+
+								                					"<span style='position:relative;top:2.5px' onclick='goodsAdd("+date.sel[i].sellingid+")' class='iconfont icon-tianjia'></span><span class='mui-badge "+cla_c(0)+"' onclick='goodsta(this,"+date.sel[i].sellingid+")' style='position:relative;top:-1.5px'>未上</span></span>"+
 								                "</p>"+
 								            "</div>"+
 								        "</a>"+
@@ -395,15 +436,15 @@ function orderShow(tableid)
 					"</div>"+					 
 					"<div class='right-middle-bottom-pay'>"+
 						"<div class=''><p class='mebNum'>"+"结账状况"+"</p><p class='title mebTitle'>"+inner+"</p></div>"+								
-						"<button type='button' id='pay' class='mui-btn mui-btn-warning' onclick='pay("+date.number+",+"+date.houseid+")'>结算</button>"+
+						"<button type='button' id='pay' class='mui-btn mui-btn-warning' onclick='pay("+date.number+","+date.houseid+")'>结算</button>"+
 					"</div>"+
 				"</div>"+				 						
 			"</div>";
-             document.getElementById("right-content").innerHTML=ele;
+             document.getElementById("right-content").innerHTML=ele; 
+             console.log(date.bool);
              if(!date.bool){
             	 $('#pay').attr('disabled','disabled');
-             }
-             
+             }            
        }
    
    
@@ -411,20 +452,49 @@ function orderShow(tableid)
 	}
 }
 //结算页面
-function pay(number,table){
-	
+//number:订单号  table:桌子id
+function pay(number,table){	
 	$.ajax({
 	       type:"post",
 	       url:"main_number?number="+number+"&id="+table,
 	       dataType:"json",
 	       cache:false,
 	       async: false,
-	       success:function(d){
-	    	   console.log(d);
+	       success:function(d){	
+	    	   if(d.bool==true){
+	            	 //alert('1');	            	 
+	            	 $('#mebrebate').css('display','block');           	
+	             }else{            	
+	            	 $('#mebrebate').css('display','none');
+	             } 
+	    	   var html = document.getElementById('goodslists');
+	    	   var htmlele='';
+	    	   for(var i = 0;i<d.sel.length;i++){
+	    		   htmlele+='<li class="mui-table-view-cell mui-media">'+
+			        '<a href="javascript:;">'+
+			            '<div class="mui-media-body">'+
+			                '<p class="mui-ellipsis mui-table-view-cell">'+
+			                '<span class="title mebTitle">'+d.sel[i].name+'</span>'+
+			                	'<span class="mui-badge mui-badge-inverted">'+
+			                	'<span class="mui-ellipsis mebTitle">×<label>'+d.sel[i].number+'</label>壶</span>'+
+			                	'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
+			                	'<span class="mui-ellipsis title mebTitle">'+d.sel[i].price+'</span>'+
+			                	/*'&nbsp;&nbsp;<span class="iconfont icon-shanchu"></span>'+
+			                	'<span class="iconfont icon-tianjia"></span>'+*/
+			                '</span>'+
+			                '</p>'+
+			            '</div>'+
+			        '</a>'+
+			    '</li>'
+	    	   }
+	    	   html.innerHTML=htmlele;
+	    	   var summoney = document.getElementById('summoney');
+	    	   summoney.innerHTML=d.price;
 	    		var index = layer.open({
+	    			title:'订单号：'+d.number,
 					type: 1,
 					shade: false,
-					btn:['支付','取消'],
+					btn:['确认支付','取消'],
 					btnAlign:'c',
 					// offset:'t',   //弹出框位置
 					closeBtn:1,      //按钮位置
@@ -444,6 +514,8 @@ function pay(number,table){
 	                    		}, 
 	                    		function(){
 	                    		  layer.msg('打印', {icon: 1});
+	                    		  //支付完成后该餐桌状态更新，该订单删除
+	                    		  //update_state(table,0);
 	                    		}, 
 	                    		function(){
 	                    		  layer.msg('支付关闭', {});
@@ -457,13 +529,12 @@ function pay(number,table){
 	                    		function(index,layero){
 //	                    		  layer.msg('返回', {icon: 1});
 	                    			layer.close(index);
-	                    			pay();
+	                    			pay(number,table);
 	                    		}, 
 	                    		function(){
 	                    		  layer.msg('支付关闭', {});
 	                    	});
-	                    }
-	               
+	                    }	               
 					},
 					btn2:function(index,layero){
 					}
@@ -493,10 +564,8 @@ function category(){
 //                          "<div class='mui-table-view-list'>"+
 //                          goodslist(d[i].type_id);							    	 
 //					    +"</div>";
-	    	      			ele+="<div class='layui-tab-item layui-show'>"+
-					    	  
+	    	      			ele+="<div class='layui-tab-item layui-show'>"+					    	  
                               "<div class='mui-table-view-list'>"+goodslist(d[i].type_id)+"</div>"+"</div>";
-//					    alert("1");
 	    	      		}else{
 	    	      			ulele.append("<li>"+d[i].type_name+"</li>");
 	    	      			ele+="<div class='layui-tab-item'>"+
@@ -507,17 +576,15 @@ function category(){
 			                    "</div>"+
 						    	 
 						    "</div>";
-//						    alert("1");
 	    	      		}	    	      		
 	    	      	}
-//	    	      	$(".layui-tab-content").innerHTML = ele;
 	    	      	tabcon.innerHTML=ele;
-//	    	      	console.log(ele);
 	       }
 	   
 	   });
 }
 //商品列表
+//type_id:商品种类id
 function goodslist(type_id){
 	var eles="";
 	$.ajax({
@@ -543,7 +610,7 @@ function goodslist(type_id){
 								"</div>"+
 								"<div class='pattern-list__p'>"+
 									"<p class='font-color-pink'>￥<label>"+date[i].price+"</label></p>"+
-									"<p class='font-color-gray'><a href='#'><span onclick='rebate()' class='iconfont icon-tianjia'></a></p>"+
+									"<p class='font-color-gray'><a href='#'><span onclick='othrebate()' class='iconfont icon-tianjia'></a></p>"+
 								"</div>"+				
 				            "</div>";
 		    	    	}else{   
@@ -586,12 +653,34 @@ function goodslist(type_id){
 	 return eles;	
 }
 
-//其他商品
-function rebate(){
+//其他商品（续杯，打折）
+function othrebate(){
+//	var ordernum = document.getElementById("orderNum").innerText;
+	var rebox=$("#rebategs");
+	var rebox1=$("#rebategs1");
+	var ele = '';
+	for(var i=0;i<10;i++){
+		ele+='<div class="mui-card pattern-list">'+				 
+				'<div class="mui-card-header">'+	
+					'<img class="w100" src="images/goods.png"/>'+	
+				'</div>'+	
+				'<div class="mui-card-content">'+	
+					'<div class="mui-card-content-inner" >'+	
+						'<p>碧螺春</p>'+	
+					'</div>'+	
+				'</div>'+	
+				'<div class="pattern-list__p">'+	
+					'<p class="font-color-pink">￥<label>128</label></p>'+	
+					'<p class="font-color-gray"><a href="#"><span class="iconfont icon-tianjia"></span></a></p>'+	
+				'</div>'+					
+            '</div>'
+	}
+	rebox.html(ele);
+	
 	layer.open({
 		type: 1,
 		shade: false,
-		btn:['确定','取消'],
+		//btn:['确定','取消'],
 		btnAlign:'c',
 		// offset:'t',   //弹出框位置
 		closeBtn:1,      //按钮位置
@@ -599,19 +688,20 @@ function rebate(){
         maxmin:true,
         fixed:true,
 		skin: 'layui-layer-molv', //加上边框
-		area: ['500px', '400px'], //宽高
-		content: "<div>123</div>",   //引入html内容
-		yes:function(index,layero){			 
-            layer.msg('确定',{icon:6});
+		area: ['400px', '400px'], //宽高
+		content: $("#regoods"),   //引入html内容
+		/*yes:function(index,layero){
+			
             layer.close(index);
 		},
 		btn1:function(index,layero){
            
-		}
+		}*/
 	});
 }
 
-//添加商品
+//添加商品数量
+//id:商品id
 function goodsAdd(id){	
 	var ordernum = document.getElementById("orderNum").innerText;
 //	var tablenum = document.getElementById("tableNum").innerText;
@@ -624,6 +714,7 @@ function goodsAdd(id){
 	       success:function(date){
                 if(date.state == "true"){
                 	layer.msg('商品添加成功',{icon:6});
+                	//date.id:餐桌id
                 	orderShow(date.id);
                 }else{               	 
                 	layer.msg('添加失败',{icon:5});
@@ -634,6 +725,7 @@ function goodsAdd(id){
 	
 }
 //减少商品数量
+//id:商品id
 function goodsDel(id){
 //	ordernum:订单编号，id:商品id
 	var ordernum = document.getElementById("orderNum").innerText;
@@ -653,69 +745,36 @@ function goodsDel(id){
 	       }
 	  });
 }
-
-      
-//
-//       var json = [{'name':'第一个桌子','position':'1','id':'2','state':'0'},
-//       				{'name':'第二个桌子','position':'1','id':'1','state':'1'}，
-//       				{'name':'第三个桌子','position':'1','id':'3','state':'2'}
-//       				{'name':'第4个桌子','position':'2','id':'4','state':'0'}
-//       				{'name':'第五个桌子','position':'2','id':'5','state':'0'}
-//
-//];
-//
-//       if(d.state=="true")
-//       		{
-//       			var posi =d[0].position ;
-//       			for (var i = 0; i < d.length; i++) {
-//       				if(d[i].position == posi)
-//       				{
-//
-//
-//       					li.innerHTML = '<a href="detail.html">'+
-//				            '<img class="mui-media-object mui-pull-left" src="images/goods.png">'+
-//				            '<div class="mui-media-body">'+
-//				            	'<p class="mui-table-view-cell mui-table-view-cell-title">碧螺春 <span class="mui-badge">绿茶类</span></p>'+				                                        				                
-//					                '<p class="mui-ellipsis">中国传统名茶（十大名茶之一）</p>'+
-//					                '<p class="mui-price">价格：<span class="mui-price-hu">78元/壶</span></p>'+
-//					                '<div style="height: 15px;"></div>'+
-//					                '<p class="mui-sale">'+
-//					                	'<span class="mui-date-sale">近期出售128份</span>'+
-//					                	'<span class="mui-table-view-cell">'+
-//					                		'<span class="mui-icon iconfont icon-start1"></span>'+
-//						                	'<span class="mui-icon iconfont icon-start1"></span>'+
-//						                	'<span class="mui-icon iconfont icon-start1"></span>'+
-//						                	'<span class="mui-icon iconfont icon-start1"></span>'+
-//						                	'<span class="mui-icon iconfont icon-banxing"></span>'+'&nbsp;'+'&nbsp;'+
-//						                	'<span class="mui-good" >238好评</span>'+
-//					                	'</span>'+					                	
-//					                '</p>'+				                
-//				           '</div>'+
-//				        '</a>';
-//       					 $(".right-top").css('name',=d[i].name);
-//       					 $(".right-top").css('id',=d[i].id);
-//       					 $(".right-top").css('state',=d[i].state);
-//       				}
-//       				else
-//       				{
-//       					li.innerHTML = '<br/>';
-//       				}
-//       			
-//       				
-//       			}
-//       			
-//       			buttion.name ;
-//       			buttinon.
-//				alert(d.msg);  
-//			 	parent.layer.closeAll();
-//		       	parent.location.reload();
-//       		}
-//       	else
-//       		{
-//       			alert(d.msg);
-//       		}
-//      
-
+//商品上桌状态
+function cla_c(stas){
+	var cla ='';
+	if(stas==0)
+		cla = 'mui-badge-danger';
+	else 
+		cla = 'mui-badge-success';
+	return cla;
+}
+//obj:当前对象   goodid:商品id
+function goodsta(obj,goodid){
+	$(obj).toggleClass('mui-badge-danger');
+	$(obj).toggleClass('mui-badge-success');
+	if($(obj).hasClass('mui-badge-danger')){
+		$(obj).text('未上');
+	}else{
+		$(obj).text('已上');
+	}
+	
+	/*$.ajax({  
+	       type:"post",
+	       url:'',
+	       dataType:"json",
+	       cache:false,
+	       async: false,
+	       success:function(date){
+              
+	       }
+	  });*/
+}
 
 
 
