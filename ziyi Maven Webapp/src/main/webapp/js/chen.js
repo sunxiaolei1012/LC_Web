@@ -372,10 +372,11 @@ function orderShow(tableid)
        success:function(date){
 //    	   console.log(date);
     	       var state = date.status;
+    	       var inner = '';
     	       if(state == 0){
-    	    	  var inner = "未结算";
+    	    	  inner = "未结算";
     	       }else{
-    	    	  var inner = "已结算";
+    	    	  inner = "已结算";
     	       }
 //    	       var right_mid = $("#right-content");
     	       var ele = "";
@@ -412,6 +413,13 @@ function orderShow(tableid)
     	     if(date.sel != undefined)
     	    	 {
 	               for(var i = 0; i<date.sel.length;i++){
+	            	   var goodsta = date.sel[i].userid;
+	            	   var stainner;
+	            	   if(goodsta==0){
+	            		   stainner = '未上';
+	            	   }else{
+	            		   stainner = '已上';
+	            	   }
 	            	   ele +="<li class='mui-table-view-cell mui-media'>"+
 								        "<a href='#'>"+
 								            "<div class='mui-media-body'>"+							               
@@ -419,7 +427,7 @@ function orderShow(tableid)
 								                	"<span class='mui-badge mui-badge-inverted'>"+"<span class='mui-ellipsis mebTitle'>"+"×"+"<label>"+date.sel[i].number+"</label>壶</span>"+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
 								                			"<span class='mui-ellipsis title mebTitle'>"+date.sel[i].price+"</span>" +
 								                					"&nbsp;&nbsp;<span onclick='goodsDel("+date.sel[i].sellingid+")' class='iconfont icon-shanchu'></span>" +
-								                					"<span style='position:relative;top:2.5px' onclick='goodsAdd("+date.sel[i].sellingid+")' class='iconfont icon-tianjia'></span><span class='mui-badge "+cla_c(0)+"' onclick='goodsta(this,"+date.sel[i].sellingid+")' style='position:relative;top:-1.5px'>未上</span></span>"+
+								                					"<span style='position:relative;top:2.5px' onclick='goodsAdd("+date.sel[i].sellingid+")' class='iconfont icon-tianjia'></span><span class='statues mui-badge "+cla_c(goodsta)+"' onclick='goodsta("+date.sel[i].typeid+","+date.houseid+")' style='position:relative;top:-1.5px'>"+stainner+"</span></span>"+
 								                "</p>"+
 								            "</div>"+
 								        "</a>"+
@@ -441,7 +449,7 @@ function orderShow(tableid)
 				"</div>"+				 						
 			"</div>";
              document.getElementById("right-content").innerHTML=ele; 
-             console.log(date.bool);
+//             console.log(date.bool);
              if(!date.bool){
             	 $('#pay').attr('disabled','disabled');
              }            
@@ -598,18 +606,18 @@ function goodslist(type_id){
 	    		   {
 		    	    for(var i = 0;i<date.length;i++){
 		    	    	//其他商品操作
-		    	    	if(date[i].rebate==1){
+		    	    	if(type_id==6){
 		    	    		eles+="<div class='mui-card pattern-list'>"+				 
 							    "<div class='mui-card-header'>"+
 							      "<img class='w100' src='images/goods.png' onclick=''/>"+
 								"</div>"+
-								"<div class='mui-card-content'>"+
+								/*"<div class='mui-card-content'>"+
 									"<div class='mui-card-content-inner'>"+
 										"<p>"+date[i].name+"</p>"+
 									"</div>"+
-								"</div>"+
+								"</div>"+*/
 								"<div class='pattern-list__p'>"+
-									"<p class='font-color-pink'>￥<label>"+date[i].price+"</label></p>"+
+									"<p class=''>续杯茶品</p>"+
 									"<p class='font-color-gray'><a href='#'><span onclick='othrebate()' class='iconfont icon-tianjia'></a></p>"+
 								"</div>"+				
 				            "</div>";
@@ -678,17 +686,18 @@ function othrebate(){
 	rebox.html(ele);
 	
 	layer.open({
+		title:'续杯商品查看',
 		type: 1,
 		shade: false,
 		//btn:['确定','取消'],
-		btnAlign:'c',
+		//btnAlign:'c',
 		// offset:'t',   //弹出框位置
 		closeBtn:1,      //按钮位置
         anim: 1,         //弹窗弹出动画
         maxmin:true,
         fixed:true,
 		skin: 'layui-layer-molv', //加上边框
-		area: ['400px', '400px'], //宽高
+		area: ['700px', '500px'], //宽高
 		content: $("#regoods"),   //引入html内容
 		/*yes:function(index,layero){
 			
@@ -754,26 +763,19 @@ function cla_c(stas){
 		cla = 'mui-badge-success';
 	return cla;
 }
-//obj:当前对象   goodid:商品id
-function goodsta(obj,goodid){
-	$(obj).toggleClass('mui-badge-danger');
-	$(obj).toggleClass('mui-badge-success');
-	if($(obj).hasClass('mui-badge-danger')){
-		$(obj).text('未上');
-	}else{
-		$(obj).text('已上');
-	}
-	
-	/*$.ajax({  
+//obj:当前对象   goodid:商品id  goodsta:typeid tableid:餐桌id
+function goodsta(goodsta,tableid){
+	$.ajax({  
 	       type:"post",
-	       url:'',
+	       url:"main_sellingstate?id="+goodsta,
 	       dataType:"json",
 	       cache:false,
 	       async: false,
 	       success:function(date){
-              
+                 
 	       }
-	  });*/
+	  });
+	orderShow(tableid);
 }
 
 
