@@ -487,25 +487,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="regoodlist">
 			<!-- start high -->		     		    	
                <div class="mui-table-view-list" id="rebategs">
-			<!-- goodslist --> 
+			        <!-- goodslist --> 
                </div>		     
                <!-- end high -->               
                <!-- start low -->
                <div class="mui-table-view-list" id="rebategs1">
-				<div class="mui-card pattern-list">				 
-					<div class="mui-card-header">
-						<img class="w100" src="images/goods.png"/>
-					</div>
-					<div class="mui-card-content">
-						<div class="mui-card-content-inner" >
-							<p>碧螺春</p>
+					<div class="mui-card pattern-list">				 
+						<div class="mui-card-header">
+							<img class="w100" src="images/goods.png"/>
 						</div>
-					</div>
-					<div class="pattern-list__p" style="">
-						<p class="font-color-pink">￥<label>128</label></p>
-						<p class="font-color-gray"><a href="#"><span class="iconfont icon-tianjia"></span></a></p>
-					</div>				
-	            </div>		          		             
+						<div class="mui-card-content">
+							<div class="mui-card-content-inner" >
+								<p>碧螺春</p>
+							</div>
+						</div>
+						<div class="pattern-list__p" style="">
+							<p class="font-color-pink">￥<label>128</label></p>
+							<p class="font-color-gray"><a href="#"><span class="iconfont icon-tianjia"></span></a></p>
+						</div>				
+		            </div>		          		             
                </div>
                <!-- end low -->
 	    </div>
@@ -569,6 +569,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			 indicators: true, //是否显示滚动条
 			 deceleration:0.0006, //阻尼系数,系数越小滑动越灵敏
 			 bounce: true //是否启用回弹
-			});
+			});  
     </script>
 </html>
