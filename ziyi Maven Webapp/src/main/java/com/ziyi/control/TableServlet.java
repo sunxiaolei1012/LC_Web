@@ -29,7 +29,8 @@ public class TableServlet extends ActionSupport{
 	 * 主界面信息获取
 	 */
 	public String main()
-	{
+	{  
+		
 		//1、获取所有桌子信息
 		List<Tea_House> list_house = Common.HOUSE.select_House();
 		//2、查询今日营业额
