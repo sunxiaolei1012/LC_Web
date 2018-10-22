@@ -50,6 +50,7 @@ public class config {
 	public static final String PAY_ERROR= "付款失败，请查询日志信息";
 	
 	public static final String CARD_PRICE_FALSE= "卡中余额不足";
+	public static final String CARD_NULL="会员卡为空";
 
 	
 	//认证

@@ -67,7 +67,6 @@ public class OrderDaoImpl implements OrderDao{
 			return list.get(0);
 		return null;
 	}
-	
 	//sxl
 	public List<Order> select_IcOrder(String sql) {
 		List<Order> list=Common.UTIL.query(sql, null, Order.class);

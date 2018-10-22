@@ -49,6 +49,8 @@ public class MainServlet extends ActionSupport{
 	private String phone;
 	private String state;
 	
+	private String cnumber;
+	
 	
 	public String price()
 	{
@@ -471,16 +473,16 @@ public class MainServlet extends ActionSupport{
 				int ids = new Integer(id);
 				if(ids == 1)//会员卡付款
 				{
-					if(null == number || "".equals(number))
+					if(null == cnumber || "".equals(cnumber))
 					{
 						map.put("state", false);
-						map.put("msg", config.NUMBER_NULL);
+						map.put("msg", config.CARD_NULL);
 					}
 					else
 					{
 						//有会员卡。根据会员卡号 查询会员卡信息
 						CardDao cdd = new CardDaoImpl();
-						Card card = cdd.select_card_number(number);
+						Card card = cdd.select_card_number(cnumber);
 						if(card != null)//卡有效
 						{
 							Card_typeDao cld = new Card_typeDaoImpl();
@@ -500,7 +502,7 @@ public class MainServlet extends ActionSupport{
 									{
 										map.put("state", true);
 										Users user = (Users) ActionContext.getContext().getSession().get("user");
-										Common.TOOLS.log_time(user.getName()+"收取了订单号为："+number+"的账单。金额为："+dou+"。会员卡付款",10);
+										Common.TOOLS.log_time(user.getName()+"收取了订单号为："+number+"的账单。金额为："+dou+"。会员卡付款，卡号："+cnumber,10);
 									}
 									else
 									{
@@ -634,6 +636,14 @@ public class MainServlet extends ActionSupport{
 
 	public void setState(String state) {
 		this.state = state;
+	}
+
+	public String getCnumber() {
+		return cnumber;
+	}
+
+	public void setCnumber(String cnumber) {
+		this.cnumber = cnumber;
 	}
 	
 	

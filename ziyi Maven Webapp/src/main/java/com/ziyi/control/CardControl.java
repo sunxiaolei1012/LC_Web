@@ -8,6 +8,7 @@ import com.cyb.util.Common;
 import com.cyb.util.config;
 import com.opensymphony.xwork2.ActionSupport;
 import com.ziyi.pojo.Old_Card;
+import com.ziyi.pojo.Order;
 
 public class CardControl extends ActionSupport{
 
@@ -36,7 +37,7 @@ public class CardControl extends ActionSupport{
 	}
 	public void yu()
 	{
-		Map<String , String> map = new HashMap<String , String>();
+		Map<String , Object> map = new HashMap<String , Object>();
 		try {
 			int sum = Common.TOOLS.read_card_two();
 			if(sum == 2)
@@ -67,6 +68,8 @@ public class CardControl extends ActionSupport{
 				{
 					map.put("state", "true");
 					map.put("msg", oc.getNumber());
+					Order or = Common.ORDER.select_number_order(oc.getNumber());
+					map.put("rebate", Common.CARDTYPE.select_card_ctid(or.getCardid()).getRebate());
 				}
 				else
 				{
