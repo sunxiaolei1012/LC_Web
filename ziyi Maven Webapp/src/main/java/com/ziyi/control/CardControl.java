@@ -3,17 +3,79 @@ package com.ziyi.control;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.atgeretg.serialport.utils.MyUtils;
 import com.cyb.util.Common;
+import com.cyb.util.Gsons;
+import com.cyb.util.Tools;
 import com.cyb.util.config;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import com.ziyi.dao.CardDao;
+import com.ziyi.dao.impl.CardDaoImpl;
+import com.ziyi.dao.impl.UsersDaoImpl;
+import com.ziyi.pojo.Card;
 import com.ziyi.pojo.Old_Card;
-import com.ziyi.pojo.Order;
+import com.ziyi.pojo.Users;
 
 public class CardControl extends ActionSupport{
 
 
 	private String number; 
+	
+	private String price;
+	
+	
+	/**
+	 * 充值会员卡
+	 * @return
+	 */
+	public String addprice()
+	{
+		Map<String , Object> map = new HashMap<String , Object>();
+		if (null == number || number.equals(""))
+		{
+			map.put("state",false);
+			map.put("msg", config.CARD_NULL);
+		}
+		else if (null == price || price.equals(""))
+		{
+			map.put("state",false);
+			map.put("msg", config.CARD_PRICE_ADD_NULL);
+		}
+		else
+		{
+			CardDao cad = new CardDaoImpl();
+			Card card = cad.select_card_number(number);
+			if(card != null)
+			{
+				//充值卡
+				card.setPrice(card.getPrice()+new Double(price));
+				card.setRemain(card.getRemain()+new Double(price));
+				boolean bool = cad.update_card_number(card);
+				if(bool)
+				{
+					Users user = (Users) ActionContext.getContext().getSession().get("user");
+					Common.TOOLS.log_time(user.getName()+"在会员卡："+number+"充值了:"+price+"元",18);
+					map.put("state",true);
+					map.put("msg", config.CARD_PRICE_ADD_TRUE);
+					
+				}
+				else
+				{
+					map.put("state",false);
+					map.put("msg", config.MYSQL_ERROR);
+				}
+			}
+			else
+			{
+				map.put("state",false);
+				map.put("msg", config.READ_CARD_OLD_NULL);
+			}
+		}
+		new Tools().returns(Gsons.tojson(map));	
+		return "json";
+		
+	}
+	
 	
 	public void reset_read()
 	{
@@ -30,10 +92,13 @@ public class CardControl extends ActionSupport{
 		reset_read();
 		return "json";
 	}
-	public void bo()
+	public String bo()
 	{
-		Common.TOOLS.ji_old_card(number);
+		Map<String , String> map = new HashMap<String , String>();
+		map.put("msg", Common.TOOLS.ji_old_card(number));
+		Common.TOOLS.return_object(Gsons.tojson(map));
 		reset_read();
+		return "json";
 	}
 	public void yu()
 	{
@@ -43,6 +108,7 @@ public class CardControl extends ActionSupport{
 			if(sum == 2)
 			{
 				map.put("state", "false");
+				map.put("button", "fasle");
 				map.put("msg", config.READ_CARD_TEXT);
 			}
 			else if(sum == 0)//新卡
@@ -51,14 +117,15 @@ public class CardControl extends ActionSupport{
 				if(str == null)
 				{
 					map.put("state", "false");
+					map.put("button", "fasle");
 					map.put("msg", config.READ_CARD_NEW_NULL);
 				}
 				else
 				{
 					map.put("state", "true");
+					map.put("button", "fasle");
 					map.put("msg", Common.TOOLS.code(new Integer(str), config.KEY)+"");
 				}
-			
 			}
 			else //老卡
 			{
@@ -67,17 +134,30 @@ public class CardControl extends ActionSupport{
 				if(oc != null)
 				{
 					map.put("state", "true");
+					map.put("button", "fasle");
 					map.put("msg", oc.getNumber());
-					Order or = Common.ORDER.select_number_order(oc.getNumber());
-					map.put("rebate", Common.CARDTYPE.select_card_ctid(or.getCardid()).getRebate());
+//					Order or = Common.ORDER.select_number_order(oc.getNumber());
+					Card ca = Common.CARDDAO.select_card_number(oc.getNumber());
+					if(ca != null)
+					{
+						map.put("rebate", Common.CARDTYPE.select_card_ctid(ca.getCtid()).getRebate());
+						map.put("card", ca);
+					}
+					else
+					{
+						map.put("state", "false");
+						map.put("msg", config.MYSQL_ERROR_CARD_OLD);
+					}
+					
 				}
 				else
 				{
 					map.put("state", "false");
+					map.put("button", "true");
 					map.put("msg", config.READ_CARD_OLD_FALSE);
 				}
 			}
-			Common.TOOLS.return_object(map);
+			Common.TOOLS.return_object(Gsons.tojson(map));
 			reset_read();
 		} catch (InterruptedException e) {
 			Common.TOOLS.return_object("error");
@@ -89,6 +169,16 @@ public class CardControl extends ActionSupport{
 	}
 	public void setNumber(String number) {
 		this.number = number;
+	}
+
+
+	public String getPrice() {
+		return price;
+	}
+
+
+	public void setPrice(String price) {
+		this.price = price;
 	}
 	
 }

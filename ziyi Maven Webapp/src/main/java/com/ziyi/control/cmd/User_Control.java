@@ -46,14 +46,7 @@ public class User_Control {
 	public String xiu_user(String id , String name , String password , String userrole)
 	{
 		Map<String , String> map = new HashMap<String , String>(); 
-//		Users user_name = Common.USERS.select_name_user(name);
-//		if(user_name != null)
-//		{
-//			map.put("state", "false");
-//			map.put("msg", config.ADD_USER_ERROR_MSG);
-//		}
-//		else
-//		{
+
 			Users user = new Users();
 			user.setName(name);
 			user.setPassword(password);
@@ -75,7 +68,30 @@ public class User_Control {
 
 		return "json";
 	}
-	
+	public String xiu_users(String id , String name , String password , String userrole)
+	{
+		Map<String , String> map = new HashMap<String , String>(); 
+
+			Users user = new Users();
+			user.setName(name);
+			user.setPassword(password);
+			user.setUserid(new Integer(id));
+			user.setUserrole(userrole);
+			boolean bool = Common.USERS.update_user(user);
+			if(bool)
+			{
+				map.put("state", "true");
+				map.put("msg", config.XIU_USER_RIGHT_MSG);
+			}
+			else
+			{
+				map.put("state", "false");
+				map.put("msg", config.XIU_USER_ERROR_MSG);
+			}
+//		}
+		Common.TOOLS.return_object(new Gson().toJson(map));
+		return "json";
+	}
 	public String del_user(String id)
 	{
 		boolean bool = Common.USERS.del_user(new Integer(id));

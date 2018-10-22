@@ -9,6 +9,37 @@ import java.sql.Statement;
 import java.util.Date;
 
 public class JDBC {
+	/**
+	 * 计算当日营业额
+	 * @param str
+	 * @return
+	 */
+	public Double price_day_sum(String str)
+	{
+		
+		Connection con=null;
+		ResultSet res=null;
+		PreparedStatement ps=null;
+		try
+		{
+			con=Util.getConn();
+			ps=con.prepareStatement("select SUM(price) from t_order where `status`=1 and checkouttime LIKE '"+str+"%'");
+			res=ps.executeQuery();
+			if(res.next())
+			{
+				return res.getDouble(1);
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			Util.closeRes(con,ps,res);
+		}
+		return 0.00;
+	}
 	
 	
 	/**

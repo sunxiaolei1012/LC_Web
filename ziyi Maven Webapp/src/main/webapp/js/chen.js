@@ -10,6 +10,18 @@ function add(cmd)
 		});
 	
 }
+function adds(cmd)
+{
+	layer.open({
+		  type: 2,
+		  skin: 'layui-layer-rim',
+		  area: ['700px', '700px'],
+		  fixed: false, //不固定
+		  maxmin: true,
+		  content: 'admin/add/'+cmd+'.jsp',
+		});
+	
+}
 function update_user_password(cmd)
 {
 	layer.open({
@@ -22,6 +34,7 @@ function update_user_password(cmd)
 		});
 	
 }
+
 function add_chart(cmd)
 {
 
@@ -66,7 +79,7 @@ function save(func,cmd)
        async: false,
        data: $("#form2").serialize(),
        success:function(d){
-       if(d.state=="true")
+       if(d.state=="true" || d.state==true)
        		{
 				alert(d.msg);  
 			 	parent.layer.closeAll();

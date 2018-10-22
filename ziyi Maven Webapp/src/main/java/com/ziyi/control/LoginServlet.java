@@ -40,9 +40,21 @@ public class LoginServlet extends ActionSupport{
 		{
 			ActionContext.getContext().getSession().put("user", user);
 			ActionContext.getContext().getSession().put("role", Common.ROLE.showRole());
+			ActionContext.getContext().getSession().put("ctype",Common.CARDTYPE.select_card_type());
 			return "main";
 		}
 	}
+	/**
+	 * 用来处理用户退出
+	 * @return
+	 */
+	public String exit()
+	{
+		ActionContext.getContext().getSession().remove("user");
+		return "login";
+		
+	}
+	
 	/**
 	 * 处理用户后台登录
 	 * @return

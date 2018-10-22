@@ -7,6 +7,7 @@ import java.util.List;
 import com.opensymphony.xwork2.ActionSupport;
 import com.ziyi.control.cmd.CardControl;
 import com.ziyi.control.cmd.CardTypeControl;
+import com.ziyi.control.cmd.New_Card;
 import com.ziyi.control.cmd.SellingControl;
 import com.ziyi.control.cmd.SellingTypeControl;
 import com.ziyi.control.cmd.TeaHouseControl;
@@ -78,6 +79,14 @@ public class cmdServlet extends ActionSupport{
 	public String xiu_user()
 	{
 		return new User_Control().xiu_user(id,name,password ,userrole);
+	}
+	/**
+	 * 修改用户信息
+	 * @return
+	 */
+	public String xiu_users()
+	{
+		return new User_Control().xiu_users(id,name,password ,userrole);
 	}
 	/**
 	 * 删除用户信息
@@ -249,6 +258,15 @@ public class cmdServlet extends ActionSupport{
 		return new SellingControl().get_selling_id(id);
 	}
 	
+	/**
+	 * 添加新卡
+	 * @return
+	 */
+	public String add_newcard()
+	{
+		new New_Card().add_newcard(number, ctid, name, phone, address, price ,idcard);
+		return "json";
+	}
 	
 	public String getName() {
 		return name;

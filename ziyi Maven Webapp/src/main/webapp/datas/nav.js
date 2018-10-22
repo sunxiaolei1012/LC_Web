@@ -1,4 +1,9 @@
 var navs = [{
+	"title": "首页",
+	"icon": "fa-stop-circle",
+	"href": "zhuan/index.jsp",
+	"spread": false
+},{
 	"title": "员工管理",
 	"icon": "fa-stop-circle",
 	"href": "admin_user",

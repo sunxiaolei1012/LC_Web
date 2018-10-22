@@ -27,6 +27,8 @@ public class Admin {
 		}
 		else
 		{
+			ActionContext.getContext().getSession().put("role", Common.ROLE.showRole());
+			ActionContext.getContext().getSession().put("ctype",Common.CARDTYPE.select_card_type());
 			ActionContext.getContext().getSession().put("user", user);
 			return "main";
 		}

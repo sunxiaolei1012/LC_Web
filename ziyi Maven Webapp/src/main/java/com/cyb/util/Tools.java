@@ -62,18 +62,18 @@ public class Tools {
 	 * 激活老卡
 	 * @param number
 	 */
-	public void ji_old_card(String number)
+	public String ji_old_card(String number)
 	{
 		try {
 			int a = read_card_two();
 			if(a == 2)
 			{
 				//读卡失败
-				Common.TOOLS.return_object(config.READ_CARD_TEXT);
+				return config.READ_CARD_TEXT;
 			}
 			else if (a== 0) // 新卡
 			{
-				Common.TOOLS.return_object(config.READ_CARD_TEXT_NEW);
+				return config.READ_CARD_TEXT_NEW;
 			}
 			else
 			{
@@ -89,17 +89,18 @@ public class Tools {
 //						sb.append(by);
 //					}
 					Common.OLDDAO.insert_old_card(new Old_Card(list_String(config.READ_CARD),number ));
-					Common.TOOLS.return_object(1);
+					return config.OLD_JI_CARD;
 				}
 				else//该卡编号已经存在
 				{
-					Common.TOOLS.return_object(config.READ_CARD_NULL);
+					return config.READ_CARD_NULL;
 				}
 			}
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return "0";
 	}
 	
 	public String list_String(List<Byte> list)

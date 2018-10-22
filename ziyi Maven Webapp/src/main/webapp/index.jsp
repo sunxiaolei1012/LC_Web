@@ -43,7 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    	</c:forEach>
 			    </a>
 			    <dl class="layui-nav-child">
-			      <dd><a href="login.jsp">退出</a></dd>
+			      <dd><a href="exit">退出</a></dd>
 			    </dl>
 			  </li>
 			</ul>
@@ -331,7 +331,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!-- 							服务员  吧台-->
 							<c:if test="${user.userrole == 3 || user.userrole == 2 }">
 								 <li class="mui-table-view-cell"><a href="javascript:void(0);" onclick="sellCard()"  class="mui-control-item">会员卡查询</a></li>
-								 <li class="mui-table-view-cell"><a href="javascript:void(0);" onclick="update_user_password('user_password')" class="mui-control-item">密码修改</a></li>
+								 <li class="mui-table-view-cell"><a href="javascript:void(0);" onclick="update_user_password('user_passwords')" class="mui-control-item">密码修改</a></li>
 							</c:if>
 <!-- 							管理员 -->
 							<c:if test="${user.userrole == 1 }">

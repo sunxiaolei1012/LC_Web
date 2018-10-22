@@ -37,10 +37,14 @@ public class config {
 	public static final String READ_CARD_OLD_FALSE="该卡未激活，请先激活";
 	public static final String READ_CARD_NEW_NULL="新卡，未写入数据";
 	
+	public static final String READ_CARD_OLD_NULL="无效卡或未激活，请激活后重试";
+	
 	public static final String YUDING_TRUE="预定成功";
 	public static final String YUDING_FLASE="预定失败";
 	public static final String NUMBER_NULL="订单编号为空";
 	public static final String NUMBER_FALSE="无效卡";
+	
+	public static final String OLD_JI_CARD="激活成功";
 
 	
 	public static final String XU_ERROR = "未找到可续杯商品";
@@ -50,8 +54,17 @@ public class config {
 	public static final String PAY_ERROR= "付款失败，请查询日志信息";
 	
 	public static final String CARD_PRICE_FALSE= "卡中余额不足";
+	public static final String CARD_PRICE_ADD_NULL="充值金额不为空";
 	public static final String CARD_NULL="会员卡为空";
+	public static final String CARD_PRICE_ADD_TRUE= "充值成功";
+	
+	public static final String MYSQL_ERROR= "数据库连接有误";
+	
+	public static final String MYSQL_ERROR_CARD_OLD= "数据库中未读到老卡信息，请手动添加卡信息";
 
+	public static final String CARD_NUMBER_NULL="卡编号为空";
+	public static final String CARD_TYPE_NULL="卡类型为空";
+	public static final String CARD_OPEN_TRUE="开卡成功";
 	
 	//认证
 	public static final byte[] CARD_LOGIN = new byte[]{(byte) 0xAA,(byte) 0xB9,0x00,0x05,(byte) 0x80,0x00,0x00,0x00,0x00,(byte) 0x96};

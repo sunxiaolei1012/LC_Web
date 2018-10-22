@@ -118,11 +118,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  ,layer = layui.layer
 	  ,layedit = layui.layedit
 	  ,laydate = layui.laydate;
-	 
-  
-  
-  
-  
 });
 
   //下面用于多图片上传预览功能

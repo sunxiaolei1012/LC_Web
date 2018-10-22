@@ -24,11 +24,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="admin-main">
 		<blockquote class="layui-elem-quote">
 <!-- 				<a href="javascript:add_user();" class="layui-btn layui-btn-small" id="add"> -->
-				<a href="javascript:add('card_type');" class="layui-btn layui-btn-small" id="add">
+				<a href="javascript:adds('card');" class="layui-btn layui-btn-small" id="add">
 					<i class="layui-icon">&#xe608;</i> 开卡
 				</a>
-				<a href="javascript:add('card_type');" class="layui-btn layui-btn-small layui-btn-normal" id="add">
+				<a href="javascript:add('add_card_price');" class="layui-btn layui-btn-small layui-btn-normal" id="add">
 					<i class="layui-icon">&#xe608;</i> 充值
+				</a>
+				<a href="javascript:add('add_card_old');" class="layui-btn layui-btn-small layui-btn-danger" id="add">
+					<i class="layui-icon">&#xe608;</i> 激活老卡
 				</a>
 			</blockquote>
 			<fieldset class="layui-elem-field">

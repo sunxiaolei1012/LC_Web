@@ -56,8 +56,8 @@ public class MainServlet extends ActionSupport{
 	{
 		//1、获取所有桌子信息
 		
-		Map<String , String> map = new HashMap<String , String>();
-		map.put("price", "3572.50");
+		Map<String , Object> map = new HashMap<String , Object>();
+		map.put("price", Common.JD.price_day_sum(Common.df_day.format(new Date())));
 		new Tools().return_object(new Gson().toJson(map));
 		return "json";
 	}

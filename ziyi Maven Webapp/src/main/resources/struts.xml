@@ -59,11 +59,11 @@
      		<result name="del_selling_type" type="chain">admin_sellingtype</result>
      		<result name="del_house" type="chain">admin_teahouse</result>
      		<result name="del_selling" type="chain">admin_selling</result>
-     		<allowed-methods>add_user,update_user,xiu_user,del_user , add_cardtype ,update_cardtype,xiu_cardtype, del_cardtype,
+     		<allowed-methods>add_user,update_user,xiu_user,xiu_users,del_user , add_cardtype ,update_cardtype,xiu_cardtype, del_cardtype,
      		update_card , xiu_card, del_card,
      		add_sellingtype , del_sellingtype , update_sellingtype , xiu_sellingtype,
      		add_teahouse , update_teahouse , xiu_teahouse,del_teahouse ,
-     		del_selling, add_selling ,update_selling
+     		del_selling, add_selling ,update_selling,add_newcard
      		</allowed-methods>
      	</action>
       </package>
@@ -82,7 +82,7 @@
          </action>
           <action name="card_*" class="com.ziyi.control.CardControl" method="{1}">
             <result name="json" type="json"></result>
-         	<allowed-methods>chen,yu,bo</allowed-methods>
+         	<allowed-methods>chen,yu,bo,addprice</allowed-methods>
          </action>
          <action name="main_*" class="com.ziyi.control.MainServlet" method="{1}">
             <result name="json" type="json"></result>
@@ -113,6 +113,10 @@
         	<result name="showSort">Tea_manage/product_sort.jsp</result>
         	<result type="json"></result>  
         	<allowed-methods>sortProduct,showSort,updateName,delProduct,changeNum,showSort,addSort,delSort</allowed-methods> 
+         </action> 
+         
+         <action name="exit" class="com.ziyi.control.LoginServlet" method="exit">
+        	<result name="login">login.jsp</result>
          </action> 
 	</package>
 </struts>
