@@ -663,11 +663,12 @@ function goodslist(type_id){
 
 //其他商品（续杯，打折）
 function othrebate(){
-//	var ordernum = document.getElementById("orderNum").innerText;
+	var ordernum = document.getElementById("orderNum").innerText;
 	var rebox=$("#rebategs");
 	var rebox1=$("#rebategs1");
 	var ele = '';
-	for(var i=0;i<10;i++){
+	var ele1 = '';
+	/*for(var i=0;i<10;i++){
 		ele+='<div class="mui-card pattern-list">'+				 
 				'<div class="mui-card-header">'+	
 					'<img class="w100" src="images/goods.png"/>'+	
@@ -682,8 +683,64 @@ function othrebate(){
 					'<p class="font-color-gray"><a href="#"><span class="iconfont icon-tianjia"></span></a></p>'+	
 				'</div>'+					
             '</div>'
-	}
-	rebox.html(ele);
+	}*/
+	//rebox.html(ele);
+	
+	$.ajax({
+	       type:"post",
+	       url:"main_xubei?number="+ordernum,
+	       dataType:"json",
+	       cache:false,
+	       async: false,
+	       success:function(date){
+                console.log(date.big);
+                for(var obj in date)
+        		{
+//        			alert(obj);
+                	if(obj == 'big'){
+                		console.log(date.big.length);
+                		for(var i = 0;i<date.big.length;i++){
+                			ele+='<div class="mui-card pattern-list">'+				 
+            				'<div class="mui-card-header">'+	
+            					'<img class="w100" src="images/goods.png"/>'+	
+            				'</div>'+	
+            				'<div class="mui-card-content">'+	
+            					'<div class="mui-card-content-inner" >'+	
+            						'<p>'+date.big[i].name+'</p>'+	
+            					'</div>'+	
+            				'</div>'+	
+            				'<div class="pattern-list__p">'+	
+            					'<p class="font-color-pink">￥<label>'+date.big[i].price+'</label></p>'+	
+            					'<p class="font-color-gray"><a href="#"><span class="iconfont icon-tianjia"></span></a></p>'+	
+            				'</div>'+					
+                        '</div>'
+                		}
+                		rebox.html(ele);
+                	}
+                	if(obj == 'small'){
+                		console.log(date.small.length);
+                		for(var i = 0;i<date.small.length;i++){
+                			ele1+='<div class="mui-card pattern-list">'+				 
+            				'<div class="mui-card-header">'+	
+            					'<img class="w100" src="images/goods.png"/>'+	
+            				'</div>'+	
+            				'<div class="mui-card-content">'+	
+            					'<div class="mui-card-content-inner" >'+	
+            						'<p>'+date.small[i].name+'</p>'+	
+            					'</div>'+	
+            				'</div>'+	
+            				'<div class="pattern-list__p">'+	
+            					'<p class="font-color-pink">￥<label>'+date.small[i].price+'</label></p>'+	
+            					'<p class="font-color-gray"><a href="#"><span class="iconfont icon-tianjia"></span></a></p>'+	
+            				'</div>'+					
+                        '</div>'
+                		}
+                		rebox1.html(ele1);
+                	}
+        		}
+
+	       }
+	  });
 	
 	layer.open({
 		title:'续杯商品查看',
