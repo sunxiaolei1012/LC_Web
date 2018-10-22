@@ -74,11 +74,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						
 					</div>
 				</div>
-				
-				
-				
-				
-				
 				<div class="layui-form-item">
 					<label class="layui-form-label">商品说明</label>
 					<div class="layui-input-block">
@@ -102,8 +97,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				
 				<div class="layui-form-item">
 					<div class="layui-input-block">
-						<input type="submit" class="layui-btn" value="立即提交">
-						<button class="layui-btn" lay-submit="" lay-filter="goodsAdd" onclick="save('add','selling')">立即提交</button>
+<!-- 						<input type="submit" class="layui-btn" value="立即提交">onclick="save('add','selling')" -->
+						<button class="layui-btn" lay-submit="" lay-filter="goodsAdd" >立即提交</button>
 					</div>
 				</div>
 				
@@ -122,39 +117,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
   //下面用于多图片上传预览功能
     function setImagePreviews(avalue) {
-
         var docObj = document.getElementById("doc");
-
         var dd = document.getElementById("dd");
-
         dd.innerHTML = "";
-
         var fileList = docObj.files;
-
         for (var i = 0; i < fileList.length; i++) {            
-
-
-
             dd.innerHTML += "<div style='float:left' > <img id='img" + i + "'  /> </div>";
-
             var imgObjPreview = document.getElementById("img"+i); 
-
             if (docObj.files && docObj.files[i]) {
-
                 //火狐下，直接设img属性
-
                 imgObjPreview.style.display = 'block';
-
                 imgObjPreview.style.width = '150px';
-
                 imgObjPreview.style.height = '180px';
-
                 //imgObjPreview.src = docObj.files[0].getAsDataURL();
-
                 //火狐7以上版本不能用上面的getAsDataURL()方式获取，需要一下方式
-
                 imgObjPreview.src = window.URL.createObjectURL(docObj.files[i]);
-
             }
 
             else {

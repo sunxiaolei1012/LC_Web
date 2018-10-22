@@ -88,6 +88,12 @@
             <result name="json" type="json"></result>
          	<allowed-methods>price,table,state,order,type,value,create,selling,delgoods , yuyue , number,sellingstate,xubei</allowed-methods>
          </action>
+         
+          <action name="image_*" class="com.ziyi.control.ImageServlet" method="{1}">
+            <result name="json" type="json"></result>
+            <result name="image">admin/update/image.jsp</result>
+         	<allowed-methods>selling</allowed-methods>
+         </action>
          	
          	<!-- sxl -->
          	 <action name="UserInfo_*" class="com.ziyi.control.cmd.UserInfoControl" method="{1}">

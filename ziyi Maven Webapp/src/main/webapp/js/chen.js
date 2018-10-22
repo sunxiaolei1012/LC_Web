@@ -10,6 +10,18 @@ function add(cmd)
 		});
 	
 }
+function image(cmd)
+{
+		layer.open({
+			  type: 2,
+			  skin: 'layui-layer-rim',
+			  area: ['700px', '450px'],
+			  fixed: false, //不固定
+			  maxmin: true,
+			  content: 'image_selling?id='+cmd,
+			});
+	
+}
 function adds(cmd)
 {
 	layer.open({

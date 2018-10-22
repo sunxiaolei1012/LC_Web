@@ -1,5 +1,6 @@
 package com.cyb.util;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
@@ -60,10 +61,10 @@ public class Common {
 	 static final String PASSWORD=pros.getProperty("password");
 	 
 	 
-	 static{
-		 Main.openSerialPort(pros.getProperty("com"));
-		 Main.chen();
-	 }
+//	 static{
+//		 Main.openSerialPort(pros.getProperty("com"));
+//		 Main.chen();
+//	 }
 	
 	 
 	 
@@ -75,6 +76,8 @@ public class Common {
 	 public static final SimpleDateFormat df_day = new SimpleDateFormat("yyyy-MM-dd");
 	 //实例化用户接口
 	 public static final UsersDao USERS = new UsersDaoImpl();
+	 
+	 public static final DecimalFormat double_df = new DecimalFormat("#.00");
 	 
 	 //用来存储用户登录
 	 public static Map<Integer , String> MAP = new HashMap<Integer , String>();
