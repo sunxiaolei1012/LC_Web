@@ -16,7 +16,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="css/iconfont.css">
 	<link rel="stylesheet" type="text/css" href="css/home.css">
 	 
-<script type="text/javascript" src="js/chen.js"></script>
+    
 	<script type="text/javascript">
 		function load()
 		{
@@ -43,7 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    	</c:forEach>
 			    </a>
 			    <dl class="layui-nav-child">
-			      <dd><a href="exit">退出</a></dd>
+			      <dd><a href="login.jsp">退出</a></dd>
 			    </dl>
 			  </li>
 			</ul>
@@ -331,7 +331,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!-- 							服务员  吧台-->
 							<c:if test="${user.userrole == 3 || user.userrole == 2 }">
 								 <li class="mui-table-view-cell"><a href="javascript:void(0);" onclick="sellCard()"  class="mui-control-item">会员卡查询</a></li>
-								 <li class="mui-table-view-cell"><a href="javascript:void(0);" onclick="update_user_password('user_passwords')" class="mui-control-item">密码修改</a></li>
+								 <li class="mui-table-view-cell"><a href="javascript:void(0);" onclick="update_user_password('user_password')" class="mui-control-item">密码修改</a></li>
 							</c:if>
 <!-- 							管理员 -->
 							<c:if test="${user.userrole == 1 }">
@@ -411,9 +411,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				      <select id="selectBox" lay-filter='paybox'>
 				        <!-- <option value=''></option> -->
 				        <option value='0' name='cash'>现金</option>
-				        <option value='1' name='weixin'>微信</option>
+				        <option value='1' name='member'>会员卡</option>
 				        <option value='2' name='zhifub'>支付宝</option>
-				        <option value='3' name='member'>会员卡</option>
+				        <option value='3' name='weixin'>微信</option>
 				      </select>
 			    </div>			    	
 			</div>
@@ -422,7 +422,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				    <button type="button" id="card" class="mui-btn mui-btn-warning">刷卡</button>
 					<div class="layui-form-item" style='width:100%;'>
 					    <div class="layui-input-block" style="margin-left:48px;width:63%;">
-					      <input type="text" class="meberNum" class="layui-input">
+					      <input type="text" id="meberNum" class="layui-input meberNum">
 					    </div>
 					</div>												
 				</div>
@@ -511,11 +511,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	<!-- end continue -->
     <script type="text/javascript" src="js/jquery.min.js"></script>
+    
     <script src="layui/layui.js"></script>
+    <script type="text/javascript" src="js/chen.js"></script>
     <script type="text/javascript" src="js/sxl.js"></script>
     <script type="text/javascript" src="js/mui.min.js"></script>
     <script>
-		//注意：导航 依赖 element 模块，否则无法进行功能性操作
+		/* //注意：导航 依赖 element 模块，否则无法进行功能性操作
 		layui.use(['element','table','layer','form','layedit', 'laydate'], function(){
 		  var element = layui.element;
 		  var table = layui.table;
@@ -524,7 +526,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		  var layedit = layui.layedit
   		  var laydate = layui.laydate;
   		  form.on('select(paybox)', function(data){
-			  if(data.value=='3'){
+			  if(data.value=='1'){
 	           $('.crashcard').css('display','block');
 	      	  }else{
 	      		$('.crashcard').css('display','none');
@@ -538,8 +540,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	      	  }			  
 		  });
        });
-
-		$(document).ready(function(){
+ */
+		/* $(document).ready(function(){
 			//时间
   		    var n;
 	        setInterval(getTime,1000);
@@ -561,13 +563,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				   });
                 }	                
 	        });	
-        });
-		mui('.mui-scroll-wrapper').scroll({
+        }); */
+		/* mui('.mui-scroll-wrapper').scroll({
 			 scrollY: true, //是否竖向滚动
 			 scrollX: false, //是否横向滚动		 
 			 indicators: true, //是否显示滚动条
 			 deceleration:0.0006, //阻尼系数,系数越小滑动越灵敏
 			 bounce: true //是否启用回弹
-			});
+			}); */
     </script>
 </html>
