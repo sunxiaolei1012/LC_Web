@@ -143,6 +143,17 @@ layui.use(['element','table','layer','form','layedit', 'laydate'], function(){
     	   	    	  } 
     	   	    	  
     	    	   	   
+    	   	    	  nums = date.rebate;
+    	   	    	  var cardnum = date.msg;
+    	   	    	  var mebnum = $('#meberNum').val(cardnum);  
+    	    	   	  var summoney = document.getElementById('summoney');
+    	    	   	   //1.仅刷卡
+    	    	   	   if($('#selectBox').val()=='1'){
+    	    	   		   //alert(nums);
+    	    	   		   numss = (goodsPrice*nums).toFixed(2);
+    	    	   		   summoney.innerHTML=goodsPrice+"*"+nums+'='+numss; 
+    	    	   	   }
+    	    	   	   
     	   	       }
     	   	  });   	       	   
 	       });       
