@@ -33,8 +33,8 @@ public class config {
 	public static final String READ_CARD_TEXT="读卡失败";
 	public static final String READ_CARD_TEXT_OLD="老卡不能写入";
 	public static final String READ_CARD_TEXT_NEW="新卡不用激活";
-	public static final String READ_CARD_NULL="改卡号已存在";
-	public static final String READ_CARD_OLD_FALSE="改卡未激活，请先激活";
+	public static final String READ_CARD_NULL="该卡号已存在";
+	public static final String READ_CARD_OLD_FALSE="该卡未激活，请先激活";
 	public static final String READ_CARD_NEW_NULL="新卡，未写入数据";
 	
 	public static final String YUDING_TRUE="预定成功";

@@ -500,6 +500,7 @@ public class MainServlet extends ActionSupport{
 									boolean bool = orderdao.update_order_card(dou, 1, Common.df.format(new Date()), order.getOrderid(), card.getCardid());
 									if(bool)
 									{
+										Common.HOUSE.update_house_tea(order.getHouseid(), 0);
 										map.put("state", true);
 										Users user = (Users) ActionContext.getContext().getSession().get("user");
 										Common.TOOLS.log_time(user.getName()+"收取了订单号为："+number+"的账单。金额为："+dou+"。会员卡付款，卡号："+cnumber,10);
@@ -534,6 +535,7 @@ public class MainServlet extends ActionSupport{
 						boolean bool = orderdao.update_two_order(0, Common.df.format(new Date()),orders.getPrice(), number);
 							if(bool)
 							{
+								Common.HOUSE.update_house_tea(orders.getHouseid(), 0);
 								map.put("state", true);
 								Users user = (Users) ActionContext.getContext().getSession().get("user");
 								Common.TOOLS.log_time(user.getName()+"收取了订单号为："+number+"的账单。金额为："+orders.getPrice()+"。现金付款",10);
@@ -551,6 +553,7 @@ public class MainServlet extends ActionSupport{
 						boolean bool = orderdao.update_two_order(2, Common.df.format(new Date()),orders.getPrice(), number);
 							if(bool)
 							{
+								Common.HOUSE.update_house_tea(orders.getHouseid(), 0);
 								map.put("state", true);
 								Users user = (Users) ActionContext.getContext().getSession().get("user");
 								Common.TOOLS.log_time(user.getName()+"收取了订单号为："+number+"的账单。金额为："+orders.getPrice()+"。支付宝付款",10);
@@ -568,6 +571,7 @@ public class MainServlet extends ActionSupport{
 						boolean bool = orderdao.update_two_order(3, Common.df.format(new Date()),orders.getPrice(), number);
 							if(bool)
 							{
+								Common.HOUSE.update_house_tea(orders.getHouseid(), 0);
 								map.put("state", true);
 								Users user = (Users) ActionContext.getContext().getSession().get("user");
 								Common.TOOLS.log_time(user.getName()+"收取了订单号为："+number+"的账单。金额为："+orders.getPrice()+"。微信付款",10);
