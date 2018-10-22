@@ -34,7 +34,6 @@ function update_user_password(cmd)
 		});
 	
 }
-
 function add_chart(cmd)
 {
 
@@ -79,7 +78,7 @@ function save(func,cmd)
        async: false,
        data: $("#form2").serialize(),
        success:function(d){
-       if(d.state=="true" || d.state==true)
+       if(d.state=="true")
        		{
 				alert(d.msg);  
 			 	parent.layer.closeAll();
@@ -94,6 +93,120 @@ function save(func,cmd)
    });
 
 }
+
+//模块加载
+//nums:返回的会员卡折率  numss:刷卡折率后的总金额  disnum:输入的打折扣率  goodsPrice:商品的总金额
+//sumAllMoney:会员卡折率和打折率之后的付款金额  summoney:页面显示的总金额和形式
+var nums,numss,disnum,sumAllMoney;
+layui.use(['element','table','layer','form','layedit', 'laydate'], function(){
+  var element = layui.element;
+  var table = layui.table;
+  var layer = layui.layer;
+  var form = layui.form;
+  var layedit = layui.layedit
+	  var laydate = layui.laydate;
+	  form.on('select(paybox)', function(data){
+	  if(data.value=='1'){
+	       $('.crashcard').css('display','block');
+	       $('#card').click(function(){
+	//    	  recard();
+    	   	 /* nums = 0.99;
+    	   	  var summoney = document.getElementById('summoney');
+    	   	   //1.仅刷卡
+    	   	   if($('#selectBox').val()=='1'){
+    	   		   //alert(nums);
+    	   		   numss = (goodsPrice*nums).toFixed(2);
+    	   		   summoney.innerHTML=goodsPrice+"*"+nums+'='+numss; 
+    	   	   }
+    	   	   var mebnum = $('#meberNum').val('会员卡号'); */
+    	   	$.ajax({
+    	   	       type:"post",
+    	   	       url:"card_yu",
+    	   	       dataType:"json",
+    	   	       cache:false,
+    	   	       async: false,
+    	   	       success:function(date){
+    	   	    	   console.log(date);
+    	   	    	  if(date.state == true || date.state =="true"){
+    	   	    		nums = date.rebate;
+      	   	    	    var cardnum = date.msg;
+      	   	    	    var mebnum = $('#meberNum').val(cardnum);  
+      	    	   	    var summoney = document.getElementById('summoney');
+      	    	   	    //1.仅刷卡
+      	    	   	    if($('#selectBox').val()=='1'){
+      	    	   		   //alert(nums);
+      	    	   		   numss = (goodsPrice*nums).toFixed(2);
+      	    	   		   summoney.innerHTML=goodsPrice+"*"+nums+'='+numss; 
+      	    	   	    } 
+    	   	    	  }else{
+    	   	    		  layer.msg(date.msg);
+    	   	    	  } 
+    	   	    	  
+    	    	   	   
+    	   	       }
+    	   	  });   	       	   
+	       });       
+  	  }else{
+  		$('.crashcard').css('display','none');
+  		var summoney = document.getElementById('summoney');
+ 	    summoney.innerHTML=goodsPrice;
+  	  }			  
+  });
+  form.on('select(paybox1)', function(data){
+	  var summoney = document.getElementById('summoney');
+	  //1：打折
+	  if(data.value=='1'){
+       $('.discounts').css('display','block');
+	       $('#disnum').blur(function(){
+	    	   disnum = $('#disnum').val();
+	    	   //打折且使用会员卡支付
+	    	   //if($('#selectBox').val=='1'){
+	    		   sumAllMoney = (numss*disnum).toFixed(2);
+		    	   summoney.innerHTML=goodsPrice+"*"+nums+"*"+disnum+"="+sumAllMoney;  
+	    	   /*}else{
+	    		   var sumdis = (goodsPrice*disnum).toFixed(2);
+	    		   summoney.innerHTML=goodsPrice+"*"+disnum+"="+sumdis;
+	    	   }*/
+	    	    
+	       });
+       
+  	  }else{
+  		$('.discounts').css('display','none');
+  		//价格改变
+  	  }			  
+  });
+});
+//加载
+$(document).ready(function(){
+	//时间
+	    var n;
+    setInterval(getTime,1000);
+    getTime();	        
+	var interverPrice = setInterval(priceAll,1000);
+	//金额显示结束
+	tablebox();
+	//餐桌状态
+    var interverTabel = setInterval(tableShow,5000);
+    //var interverTabel = setInterval(orderShow,3000);
+    //商品种类
+    category();	
+    $('#disnum').blur(function(){
+        var dis = $('#disnum').val();
+        var reg = /^(-?\d+)(\.\d+)?$/;
+        if(!reg.test(dis)||(dis>1||dis<0)){
+           layer.tips('折扣率输入错误（折扣率在0~1之间，如0.8，不打折输入1）', '#disnum', {
+			  tips: [3, 'red'],time:3000
+		   });
+          // return false;
+        }
+//        alert(1);
+        
+    });	
+    /*$('#disnum').blur(function(){
+    	
+    })*/
+});
+
 //时间显示
 function getTime(){
     var datetime = new Date();
@@ -473,7 +586,8 @@ function orderShow(tableid)
 	}
 }
 //结算页面
-//number:订单号  table:桌子id
+//number:订单号  table:桌子id price：商品总价格
+var goodsPrice;
 function pay(number,table){	
 	$.ajax({
 	       type:"post",
@@ -509,6 +623,8 @@ function pay(number,table){
 			    '</li>'
 	    	   }
 	    	   html.innerHTML=htmlele;
+	    	   //金额
+	    	   goodsPrice = d.price;
 	    	   var summoney = document.getElementById('summoney');
 	    	   summoney.innerHTML=d.price;
 	    		var index = layer.open({
@@ -523,41 +639,67 @@ function pay(number,table){
 	                maxmin:true,
 	                fixed:true,
 					skin: 'layui-layer-molv', //加上边框
-					area: ['500px', '400px'], //宽高
+					area: ['500px', '600px'], //宽高
 					content: $("#layform1"),   //引入html内容
 					yes:function(index,layero){
+//						console.log("-------------");
 	                    layer.close(index);
-	                    if(1==0){                    	
-	                    	layer.confirm('是否打印订单？', {
-	                    		btn:['打印','关闭'],
-	                    		skin: 'layui-layer-molv',
-	                    		btnAlign: 'c',
-	                    		}, 
-	                    		function(){
-	                    		  layer.msg('打印', {icon: 1});
-	                    		  //支付完成后该餐桌状态更新，该订单删除
-	                    		  //update_state(table,0);
-	                    		}, 
-	                    		function(){
-	                    		  layer.msg('支付关闭', {});
-	                    	});
-	                    }else{
-	                    	layer.confirm('返回重新选择支付方式？', {
-	                    		btn:['返回','关闭'],
-	                    		skin: 'layui-layer-molv',
-	                    		btnAlign: 'c',
-	                    		}, 
-	                    		function(index,layero){
-//	                    		  layer.msg('返回', {icon: 1});
-	                    			layer.close(index);
-	                    			pay(number,table);
-	                    		}, 
-	                    		function(){
-	                    		  layer.msg('支付关闭', {});
-	                    	});
-	                    }	               
+	                    var valinner = $('#selectBox').val();
+//	                    var mebmber = $('#meberNum').val();
+//	                    console.log(mebmber);	                    
+//	                    var renum = $('#selectBox1').val();
+//	                    console.log(renum);
+//	                    var mebnum = $('#meberNum').val();
+	                    /*var disnum = $('#disnum').val();
+	                    console.log(disnum);*/	                   
+	                    $.ajax({
+	             	       type:"post",
+	             	       url:"main_pay?number="+number+"&id="+valinner,
+	             	       dataType:"json",
+	             	       cache:false,
+	             	       async: false,
+	             	       success:function(date){
+	                             if(date.state){
+	                            	 //layer.msg(date.msg,{icon:6});
+	                            	 layer.confirm('是否打印订单？', {
+	     	                    		btn:['打印','关闭'],
+	     	                    		skin: 'layui-layer-molv',
+	     	                    		btnAlign: 'c',
+	     	                    		}, 
+	     	                    		function(){
+	     	                    		  layer.msg('打印', {icon: 1});	     	                    		   
+	     	                    		}, 
+	     	                    		function(){
+	     	                    		  layer.msg('支付关闭', {});
+	     	                    	});
+	                             }else{
+	                            	 //layer.msg(date.msg,{icon:5});
+	                            	 layer.confirm('返回重新选择支付方式？', {
+	     	                    		btn:['返回','关闭'],
+	     	                    		skin: 'layui-layer-molv',
+	     	                    		btnAlign: 'c',
+	     	                    		}, 
+	     	                    		function(index,layero){
+//	     	                    		  layer.msg('返回', {icon: 1});
+	     	                    			layer.close(index);
+	     	                    			pay(number,table);
+	     	                    		}, 
+	     	                    		function(){
+	     	                    		  layer.msg('支付关闭', {});
+	     	                    	});
+	                             }
+	             	       }
+	             	  });
+	                  //提交后信息置空
+	                  $('#selectBox option:checked').val('0');
+	                  $('#selectBox1 option:checked').val('0');
+	                  $('#meberNum').val(''); 
+	                  $('#disnum').val('');
 					},
 					btn2:function(index,layero){
+					 //提交后信息置空
+	                  $('#meberNum').val(''); 
+	                  $('#disnum').val('');
 					}
 				});
 	       }
@@ -565,7 +707,31 @@ function pay(number,table){
 	})
   
 }
- 
+//nums:返回的会员卡折率  numss:刷卡折率后的值 summoney:页面显示的总金额和形式
+/*var nums,numss,sumAllMoney;
+function recard(){
+	//alert(1);
+	  nums = 0.99;
+	  var summoney = document.getElementById('summoney');
+	   //1.仅刷卡
+	   if($('#selectBox').val()=='1'){
+		   //alert(nums);
+		   numss = (price*nums).toFixed(2);
+		   summoney.innerHTML=price+"*"+nums+'='+numss; 
+	   }
+	   var mebnum = $('#meberNum').val('会员卡号'); 
+	$.ajax({
+	       type:"post",
+	       url:"",
+	       dataType:"json",
+	       cache:false,
+	       async: false,
+	       success:function(date){
+              
+	       }
+	  });
+}*/
+
 //商品种类列表
 function category(){
 	$.ajax({
@@ -681,24 +847,6 @@ function othrebate(){
 	var rebox1=$("#rebategs1");
 	var ele = '';
 	var ele1 = '';
-	/*for(var i=0;i<10;i++){
-		ele+='<div class="mui-card pattern-list">'+				 
-				'<div class="mui-card-header">'+	
-					'<img class="w100" src="images/goods.png"/>'+	
-				'</div>'+	
-				'<div class="mui-card-content">'+	
-					'<div class="mui-card-content-inner" >'+	
-						'<p>碧螺春</p>'+	
-					'</div>'+	
-				'</div>'+	
-				'<div class="pattern-list__p">'+	
-					'<p class="font-color-pink">￥<label>128</label></p>'+	
-					'<p class="font-color-gray"><a href="#"><span class="iconfont icon-tianjia"></span></a></p>'+	
-				'</div>'+					
-            '</div>'
-	}*/
-	//rebox.html(ele);
-	
 	$.ajax({
 	       type:"post",
 	       url:"main_xubei?number="+ordernum,
