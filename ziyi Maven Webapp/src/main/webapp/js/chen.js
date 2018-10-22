@@ -98,7 +98,7 @@ layui.use(['element','table','layer','form','layedit', 'laydate'], function(){
 	       $('.crashcard').css('display','block');
 	       $('#card').click(function(){
 	//    	  recard();
-    	   	  nums = 0.99;
+    	   	 /* nums = 0.99;
     	   	  var summoney = document.getElementById('summoney');
     	   	   //1.仅刷卡
     	   	   if($('#selectBox').val()=='1'){
@@ -106,17 +106,27 @@ layui.use(['element','table','layer','form','layedit', 'laydate'], function(){
     	   		   numss = (goodsPrice*nums).toFixed(2);
     	   		   summoney.innerHTML=goodsPrice+"*"+nums+'='+numss; 
     	   	   }
-    	   	   var mebnum = $('#meberNum').val('会员卡号'); 
-    	   	/*$.ajax({
+    	   	   var mebnum = $('#meberNum').val('会员卡号'); */
+    	   	$.ajax({
     	   	       type:"post",
-    	   	       url:"",
+    	   	       url:"card_yu",
     	   	       dataType:"json",
     	   	       cache:false,
     	   	       async: false,
     	   	       success:function(date){
-    	                 
+    	   	    	  nums = date.rebate;
+    	   	    	  var cardnum = date.msg;
+    	   	    	  var mebnum = $('#meberNum').val(cardnum);  
+    	    	   	  var summoney = document.getElementById('summoney');
+    	    	   	   //1.仅刷卡
+    	    	   	   if($('#selectBox').val()=='1'){
+    	    	   		   //alert(nums);
+    	    	   		   numss = (goodsPrice*nums).toFixed(2);
+    	    	   		   summoney.innerHTML=goodsPrice+"*"+nums+'='+numss; 
+    	    	   	   }
+    	    	   	   
     	   	       }
-    	   	  });*/   	       	   
+    	   	  });   	       	   
 	       });       
   	  }else{
   		$('.crashcard').css('display','none');
@@ -174,9 +184,9 @@ $(document).ready(function(){
 //        alert(1);
         
     });	
-    $('#disnum').blur(function(){
+    /*$('#disnum').blur(function(){
     	
-    })
+    })*/
 });
 
 //时间显示
@@ -611,7 +621,7 @@ function pay(number,table){
 	                maxmin:true,
 	                fixed:true,
 					skin: 'layui-layer-molv', //加上边框
-					area: ['500px', '400px'], //宽高
+					area: ['500px', '600px'], //宽高
 					content: $("#layform1"),   //引入html内容
 					yes:function(index,layero){
 //						console.log("-------------");
@@ -661,9 +671,17 @@ function pay(number,table){
 	     	                    	});
 	                             }
 	             	       }
-	             	  });	                    	                     
+	             	  });
+	                  //提交后信息置空
+	                  $('#selectBox').val('0');
+	                  $('#selectBox1').val('0');
+	                  $('#meberNum').val(''); 
+	                  $('#disnum').val('');
 					},
 					btn2:function(index,layero){
+					 //提交后信息置空
+	                  $('#meberNum').val(''); 
+	                  $('#disnum').val('');
 					}
 				});
 	       }
