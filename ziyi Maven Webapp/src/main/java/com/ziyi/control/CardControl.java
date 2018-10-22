@@ -34,7 +34,6 @@ public class CardControl extends ActionSupport{
 		Common.TOOLS.ji_old_card(number);
 		reset_read();
 	}
-	
 	public void yu()
 	{
 		Map<String , String> map = new HashMap<String , String>();
@@ -85,10 +84,8 @@ public class CardControl extends ActionSupport{
 	public String getNumber() {
 		return number;
 	}
-
 	public void setNumber(String number) {
 		this.number = number;
 	}
-	
 	
 }

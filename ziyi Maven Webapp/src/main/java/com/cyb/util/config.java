@@ -40,10 +40,17 @@ public class config {
 	public static final String YUDING_TRUE="预定成功";
 	public static final String YUDING_FLASE="预定失败";
 	public static final String NUMBER_NULL="订单编号为空";
+	public static final String NUMBER_FALSE="无效卡";
 
 	
 	public static final String XU_ERROR = "未找到可续杯商品";
 	
+	public static final String PAY_NUMBER_DEL= "订单不存在或删除";
+	public static final String PAY_NUMBER_TRUE= "订单已付款";
+	public static final String PAY_ERROR= "付款失败，请查询日志信息";
+	
+	public static final String CARD_PRICE_FALSE= "卡中余额不足";
+
 	
 	//认证
 	public static final byte[] CARD_LOGIN = new byte[]{(byte) 0xAA,(byte) 0xB9,0x00,0x05,(byte) 0x80,0x00,0x00,0x00,0x00,(byte) 0x96};

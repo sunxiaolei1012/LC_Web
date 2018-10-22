@@ -114,7 +114,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									 			<div class="middle-btnList"><button class="layui-btn layui-btn-orange"></button><span>占用</span></div>
 									 			<div class="middle-btnList"><button class="layui-btn layui-btn-green"></button><span>预定</span></div>
 									 			<div class="middle-btnList"><button class="layui-btn layui-btn-blue"></button><span>打扫中</span></div>
-									 			<!-- <div class="middle-btnList"><button class="layui-btn layui-btn-purple"></button><span>已结算，客户未离开</span></div>	 -->
 									 		</div>
 								 		</div>
 								 	</div>

@@ -7,14 +7,24 @@ import java.util.List;
 import java.util.Map;
 
 import com.cyb.util.Common;
+import com.cyb.util.Gsons;
 import com.cyb.util.JDBC;
 import com.cyb.util.Tools;
 import com.cyb.util.config;
 import com.google.gson.Gson;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import com.ziyi.dao.CardDao;
+import com.ziyi.dao.Card_typeDao;
+import com.ziyi.dao.OrderDao;
 import com.ziyi.dao.YuYueDao;
+import com.ziyi.dao.impl.CardDaoImpl;
+import com.ziyi.dao.impl.Card_typeDaoImpl;
+import com.ziyi.dao.impl.OrderDaoImpl;
+import com.ziyi.dao.impl.UsersDaoImpl;
 import com.ziyi.dao.impl.YuYueDaoImpl;
+import com.ziyi.pojo.Card;
+import com.ziyi.pojo.Card_type;
 import com.ziyi.pojo.Order;
 import com.ziyi.pojo.Order_list;
 import com.ziyi.pojo.Selling_list;
@@ -38,6 +48,7 @@ public class MainServlet extends ActionSupport{
 	private String name;
 	private String phone;
 	private String state;
+	
 	
 	public String price()
 	{
@@ -438,6 +449,145 @@ public class MainServlet extends ActionSupport{
 		}
 		Common.TOOLS.return_object(new Gson().toJson(map));
 	}
+	
+	
+	public String pay()
+	{
+			Map<String , Object> map = new HashMap<String , Object>();
+			OrderDao orderdao = new OrderDaoImpl();
+			Order order = orderdao.select_number_order(number);
+			if(order == null)
+			{
+				map.put("state", false);
+				map.put("msg", config.PAY_NUMBER_DEL);
+			}
+			else if(order.getStatus() == 1)
+			{
+				map.put("state", false);
+				map.put("msg", config.PAY_NUMBER_TRUE);
+			}
+			else
+			{
+				int ids = new Integer(id);
+				if(ids == 1)//会员卡付款
+				{
+					if(null == number || "".equals(number))
+					{
+						map.put("state", false);
+						map.put("msg", config.NUMBER_NULL);
+					}
+					else
+					{
+						//有会员卡。根据会员卡号 查询会员卡信息
+						CardDao cdd = new CardDaoImpl();
+						Card card = cdd.select_card_number(number);
+						if(card != null)//卡有效
+						{
+							Card_typeDao cld = new Card_typeDaoImpl();
+							Card_type ctid = cld.select_card_ctid(card.getCtid());
+							Double rebate = 1.00;
+							if(ctid != null)
+								rebate = ctid.getRebate();
+							if(order != null)//订单存在
+							{
+								//判断卡中余额与折扣，是否够付钱
+								Double dou = order.getPrice()*rebate;
+								if(card.getRemain() >= dou)
+								{
+									//执行扣钱操作                                                   会员卡是1
+									boolean bool = orderdao.update_order_card(dou, 1, Common.df.format(new Date()), order.getOrderid(), card.getCardid());
+									if(bool)
+									{
+										map.put("state", true);
+										Users user = (Users) ActionContext.getContext().getSession().get("user");
+										Common.TOOLS.log_time(user.getName()+"收取了订单号为："+number+"的账单。金额为："+dou+"。会员卡付款",10);
+									}
+									else
+									{
+										map.put("state", false);
+										map.put("msg", config.PAY_ERROR);
+									}
+								}
+								else
+								{
+									map.put("state", false);
+									map.put("msg", config.CARD_PRICE_FALSE);
+								}
+								
+							}
+								
+							}
+							else//卡无效
+							{
+								map.put("state", false);
+								map.put("msg", config.NUMBER_FALSE);
+							}
+						}
+					}
+					else if(ids == 0)//现金付款
+					{
+						
+						//根据订单编号，查询订单信息
+						Order orders = Common.ORDER.select_number_order(number);
+						boolean bool = orderdao.update_two_order(0, Common.df.format(new Date()),orders.getPrice(), number);
+							if(bool)
+							{
+								map.put("state", true);
+								Users user = (Users) ActionContext.getContext().getSession().get("user");
+								Common.TOOLS.log_time(user.getName()+"收取了订单号为："+number+"的账单。金额为："+orders.getPrice()+"。现金付款",10);
+							}
+							else
+							{
+								map.put("state", false);
+								map.put("msg", config.PAY_ERROR);
+							}
+					}
+					else if(ids == 2)//支付宝
+					{
+						//根据订单编号，查询订单信息
+						Order orders = Common.ORDER.select_number_order(number);
+						boolean bool = orderdao.update_two_order(2, Common.df.format(new Date()),orders.getPrice(), number);
+							if(bool)
+							{
+								map.put("state", true);
+								Users user = (Users) ActionContext.getContext().getSession().get("user");
+								Common.TOOLS.log_time(user.getName()+"收取了订单号为："+number+"的账单。金额为："+orders.getPrice()+"。支付宝付款",10);
+							}
+							else
+							{
+								map.put("state", false);
+								map.put("msg", config.PAY_ERROR);
+							}
+					}
+					else if(ids == 3)//微信
+					{
+						//根据订单编号，查询订单信息
+						Order orders = Common.ORDER.select_number_order(number);
+						boolean bool = orderdao.update_two_order(3, Common.df.format(new Date()),orders.getPrice(), number);
+							if(bool)
+							{
+								map.put("state", true);
+								Users user = (Users) ActionContext.getContext().getSession().get("user");
+								Common.TOOLS.log_time(user.getName()+"收取了订单号为："+number+"的账单。金额为："+orders.getPrice()+"。微信付款",10);
+							}
+							else
+							{
+								map.put("state", false);
+								map.put("msg", config.PAY_ERROR);
+							}
+					}
+					else //待添加
+					{
+						
+					}
+			}
+		new Tools().returns(Gsons.tojson(map));
+		return "json";
+	}
+	
+	
+	
+	
 	public String getId() {
 		return id;
 	}
