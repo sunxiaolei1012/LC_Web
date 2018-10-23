@@ -58,8 +58,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 							<li><a href="#item1" class="mui-control-item mui-active"><span class="mui-icon iconfont icon-canzhuo"></span>餐桌管理</a></li>
 							<li><a href="#item2" class="mui-control-item"><span class="mui-icon iconfont icon-daocha-copy"></span>店内下单</a></li>
-<!-- 							<li><a href="#item3" class="mui-control-item"><span class="mui-icon iconfont icon-icon17"></span>订单管理</a></li> -->
-							<li><a href="javascript:main()" class=""><span class="mui-icon iconfont icon-shezhi"></span>系统设置</a></li>
+ 							<li><a href="#item3" class="mui-control-item"><span class="mui-icon iconfont icon-shezhi"></span>系统设置</a></li> 
+<!-- 							<li><a href="javascript:main()" class=""><span class="mui-icon iconfont icon-shezhi"></span>系统设置</a></li> -->
 							<li><a href="#" class=""><span class="mui-icon iconfont icon-logout"></span>退出登录</a></li>
 						</ul>
 			        </div>
@@ -140,159 +140,42 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</div>
 						</div>
 						<!-- end item2 -->
-						<div id="item3" class="mui-control-content" style="">
+						<div id="item3" class="mui-control-content">
 							<div class="middle-center-top">
-								<p class="titleName"><span style="font-size:30px;" class="iconfont icon-icon17"></span><span style="font-size: 22px;">&nbsp;订单管理</span>
-								</p>
-								<div  class="middle-center-select" >
-							      <div class="float"> 
-							        
-							        <select>
-					                    <option>按日期查询...</option>
-					                    <optgroup label="">
-					                    	<option>一</option>
-					                    </optgroup>
-					                    <optgroup label="按星期查询">
-					                    	<option>一</option>
-					                    	<option>二</option>
-					                    	<option>三</option>
-					                    </optgroup>
-					                    <optgroup label="按月查询">
-					                        <option>1</option>
-					                        <option>2</option>
-					                        <option>3</option>
-					                    </optgroup>
-					                    <optgroup label="按年份查询">
-					                    	<option>2018</option>
-					                    	<option>2017</option>
-					                    	<option>2016</option>
-					                    </optgroup>
-							        </select>
-							        <button><i class="iconfont icon-sousuo"></i></button>		          
-							      </div>
-							    </div> 
+								<p class="titleName"><span style="font-size:30px;" class="mui-icon iconfont icon-shezhi"></span><span style="font-size: 22px;">&nbsp;系统设置</span>
+								</p>								
 							</div>
 							<div class="middle-center-middle2">
-							    <div class="middle-table middle-center-table">							 
-									 <table class="layui-table" lay-data="{page:true,limit:10}">
-									  <thead>
-									    <tr>
-									      <th lay-data="{field:'id',sort: true}">订单编号</th>
-									      <th lay-data="{field:'tabNum',}">桌号</th>
-									      <th lay-data="{field:'mebNum',sort: true}">会员卡号</th>
-									      <th lay-data="{field:'stime',sort: true}">入店时间</th>
-									      <th lay-data="{field:'etime',sort: true}">结算时间</th>
-									      <th lay-data="{field:'statue'}">完成状态</th>					
-									      <th lay-data="{field:'listSum'}">订单总金额</th>				 
-									      <th lay-data="{field:'discount'}">是否打折</th>	
-									    </tr>
-									  </thead>
-									  <tbody>
-									  	  <tr>
-									        <td>01</td>
-									        <td>001</td>
-									        <td>666666</td>
-									        <td>2018.8.10-10:00</td>
-									        <td>2018.8.10-12:00</td>
-									        <td>完成</td>
-									        <td>246</td>
-									        <td>是</td>
-									      </tr>
-									      <tr>
-									        <td>02</td>
-									        <td>001</td>
-									        <td>666666</td>
-									        <td>2018.8.10-10:00</td>
-									        <td>2018.8.10-12:00</td>
-									        <td>完成</td>
-									        <td>246</td>
-									        <td>是</td>
-									      </tr>
-									       
-									      <tr>
-									        <td>01</td>
-									        <td>001</td>
-									        <td>666666</td>
-									        <td>2018.8.10-10:00</td>
-									        <td>2018.8.10-12:00</td>
-									        <td>完成</td>
-									        <td>246</td>
-									        <td>是</td>
-									      </tr>
-									      <tr>
-									        <td>02</td>
-									        <td>001</td>
-									        <td>666666</td>
-									        <td>2018.8.10-10:00</td>
-									        <td>2018.8.10-12:00</td>
-									        <td>完成</td>
-									        <td>246</td>
-									        <td>是</td>
-									      </tr>
-									      <tr>
-									        <td>03</td>
-									        <td>001</td>
-									        <td>666666</td>
-									        <td>2018.8.10-10:00</td>
-									        <td>2018.8.10-12:00</td>
-									        <td>完成</td>
-									        <td>246</td>
-									        <td>是</td>
-									      </tr>
-									      <tr>
-									        <td>04</td>
-									        <td>001</td>
-									        <td>666666</td>
-									        <td>2018.8.10-10:00</td>
-									        <td>2018.8.10-12:00</td>
-									        <td>完成</td>
-									        <td>246</td>
-									        <td>是</td>
-									      </tr>
-									       
-									      <tr>
-									        <td>04</td>
-									        <td>001</td>
-									        <td>666666</td>
-									        <td>2018.8.10-10:00</td>
-									        <td>2018.8.10-12:00</td>
-									        <td>完成</td>
-									        <td>246</td>
-									        <td>是</td>
-									      </tr>
-									      <tr>
-									        <td>01</td>
-									        <td>001</td>
-									        <td>666666</td>
-									        <td>2018.8.10-10:00</td>
-									        <td>2018.8.10-12:00</td>
-									        <td>完成</td>
-									        <td>246</td>
-									        <td>是</td>
-									      </tr>
-									      <tr>
-									        <td>01</td>
-									        <td>001</td>
-									        <td>666666</td>
-									        <td>2018.8.10-10:00</td>
-									        <td>2018.8.10-12:00</td>
-									        <td>完成</td>
-									        <td>246</td>
-									        <td>是</td>
-									      </tr>
-									    </tbody>
-									</table>
-							    </div>
-							    <style type="text/css">
-							    	.middle-ta-change-btnlist{
+							     <style>
+							         #activecard{
+							             /* border:1px solid red; */
+							             margin-top:10%;
+							             display:flex;
+							             justify-content:center;
+							         }
+							     </style>
+							     <form class='layui-form' id='activecard'>
+							           <div class="layui-form-item">
+									        <label class="layui-form-label" style="padding-right:0px;">激活卡</label>
+									        <div class="layui-input-block">
+									      		<input type="checkbox" name="open" checked="" lay-skin="switch" lay-text="ON|OFF">
+									    	</div>
+									   </div>
+							     </form>							     							     
+							     <!-- <style type="text/css">
+							    	/* .middle-ta-change-btnlist{
 							    		height: 20%;
-							    		width: 100%;
+							    		width: 100%;							    		
+							    	} */
+							    	.mui-btn-card{
+							    	  /*  margin-top:10%;
+							    	   margin-left:10%;  */
 							    	}
-							    </style>
+							    </style> 
 							    <div class="middle-tab-change-btnlist">
-									<button type="button" class="mui-btn mui-btn-primary mui-btn-add" >添加订单</button>
-									<!--<button type="button" class="mui-btn mui-btn-primary mui-btn-del" >删除订单</button>-->
-								</div>
+									<button type="button" class="mui-btn mui-btn-primary mui-btn-card" >激活卡信息</button>									 
+								</div> -->
+								
 							</div>
 						</div>
 						<!-- end item3 -->
@@ -403,14 +286,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </style>
    <!-- 支付窗口 -->
 	<div id='layform1' style='display:none;'>
-		<br>		 
-		<form class='layui-form' id="payform">
-			<div class='layui-form-item'>
+		<br>	
+		<div id='payformbox'>	 
+		<!-- <form class='layui-form' id="payform">
+			 <div class='layui-form-item'>
 			    <label class='layui-form-label' style='padding-left:0;'>支付方式</label>
 			    <div class='layui-input-block'>
 				      <select id="selectBox" lay-filter='paybox'>
-				        <!-- <option value=''></option> -->
-				        <option value='0' name='cash'>现金</option>
+				        <option value=''></option>
+				        <option value='0' name='cash' checked=''>现金</option>
 				        <option value='1' name='member'>会员卡</option>
 				        <option value='2' name='zhifub'>支付宝</option>
 				        <option value='3' name='weixin'>微信</option>
@@ -431,7 +315,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    <label class='layui-form-label' style='padding-left:0;'>是否打折</label>
 			    <div class='layui-input-block'>
 				      <select id="selectBox1" lay-filter='paybox1'>
-				        <!-- <option value=''></option> -->
+				        <option value=''></option>
 				        <option value='0' name='ndis'>不打折</option>
 				        <option value='1' name='ydis'>打折</option>
 				      </select>
@@ -447,12 +331,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	           <div class="layui-form-item layui-form-text">
 				    <label class="layui-form-label" style='padding-left:0;'>折扣说明</label>
 				    <div class="layui-input-block">
-				      <textarea placeholder="请输入内容" class="layui-textarea"></textarea>
+				      <textarea placeholder="请输入内容"  class="layui-textarea" id='textare'></textarea>
 				    </div>
 			   </div>
-	        </div>			 		 
-		</form>
-        
+	        </div> 			 		 
+		</form> -->
+        </div>
 		<div class="right-middle-middle">
 			<ul class="mui-table-view goodslists" id="goodslists">			  
 			    <!-- <li class="mui-table-view-cell mui-media">

@@ -118,6 +118,7 @@ layui.use(['element','table','layer','form','layedit', 'laydate'], function(){
   var layedit = layui.layedit
 	  var laydate = layui.laydate;
 	  form.on('select(paybox)', function(data){
+		  //alert(data);
 	  if(data.value=='1'){
 	       $('.crashcard').css('display','block');
 	       $('#card').click(function(){
@@ -138,23 +139,6 @@ layui.use(['element','table','layer','form','layedit', 'laydate'], function(){
     	   	       cache:false,
     	   	       async: false,
     	   	       success:function(date){
-    	   	    	   console.log(date);
-    	   	    	  if(date.state == true || date.state =="true"){
-    	   	    		nums = date.rebate;
-      	   	    	    var cardnum = date.msg;
-      	   	    	    var mebnum = $('#meberNum').val(cardnum);  
-      	    	   	    var summoney = document.getElementById('summoney');
-      	    	   	    //1.仅刷卡
-      	    	   	    if($('#selectBox').val()=='1'){
-      	    	   		   //alert(nums);
-      	    	   		   numss = (goodsPrice*nums).toFixed(2);
-      	    	   		   summoney.innerHTML=goodsPrice+"*"+nums+'='+numss; 
-      	    	   	    } 
-    	   	    	  }else{
-    	   	    		  layer.msg(date.msg);
-    	   	    	  } 
-    	   	    	  
-    	    	   	   
     	   	    	  nums = date.rebate;
     	   	    	  var cardnum = date.msg;
     	   	    	  var mebnum = $('#meberNum').val(cardnum);  
@@ -199,6 +183,12 @@ layui.use(['element','table','layer','form','layedit', 'laydate'], function(){
   	  }			  
   });
 });
+function renderform(){
+	layui.use('form',function(){
+		var form = layui.form;
+		form.render('select','renForm');
+	})
+}
 //加载
 $(document).ready(function(){
 	//时间
@@ -612,6 +602,57 @@ function orderShow(tableid)
 //number:订单号  table:桌子id price：商品总价格
 var goodsPrice;
 function pay(number,table){	
+	var payform = document.getElementById('payformbox');
+	//alert(payform);
+	var htmlform = '<form class="layui-form" id="payform"  lay-filter="renForm">'+
+	                 '<div class="layui-form-item">'+
+					    '<label class="layui-form-label" style="padding-left:0;">支付方式</label>'+
+					    '<div class="layui-input-block">'+
+						      '<select id="selectBox" lay-filter="paybox">'+
+						        '<option value="0" name="cash">现金</option>'+
+						        '<option value="1" name="member">会员卡</option>'+
+						        '<option value="2" name="zhifub">支付宝</option>'+
+						        '<option value="3" name="weixin">微信</option>'+
+						      '</select>'+
+					    '</div>'+		    	
+					'</div>'+
+					'<div class="crashcard">'+
+						'<div class="cardbox">'+
+						    '<button type="button" id="card" class="mui-btn mui-btn-warning">刷卡</button>'+
+							'<div class="layui-form-item" style="width:100%;">'+
+							    '<div class="layui-input-block" style="margin-left:48px;width:63%;">'+
+							      '<input type="text" id="meberNum" class="layui-input meberNum">'+
+							    '</div>'+
+							'</div>'+												
+						'</div>'+
+					'</div>'+	
+				    '<div class="layui-form-item" id="mebrebate">'+
+					    '<label class="layui-form-label" style="padding-left:0;">是否打折</label>'+
+					    '<div class="layui-input-block">'+
+						      '<select id="selectBox1" lay-filter="paybox1">'+
+						        '<option value="0" name="ndis">不打折</option>'+
+						        '<option value="1" name="ydis">打折</option>'+
+						      '</select>'+
+					    '</div>'+			    	
+					'</div>'+
+					'<div class="discounts">'+
+			           '<div class="layui-form-item">'+
+						    '<label class="layui-form-label">折扣率</label>'+
+						    '<div class="layui-input-block">'+
+						      '<input type="text" id="disnum" name="title" placeholder="请输入折扣率" class="layui-input">'+
+						    '</div>'+
+					   '</div>'+       
+			           '<div class="layui-form-item layui-form-text">'+
+						    '<label class="layui-form-label" style="padding-left:0;">折扣说明</label>'+
+						    '<div class="layui-input-block">'+
+						      '<textarea placeholder="请输入内容"  class="layui-textarea"></textarea>'+
+						    '</div>'+
+					   '</div>'+
+			        '</div>'+
+			   '</form>';
+	payform.innerHTML=htmlform;
+	renderform();
+//	alert(htmlform);
 	$.ajax({
 	       type:"post",
 	       url:"main_number?number="+number+"&id="+table,
@@ -665,16 +706,8 @@ function pay(number,table){
 					area: ['500px', '600px'], //宽高
 					content: $("#layform1"),   //引入html内容
 					yes:function(index,layero){
-//						console.log("-------------");
 	                    layer.close(index);
-	                    var valinner = $('#selectBox').val();
-//	                    var mebmber = $('#meberNum').val();
-//	                    console.log(mebmber);	                    
-//	                    var renum = $('#selectBox1').val();
-//	                    console.log(renum);
-//	                    var mebnum = $('#meberNum').val();
-	                    /*var disnum = $('#disnum').val();
-	                    console.log(disnum);*/	                   
+	                    var valinner = $('#selectBox').val();	                   
 	                    $.ajax({
 	             	       type:"post",
 	             	       url:"main_pay?number="+number+"&id="+valinner,
@@ -713,17 +746,12 @@ function pay(number,table){
 	                             }
 	             	       }
 	             	  });
-	                  //提交后信息置空
-	                  $('#selectBox option:checked').val('0');
-	                  $('#selectBox1 option:checked').val('0');
-	                  $('#meberNum').val(''); 
-	                  $('#disnum').val('');
+	                  
 					},
 					btn2:function(index,layero){
-					 //提交后信息置空
-	                  $('#meberNum').val(''); 
-	                  $('#disnum').val('');
-					}
+					  
+					},
+					 
 				});
 	       }
 	
