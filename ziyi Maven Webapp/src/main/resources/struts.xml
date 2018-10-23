@@ -86,13 +86,13 @@
          </action>
          <action name="main_*" class="com.ziyi.control.MainServlet" method="{1}">
             <result name="json" type="json"></result>
-         	<allowed-methods>price,table,state,order,type,value,create,selling,delgoods , yuyue , number,sellingstate,xubei</allowed-methods>
+         	<allowed-methods>price,table,state,order,type,value,create,selling,delgoods , yuyue , number,sellingstate,xubei,pay</allowed-methods>
          </action>
          
           <action name="image_*" class="com.ziyi.control.ImageServlet" method="{1}">
             <result name="json" type="json"></result>
-            <result name="image">admin/update/image.jsp</result>
-         	<allowed-methods>selling</allowed-methods>
+            <result name="image">admin/update/images.jsp</result>
+         	<allowed-methods>selling,image,del</allowed-methods>
          </action>
          	
          	<!-- sxl -->

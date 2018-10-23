@@ -1,5 +1,6 @@
 package com.cyb.util;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -35,7 +36,47 @@ import com.ziyi.pojo.Order;
 
 
 public class Tools {
-	
+	/**
+	 * 删除文件
+	 * @param filePathAndName
+	 *            String 文件路径及名称 如c:/fqf.txt
+	 * @param fileContent
+	 *            String
+	 * @return boolean
+	 */
+	public static void delFile(String filePathAndName) {
+		try {
+			System.out.println(filePathAndName);
+			String filePath = filePathAndName;
+			filePath = filePath.toString();
+			java.io.File myDelFile = new java.io.File(filePath);
+			myDelFile.delete();
+		} catch (Exception e) {
+			System.out.println("删除文件操作出错");
+			e.printStackTrace();
+		}
+	}
+
+	 /**
+     * 删除单个文件
+     *
+     * @param fileName
+     *            要删除的文件的文件名
+     * @return 单个文件删除成功返回true，否则返回false
+     */
+    public static boolean deleteFile(String fileName) {
+        File file = new File(fileName);
+        // 如果文件路径所对应的文件存在，并且是一个文件，则直接删除
+        if (file.exists() && file.isFile()) {
+            if (file.delete()) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
 
 	
 	/**

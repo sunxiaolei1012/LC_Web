@@ -22,4 +22,11 @@ public interface Selling_ImageDao {
 	
 	
 	public List<Selling_Image> select_selling_image(int id);
+	public List<Selling_Image> select_selling_images(int id);
+	/**
+	 * 根据图片ID 删除图片信息
+	 * @param id
+	 * @return
+	 */
+	public boolean del_image(int id);
 }

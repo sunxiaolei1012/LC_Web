@@ -100,16 +100,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 				</div>
 				<div class="layui-form-item">
-					<ul class="flow-default">
-						<c:forEach var="c" items="${si}">
-					  <li>
-					  	<img src="upload/${c.url}" style="height: 300px;">
-					  </li>
-					  </c:forEach>
-					  </ul>
-				</div>
-				
-				<div class="layui-form-item">
 					<div class="layui-input-block">
 						<button class="layui-btn" onclick="save('xiu','card')">立即提交</button>
 					</div>

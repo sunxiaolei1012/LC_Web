@@ -22,4 +22,18 @@ public class Selling_ImageDaoImpl implements Selling_ImageDao{
 		return null;
 	}
 
+	@Override
+	public boolean del_image(int id) {
+		int a =Common.UTIL.getRes("delete from t_selling_image where id=?", new Object[]{id});
+		return a>0?true:false;
+	}
+
+	@Override
+	public List<Selling_Image> select_selling_images(int id) {
+		List<Selling_Image> list = Common.UTIL.query("select * from t_selling_image where sellingid=?", new Object[]{id}, Selling_Image.class);
+		if(null != list && list.size()>0)
+			return list;
+		return null;
+	}
+
 }

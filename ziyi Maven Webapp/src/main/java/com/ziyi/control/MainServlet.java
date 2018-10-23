@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.struts2.components.Debug;
+
 import com.cyb.util.Common;
 import com.cyb.util.Gsons;
 import com.cyb.util.JDBC;
@@ -455,6 +457,7 @@ public class MainServlet extends ActionSupport{
 	
 	public String pay()
 	{
+		System.out.println("pay");
 			Map<String , Object> map = new HashMap<String , Object>();
 			OrderDao orderdao = new OrderDaoImpl();
 			Order order = orderdao.select_number_order(number);
