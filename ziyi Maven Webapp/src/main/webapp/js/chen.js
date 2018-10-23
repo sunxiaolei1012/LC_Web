@@ -107,9 +107,7 @@ function save(func,cmd)
 }
 
 //模块加载
-//nums:返回的会员卡折率  numss:刷卡折率后的总金额  disnum:输入的打折扣率  goodsPrice:商品的总金额
-//sumAllMoney:会员卡折率和打折率之后的付款金额  summoney:页面显示的总金额和形式
-var nums,numss,disnum,sumAllMoney;
+
 layui.use(['element','table','layer','form','layedit', 'laydate'], function(){
   var element = layui.element;
   var table = layui.table;
@@ -117,21 +115,13 @@ layui.use(['element','table','layer','form','layedit', 'laydate'], function(){
   var form = layui.form;
   var layedit = layui.layedit
 	  var laydate = layui.laydate;
+//nums:返回的会员卡折率  numss:刷卡折率后的总金额  disnum:输入的打折扣率  goodsPrice:商品的总金额
+//sumAllMoney:会员卡折率和打折率之后的付款金额  summoney:页面显示的总金额和形式
+var nums,disnum,numss,sumAllMoney;
 	  form.on('select(paybox)', function(data){
-		  //alert(data);
 	  if(data.value=='1'){
 	       $('.crashcard').css('display','block');
 	       $('#card').click(function(){
-	//    	  recard();
-    	   	 /* nums = 0.99;
-    	   	  var summoney = document.getElementById('summoney');
-    	   	   //1.仅刷卡
-    	   	   if($('#selectBox').val()=='1'){
-    	   		   //alert(nums);
-    	   		   numss = (goodsPrice*nums).toFixed(2);
-    	   		   summoney.innerHTML=goodsPrice+"*"+nums+'='+numss; 
-    	   	   }
-    	   	   var mebnum = $('#meberNum').val('会员卡号'); */
     	   	$.ajax({
     	   	       type:"post",
     	   	       url:"card_yu",
@@ -140,24 +130,17 @@ layui.use(['element','table','layer','form','layedit', 'laydate'], function(){
     	   	       async: false,
     	   	       success:function(date){
     	   	    	  nums = date.rebate;
-    	   	    	  var cardnum = date.msg;
-    	   	    	  var mebnum = $('#meberNum').val(cardnum);  
-    	    	   	  var summoney = document.getElementById('summoney');
-    	    	   	   //1.仅刷卡
-    	    	   	   if($('#selectBox').val()=='1'){
-    	    	   		   //alert(nums);
-    	    	   		   numss = (goodsPrice*nums).toFixed(2);
-    	    	   		   summoney.innerHTML=goodsPrice+"*"+nums+'='+numss; 
-    	    	   	   }
-    	    	   	   
+    	   	    	  $('#meberNum').val(date.msg); 
+    	   	    	  jisuan();
     	   	       }
     	   	  });   	       	   
 	       });       
   	  }else{
   		$('.crashcard').css('display','none');
-  		var summoney = document.getElementById('summoney');
- 	    summoney.innerHTML=goodsPrice;
-  	  }			  
+  		nums = null;
+  		$('#meberNum').val(""); 
+  	  }	
+	  jisuan();
   });
   form.on('select(paybox1)', function(data){
 	  var summoney = document.getElementById('summoney');
@@ -166,22 +149,40 @@ layui.use(['element','table','layer','form','layedit', 'laydate'], function(){
        $('.discounts').css('display','block');
 	       $('#disnum').blur(function(){
 	    	   disnum = $('#disnum').val();
-	    	   //打折且使用会员卡支付
-	    	   //if($('#selectBox').val=='1'){
-	    		   sumAllMoney = (numss*disnum).toFixed(2);
-		    	   summoney.innerHTML=goodsPrice+"*"+nums+"*"+disnum+"="+sumAllMoney;  
-	    	   /*}else{
-	    		   var sumdis = (goodsPrice*disnum).toFixed(2);
-	    		   summoney.innerHTML=goodsPrice+"*"+disnum+"="+sumdis;
-	    	   }*/
-	    	    
+	    	   jisuan();
 	       });
-       
+	       
   	  }else{
   		$('.discounts').css('display','none');
-  		//价格改变
-  	  }			  
+  		disnum = null;
+  		$('#disnum').val("");
+  	  }	
+	  jisuan();
+	 
   });
+  function jisuan()
+  {
+	  console.log(1);
+	  var summoney = document.getElementById('summoney');
+	  var sum = goodsPrice;
+	  var sum_str = goodsPrice;
+	  if(nums != undefined || nums!=null) //有会员折率
+	  {
+		  sum =(nums*sum).toFixed(2);
+		  sum_str += "*"+nums;
+	  }
+	
+	  if((disnum != undefined || disnum!=null) && disnum.length>0)//有折率
+	  {
+		  sum =(disnum*sum).toFixed(2);
+		  sum_str += "*"+disnum;
+	  }
+	 
+	  sum_str += "="+sum;
+	  summoney.innerHTML = sum_str;
+	  // 600
+	  // 600=600
+  }
 });
 function renderform(){
 	layui.use('form',function(){
