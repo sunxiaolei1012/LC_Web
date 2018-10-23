@@ -66,21 +66,8 @@
      		del_selling, add_selling ,update_selling,add_newcard
      		</allowed-methods>
      	</action>
-      </package>
-      
-      <!--不需要监听的继承默认的拦截器包-->
-	<package name="p1" extends="struts-default,json-default">
-		 <action name="login" class="com.ziyi.control.LoginServlet" method="login">
-         	<result name="login">login.jsp</result>
-         	<result name="main">index.jsp</result>
-         	<allowed-methods>login</allowed-methods>
-         </action>
-         <action name="adminlogin" class="com.ziyi.control.adminLoginServlet" method="adminlogin">
-         	<result name="login">admin/index.jsp</result>
-         	<result name="main">admin/index.jsp</result>
-         	<allowed-methods>adminlogin</allowed-methods>
-         </action>
-          <action name="card_*" class="com.ziyi.control.CardControl" method="{1}">
+     	
+     	   <action name="card_*" class="com.ziyi.control.CardControl" method="{1}">
             <result name="json" type="json"></result>
          	<allowed-methods>chen,yu,bo,addprice</allowed-methods>
          </action>
@@ -95,6 +82,20 @@
          	<allowed-methods>selling,image,del</allowed-methods>
          </action>
          	
+      </package>
+      
+      <!--不需要监听的继承默认的拦截器包-->
+	<package name="p1" extends="struts-default,json-default">
+		 <action name="login" class="com.ziyi.control.LoginServlet" method="login">
+         	<result name="login">login.jsp</result>
+         	<result name="main">index.jsp</result>
+         	<allowed-methods>login</allowed-methods>
+         </action>
+         <action name="adminlogin" class="com.ziyi.control.adminLoginServlet" method="adminlogin">
+         	<result name="login">admin/index.jsp</result>
+         	<result name="main">admin/index.jsp</result>
+         	<allowed-methods>adminlogin</allowed-methods>
+         </action>
          	<!-- sxl -->
          	 <action name="UserInfo_*" class="com.ziyi.control.cmd.UserInfoControl" method="{1}">
         	<result name="login">index.jsp</result>
@@ -102,7 +103,6 @@
         	<result type="json"></result>  
         	<allowed-methods>login,productList</allowed-methods>
          </action> 
-         
           
           <action name="Card_*" class="com.ziyi.control.cmd.CardControll" method="{1}">
         	<result name="sellCard">sellCard.jsp</result>
@@ -120,7 +120,6 @@
         	<result type="json"></result>  
         	<allowed-methods>sortProduct,showSort,updateName,delProduct,changeNum,showSort,addSort,delSort</allowed-methods> 
          </action> 
-         
          <action name="exit" class="com.ziyi.control.LoginServlet" method="exit">
         	<result name="login">login.jsp</result>
          </action> 

@@ -708,17 +708,18 @@ function pay(number,table){
 					content: $("#layform1"),   //引入html内容
 					yes:function(index,layero){
 	                    layer.close(index);
-	                    var valinner = $('#selectBox').val();	                   
+	                    var valinner = $('#selectBox').val();
+	                    var cnumber = $('#meberNum').val();
 	                    $.ajax({
 	             	       type:"post",
-	             	       url:"main_pay?number="+number+"&id="+valinner,
+	             	       url:"main_pay?number="+number+"&id="+valinner+"&cnumber="+cnumber,
 	             	       dataType:"json",
 	             	       cache:false,
 	             	       async: false,
 	             	       success:function(date){
 	                             if(date.state){
 	                            	 //layer.msg(date.msg,{icon:6});
-	                            	 layer.confirm('是否打印订单？', {
+	                            	 layer.confirm(date.msg+'<br/>是否打印订单？', {
 	     	                    		btn:['打印','关闭'],
 	     	                    		skin: 'layui-layer-molv',
 	     	                    		btnAlign: 'c',
@@ -730,8 +731,7 @@ function pay(number,table){
 	     	                    		  layer.msg('支付关闭', {});
 	     	                    	});
 	                             }else{
-	                            	 //layer.msg(date.msg,{icon:5});
-	                            	 layer.confirm('返回重新选择支付方式？', {
+	                            	 layer.confirm(date.msg+'<br/>返回重新选择支付方式？', {
 	     	                    		btn:['返回','关闭'],
 	     	                    		skin: 'layui-layer-molv',
 	     	                    		btnAlign: 'c',

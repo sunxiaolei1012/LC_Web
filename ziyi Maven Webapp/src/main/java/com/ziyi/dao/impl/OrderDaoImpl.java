@@ -62,7 +62,7 @@ public class OrderDaoImpl implements OrderDao{
 		return a>0?true:false;
 	}
 	public Order select_houseid_state(int status, int houseid) {
-		List<Order> list = Common.UTIL.query("select * from t_order where status=? and houseid=?", new Object[]{status , houseid}, Order.class);
+		List<Order> list = Common.UTIL.query("select * from t_order where status=? and houseid=? order by ordertime desc", new Object[]{status , houseid}, Order.class);
 		if(null != list && list.size() >0)
 			return list.get(0);
 		return null;

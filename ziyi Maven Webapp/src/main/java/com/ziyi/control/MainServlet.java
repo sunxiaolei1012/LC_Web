@@ -135,6 +135,10 @@ public class MainServlet extends ActionSupport{
 			map.put("houseid",order.getHouseid());
 			map.put("status", order.getStatus());
 			Users user = (Users) ActionContext.getContext().getSession().get("user");
+			if(user == null)
+			{
+				return "login";
+			}
 			if(user.getUserrole().equals("3"))
 				map.put("bool", false);
 			else
