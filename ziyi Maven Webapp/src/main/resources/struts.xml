@@ -96,6 +96,14 @@
          	<result name="main">admin/index.jsp</result>
          	<allowed-methods>adminlogin</allowed-methods>
          </action>
+         
+         
+         <action name="charts_*" class="com.ziyi.control.ChartsControl" method="{1}">
+            <result name="json" type="json"></result>
+         	<allowed-methods></allowed-methods>
+         </action>
+         
+         
          	<!-- sxl -->
          	 <action name="UserInfo_*" class="com.ziyi.control.cmd.UserInfoControl" method="{1}">
         	<result name="login">index.jsp</result>
