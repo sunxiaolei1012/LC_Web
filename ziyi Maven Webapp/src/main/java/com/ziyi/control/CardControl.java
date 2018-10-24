@@ -1,6 +1,7 @@
 package com.ziyi.control;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.cyb.util.Common;
@@ -11,9 +12,9 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.ziyi.dao.CardDao;
 import com.ziyi.dao.impl.CardDaoImpl;
-import com.ziyi.dao.impl.UsersDaoImpl;
 import com.ziyi.pojo.Card;
 import com.ziyi.pojo.Old_Card;
+import com.ziyi.pojo.Order;
 import com.ziyi.pojo.Users;
 
 public class CardControl extends ActionSupport{
@@ -23,6 +24,148 @@ public class CardControl extends ActionSupport{
 	
 	private String price;
 	
+	
+	public void selectcard()
+	{
+		Map<String , Object> map = new HashMap<String , Object>();
+		try {
+			int sum = Common.TOOLS.read_card_two();
+			if(sum == 2)
+			{
+				map.put("state", "false");
+				map.put("button", "fasle");
+				map.put("msg", config.READ_CARD_TEXT);
+			}
+			else if(sum == 0)//新卡
+			{
+				String str= Common.TOOLS.return_read_card_number(config.READ_CARD);
+				if(str == null)
+				{
+					map.put("state", "false");
+					map.put("button", "fasle");
+					map.put("msg", config.READ_CARD_NEW_NULL);
+				}
+				else
+				{
+					map.put("state", "true");
+					map.put("button", "fasle");
+					map.put("msg", Common.TOOLS.code(new Integer(str), config.KEY)+"");
+				}
+			}
+			else //老卡
+			{
+				//根据读取到的会员卡信息 查询会员卡编号
+				Old_Card oc = Common.OLDDAO.select_value_number(Common.TOOLS.list_String(config.READ_CARD));
+				if(oc != null)
+				{
+					map.put("state", "true");
+					map.put("button", "true");
+					map.put("msg", oc.getNumber());
+					Card ca = Common.CARDDAO.select_card_number(oc.getNumber());
+					if(ca != null)
+					{
+						map.put("rebate", Common.CARDTYPE.select_card_ctid(ca.getCtid()).getRebate());
+						ca.setRemain(new Double(Common.double_df.format(ca.getRemain())));
+						map.put("card", ca);
+						
+						//根据卡id查询对应10条消费记录
+						List<Order> list = Common.ORDER.select_card_id(ca.getCardid());
+						if(list != null)
+						{
+							map.put("order", list);
+						}
+						else
+						{
+							map.put("order", "false");
+						}
+					}
+					else
+					{
+						map.put("state", "false");
+						map.put("msg", config.MYSQL_ERROR_CARD_OLD);
+					}
+					
+				}
+				else
+				{
+					map.put("state", "false");
+					map.put("button", "false");
+					map.put("msg", config.READ_CARD_OLD_FALSE);
+				}
+			}
+			Common.TOOLS.return_object(Gsons.tojson(map));
+			reset_read();
+		} catch (InterruptedException e) {
+			Common.TOOLS.return_object("error");
+		}
+	}
+	/**
+	 * 读卡2
+	 */
+	public void yus()
+	{
+		Map<String , Object> map = new HashMap<String , Object>();
+		try {
+			int sum = Common.TOOLS.read_card_two();
+			if(sum == 2)
+			{
+				map.put("state", "false");
+				map.put("button", "fasle");
+				map.put("msg", config.READ_CARD_TEXT);
+			}
+			else if(sum == 0)//新卡
+			{
+				String str= Common.TOOLS.return_read_card_number(config.READ_CARD);
+				if(str == null)
+				{
+					map.put("state", "false");
+					map.put("button", "fasle");
+					map.put("msg", config.READ_CARD_NEW_NULL);
+				}
+				else
+				{
+					map.put("state", "true");
+					map.put("button", "fasle");
+					map.put("msg", Common.TOOLS.code(new Integer(str), config.KEY)+"");
+				}
+			}
+			else //老卡
+			{
+				//根据读取到的会员卡信息 查询会员卡编号
+				Old_Card oc = Common.OLDDAO.select_value_number(Common.TOOLS.list_String(config.READ_CARD));
+				if(oc != null)
+				{
+					map.put("state", "true");
+					map.put("button", "true");
+					map.put("msg", oc.getNumber());
+//					Order or = Common.ORDER.select_number_order(oc.getNumber());
+					Card ca = Common.CARDDAO.select_card_number(oc.getNumber());
+					if(ca != null)
+					{
+						map.put("rebate", Common.CARDTYPE.select_card_ctid(ca.getCtid()).getRebate());
+						ca.setRemain(new Double(Common.double_df.format(ca.getRemain())));
+						map.put("card", ca);
+					}
+					else
+					{
+						map.put("state", "false");
+						map.put("msg", config.MYSQL_ERROR_CARD_OLD);
+					}
+					
+				}
+				else
+				{
+					map.put("state", "false");
+					map.put("button", "false");
+					map.put("msg", config.READ_CARD_OLD_FALSE);
+				}
+			}
+			Common.TOOLS.return_object(Gsons.tojson(map));
+			reset_read();
+		} catch (InterruptedException e) {
+			Common.TOOLS.return_object("error");
+		}
+	}
 	
 	/**
 	 * 充值会员卡

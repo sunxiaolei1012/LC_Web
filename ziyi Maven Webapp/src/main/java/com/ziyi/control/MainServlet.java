@@ -131,7 +131,7 @@ public class MainServlet extends ActionSupport{
 			Map<String,Object> map = new HashMap<String , Object>();
 			map.put("number", order.getNumber());
 			map.put("ordertime", order.getOrdertime());
-			map.put("price", order.getPrice());
+			map.put("price",Common.double_df.format(order.getPrice()));
 			map.put("houseid",order.getHouseid());
 			map.put("status", order.getStatus());
 			Users user = (Users) ActionContext.getContext().getSession().get("user");

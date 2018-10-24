@@ -69,7 +69,7 @@
      	
      	   <action name="card_*" class="com.ziyi.control.CardControl" method="{1}">
             <result name="json" type="json"></result>
-         	<allowed-methods>chen,yu,bo,addprice</allowed-methods>
+         	<allowed-methods>chen,yu,bo,addprice,yus,selectcard</allowed-methods>
          </action>
          <action name="main_*" class="com.ziyi.control.MainServlet" method="{1}">
             <result name="json" type="json"></result>

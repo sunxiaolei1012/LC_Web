@@ -46,8 +46,35 @@ var navs = [{
 		"title": "营业额",
 		"icon": "fa-table",
 		"href": "admin_sellingtype"
+	},
+	{
+		"title": "现金",
+		"icon": "fa-table",
+		"href": "admin_sellingtype"
+	},
+	{
+		"title": "会员卡",
+		"icon": "fa-table",
+		"href": "admin_sellingtype"
+	}
+	,
+	{
+		"title": "支付宝",
+		"icon": "fa-table",
+		"href": "admin_sellingtype"
+	}
+	,
+	{
+		"title": "微信",
+		"icon": "fa-table",
+		"href": "admin_sellingtype"
+	}
+	,{
+		"title": "烟酒",
+		"icon": "fa-navicon",
+		"href": "admin_selling"
 	}, {
-		"title": "商品列表",
+		"title": "库存",
 		"icon": "fa-navicon",
 		"href": "admin_selling"
 	}]

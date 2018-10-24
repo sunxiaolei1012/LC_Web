@@ -29,10 +29,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
 	<br>
 	<div class="layui-btn-content" style='padding-left:2%;'>
-	    <button class="layui-btn">刷卡</button>
+	    <button class="layui-btn" onclick="read_card_select()">刷卡</button>
 	    <div class="layui-form-item">
 			<div class="layui-input-block"  style="margin-left: 5px">
-			  <input type="text" name="cardnum" placeholder="会员卡号获取" class="layui-input">
+			  <input type="text" id="cardnum" name="cardnum" placeholder="会员卡号获取" class="layui-input">
 			</div>
 	    </div>
 	    <button id="subbtn" class="layui-btn layui-btn-normal" onclick="submitmsg()">提交</button>

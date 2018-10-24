@@ -106,6 +106,13 @@ public class OrderDaoImpl implements OrderDao{
 			return list.get(0);
 		return null;
 	}
+	@Override
+	public List<Order> select_card_id(int id) {
+		List<Order> list = Common.UTIL.query("select * from t_order where cardid=? ORDER BY checkouttime desc LIMIT 0,10;", new Object[]{id}, Order.class);
+		if(list.size()>0&&list!=null)
+			return list;
+		return null;
+	}
 
 
 }

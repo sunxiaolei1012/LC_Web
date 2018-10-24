@@ -59,9 +59,6 @@ function detail(){
 		title:'会员卡信息详情',
 		type: 1,
 		shade: false,
-		//btn:['确定','取消'],
-		//btnAlign:'c',
-		// offset:'t',   //弹出框位置
 		closeBtn:1,      //按钮位置
         anim: 1,         //弹窗弹出动画
         maxmin:true,
@@ -78,3 +75,56 @@ function detail(){
 		}*/
 	});
 }  
+
+
+
+
+function read_card_select()
+{
+	 $.ajax({
+	       type:"post",
+	       url:"card_selectcard",
+	       dataType:"json",
+	       cache:false,
+	       async: false,
+	       success:function(d){
+	    	console.log(d);
+	       if(d.state=="true")
+	       		{
+	    	   		$("#cardnum").val(d.card.number);
+	    	   		var str = '<tr><td>'+d.card.name+'</td>'+
+				      '<td>'+d.card.selltime+'</td>'+
+				      '<td>'+d.card.remain+'</td></tr>';
+	    	    	 $('#mebmsg').html(str);
+	    	    	 var mebOrdermsg = $('#mebOrdermsg');
+	    	    	 if(order != "false")
+	    	    	 {
+	    	    		 for(var i =0 ; i<d.order.length;i++)
+	    	    		 {
+	    	    			 
+	    	    		 }
+	    	    		 var meborder ='<tr><td>'+d.+'</td>'+								 							  
+	 					'<td>1314</td>'+								 							  
+						'<td>20181023</td>'+								 							  
+						'<td>'+
+							'<a href="javascript:detail();" class="layui-btn layui-btn-mini">详情</a>'+
+						'</td></tr>';
+	    	    	 }
+	    	    	 else
+	    	    	{
+	    	    		 var meborder ='<tr><td>201810231314</td>'+								 							  
+		 					'<td>1314</td>'+								 							  
+							'<td>20181023</td>'+								 							  
+							'<td>'+
+								'<a href="javascript:detail();" class="layui-btn layui-btn-mini">详情</a>'+
+							'</td></tr>';
+	    	        }
+	       		}
+	       	else
+	       		{
+	       			alert(d.msg);
+	       		}
+	      
+	       }
+	   });
+}

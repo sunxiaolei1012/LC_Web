@@ -106,4 +106,11 @@ public interface OrderDao {
 	 */
 	public Selling_list select_xubei_order(String number);
 	
+	/**
+	 * 根据kaid 查询最近10条订单
+	 * @param id
+	 * @return
+	 */
+	public List<Order> select_card_id(int id);
+	
 }

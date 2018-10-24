@@ -52,7 +52,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="layui-form-item">
 					<div class="layui-input-block">
 						<button class="layui-btn" lay-submit="" onclick="add_price('card','addprice');" lay-filter="cardAdd" >立即提交</button>
-						<button onclick="read_card()" class="layui-btn layui-btn-warm">读卡</button>
+						<button onclick="read_cards()" class="layui-btn layui-btn-warm">读卡</button>
 					</div>
 				</div>
 			</form>
