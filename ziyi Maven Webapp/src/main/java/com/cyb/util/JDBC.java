@@ -7,8 +7,49 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class JDBC {
+	
+	
+	/**
+	 * 根据年份 查询对应月总金额
+	 * @param str
+	 * @return
+	 */
+	public Map<Integer, Object> sum_pay_money(int str)
+	{
+		
+		Connection con=null;
+		ResultSet res=null;
+		PreparedStatement ps=null;
+		Map<Integer, Object> map = Common.TOOLS.monty_day(0, true, 0);
+		try
+		{
+			con=Util.getConn();
+			ps=con.prepareStatement("select sum(pay_price) as totalmoney,date_format(checkouttime, '%m') from t_order where checkouttime like '"+str+"%' group by date_format(checkouttime, '%Y-%m');");
+			res=ps.executeQuery();
+			while(res.next())
+			{
+				
+				map.put(res.getInt(2), new Double(Common.double_df.format(res.getDouble(1))));
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			Util.closeRes(con,ps,res);
+		}
+		return map;
+	}
+	
+	
+	
+	
 	/**
 	 * 计算当日营业额
 	 * @param str

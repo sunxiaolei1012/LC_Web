@@ -11,10 +11,12 @@ import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,6 +38,96 @@ import com.ziyi.pojo.Order;
 
 
 public class Tools {
+	/**
+	 * 根据年份 处理返回对应的月份或者日信心
+	 * @param year 年份
+	 * @param bool true 按月 false按日
+	 * @param month 月份 返回几月的数据
+	 * @return
+	 */
+	public Map<Integer , Object> monty_day(int year ,boolean bool ,int month)
+	{
+		if(bool)
+		{
+			return Money_chushi();
+		}
+		else
+		{
+			Map<Integer , Object> map = new HashMap<Integer , Object>();
+			if(month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12)
+			{
+				for (int i = 1; i < 32; i++) {
+					map.put(i, 0);
+				}
+			}
+			else if(month == 4 || month == 6 || month == 9 || month == 11)
+			{
+				for (int i = 1; i < 31; i++) {
+					map.put(i, 0);
+				}
+			}
+			else if (month == 2)
+			{
+				//1、判断是平年还是闰年
+				boolean bools = year_ping_run(year);
+				if(bools)//闰年
+				{
+					for (int i = 1; i < 30; i++) {
+						map.put(i, 0);
+					}
+				}
+				else//平年
+				{
+					for (int i = 1; i < 29; i++) {
+						map.put(i, 0);
+					}
+				}
+			}
+			
+			return map;
+		}
+		
+	}
+	public boolean year_ping_run(int year)
+	{
+		if((year%4==0 && year%100!=0) || year%400==0 )
+			return true;
+		return false;
+	}
+	
+	
+	public Map sort_map_keys(Map<String, Object> map)
+	{
+		
+		  Map<String, Object> result = map.entrySet().stream()
+	                .sorted(Map.Entry.comparingByKey())
+	                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
+	                        (oldValue, newValue) -> oldValue, LinkedHashMap::new));
+		  return result;
+	}
+	
+	/**
+	 * 处理返回一个map<String ,obejct> 对应  对应12月份
+	 */
+	public Map Money_chushi()
+	{
+		Map<Integer, Object> map = new HashMap<Integer , Object>();
+		map.put(1, 0);
+		map.put(2, 0);
+		map.put(3, 0);
+		map.put(4, 0);
+		map.put(5, 0);
+		map.put(6, 0);
+		map.put(7, 0);
+		map.put(8, 0);
+		map.put(9, 0);
+		map.put(10, 0);
+		map.put(11, 0);
+		map.put(12, 0);
+		return map;
+	}
+	
+	
 	/**
 	 * 删除文件
 	 * @param filePathAndName
