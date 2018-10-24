@@ -69,7 +69,7 @@ function detail(){
 		skin: 'layui-layer-molv', //加上边框
 		area: ['400px', '400px'], //宽高
 		content: $("#ordetail"),   //引入html内容
-		/*yes:function(index,layero){
+		/*yes:function(index,layero){4+·
 			
             layer.close(index);
 		},

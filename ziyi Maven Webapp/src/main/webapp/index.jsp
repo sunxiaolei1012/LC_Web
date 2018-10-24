@@ -213,7 +213,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<ul class="mui-table-view">
 <!-- 							服务员  吧台-->
 							<c:if test="${user.userrole == 3 || user.userrole == 2 }">
-								 <li class="mui-table-view-cell"><a href="javascript:void(0);" onclick="sellCard()"  class="mui-control-item">会员卡查询</a></li>
+								 <li class="mui-table-view-cell"><a href="javascript:void(0);" onclick="mebshow()"  class="mui-control-item">会员卡查询</a></li>
 								 <li class="mui-table-view-cell"><a href="javascript:void(0);" onclick="update_user_password('user_password')" class="mui-control-item">密码修改</a></li>
 							</c:if>
 <!-- 							管理员 -->
@@ -395,11 +395,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	<!-- end continue -->
     <script type="text/javascript" src="js/jquery.min.js"></script>
+
     
     <script src="layui/layui.js"></script>
     <script type="text/javascript" src="js/chen.js"></script>
     <script type="text/javascript" src="js/sxl.js"></script>
     <script type="text/javascript" src="js/mui.min.js"></script>
+    <script type="text/javascript" src="js/mebmsg.js"></script>
     <script>
 		/* //注意：导航 依赖 element 模块，否则无法进行功能性操作
 		layui.use(['element','table','layer','form','layedit', 'laydate'], function(){
