@@ -96,29 +96,32 @@ function read_card_select()
 				      '<td>'+d.card.selltime+'</td>'+
 				      '<td>'+d.card.remain+'</td></tr>';
 	    	    	 $('#mebmsg').html(str);
-	    	    	 var mebOrdermsg = $('#mebOrdermsg');
-	    	    	 if(order != "false")
+	    	    	 var meborder ='';
+	    	    	
+	    	    	 if(d.order != "false")
 	    	    	 {
 	    	    		 for(var i =0 ; i<d.order.length;i++)
 	    	    		 {
-	    	    			 
+	    	    			 meborder +='<tr><td>'+d.order[i].number+'</td>'+								 							  
+	 	 					'<td>1314</td>'+								 							  
+	 						'<td>20181023</td>'+								 							  
+	 						'<td>'+
+	 							'<a href="javascript:detail();" class="layui-btn layui-btn-mini">详情</a>'+
+	 						'</td></tr>';
 	    	    		 }
-	    	    		 var meborder ='<tr><td>'+d.+'</td>'+								 							  
-	 					'<td>1314</td>'+								 							  
-						'<td>20181023</td>'+								 							  
-						'<td>'+
-							'<a href="javascript:detail();" class="layui-btn layui-btn-mini">详情</a>'+
-						'</td></tr>';
+	    	    		
 	    	    	 }
 	    	    	 else
 	    	    	{
-	    	    		 var meborder ='<tr><td>201810231314</td>'+								 							  
+	    	    		 meborder +='<tr><td>201810231314</td>'+								 							  
 		 					'<td>1314</td>'+								 							  
 							'<td>20181023</td>'+								 							  
 							'<td>'+
 								'<a href="javascript:detail();" class="layui-btn layui-btn-mini">详情</a>'+
 							'</td></tr>';
 	    	        }
+	    	    	 $('#mebOrdermsg').html(meborder);
+	    	    	 
 	       		}
 	       	else
 	       		{

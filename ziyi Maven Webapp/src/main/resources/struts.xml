@@ -101,7 +101,8 @@
          <action name="charts_*" class="com.ziyi.control.ChartsControl" method="{1}">
             <result name="json" type="json"></result>
             <result name="sumprice">/charts/sum_price.jsp</result>
-         	<allowed-methods>sumprice</allowed-methods>
+            <result name="aa">/admin/aa.jsp</result>
+         	<allowed-methods>sumprice,sumprices</allowed-methods>
          </action>
          
          

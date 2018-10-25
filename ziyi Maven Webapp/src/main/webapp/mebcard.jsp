@@ -89,9 +89,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						 
 					</tbody>
 				</table>				
-				<div id="page" class="page">
-				
-				</div>	
+			
 				<!-- <button class="layui-btn" onclick="detail()">测试</button> -->			 
 			</div>
 		</fieldset>
