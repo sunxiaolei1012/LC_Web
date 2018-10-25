@@ -10,3 +10,4 @@ public class AdminIndex extends ActionSupport{
 		return "index";
 	}
 }
+    
