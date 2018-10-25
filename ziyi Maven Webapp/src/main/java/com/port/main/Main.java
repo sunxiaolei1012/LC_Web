@@ -17,7 +17,7 @@ public class Main {
 
 	public static SerialPort serialport = null;
 	public static void chen()
-	{
+	{   
 		sendData("1");
 		try {
 			Thread.sleep(300);
