@@ -11,6 +11,34 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class JDBC {
+	public Map<Integer, Object> sum_pay_money_day(int year , String day)
+	{
+		
+		Connection con=null;
+		ResultSet res=null;
+		PreparedStatement ps=null;
+		Map<Integer , Object> mapss=Common.TOOLS.monty_day(year, false,new Integer(day));
+		try
+		{
+			con=Util.getConn();
+			ps=con.prepareStatement("select sum(pay_price) as totalmoney,date_format(checkouttime, '%d') from t_order where checkouttime like '"+year+"-%"+day+"%' group by date_format(checkouttime, '%Y-%m-%d');");
+			res=ps.executeQuery();
+			while(res.next())
+			{
+				
+				mapss.put(res.getInt(2), new Double(Common.double_df.format(res.getDouble(1))));
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			Util.closeRes(con,ps,res);
+		}
+		return mapss;
+	}
 	
 	
 	/**
