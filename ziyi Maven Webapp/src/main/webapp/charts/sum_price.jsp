@@ -51,7 +51,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div id="tableshow" class="tableshow showclass">
 			<fieldset class="layui-elem-field">
 			    <legend>月营业总额</legend>
-				<table class="layui-table" id='tabmonth' lay-data="{limit:10,page:true,}">
+				<table class="layui-table" id='tabmonth' lay-data="{limit:12,page:true,}">
 					<thead>
 					    <tr>
 						  <th lay-data="{field:'id',sort: true}">月份</th>
@@ -135,21 +135,55 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 
 function daydetail(a,b){
-	 <c:forEach var="i" items="${list}" > 
-// 	 	alert(${i.month} == b);
-		var c = ${i.month};
-		if(c = b)
-		{
-			<c:if test="${i.month==b}">
-			 <c:forEach var="is" items="${i.day_value}" >
-			 	
-			 	
-			 	
-			 	console.log(${is.value});	 
-			 </c:forEach>
-			 </c:if>
-		}
+	
+	<c:forEach var="i" items="${list}" > 
+		var c = ${i.month}
+		if(c == b)
+			{
+			//$("#monthval").html(" "); 
+// 			$("#tabmonth").html("");
+			 $('tr:gt(1)').remove();
+// 			<c:forEach var="is" items="${i.day_value}" >
+// 			var str = "<tr><td>${is.key}</td><td>${is.value}</td></tr>";
+// 			$("#tabmonth").html(str);
+// // 		 		console.log(${is.key}+"---"+${is.value});	 
+// 		 </c:forEach>
+		 
+		 var _len = $("#tabmonth tr").length;        
+		             $("#tabmonth").append("<tr id="+_len+" align='center'>"
+		                                 +"<td>"+_len+"</td>"
+		                                 +"<td>Dynamic TR"+_len+"</td>"
+		                                 +"<td><input type='text' name='desc"+_len+"' id='desc"+_len+"' /></td>"
+		                                 +"<td><a href=\'#\' onclick=\'deltr("+_len+")\'>删除</a></td>"
+		                            +"</tr>");            
+			}
+		table.reload('tabmonth');
+
 	</c:forEach>
+	
+	
+// 	if(b == 1)
+// 	{
+// 		<c:forEach var="i" items="${list}" > 
+// 		<c:if test="${i.month==1}">
+// 		 <c:forEach var="is" items="${i.day_value}" >
+// 		 	console.log(${is.value});	 
+// 		 </c:forEach>
+// 		 </c:if>
+// 		</c:forEach>
+// 	}
+// 	else if (b == 2)
+// 		{
+// 		<c:forEach var="i" items="${list}" > 
+// 		<c:if test="${i.month==2}">
+// 		 <c:forEach var="is" items="${i.day_value}" >
+// 		 	console.log(${is.value});	 
+// 		 </c:forEach>
+// 		 </c:if>
+// 		</c:forEach>
+		
+// 		}
+	 
 }
 
 
@@ -184,6 +218,12 @@ layui.use(['element','form','table','laydate','laypage'], function(){
   });
 });
 var oChart1;
+function rendertable(){
+	layer.use(['table'],function(){
+		var table = layui.table;
+		table.render();
+	})
+}
 $(document).ready(function(){
 	//营业额
 	var oChart = Highcharts.chart('container', {
