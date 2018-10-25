@@ -59,6 +59,7 @@ public class ChartsControl extends ActionSupport{
 			list.add(map_month);
 		}
 		ActionContext.getContext().put("list", list);
+
 		return "aa";
 	}
 	

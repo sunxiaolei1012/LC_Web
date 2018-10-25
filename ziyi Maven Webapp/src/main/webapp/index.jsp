@@ -403,6 +403,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script type="text/javascript" src="js/mui.min.js"></script>
     <script type="text/javascript" src="js/mebmsg.js"></script>
     <script>
+    layui.use(['element','table','layer','form','layedit', 'laydate','laypage'], function(){
+		var element = layui.element;
+		var table = layui.table;
+		var layer = layui.layer;
+		var form = layui.form;
+		var layedit = layui.layedit
+  		var laydate = layui.laydate; 
+		var laypage = layui.laypage;
+		laypage.render({
+		    elem: 'page' //注意，这里的 test1 是 ID，不用加 # 号
+		    ,count: 50 //数据总数，从服务端得到
+		    ,limit:10
+		  });
+    });
+    
+    //会员卡查询框
+function mebshow(){
+	layer.open({
+		title:'会员卡信息',
+		type: 2,
+		shade: false,
+		closeBtn:1,      //按钮位置
+        anim: 1,         //弹窗弹出动画
+        maxmin:true,
+        fixed:true,
+		skin: 'layui-layer-molv', //加上边框
+		area: ['800px', '600px'], //宽高
+		content: 'mebcard.jsp',   //引入html内容		 
+	});
+}
 		/* //注意：导航 依赖 element 模块，否则无法进行功能性操作
 		layui.use(['element','table','layer','form','layedit', 'laydate'], function(){
 		  var element = layui.element;
