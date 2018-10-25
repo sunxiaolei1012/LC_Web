@@ -24,7 +24,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-  ${list }
+  ${list}
   <hr>
   	<c:forEach var="i" items="${list}">
   		<c:forEach var="is" items="${i.day_value }">
