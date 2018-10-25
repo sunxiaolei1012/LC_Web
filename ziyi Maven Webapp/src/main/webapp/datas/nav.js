@@ -45,14 +45,15 @@ var navs = [{
 	"children": [{
 		"title": "营业额",
 		"icon": "fa-table",
-		"href": "admin_sellingtype"
-	},
+		"href": "charts_sumprices"
+	}
+	,
 	{
-		"title": "现金",
+		"title": "支付方式",
 		"icon": "fa-table",
-		"href": "admin_sellingtype"
+		"href": "charts/pay_type.jsp"
 	},
-	{
+	/*{
 		"title": "会员卡",
 		"icon": "fa-table",
 		"href": "admin_sellingtype"
@@ -68,15 +69,16 @@ var navs = [{
 		"title": "微信",
 		"icon": "fa-table",
 		"href": "admin_sellingtype"
-	}
-	,{
+	}*/
+	
+	{
 		"title": "烟酒",
 		"icon": "fa-navicon",
 		"href": "admin_selling"
 	}, {
 		"title": "库存",
 		"icon": "fa-navicon",
-		"href": "admin_selling"
+		"href": "m_sumlistNumber"
 	}]
 },
 {

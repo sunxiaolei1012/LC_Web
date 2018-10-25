@@ -102,6 +102,12 @@ public interface Selling_listDao {
 	 * 	
 	 */
 		public int Ic_Card_AllMoney ();
+		
+		/***
+		 * 
+		 * 查询所有商品
+		 */
+		public List<Selling_list> show_selling_list();
 	
 	
 	

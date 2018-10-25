@@ -564,7 +564,7 @@ function orderShow(tableid)
 								        "<a href='#'>"+
 								            "<div class='mui-media-body'>"+							               
 								                "<p class='mui-ellipsis mui-table-view-cell'>"+"<span class='title mebTitle'>"+date.sel[i].name+"</span>"+
-								                	"<span class='mui-badge mui-badge-inverted'>"+"<span class='mui-ellipsis mebTitle'>"+"×"+"<label>"+date.sel[i].number+"</label>壶</span>"+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
+								                	"<span class='mui-badge mui-badge-inverted'>"+"<span class='mui-ellipsis mebTitle'>"+"×"+"<label>"+date.sel[i].number+"</label>"+date.sel[i].unit+"</span>"+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
 								                			"<span class='mui-ellipsis title mebTitle'>"+date.sel[i].price+"</span>" +
 								                					"&nbsp;&nbsp;<span onclick='goodsDel("+date.sel[i].sellingid+")' class='iconfont icon-shanchu'></span>" +
 								                					"<span style='position:relative;top:2.5px' onclick='goodsAdd("+date.sel[i].sellingid+")' class='iconfont icon-tianjia'></span><span class='statues mui-badge "+cla_c(goodsta)+"' onclick='goodsta("+date.sel[i].typeid+","+date.houseid+")' style='position:relative;top:-1.5px'>"+stainner+"</span></span>"+
@@ -676,7 +676,7 @@ function pay(number,table){
 			                '<p class="mui-ellipsis mui-table-view-cell">'+
 			                '<span class="title mebTitle">'+d.sel[i].name+'</span>'+
 			                	'<span class="mui-badge mui-badge-inverted">'+
-			                	'<span class="mui-ellipsis mebTitle">×<label>'+d.sel[i].number+'</label>壶</span>'+
+			                	'<span class="mui-ellipsis mebTitle">×<label>'+d.sel[i].number+'</label>'+d.sel[i].unit+'</span>'+
 			                	'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
 			                	'<span class="mui-ellipsis title mebTitle">'+d.sel[i].price+'</span>'+
 			                	/*'&nbsp;&nbsp;<span class="iconfont icon-shanchu"></span>'+

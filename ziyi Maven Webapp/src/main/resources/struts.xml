@@ -101,7 +101,8 @@
          <action name="charts_*" class="com.ziyi.control.ChartsControl" method="{1}">
             <result name="json" type="json"></result>
             <result name="sumprice">/charts/sum_price.jsp</result>
-         	<allowed-methods>sumprice</allowed-methods>
+            <result name="aa">/admin/aa.jsp</result>
+         	<allowed-methods>sumprice,sumprices</allowed-methods>
          </action>
          
          
@@ -132,5 +133,15 @@
          <action name="exit" class="com.ziyi.control.LoginServlet" method="exit">
         	<result name="login">login.jsp</result>
          </action> 
+         
+         <action  name="m_*" class="com.ziyi.control.cmd.MonthPriceControl" method="{1}">
+         	<result name="monthPrices">higChartYYE.jsp </result>
+         	<result name="sumSellingType">higChartKC.jsp</result>
+         	<result name="PayTypePrice">PayTypePrice.jsp</result>
+         	<result name="YingYePrice">YingYePrice.jsp</result>
+         	<result name="sumlistNumber">ExcelKuCun.jsp</result>
+         	<result name="checkByType">ExcelKuCunList.jsp</result>
+         	<allowed-methods>monthPrices,sumSellingType,PayTypePrice,YingYePrice,sumlistNumber,checkByType</allowed-methods> 
+         	</action>
 	</package>
 </struts>

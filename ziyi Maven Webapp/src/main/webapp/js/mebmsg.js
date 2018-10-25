@@ -103,7 +103,7 @@ function read_card_select()
 	    	    		 {
 	    	    			 
 	    	    		 }
-	    	    		 var meborder ='<tr><td>'+d.+'</td>'+								 							  
+	    	    		 var meborder ='<tr><td>'+d+'</td>'+								 							  
 	 					'<td>1314</td>'+								 							  
 						'<td>20181023</td>'+								 							  
 						'<td>'+

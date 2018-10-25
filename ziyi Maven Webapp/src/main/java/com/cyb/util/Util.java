@@ -77,6 +77,7 @@ public class Util<T> {
 							switch(type)
 							{
 							case Types.INTEGER:
+							case 3:
 								method = clazz.getMethod(methodName,Integer.class);
 								method.invoke(obj, rs.getInt(i));
 								break;

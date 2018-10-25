@@ -134,5 +134,15 @@ public class Selling_listDaoImpl implements Selling_listDao{
 		}
 		return null;
 	}
+	@Override
+	public List<Selling_list> show_selling_list() {
+		
+		String sql="select * from t_selling_list";
+		List<Selling_list> list=Common.UTIL.query(sql, null, Selling_list.class);
+		if(list!=null && list.size()>0)
+		return list;
+		
+	return null;	
+	}
 
 }

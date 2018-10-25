@@ -11,6 +11,7 @@ import com.ziyi.dao.BannerDao;
 import com.ziyi.dao.CardDao;
 import com.ziyi.dao.Card_typeDao;
 import com.ziyi.dao.LogDao;
+import com.ziyi.dao.MonthPriceDao;
 import com.ziyi.dao.Old_CardDao;
 import com.ziyi.dao.OrderDao;
 import com.ziyi.dao.Order_listDao;
@@ -25,6 +26,7 @@ import com.ziyi.dao.impl.BannerDaoImpl;
 import com.ziyi.dao.impl.CardDaoImpl;
 import com.ziyi.dao.impl.Card_typeDaoImpl;
 import com.ziyi.dao.impl.LogDaoImpl;
+import com.ziyi.dao.impl.MonthPriceDaoImpl;
 import com.ziyi.dao.impl.Old_CardDaoImpl;
 import com.ziyi.dao.impl.OrderDaoImpl;
 import com.ziyi.dao.impl.Order_listDaoImpl;
@@ -61,10 +63,10 @@ public class Common {
 	 static final String PASSWORD=pros.getProperty("password");
 	 
 	 
-	 static{
-		 Main.openSerialPort(pros.getProperty("com"));
-		 Main.chen();
-	 }
+//	 static{
+//		 Main.openSerialPort(pros.getProperty("com"));
+//		 Main.chen();
+//	 }
 	 public static final Util UTIL = new Util();
 	
 	 public static final JDBC JD = new JDBC();
@@ -83,6 +85,8 @@ public class Common {
 	 public static final OrderDao ORDER = new OrderDaoImpl();
 	 public static final Selling_listDao SLD = new Selling_listDaoImpl();
 	 public static final Order_listDao OLD =new Order_listDaoImpl();
+	 public static final MonthPriceDao MPD=new MonthPriceDaoImpl();
+	 
 	 
 	 
 	 //日志
