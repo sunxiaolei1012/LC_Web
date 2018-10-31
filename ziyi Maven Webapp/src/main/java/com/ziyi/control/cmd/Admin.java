@@ -17,7 +17,7 @@ public class Admin {
 	public String admin_login(String name , String password)
 	{
 		
-		Users user = Common.USERS.select_id_user(name, password);
+	 	Users user = Common.USERS.select_id_user(name, password);
 		//根据用户名与密码判断用户是否存在
 		if(user == null)
 		{
