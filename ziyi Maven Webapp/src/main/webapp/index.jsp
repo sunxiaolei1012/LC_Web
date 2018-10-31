@@ -162,25 +162,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									    	</div>
 									   </div>
 							     </form>							     							     
-							     <!-- <style type="text/css">
-							    	/* .middle-ta-change-btnlist{
-							    		height: 20%;
-							    		width: 100%;							    		
-							    	} */
-							    	.mui-btn-card{
-							    	  /*  margin-top:10%;
-							    	   margin-left:10%;  */
-							    	}
-							    </style> 
-							    <div class="middle-tab-change-btnlist">
-									<button type="button" class="mui-btn mui-btn-primary mui-btn-card" >激活卡信息</button>									 
-								</div> -->
-								
+							
 							</div>
 						</div>
-						<!-- end item3 -->
-						<!-- <div id="item4" class="mui-control-content">4</div>
-						<div id="item5" class="mui-control-content">5</div> -->
+					
 					</div>				
 				</div>
 			</div>
@@ -218,12 +203,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</c:if>
 <!-- 							管理员 -->
 							<c:if test="${user.userrole == 1 }">
-								<li class="mui-table-view-cell"><a href="javascript:void(0);" onclick="sellCard()"  class="mui-control-item">会员卡查询</a></li>
-								<li class="mui-table-view-cell"><a href="javascript:void(0);" onclick="sellCard()"  class="mui-control-item">售卡记录</a></li>
-							    <li class="mui-table-view-cell"><a href="javascript:void(0);" onclick="opens()" >会员开卡</a></li>
-							    <li class="mui-table-view-cell"><a href="javascript:void(0);" onclick="sumPrice()" >营业额</a></li>
-							    <li class="mui-table-view-cell">香烟</li>
-							    <li class="mui-table-view-cell"><a href="javascript:add_chart('chart');" >报表</a></li>
+							    <li class="mui-table-view-cell"><a href="javascript:void(0);" onclick="mebshow()"  class="mui-control-item">会员卡查询</a></li>
+								<li class="mui-table-view-cell"><a href="javascript:void(0);" onclick="update_user_password('user_password')" class="mui-control-item">密码修改</a></li>
 							    <li class="mui-table-view-cell"><a href="adminindex">后台管理</a></li>
 							    
 							</c:if>

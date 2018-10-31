@@ -728,7 +728,8 @@ function pay(number,table){
 	     	                    		function(){
 	     	                    		  layer.msg('支付关闭', {});
 	     	                    	});
-	                             }else{
+	                             }
+	                             else{
 	                            	 layer.confirm(date.msg+'<br/>返回重新选择支付方式？', {
 	     	                    		btn:['返回','关闭'],
 	     	                    		skin: 'layui-layer-molv',

@@ -52,6 +52,7 @@ public class config {
 	public static final String PAY_NUMBER_DEL= "订单不存在或删除";
 	public static final String PAY_NUMBER_TRUE= "订单已付款";
 	public static final String PAY_ERROR= "付款失败，请查询日志信息";
+	public static final String PAY_TRUE= "支付成功";
 	
 	public static final String CARD_PRICE_FALSE= "卡中余额不足";
 	public static final String CARD_PRICE_ADD_NULL="充值金额不为空";

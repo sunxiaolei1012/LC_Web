@@ -514,6 +514,7 @@ public class MainServlet extends ActionSupport{
 									{
 										Common.HOUSE.update_house_tea(order.getHouseid(), 0);
 										map.put("state", true);
+										map.put("msg", config.PAY_TRUE);
 										Users user = (Users) ActionContext.getContext().getSession().get("user");
 										Common.TOOLS.log_time(user.getName()+"收取了订单号为："+number+"的账单。金额为："+dou+"。会员卡付款，卡号："+cnumber,10);
 									}
