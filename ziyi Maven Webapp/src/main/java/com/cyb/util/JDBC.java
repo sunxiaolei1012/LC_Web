@@ -6,11 +6,52 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class JDBC {
+	/**
+	 * 根据支付类型查询信息
+	 * @param year
+	 * @param day
+	 * @return
+	 */
+	public List<Double> sum_pay_money_type(int type , int year)
+	{
+		
+		Connection con=null;
+		ResultSet res=null;
+		PreparedStatement ps=null;
+		List<Double> list = new ArrayList<Double>();
+		for (int i = 0; i < 12; i++) {
+			list.add(0.00);
+		}
+		try
+		{
+			con=Util.getConn();
+			ps=con.prepareStatement("select sum(pay_price) as totalmoney,date_format(checkouttime, '%m') from t_order where type="+type+" and checkouttime like '"+year+"%' group by date_format(checkouttime, '%Y-%m');");
+			res=ps.executeQuery();
+			while(res.next())
+			{
+				
+				list.set(res.getInt(2)-1, new Double(Common.double_df.format(res.getDouble(1))));
+//				mapss.put(res.getInt(2), new Double(Common.double_df.format(res.getDouble(1))));
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			Util.closeRes(con,ps,res);
+		}
+		return list;
+	}
+	
+	
 	public Map<Integer, Object> sum_pay_money_day(int year , String day)
 	{
 		

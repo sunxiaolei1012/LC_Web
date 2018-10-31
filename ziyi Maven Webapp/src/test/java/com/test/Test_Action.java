@@ -148,4 +148,15 @@ public class Test_Action {
 		yu.insert_yuyue(yy);
 		
 	}
+	
+	@Test
+	public void test14()
+	{
+		JDBC JD = new JDBC();
+		List<Double> list = JD.sum_pay_money_type(0, 2018);
+		for (Double double1 : list) {
+			System.out.println(double1);
+		}
+		
+	}
 }

@@ -102,7 +102,8 @@
             <result name="json" type="json"></result>
             <result name="sumprice">/charts/sum_price.jsp</result>
            <result name="aa">/charts/sum_price.jsp</result>
-         	<allowed-methods>sumprice,sumprices</allowed-methods>
+           <result name="paytype">/charts/pay_type.jsp</result>
+         	<allowed-methods>sumprice,sumprices,paytype</allowed-methods>
          </action>
          
          

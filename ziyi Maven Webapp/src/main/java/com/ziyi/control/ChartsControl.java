@@ -63,6 +63,22 @@ public class ChartsControl extends ActionSupport{
 		return "aa";
 	}
 	
+	/**
+	 * 支付方式
+	 * @return
+	 */
+	public String paytype()
+	{
+		List<Double> xianjin = Common.JD.sum_pay_money_type(0, 2018);
+		List<Double> huiyuanka = Common.JD.sum_pay_money_type(1, 2018);
+		List<Double> zhifubao= Common.JD.sum_pay_money_type(2, 2018);
+		List<Double> weixin = Common.JD.sum_pay_money_type(3, 2018);
+		ActionContext.getContext().put("xianjin", xianjin);
+		ActionContext.getContext().put("huiyuanka", huiyuanka);
+		ActionContext.getContext().put("zhifubao", zhifubao);
+		ActionContext.getContext().put("weixin", weixin);
+		return "paytype";
+	}
 	
 	
 	
