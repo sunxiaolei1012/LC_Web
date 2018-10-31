@@ -28,6 +28,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		.showclass,.dayshow{
 			display: none;
 		}
+		#btnshow{
+		    display:none;
+		    padding-left:30px;
+		    padding-right:30px;
+		    margin-top:5px
+		}
 	</style>
 </head>
 
@@ -37,26 +43,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="changeshow">
 			<form class="layui-form">
 				<div class="layui-form-item">
-				    <label class="layui-form-label">月营业总额</label>
+				    <label class="layui-form-label">营业总额</label>
 				    <div class="layui-input-block">
 				    	<!-- 关闭状态是图表显示，开启状态是表格显示 -->
 				      <input type="checkbox" name="zzz" lay-skin="switch" lay-filter="switchTest" lay-text="图表显示|表格显示">
 				    </div>
 				</div>
-		    </form>		    
+		    </form>
+		    <button class="layui-btn layui-btn-radius layui-btn-sm" id="btnshow" onclick='backmonth()'>返回</button>		    
 		</div>
 		<div id="chartshow" class="chartshow">
 			<div id="container" style="min-width: 310px; height: 600px; margin: 0 auto"></div>
 		</div>
 		<div id="tableshow" class="tableshow showclass">
 			<fieldset class="layui-elem-field">
-			    <legend>月营业总额</legend>
-				<table class="layui-table" id='tabmonth' lay-data="{limit:12,page:true,}">
+			    <legend>营业总额</legend>
+				<table class="layui-table" id='tabmonth'>
 					<thead>
 					    <tr>
-						  <th lay-data="{field:'id',sort: true}">月份</th>
-					      <th lay-data="{field:'mmoney',sort: true}">销售额</th>				       
-					      <th lay-data="{field:'eara'}">操作</th>				       
+						  <th>月份</th>
+					      <th>月营业额</th>				       
+					      <th>操作</th>				       
 					    </tr>
 					</thead>
 					<tbody id='monthval'>
@@ -64,128 +71,60 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					  		<tr>				  		
 						  		<td> ${i.month} </td>					  		
 						  		<td> ${i.value}</td>
-						  		<td><a href="javascript:daydetail(this,${i.month});" class="layui-btn layui-btn-mini">详情</a></td>
+						  		<td><a href="javascript:daydetail(${i.month});" class="layui-btn layui-btn-mini">详情</a></td>
 					  		</tr>
-				  		</c:forEach>
-				  		<%-- <a href="javascript:editbtn(this,${pay.typeid});" class="layui-btn layui-btn-normal layui-btn-mini">预览</a> --%>
-						<!-- <tr>
-							<td>1</td>
-							<td>1314</td>
-							<td><a href="javascript:moneydetail();" class="layui-btn layui-btn-mini">详情</a></td>
-						</tr>
-						<tr>
-							<td>2</td>
-							<td>1314</td>
-							<td><a href="javascript:moneydetail();" class="layui-btn layui-btn-mini">详情</a></td>
-						</tr> -->
+				  		</c:forEach>				  		
 					</tbody>
-				</table>
-				<!-- <div id="page" class="page"></div> -->
+				</table>				
 			</fieldset>
-		</div>
-         
+		</div>       
 	</div>
 </body>
 <!-- 弹出框详情：营业总额显示 -->
 <div id="tabledetail" class="tabledetail" style="display: none;">
-	    <div class="changeshow">
-			<form class="layui-form">
-				<div class="layui-form-item">
-				    <label class="layui-form-label">日营业总额</label>
-				    <div class="layui-input-block">
-				    	<!-- 关闭状态是图表显示，开启状态是表格显示 -->
-				      <input type="checkbox" name="zzz" lay-skin="switch" lay-filter="switchTest1" lay-text="图表显示|表格显示">
-				    </div>
-				</div>
-		    </form>
-		</div>
-		<div id="daychart" class="daychart">
-			<div id="container1" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-		</div>
-		<div id="daytable" class="tableshow dayshow">
-			<fieldset class="layui-elem-field">
-			    <legend>日营业总额</legend>
-				<table class="layui-table" lay-data="{limit:10,page:true,}">
-					<thead>
-					    <tr>
-						  <th lay-data="{field:'day',sort: true}">日期</th>
-					      <th lay-data="{field:'dmoney',sort: true}">销售额</th>				       
-					    </tr>
-					</thead>
-					<tbody id="dayval">
-						<!-- <tr>
-							<td>1月1日</td>
-							<td>1314</td>
-						</tr>
-						<tr>
-							<td>1月2日</td>
-							<td>1314</td>
-						</tr> -->
-					</tbody>
-				</table>
-				
-				<!-- <div id="page1" class="page"></div> -->
-			</fieldset>
+    <div class="changeshow">
+		<form class="layui-form">
+			<div class="layui-form-item">
+			    <label class="layui-form-label">日营业总额</label>
+			    <div class="layui-input-block">
+			    	<!-- 关闭状态是图表显示，开启状态是表格显示 -->
+			      <input type="checkbox" name="zzz" lay-skin="switch" lay-filter="switchTest1" lay-text="图表显示|表格显示">
+			    </div>
+			</div>
+	    </form>
+	</div>
+	<div id="daychart" class="daychart">
+		<div id="container1" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+	</div>
+	<div id="daytable" class="tableshow dayshow">
+		<fieldset class="layui-elem-field">
+		    <legend>日营业总额</legend>
+			<table class="layui-table" lay-data="{limit:10,page:true,}">
+				<thead>
+				    <tr>
+					  <th lay-data="{field:'day',sort: true}">日期</th>
+				      <th lay-data="{field:'dmoney',sort: true}">销售额</th>				       
+				    </tr>
+				</thead>
+				<tbody id="dayval">
+					<!-- <tr>
+						<td>1月1日</td>
+						<td>1314</td>
+					</tr>
+					<tr>
+						<td>1月2日</td>
+						<td>1314</td>
+					</tr> -->
+				</tbody>
+			</table>
 			
-		</div>
+			<!-- <div id="page1" class="page"></div> -->
+		</fieldset>
+		
+	</div>
 </div>
 
 <script>
-
-
-
-function daydetail(a,b){
-	
-	<c:forEach var="i" items="${list}" > 
-		var c = ${i.month}
-		if(c == b)
-			{
-			//$("#monthval").html(" "); 
-// 			$("#tabmonth").html("");
-			 $('tr:gt(1)').remove();
-// 			<c:forEach var="is" items="${i.day_value}" >
-// 			var str = "<tr><td>${is.key}</td><td>${is.value}</td></tr>";
-// 			$("#tabmonth").html(str);
-// // 		 		console.log(${is.key}+"---"+${is.value});	 
-// 		 </c:forEach>
-		 
-		 var _len = $("#tabmonth tr").length;        
-		             $("#tabmonth").append("<tr id="+_len+" align='center'>"
-		                                 +"<td>"+_len+"</td>"
-		                                 +"<td>Dynamic TR"+_len+"</td>"
-		                                 +"<td><input type='text' name='desc"+_len+"' id='desc"+_len+"' /></td>"
-		                                 +"<td><a href=\'#\' onclick=\'deltr("+_len+")\'>删除</a></td>"
-		                            +"</tr>");            
-			}
-		table.reload('tabmonth');
-
-	</c:forEach>
-	
-	
-// 	if(b == 1)
-// 	{
-// 		<c:forEach var="i" items="${list}" > 
-// 		<c:if test="${i.month==1}">
-// 		 <c:forEach var="is" items="${i.day_value}" >
-// 		 	console.log(${is.value});	 
-// 		 </c:forEach>
-// 		 </c:if>
-// 		</c:forEach>
-// 	}
-// 	else if (b == 2)
-// 		{
-// 		<c:forEach var="i" items="${list}" > 
-// 		<c:if test="${i.month==2}">
-// 		 <c:forEach var="is" items="${i.day_value}" >
-// 		 	console.log(${is.value});	 
-// 		 </c:forEach>
-// 		 </c:if>
-// 		</c:forEach>
-		
-// 		}
-	 
-}
-
 
 layui.use(['element','form','table','laydate','laypage'], function(){
   var element = layui.element
@@ -202,6 +141,7 @@ layui.use(['element','form','table','laydate','laypage'], function(){
        $('#tableshow').toggleClass('showclass');
        $('#chartshow').toggleClass('showclass');
     }else{
+       backmonth();
        $('#tableshow').toggleClass('showclass');
        $('#chartshow').toggleClass('showclass');
     }
@@ -211,19 +151,38 @@ layui.use(['element','form','table','laydate','laypage'], function(){
     if(this.checked=='true'){
        $('#daychart').toggleClass('dayshow');
        $('#daytable').toggleClass('dayshow');
-    }else{
+    }else{   	
        $('#daychart').toggleClass('dayshow');
        $('#daytable').toggleClass('dayshow');
     }
   });
 });
-var oChart1;
-function rendertable(){
-	layer.use(['table'],function(){
-		var table = layui.table;
-		table.render();
-	})
+
+var tabold;
+function daydetail(b){
+	//原月营业额内容
+	 tabold=$('#tabmonth').html();
+	 console.log(tabold);
+	 <c:forEach var="i" items="${list}" > 
+		var c = ${i.month};
+		if(c == b)
+			{	 
+			     $('#btnshow').css('display','block');
+				 $('#tabmonth tr').remove();
+				 $('#tabmonth thead').html('<tr><th>日期</th><th>日营业额</th></tr>');
+	 			<c:forEach var="is" items="${i.day_value}" >
+	 		        var str=str+"<tr><td>"+${i.month}+"月"+${is.key}+"日"+"</td><td>"+${is.value}+"</td></tr>";	 
+			    </c:forEach>  
+			    $("#tabmonth tbody").html(str);	  			    
+			}
+	 </c:forEach> 
 }
+function backmonth(){
+	$('#tabmonth').html(tabold);
+	$('#btnshow').css('display','none');
+}
+
+var oChart1;
 $(document).ready(function(){
 	//营业额
 	var oChart = Highcharts.chart('container', {
@@ -343,129 +302,9 @@ $(document).ready(function(){
 		tooltip: {
 			pointFormat: '营业额: <b>{point.y:.2f} 元</b>'
 		},
-		series: [/* {
+		series: [ {
 			name: '营业额',
-			data: [
-				[
-						'1月1日',
-						24.13
-					],
-					[
-						'1月2日',
-						17.2
-					],
-					[
-						'1月3日',
-						8.11
-					],
-					[
-						'1月4日',
-						5.33
-					],
-					[
-						'1月5日',
-						1.06
-					],
-					[
-						'1月6日',
-						0.5
-					],[
-						'1月7日',
-						24.13
-					],
-					[
-						'1月8日',
-						17.2
-					],
-					[
-						'1月9日',
-						8.11
-					],
-					[
-						'1月10日',
-						5.33
-					],
-					[
-						'1月11日',
-						1.06
-					],
-					[
-						'1月12日',
-						0.5
-					],[
-						'1月13日',
-						24.13
-					],
-					[
-						'1月14日',
-						17.2
-					],
-					[
-						'1月15日',
-						8.11
-					],
-					[
-						'1月16日',
-						5.33
-					],
-					[
-						'1月17日',
-						1.06
-					],
-					[
-						'1月18日',
-						0.5
-					],[
-						'1月19日',
-						24.13
-					],
-					[
-						'1月20日',
-						17.2
-					],
-					[
-						'1月21日',
-						8.11
-					],
-					[
-						'1月22日',
-						5.33
-					],
-					[
-						'1月23日',
-						1.06
-					],
-					[
-						'1月24日',
-						0.5
-					],[
-						'1月25日',
-						0.5
-					],[
-						'1月26日',
-						24.13
-					],
-					[
-						'1月27日',
-						17.2
-					],
-					[
-						'1月28日',
-						8.11
-					],
-					[
-						'1月29日',
-						5.33
-					],
-					[
-						'1月30日',
-						1.06
-					],
-					[
-						'1月31日',
-						0.5
-					], 
-			],
+			data: [], //数据
 			dataLabels: {
 				enabled: true,
 				rotation: 0, //柱形图上数据显示设置
@@ -474,7 +313,7 @@ $(document).ready(function(){
 				format: '{point.y:.2f}', // :.1f 为保留 1 位小数
 				y: 10
 			}
-		} */
+		} 
 		]
 	});	 
 })

@@ -17,6 +17,8 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.ziyi.pojo.DayPrice;
 import com.ziyi.pojo.KuCun;
 import com.ziyi.pojo.MonthPrice;
+import com.ziyi.pojo.PayTypePriceDay;
+import com.ziyi.pojo.PayTypePriceMonth;
 import com.ziyi.pojo.Selling_list;
 import com.ziyi.pojo.Selling_type;
 
@@ -99,17 +101,18 @@ public class MonthPriceControl  extends ActionSupport{
 	  
 	  
 	  
-	 /* //分类统计每天付款方式金额
-	  
+
+	  //分类统计 每月 每天付款方式金额
 	  public  String PayTypePrice(){
 		  System.out.println("PayTypePrice----------------");
-		  List<PayTypePrice>list=Common.PPD.select_payType_daytime();
+		  List<PayTypePriceMonth>list=Common.PPD.select_payType_monthtime();//每月
 		  System.out.println(list);
-		  ActionContext.getContext().put("PayTypePrice", list);
-				  
-		  
+		  ActionContext.getContext().put("PayTypePriceMonth", list);
+			List<PayTypePriceDay> list1=Common.PPD.select_payType_daystime();//每日	  
+			  System.out.println(list1);
+			  ActionContext.getContext().put("PayTypePriceDay", list1);
 		  return "PayTypePrice";
-	  }*/
+	  }
 	  
 	  
 	  public  Map< Integer, Double> monthPrice() throws SQLException{

@@ -51,7 +51,7 @@ var navs = [{
 	{
 		"title": "支付方式",
 		"icon": "fa-table",
-		"href": "charts/pay_type.jsp"
+		"href": "m_PayTypePrice"
 	},
 	/*{
 		"title": "会员卡",

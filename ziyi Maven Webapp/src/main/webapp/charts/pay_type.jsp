@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -9,13 +10,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 	<title>Document</title>
-	<link rel="stylesheet" type="text/css" href="../layui/css/layui.css">
-	<script type="text/javascript" src="js/highcharts.js"></script>
-	<script type="text/javascript" src="js/exporting.js"></script>
-	<script type="text/javascript" src="js/drilldown.js"></script>
-	<script type="text/javascript" src="js/highcharts-zh_CN.js"></script>
-	<script type="text/javascript" src="../js/jquery.min.js"></script>  
-	<script type="text/javascript" src="../layui/layui.js"></script>
+	<link rel="stylesheet" type="text/css" href="layui/css/layui.css">
+	<script type="text/javascript" src="charts/js/highcharts.js"></script>
+	<script type="text/javascript" src="charts/js/exporting.js"></script>
+	<script type="text/javascript" src="charts/js/drilldown.js"></script>
+	<script type="text/javascript" src="charts/js/highcharts-zh_CN.js"></script>
+	<script type="text/javascript" src="js/jquery.min.js"></script>  
+	<script type="text/javascript" src="layui/layui.js"></script>
 	<style type="text/css">
 		.changeshow{
 			display: flex;
@@ -30,6 +31,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</style>
 </head>
 <body>   
+
 	<div class="container">
 		<!-- 各支付类型月营业额显示 -->
 		<div class="changeshow">
@@ -38,7 +40,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				    <label class="layui-form-label">月营业额</label>
 				    <div class="layui-input-block">
 				    	<!-- 关闭状态是图表显示，开启状态是表格显示 -->
-				      <input type="checkbox" name="zzz" lay-skin="switch" lay-filter="switchTest" lay-text="支付方式|表格显示">
+				      <input type="checkbox" name="zzz" lay-skin="switch" lay-filter="switchTest" lay-text="图表显示|表格显示">
 				    </div>
 				</div>
 		    </form>
@@ -79,7 +81,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</tr>
 					</tbody>
 				</table>
-				<div id="page" class="page"></div>
+<!-- 				<div id="page" class="page"></div> -->
 			</fieldset>
 		</div>
          

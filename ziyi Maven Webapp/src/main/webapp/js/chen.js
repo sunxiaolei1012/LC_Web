@@ -180,8 +180,6 @@ var nums,disnum,numss,sumAllMoney;
 	 
 	  sum_str += "="+sum;
 	  summoney.innerHTML = sum_str;
-	  // 600
-	  // 600=600
   }
 });
 function renderform(){
@@ -812,8 +810,7 @@ function category(){
                             "<div class='mui-table-view-list'>"+
 									 
                                    goodslist(d[i].type_id)+
-			                    "</div>"+
-						    	 
+			                    "</div>"+						    	 
 						    "</div>";
 	    	      		}	    	      		
 	    	      	}
@@ -836,11 +833,21 @@ function goodslist(type_id){
 	    	   if(date != null)
 	    		   {
 		    	    for(var i = 0;i<date.length;i++){
+		    	    	for(var key in date[i]){
+		    	    		//console.log(key);
+		    	    		if(key == 'imgurl'){
+		    	    			var imgurl = "upload/"+date[i].imgurl[0].url;
+		    	    			console.log(imgurl);
+		    	    			break;
+		    	    		}else{
+		    	    			var imgurl = "images/goods.png";
+		    	    		}
+		    	    	}		    	    	 		    	    	
 		    	    	//其他商品操作
 		    	    	if(type_id==6){
 		    	    		eles+="<div class='mui-card pattern-list'>"+				 
 							    "<div class='mui-card-header'>"+
-							      "<img class='w100' src='images/goods.png' onclick=''/>"+
+							      "<img class='w100' src='"+imgurl+"' id='img"+i+"'/>"+
 								"</div>"+
 								/*"<div class='mui-card-content'>"+
 									"<div class='mui-card-content-inner'>"+
@@ -855,7 +862,7 @@ function goodslist(type_id){
 		    	    	}else{   
 		    	    		eles+="<div class='mui-card pattern-list'>"+				 
 						    "<div class='mui-card-header'>"+
-						      "<img class='w100' src='images/goods.png'/>"+
+						      "<img class='w100' src='"+imgurl+"' id='img"+i+"'/>"+
 							"</div>"+
 							"<div class='mui-card-content'>"+
 								"<div class='mui-card-content-inner'>"+

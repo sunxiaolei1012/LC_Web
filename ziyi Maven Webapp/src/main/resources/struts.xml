@@ -137,7 +137,7 @@
          <action  name="m_*" class="com.ziyi.control.cmd.MonthPriceControl" method="{1}">
          	<result name="monthPrices">higChartYYE.jsp </result>
          	<result name="sumSellingType">higChartKC.jsp</result>
-         	<result name="PayTypePrice">PayTypePrice.jsp</result>
+         	<result name="PayTypePrice">/charts/pay_type.jsp</result>
          	<result name="YingYePrice">YingYePrice.jsp</result>
          	<result name="sumlistNumber">ExcelKuCun.jsp</result>
          	<result name="checkByType">ExcelKuCunList.jsp</result>

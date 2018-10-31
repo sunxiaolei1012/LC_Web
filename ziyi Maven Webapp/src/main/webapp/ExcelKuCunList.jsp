@@ -59,36 +59,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </script>
   
   <body>
-  <button onclick="exportExcel()">导出表格</button>
-  	<fieldset class="layui-elem-field">
+      <button onclick="exportExcel()" class="layui-btn" style="margin:10px;"><i class="layui-icon">&#xe601;</i>导出表格</button>
+  	  <fieldset class="layui-elem-field">
 				<legend>营业额</legend>
 				 <div class="layui-field-box">
 					<table class="site-table table-hover" id="tableContent" >
-  		
-  		<tr>
-  		<th>商品类型</th>
-  		<th>数量</th>
-  		</tr>
-  	
-  		<c:forEach items="${list}"  var="pay" varStatus="i"  >
-  		
-  		<tr>
-  		
-  		<td> ${pay.name} </td>
-  		
-  		<td> ${pay.number}</td>
-  		<%-- <td>
-					<a href="javascript:editbtn(this,${pay.typeid});" class="layui-btn layui-btn-normal layui-btn-mini">预览</a>
-					 <a href="javascript:void(0);" onclick="delUser(this,${product.sellingid})" data-id="1" data-opt="del" class="layui-btn layui-btn-danger layui-btn-mini del">删除</a>
-			</td> --%>
-  		</tr>
-  		</c:forEach>
-  		
-  		
-  	</table>
-  
- </div>
-  </fieldset>
-   
+  		                <thead>
+					  		<tr>
+						  		<th>商品类型</th>
+						  		<th>数量</th>
+					  		</tr>
+				  	    </thead>
+				  	    <tbody>
+					  		<c:forEach items="${list}"  var="pay" varStatus="i"  >				  		
+					  		<tr>
+						  		<td> ${pay.name} </td>				  		
+						  		<td> ${pay.number}</td>
+					  		</tr>
+					  		</c:forEach>
+			  		    </tbody>			  		
+			  	</table>			  
+			 </div>
+      </fieldset>  
   </body>
 </html>

@@ -54,7 +54,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                      	layer.open({
 					      type: 2,
 					      title: "编辑",				       
-					      area: ['700px', '700px'],
+					      area: ['800px', '600px'],
 					      content: "m_checkByType?typeid="+typeid,
 					      cancel: function (index, layero) {
 					        $(".dw-refresh").trigger('click');
@@ -67,46 +67,41 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </script>
   
   <body>
-  <button onclick="exportExcel()">导出表格</button>
+  
+  <button onclick="exportExcel()" class="layui-btn" style="margin:10px;"><i class="layui-icon">&#xe601;</i>导出表格</button>
   	<fieldset class="layui-elem-field">
 				<legend>营业额</legend>
 				 <div class="layui-field-box">
 					<table class="site-table table-hover" id="tableContent" >
-  		
-  		<tr>
-  		<th>商品类型</th>
-  		<th>数量</th>
-  		<th>操作</th>
-  		</tr>
-  	
-  		<c:forEach items="${listNumber}"  var="pay" varStatus="i"  >
-  		
-  		<tr>
-  		
-  		<td>
-  			
-  			<c:if test="${pay.typeid==1}">茶</c:if>
-  			<c:if test="${pay.typeid==2}">小吃</c:if>
-  			<c:if test="${pay.typeid==3}">果盘</c:if>
-  			<c:if test="${pay.typeid==4}">饮料</c:if>
-  			<c:if test="${pay.typeid==5}">酒水</c:if>
-  			<c:if test="${pay.typeid==6}">其他</c:if>
-  			<c:if test="${pay.typeid==9}">香烟</c:if>
-  			
-  			
-  		
-  		</td>
-  		
-  		<td> ${pay.number}</td>
-  		<td>
-						 
-			<!-- <a href="#" target="" class="layui-btn layui-btn-normal layui-btn-mini">预览</a> -->
-				 <a href="javascript:editbtn(this,${pay.typeid});" class="layui-btn layui-btn-mini edit">编辑</a>
-		    <%-- <a href="javascript:void(0);" onclick="delUser(this,${product.sellingid})" data-id="1" data-opt="del" class="layui-btn layui-btn-danger layui-btn-mini del">删除</a> --%>
-		</td>
-  		</tr>
-  		</c:forEach>
-  		
+  		               <thead>
+					  		<tr>
+					  		<th>商品类型</th>
+					  		<th>数量</th>
+					  		<th>操作</th>
+					  		</tr>
+  	                    </thead>
+  	                    <tbody>
+					  		<c:forEach items="${listNumber}"  var="pay" varStatus="i"  >
+					  		
+					  		<tr>
+						  		<td>
+						  			<c:if test="${pay.typeid==1}">茶</c:if>
+						  			<c:if test="${pay.typeid==2}">小吃</c:if>
+						  			<c:if test="${pay.typeid==3}">果盘</c:if>
+						  			<c:if test="${pay.typeid==4}">饮料</c:if>
+						  			<c:if test="${pay.typeid==5}">酒水</c:if>
+						  			<c:if test="${pay.typeid==6}">其他</c:if>
+						  			<c:if test="${pay.typeid==9}">香烟</c:if>
+						  		</td>
+					  		<td> ${pay.number}</td>
+					  		<td>						 
+								<!-- <a href="#" target="" class="layui-btn layui-btn-normal layui-btn-mini">预览</a> -->
+									 <a href="javascript:editbtn(this,${pay.typeid});" class="layui-btn layui-btn-mini edit">查看</a>
+							    <%-- <a href="javascript:void(0);" onclick="delUser(this,${product.sellingid})" data-id="1" data-opt="del" class="layui-btn layui-btn-danger layui-btn-mini del">删除</a> --%>
+							</td>
+					  		</tr>
+					  		</c:forEach>
+  		                </tbody>
   		
   	</table>
   
