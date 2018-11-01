@@ -188,18 +188,15 @@ public class CardControll {
 		  String json = null;
 		  if(orderList != null)
 		  {
-			  Map<String , Object> map_selling = new HashMap<String , Object>();
 			  List<Map<String, Object>> lists = new ArrayList<Map<String, Object>>();
 			  for(int i=0;i<orderList.size();i++) {
+				      Map<String , Object> map_selling = new HashMap<String , Object>();
 					  Selling_list list=Common.SLD.selecct_orderid_list(orderList.get(i).getSellingid());
-					  System.out.println(orderList.get(i).getSellingid());
-					  System.out.println(list.toString());
 					  map_selling.put("name", list.getName());
 					  map_selling.put("number", orderList.get(i).getNumber());
 					  map_selling.put("unit", list.getUnit());
-					 
 					  map_selling.put("price", Common.double_df.format(orderList.get(i).getNumber()*list.getPrice()));
-					  lists.add(map_selling);
+  					  lists.add(map_selling);
 			  }
 			  map.put("value", lists);
 			  
