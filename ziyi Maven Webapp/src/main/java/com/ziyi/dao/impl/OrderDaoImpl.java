@@ -113,6 +113,15 @@ public class OrderDaoImpl implements OrderDao{
 			return list;
 		return null;
 	}
+	@Override
+	public Order select_number_orderId(int orderid) {
+		String sql="select  * from t_order where orderid=?";
+		List<Order> order=Common.UTIL.query(sql, new Object[]{orderid}, Order.class);
+		if(order.size()>0&&order!=null)
+			return order.get(0);
+		return null;
+		
+	}
 
 
 }

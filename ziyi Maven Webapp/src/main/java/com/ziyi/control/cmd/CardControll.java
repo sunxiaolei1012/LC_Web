@@ -30,6 +30,7 @@ public class CardControll {
 	private String address;
 	private String idcard;
 	private double price;
+	private Integer orderid;
 	
 	private Integer cardid;
 	public  static final  SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
@@ -180,10 +181,10 @@ public class CardControll {
 		  Map<String , Object> map = new HashMap<String , Object>();
 		  
 		  //查询订单金额
-		  
-		  List<Order> listss=Common.CARDDAO.check_oder_cardid(cardid);
+		 // List<Order> listss=Common.CARDDAO.check_oder_cardid(orderid);
+		  Order order=Common.ORDER.select_number_orderId(orderid);
 		  //根据orderid查询 消费订单详情 
-		  List<Order_list> orderList= Common.OLD.select_number_order(cardid);
+		  List<Order_list> orderList= Common.OLD.select_number_order(orderid);
 		  String json = null;
 		  if(orderList != null)
 		  {
@@ -194,12 +195,14 @@ public class CardControll {
 					  map_selling.put("name", list.getName());
 					  map_selling.put("number", orderList.get(i).getNumber());
 					  map_selling.put("unit", list.getUnit());
-					  map_selling.put("xfprice",listss.get(i).getPrice());
-					  map_selling.put("allprice",listss.get(i).getPay_price());
+					 
 					  map_selling.put("price", Common.double_df.format(orderList.get(i).getNumber()*list.getPrice()));
 					  lists.add(map_selling);
 			  }
 			  map.put("value", lists);
+			  
+			  map.put("xfprice",order.getPrice());
+			  map.put("allprice",order.getPay_price());
 				  json= Json.toJson(map);
 				  System.out.println(json);
 				 
@@ -302,8 +305,14 @@ public class CardControll {
 	public void setCardid(Integer cardid) {
 		this.cardid = cardid;
 	}
+	public Integer getOrderid() {
+		return orderid;
+	}
+	public void setOrderid(Integer orderid) {
+		this.orderid = orderid;
+	}
 
-	
+		
 	
 	
 }

@@ -113,5 +113,10 @@ public interface OrderDao {
 	 */
 	public List<Order> select_card_id(int id);
 	
-	
+	/**
+	 * 根据orderid 查询订单信息
+	 * @param number
+	 * @return
+	 */
+	public Order select_number_orderId(int orderid);
 }
