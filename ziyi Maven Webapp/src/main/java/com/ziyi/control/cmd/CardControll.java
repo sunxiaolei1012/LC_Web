@@ -2,6 +2,7 @@ package com.ziyi.control.cmd;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +18,7 @@ import com.opensymphony.xwork2.ActionContext;
 import com.ziyi.pojo.Card;
 import com.ziyi.pojo.Order;
 import com.ziyi.pojo.Order_list;
+import com.ziyi.pojo.Selling_list;
 
 
 
@@ -175,15 +177,37 @@ public class CardControll {
 	  }
 	  
 	  public  void checkOrderList_cardid() {
+		  Map<String , Object> map = new HashMap<String , Object>();
 		  //根据orderid查询 消费订单详情 
 		  List<Order_list> orderList= Common.OLD.select_number_order(cardid);
-		  System.out.println(orderList);
-		  String json= Json.toJson(orderList);
+		  String json = null;
+		  int a;
+		  if(orderList != null)
+		  {
+			  Map<String , Object> map_selling = new HashMap<String , Object>();
+			  List<Map<String, Object>> lists = new ArrayList<Map<String, Object>>();
+			  for(int i=0;i<orderList.size();i++) {
+					  Selling_list list=Common.SLD.selecct_id_list(orderList.get(i).getOrderid());
+					  map_selling.put("name", list.getName());
+					  map_selling.put("number", orderList.get(i).getNumber());
+					  map_selling.put("price", Common.double_df.format(orderList.get(i).getNumber()*list.getPrice()));
+					  lists.add(map_selling);
+			  }
+			  map.put("value", lists);
+				  json= Json.toJson(map);
+				  System.out.println(json);
+				 
+		  }
+		  else
+		  {
+			  	 a=0;
+		  }  
 		  try {
-			AjaxResponseJson.responseAjax(json);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+				AjaxResponse.responseAjax(0);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		 
 		  
 		  
 	  }
