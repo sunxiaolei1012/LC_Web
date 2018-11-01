@@ -21,7 +21,7 @@ public class OrderControll {
 	// 开始时间和结束时间
 	private String begintime;
 	private String endtime;
-	
+	   
 
 //	public static void main(String[] args) {
 //		Map<String , String> map = type_price("2018-03-06","2018-09-29");

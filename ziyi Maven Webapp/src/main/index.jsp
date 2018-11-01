@@ -27,7 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 	</script>
 </head>
-<body onload="load();tableShow()">          
+<body onload="load();tableShow()">
 	<div class="mui-content">
 	    <div class="nav-header">
 			<ul class="layui-nav">

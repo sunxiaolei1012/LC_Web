@@ -3,14 +3,20 @@ package com.ziyi.control.cmd;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.cyb.util.AjaxResponse;
+import com.cyb.util.AjaxResponseJson;
 import com.cyb.util.Common;
 import com.cyb.util.PageCount;
+import com.et.mvc.util.Json;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
 import com.ziyi.pojo.Card;
+import com.ziyi.pojo.Order;
+import com.ziyi.pojo.Order_list;
 
 
 
@@ -115,13 +121,58 @@ public class CardControll {
 				e.printStackTrace();
 			}
 		 }
-	
-		
-		
-		
-		
 	}
 	
+	
+	
+	  public void  checkCardByNnmber(){
+		  System.out.println("111111111");
+		  
+		 Card card=Common.CARDDAO.select_card_number("201872");
+		 if(card==null &card.equals("")){
+			 
+			 try {
+				AjaxResponse.responseAjax(0);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			 
+		 }
+		 System.out.println(card);
+		 
+		 int a=card.getCardid();
+		 
+		 System.out.println(a);
+		 
+		 List<Order> lists=Common.CARDDAO.check_oder_cardid(a);
+		 if(lists==null &lists.size()==0) {
+			 	
+			 try {
+				AjaxResponse.responseAjax(1);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		 }
+		  System.out.println(lists);
+		  int b=lists.get(0).getCardid();
+		  
+		  //根据orderid查询 消费订单详情 
+		  List<Order_list> orderList= Common.OLD.select_number_order(b);
+		  System.out.println(orderList);
+		  
+		  
+		 Map<String,Object> map=new  HashMap<String ,Object>(); 
+		 	map.put("card", card);
+		 	map.put("order", lists);
+		  String jsons=Json.toJson(map);
+		  
+		  try {
+			AjaxResponseJson.responseAjax(jsons);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		  
+	  }
 	
 	public String getBegintime() {
 		return begintime;

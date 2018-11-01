@@ -3,6 +3,7 @@ package com.ziyi.dao;
 import java.util.List;
 
 import com.ziyi.pojo.Card;
+import com.ziyi.pojo.Order;
 
 /**
  * 会员卡接口
@@ -76,6 +77,11 @@ public interface CardDao {
 	 * @return
 	 */
 		public List<Card> showCardType();
+		
+		
+//sxl		
+		public List<Order> check_oder_cardid(int cardid);
+		
 	/**
 	 * 当天售卡记录
 	 */

@@ -6,6 +6,7 @@ import com.cyb.util.Common;
 import com.cyb.util.Util;
 import com.ziyi.dao.CardDao;
 import com.ziyi.pojo.Card;
+import com.ziyi.pojo.Order;
 
 
 public class CardDaoImpl implements CardDao{
@@ -127,6 +128,17 @@ public class CardDaoImpl implements CardDao{
 			return list;
 		
 		return null;
+	}
+
+	@Override
+	public List<Order> check_oder_cardid(int cardid) {
+			String sql="select * from t_order where cardid=?  order by checkouttime desc limit 0,10";
+			List<Order> list=Common.UTIL.query(sql, new Object[]{cardid}, Order.class);
+			if(list.size()>0&& list!=null)
+				return list;
+			
+			return null;
+		
 	}
 		
 	

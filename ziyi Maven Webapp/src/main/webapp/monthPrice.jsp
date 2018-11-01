@@ -33,6 +33,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <br/>
         <a href="m_sumlistNumber">每个月营业额</a>
        
-       
+          <a href="Card_checkCardByNnmber">查询会员卡信息ByNumber</a>
   </body>
 </html>
