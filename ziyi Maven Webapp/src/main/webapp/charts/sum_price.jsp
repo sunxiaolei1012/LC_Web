@@ -21,6 +21,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		.changeshow{
 			display: flex;
 			flex-direction: row;
+			padding-top:1%;
+		}
+		.changeshow .layui-form{
+		  display:flex;
+		  flex-direction:row;
+		  justify-content:flex-start;
 		}
 		.changeshow .layui-btn{
 			margin-left: 1%;
@@ -35,6 +41,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    margin-top:5px
 		}
 	</style>
+	<script>
+	/* function cc()
+	{
+		var year = ${year};//2020
+		<select>
+		for (var i = 2018; i <= year; i++) {
+			if(i == year)
+				{
+				<option value=i select>i</option>
+				//默认选中
+				}
+			else
+				{
+				<option value=i>i</option>
+				}
+		}
+		</select>
+		
+	} */
+	
+	</script>
 </head>
 
 <body>
@@ -42,6 +69,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<!-- 月营业总额显示 -->
 		<div class="changeshow">
 			<form class="layui-form">
+			    <div class='layui-form-item'>
+				    <label class='layui-form-label' style='padding-left:0;'>选择年份</label>
+				    <div class='layui-input-block'>
+					      <select id="selectYear" lay-filter='yearSelect'>					        
+					        <!-- <option value='2018' checked=''>2018</option>
+					        <option value='2019'>2019</option>
+					        <option value='2019'>2020</option> -->
+					      </select>
+				    </div>			    	
+				</div>
 				<div class="layui-form-item">
 				    <label class="layui-form-label">营业总额</label>
 				    <div class="layui-input-block">
@@ -80,52 +117,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>       
 	</div>
 </body>
-<!-- 弹出框详情：营业总额显示 -->
-<div id="tabledetail" class="tabledetail" style="display: none;">
-    <div class="changeshow">
-		<form class="layui-form">
-			<div class="layui-form-item">
-			    <label class="layui-form-label">日营业总额</label>
-			    <div class="layui-input-block">
-			    	<!-- 关闭状态是图表显示，开启状态是表格显示 -->
-			      <input type="checkbox" name="zzz" lay-skin="switch" lay-filter="switchTest1" lay-text="图表显示|表格显示">
-			    </div>
-			</div>
-	    </form>
-	</div>
-	<div id="daychart" class="daychart">
-		<div id="container1" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-	</div>
-	<div id="daytable" class="tableshow dayshow">
-		<fieldset class="layui-elem-field">
-		    <legend>日营业总额</legend>
-			<table class="layui-table" lay-data="{limit:10,page:true,}">
-				<thead>
-				    <tr>
-					  <th lay-data="{field:'day',sort: true}">日期</th>
-				      <th lay-data="{field:'dmoney',sort: true}">销售额</th>				       
-				    </tr>
-				</thead>
-				<tbody id="dayval">
-					<!-- <tr>
-						<td>1月1日</td>
-						<td>1314</td>
-					</tr>
-					<tr>
-						<td>1月2日</td>
-						<td>1314</td>
-					</tr> -->
-				</tbody>
-			</table>
-			
-			<!-- <div id="page1" class="page"></div> -->
-		</fieldset>
-		
-	</div>
-</div>
 
 <script>
-
 layui.use(['element','form','table','laydate','laypage'], function(){
   var element = layui.element
   ,form = layui.form
@@ -156,9 +149,16 @@ layui.use(['element','form','table','laydate','laypage'], function(){
        $('#daytable').toggleClass('dayshow');
     }
   });
+  //
+  form.on('select(yearSelect)', function(data){
+          console.log(data.value);
+	     //window.localtion.href='charts_sumprices?year='+data.value;
+	     
+	  });
 });
 
 var tabold;
+//月营业额详情
 function daydetail(b){
 	//原月营业额内容
 	 tabold=$('#tabmonth').html();
@@ -177,13 +177,15 @@ function daydetail(b){
 			}
 	 </c:forEach> 
 }
+//显示切换
 function backmonth(){
 	$('#tabmonth').html(tabold);
 	$('#btnshow').css('display','none');
 }
-
 var oChart1;
 $(document).ready(function(){
+	//年份选择
+	changeYear();
 	//营业额
 	var oChart = Highcharts.chart('container', {
 		credits: {  //logo
@@ -265,59 +267,29 @@ $(document).ready(function(){
 				]
 		}
 	});
-	//日营业额图表
-	 oChart1 = Highcharts.chart('container1', {
-		credits: {
-		     enabled: false
-		},
-		chart: {
-			type: 'column'
-		},
-		title: {
-			text: '日营业额图表'
-		},
-		subtitle: {
-			text: ''
-		},
-		xAxis: {
-			type: 'category',
-			labels: {
-				rotation: 0  // 设置轴标签旋转角度
-			}
-		},
-		yAxis: {
-			//min: 0,
-			title: {
-				text: '日营业额 (元)'
-			},
-			labels: { 
-	            formatter:function (){ 
-	                return this.value + '元' ; 
-	            } 
-			} 
-		},
-		legend: {
-			enabled: false
-		},
-		tooltip: {
-			pointFormat: '营业额: <b>{point.y:.2f} 元</b>'
-		},
-		series: [ {
-			name: '营业额',
-			data: [], //数据
-			dataLabels: {
-				enabled: true,
-				rotation: 0, //柱形图上数据显示设置
-				color: '#104E8B',
-				align: 'right',
-				format: '{point.y:.2f}', // :.1f 为保留 1 位小数
-				y: 10
-			}
-		} 
-		]
-	});	 
+   
 })
 
+//
+function changeYear(){
+		var datetime = new Date();
+		//当前年
+	    var nowyear = datetime.getFullYear();
+	    //window.localtion.href=''; 
+// 	     var backyear = ${year};
+        for(var i = 2018;i<=2022;i++){
+        	 
+     	   if(nowyear == i){
+//      		   var ele=<option value="2018" selected>2018</option>;
+               //var e = <div>123</div>
+                
+     		   $('#selectYear').append("<option value='"+i+"' selected>"+i+"</option>");
+     	   }else{    		   
+     		   
+     		  $('#selectYear').append("<option value='"+i+"' >"+i+"</option>");
+     	   }
+        }
+    }
 //弹窗框
 /* function moneydetail(monthid){
 	$.ajax({

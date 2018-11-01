@@ -588,6 +588,7 @@ function orderShow(tableid)
 			"</div>";
              document.getElementById("right-content").innerHTML=ele; 
 //             console.log(date.bool);
+             //支付判断：管理员和收银员（除服务员）
              if(!date.bool){
             	 $('#pay').attr('disabled','disabled');
              }            
@@ -716,6 +717,7 @@ function pay(number,table){
 	             	       async: false,
 	             	       success:function(date){
 	                             if(date.state){
+	                            	 //支付成功
 	                            	 //layer.msg(date.msg,{icon:6});
 	                            	 layer.confirm(date.msg+'<br/>是否打印订单？', {
 	     	                    		btn:['打印','关闭'],
@@ -723,13 +725,17 @@ function pay(number,table){
 	     	                    		btnAlign: 'c',
 	     	                    		}, 
 	     	                    		function(){
+	     	                    		  //document.getElementById("right-content").innerHTML="";
+	     	                    		  //alert('1');
 	     	                    		  layer.msg('打印', {icon: 1});	     	                    		   
 	     	                    		}, 
 	     	                    		function(){
 	     	                    		  layer.msg('支付关闭', {});
 	     	                    	});
+	                            	document.getElementById("right-content").innerHTML="";
 	                             }
 	                             else{
+	                            	 //支付失败
 	                            	 layer.confirm(date.msg+'<br/>返回重新选择支付方式？', {
 	     	                    		btn:['返回','关闭'],
 	     	                    		skin: 'layui-layer-molv',

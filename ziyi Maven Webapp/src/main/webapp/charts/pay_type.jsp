@@ -67,7 +67,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<tbody>
 					
 					
-<c:forEach var="i" begin="0" end="11" step="1"> 
+					<c:forEach var="i" begin="0" end="11" step="1"> 
 
 						<tr>
 							<td>${i+1 }</td>
@@ -77,26 +77,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<td>${weixin[i] }</td>
 							<td><a href="javascript:daytype();" class="layui-btn layui-btn-mini">详情</a></td>
 						</tr>
-</c:forEach>				
-<!-- 						<tr> -->
-<!-- 							<td>1</td> -->
-<!-- 							<td>1314</td> -->
-<!-- 							<td>1314</td> -->
-<!-- 							<td>1314</td> -->
-<!-- 							<td>1314</td> -->
-<!-- 							<td><a href="javascript:daytype();" class="layui-btn layui-btn-mini">详情</a></td> -->
-<!-- 						</tr> -->
-<!-- 						<tr> -->
-<!-- 							<td>2</td> -->
-<!-- 							<td>1314</td> -->
-<!-- 							<td>1314</td> -->
-<!-- 							<td>1314</td> -->
-<!-- 							<td>1314</td> -->
-<!-- 							<td><a href="javascript:daytype();" class="layui-btn layui-btn-mini">详情</a></td> -->
-<!-- 						</tr> -->
+					</c:forEach>				
 					</tbody>
 				</table>
-<!-- 				<div id="page" class="page"></div> -->
 			</fieldset>
 		</div>
          
@@ -255,31 +238,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	{
 		name: '现金', //现金支付每月营业额
 		data: [
- <c:forEach var="i" items="${xianjin}">
-	${i},
-</c:forEach>
+			 <c:forEach var="i" items="${xianjin}">
+				${i},
+			</c:forEach>
 ]
 	}
 , {
 		name: '会员卡',
 		data: [
-		<c:forEach var="i" items="${huiyuanka}">
-	${i},
-</c:forEach>
+			<c:forEach var="i" items="${huiyuanka}">
+				${i},
+			</c:forEach>
 		]
 	}, {
 		name: '支付宝',
 		data: [
 			<c:forEach var="i" items="${zhifubao}">
-	${i},
-</c:forEach>
+				${i},
+			</c:forEach>
 		]
 	}, {
 		name: '微信',
 		data: [
 		<c:forEach var="i" items="${weixin}">
-	${i},
-</c:forEach>
+			${i},
+		</c:forEach>
 		]
 	}
 	
