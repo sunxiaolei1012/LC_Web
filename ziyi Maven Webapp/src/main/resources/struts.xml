@@ -118,7 +118,7 @@
           <action name="Card_*" class="com.ziyi.control.cmd.CardControll" method="{1}">
         	<result name="sellCard">sellCard.jsp</result>
         	<result type="json"></result>  
-        	<allowed-methods>sellCard,openCard,checkCardByNnmber</allowed-methods>
+        	<allowed-methods>sellCard,openCard,checkCardByNnmber,checkOrderList_cardid</allowed-methods>
          </action> 
          <action name="Order_*" class="com.ziyi.control.cmd.OrderControll" method="{1}">
         	<result name="sumPrice">sumPrice.jsp</result>

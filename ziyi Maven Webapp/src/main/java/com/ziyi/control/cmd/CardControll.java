@@ -28,6 +28,8 @@ public class CardControll {
 	private String address;
 	private String idcard;
 	private double price;
+	
+	private Integer cardid;
 	public  static final  SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
 	
 	private String begintime;
@@ -128,7 +130,7 @@ public class CardControll {
 	  public void  checkCardByNnmber(){
 		  System.out.println("111111111");
 		  
-		 Card card=Common.CARDDAO.select_card_number("201872");
+		 Card card=Common.CARDDAO.select_card_number(number);
 		 if(card==null &card.equals("")){
 			 
 			 try {
@@ -156,9 +158,7 @@ public class CardControll {
 		  System.out.println(lists);
 		  int b=lists.get(0).getCardid();
 		  
-		  //根据orderid查询 消费订单详情 
-		  List<Order_list> orderList= Common.OLD.select_number_order(b);
-		  System.out.println(orderList);
+		 
 		  
 		  
 		 Map<String,Object> map=new  HashMap<String ,Object>(); 
@@ -173,6 +173,22 @@ public class CardControll {
 		}
 		  
 	  }
+	  
+	  public  void checkOrderList_cardid() {
+		  //根据orderid查询 消费订单详情 
+		  List<Order_list> orderList= Common.OLD.select_number_order(cardid);
+		  System.out.println(orderList);
+		  String json= Json.toJson(orderList);
+		  try {
+			AjaxResponseJson.responseAjax(json);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		  
+		  
+	  }
+	  
+	  
 	
 	public String getBegintime() {
 		return begintime;
@@ -245,6 +261,12 @@ public class CardControll {
 	}
 	public void setPrice(double price) {
 		this.price = price;
+	}
+	public Integer getCardid() {
+		return cardid;
+	}
+	public void setCardid(Integer cardid) {
+		this.cardid = cardid;
 	}
 
 	
