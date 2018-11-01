@@ -181,7 +181,6 @@ public class CardControll {
 		  //根据orderid查询 消费订单详情 
 		  List<Order_list> orderList= Common.OLD.select_number_order(cardid);
 		  String json = null;
-		  int a;
 		  if(orderList != null)
 		  {
 			  Map<String , Object> map_selling = new HashMap<String , Object>();
@@ -199,11 +198,15 @@ public class CardControll {
 				 
 		  }
 		  else
-		  {
-			  	 a=0;
-		  }  
+		  {				
+			  	try {
+					AjaxResponse.responseAjax(0);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+		  }
 		  try {
-				AjaxResponse.responseAjax(0);
+				AjaxResponseJson.responseAjax(json);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
