@@ -64,6 +64,12 @@ public interface Selling_listDao {
 	 * @return
 	 */
 	
+	//sxl
+	/**
+	 * 根据order 查询商品信息
+	 
+	 */
+	public Selling_list selecct_orderid_list(int orderid);
 	
 	
 	public List<Selling_list> select_selling_type(int id);

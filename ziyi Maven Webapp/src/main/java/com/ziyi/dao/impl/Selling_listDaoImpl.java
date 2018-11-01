@@ -145,4 +145,15 @@ public class Selling_listDaoImpl implements Selling_listDao{
 	return null;	
 	}
 
+	@Override
+	public Selling_list selecct_orderid_list(int orderid) {
+		List<Selling_list> list = Common.UTIL.query("select * from t_selling_list where sellingid=?", new Object[]{orderid}, Selling_list.class);
+		if(null != list && list.size()>0)
+		{
+			return list.get(0);
+		}
+		return null;
+		
+	}
+
 }

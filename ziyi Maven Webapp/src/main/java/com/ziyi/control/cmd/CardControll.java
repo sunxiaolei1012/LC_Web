@@ -191,7 +191,9 @@ public class CardControll {
 			  Map<String , Object> map_selling = new HashMap<String , Object>();
 			  List<Map<String, Object>> lists = new ArrayList<Map<String, Object>>();
 			  for(int i=0;i<orderList.size();i++) {
-					  Selling_list list=Common.SLD.selecct_id_list(orderList.get(i).getOrderid());
+					  Selling_list list=Common.SLD.selecct_orderid_list(orderList.get(i).getSellingid());
+					  System.out.println(orderList.get(i).getSellingid());
+					  System.out.println(list.toString());
 					  map_selling.put("name", list.getName());
 					  map_selling.put("number", orderList.get(i).getNumber());
 					  map_selling.put("unit", list.getUnit());
