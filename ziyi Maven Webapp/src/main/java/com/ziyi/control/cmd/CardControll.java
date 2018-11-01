@@ -178,6 +178,10 @@ public class CardControll {
 	  
 	  public  void checkOrderList_cardid() {
 		  Map<String , Object> map = new HashMap<String , Object>();
+		  
+		  //查询订单金额
+		  
+		  List<Order> listss=Common.CARDDAO.check_oder_cardid(cardid);
 		  //根据orderid查询 消费订单详情 
 		  List<Order_list> orderList= Common.OLD.select_number_order(cardid);
 		  String json = null;
@@ -189,6 +193,9 @@ public class CardControll {
 					  Selling_list list=Common.SLD.selecct_id_list(orderList.get(i).getOrderid());
 					  map_selling.put("name", list.getName());
 					  map_selling.put("number", orderList.get(i).getNumber());
+					  map_selling.put("unit", list.getUnit());
+					  map_selling.put("xfprice",listss.get(i).getPrice());
+					  map_selling.put("allprice",listss.get(i).getPay_price());
 					  map_selling.put("price", Common.double_df.format(orderList.get(i).getNumber()*list.getPrice()));
 					  lists.add(map_selling);
 			  }
