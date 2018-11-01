@@ -85,8 +85,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<td>
 								<a href="" class="layui-btn layui-btn-mini">详情</a>
 							</td> -->
-						</tr>
-						 
+						</tr>						 
 					</tbody>
 				</table>				
 			
@@ -97,7 +96,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div id="ordetail" style="display: none;">
 	<div class="right-middle-middle">
 		<ul class="mui-table-view goodslists" id="goodslists">			  
-		    <li class="mui-table-view-cell mui-media">
+		    <!-- <li class="mui-table-view-cell mui-media">
 		        <a href="javascript:;">
 		            <div class="mui-media-body">
 		                <p class="mui-ellipsis mui-table-view-cell"><span class="title mebTitle">碧螺春</span>
@@ -114,12 +113,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                </p>
 		            </div>
 		        </a>
-		    </li>					     
+		    </li>		 -->			     
 		</ul>
 	</div>
 	<div class="right-middle-bottom-pay" style="display: flex;flex-direction:column;justify-content: flex-end;align-items:flex-end;padding-right: 10%">
-			<p class="title mebNum">消费总金额:<span class="title mui-ellipsis">0.00</span></p>
-			<p class="title mebNum">实际支付金额:<span class="title mui-ellipsis">0.00</span></p> 
+			<p class="title mebNum">消费总金额:<span class="title mui-ellipsis" id="cmoney">0.00</span></p>
+			<p class="title mebNum">实际支付金额:<span class="title mui-ellipsis" id="paymoney">0.00</span></p> 
 	</div>
 	
 </div>

@@ -107,14 +107,14 @@ function save(func,cmd)
 }
 
 //模块加载
-
 layui.use(['element','table','layer','form','layedit', 'laydate'], function(){
   var element = layui.element;
   var table = layui.table;
   var layer = layui.layer;
   var form = layui.form;
-  var layedit = layui.layedit
-	  var laydate = layui.laydate;
+  var layedit = layui.layedit;
+  var laydate = layui.laydate;
+  
 //nums:返回的会员卡折率  numss:刷卡折率后的总金额  disnum:输入的打折扣率  goodsPrice:商品的总金额
 //sumAllMoney:会员卡折率和打折率之后的付款金额  summoney:页面显示的总金额和形式
 var nums,disnum,numss,sumAllMoney;
@@ -301,6 +301,11 @@ function clc(cl_id , sta)
 			}
 		
 	}, 300);
+}
+
+
+function test(){
+	
 }
 //预定信息显示
 //cl_id:餐桌id
@@ -844,7 +849,7 @@ function goodslist(type_id){
 		    	    		//console.log(key);
 		    	    		if(key == 'imgurl'){
 		    	    			var imgurl = "upload/"+date[i].imgurl[0].url;
-		    	    			console.log(imgurl);
+		    	    			//console.log(imgurl);
 		    	    			break;
 		    	    		}else{
 		    	    			var imgurl = "images/goods.png";
@@ -909,6 +914,7 @@ function goodslist(type_id){
 //其他商品（续杯，打折）
 function othrebate(){
 	var ordernum = document.getElementById("orderNum").innerText;
+	//rebox:high price   rebox1:low price
 	var rebox=$("#rebategs");
 	var rebox1=$("#rebategs1");
 	var ele = '';
@@ -983,13 +989,6 @@ function othrebate(){
 		skin: 'layui-layer-molv', //加上边框
 		area: ['700px', '500px'], //宽高
 		content: $("#regoods"),   //引入html内容
-		/*yes:function(index,layero){
-			
-            layer.close(index);
-		},
-		btn1:function(index,layero){
-           
-		}*/
 	});
 }
 

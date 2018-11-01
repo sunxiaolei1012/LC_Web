@@ -1,5 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -8,40 +8,44 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
-	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-	<title>Document</title>
-	<link rel="stylesheet" type="text/css" href="layui/css/layui.css">
-	<script type="text/javascript" src="charts/js/highcharts.js"></script>
-	<script type="text/javascript" src="charts/js/exporting.js"></script>
-	<script type="text/javascript" src="charts/js/drilldown.js"></script>
-	<script type="text/javascript" src="charts/js/highcharts-zh_CN.js"></script>
-	<script type="text/javascript" src="js/jquery.min.js"></script>  
-	<script type="text/javascript" src="layui/layui.js"></script>
-	<style type="text/css">
-		.changeshow{
-			display: flex;
-			flex-direction: row;
-			padding-top:1%;
-		}
-		.changeshow .layui-form{
-		  display:flex;
-		  flex-direction:row;
-		  justify-content:flex-start;
-		}
-		.changeshow .layui-btn{
-			margin-left: 1%;
-		}
-		.showclass,.dayshow{
-			display: none;
-		}
-		#btnshow{
-		    display:none;
-		    padding-left:30px;
-		    padding-right:30px;
-		    margin-top:5px
-		}
-	</style>
-	<script>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<title>Document</title>
+<link rel="stylesheet" type="text/css" href="layui/css/layui.css">
+<script type="text/javascript" src="charts/js/highcharts.js"></script>
+<script type="text/javascript" src="charts/js/exporting.js"></script>
+<script type="text/javascript" src="charts/js/drilldown.js"></script>
+<script type="text/javascript" src="charts/js/highcharts-zh_CN.js"></script>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="layui/layui.js"></script>
+<style type="text/css">
+.changeshow {
+	display: flex;
+	flex-direction: row;
+	padding-top: 1%;
+}
+
+.changeshow .layui-form {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+}
+
+.changeshow .layui-btn {
+	margin-left: 1%;
+}
+
+.showclass, .dayshow {
+	display: none;
+}
+
+#btnshow {
+	display: none;
+	padding-left: 30px;
+	padding-right: 30px;
+	margin-top: 5px
+}
+</style>
+<script>
 	/* function cc()
 	{
 		var year = ${year};//2020
@@ -68,53 +72,57 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="container">
 		<!-- 月营业总额显示 -->
 		<div class="changeshow">
-			<form class="layui-form">
-			    <div class='layui-form-item'>
-				    <label class='layui-form-label' style='padding-left:0;'>选择年份</label>
-				    <div class='layui-input-block'>
-					      <select id="selectYear" lay-filter='yearSelect'>					        
-					        <!-- <option value='2018' checked=''>2018</option>
+			<form class="layui-form" lay-filter="renderForm">
+				<div class='layui-form-item'>
+					<label class='layui-form-label' style='padding-left: 0;'>选择年份</label>
+					<div class='layui-input-block'>
+						<select id="selectYear" lay-filter='yearSelect'>
+							<!-- <option value='2018' checked=''>2018</option>
 					        <option value='2019'>2019</option>
 					        <option value='2019'>2020</option> -->
-					      </select>
-				    </div>			    	
+						</select>
+					</div>
 				</div>
 				<div class="layui-form-item">
-				    <label class="layui-form-label">营业总额</label>
-				    <div class="layui-input-block">
-				    	<!-- 关闭状态是图表显示，开启状态是表格显示 -->
-				      <input type="checkbox" name="zzz" lay-skin="switch" lay-filter="switchTest" lay-text="图表显示|表格显示">
-				    </div>
+					<label class="layui-form-label">营业总额</label>
+					<div class="layui-input-block">
+						<!-- 关闭状态是图表显示，开启状态是表格显示 -->
+						<input type="checkbox" name="zzz" lay-skin="switch"
+							lay-filter="switchTest" lay-text="图表显示|表格显示">
+					</div>
 				</div>
-		    </form>
-		    <button class="layui-btn layui-btn-radius layui-btn-sm" id="btnshow" onclick='backmonth()'>返回</button>		    
+			</form>
+			<button class="layui-btn layui-btn-radius layui-btn-sm" id="btnshow"
+				onclick='backmonth()'>返回</button>
 		</div>
 		<div id="chartshow" class="chartshow">
-			<div id="container" style="min-width: 310px; height: 600px; margin: 0 auto"></div>
+			<div id="container"
+				style="min-width: 310px; height: 600px; margin: 0 auto"></div>
 		</div>
 		<div id="tableshow" class="tableshow showclass">
 			<fieldset class="layui-elem-field">
-			    <legend>营业总额</legend>
+				<legend>营业总额</legend>
 				<table class="layui-table" id='tabmonth'>
 					<thead>
-					    <tr>
-						  <th>月份</th>
-					      <th>月营业额</th>				       
-					      <th>操作</th>				       
-					    </tr>
+						<tr>
+							<th>月份</th>
+							<th>月营业额</th>
+							<th>操作</th>
+						</tr>
 					</thead>
 					<tbody id='monthval'>
-					    <c:forEach var="i" items="${list}" > 		
-					  		<tr>				  		
-						  		<td> ${i.month} </td>					  		
-						  		<td> ${i.value}</td>
-						  		<td><a href="javascript:daydetail(${i.month});" class="layui-btn layui-btn-mini">详情</a></td>
-					  		</tr>
-				  		</c:forEach>				  		
+						<c:forEach var="i" items="${list}">
+							<tr>
+								<td>${i.month}</td>
+								<td>${i.value}</td>
+								<td><a href="javascript:daydetail(${i.month});"
+									class="layui-btn layui-btn-mini">详情</a></td>
+							</tr>
+						</c:forEach>
 					</tbody>
-				</table>				
+				</table>
 			</fieldset>
-		</div>       
+		</div>
 	</div>
 </body>
 
@@ -182,6 +190,7 @@ function backmonth(){
 	$('#tabmonth').html(tabold);
 	$('#btnshow').css('display','none');
 }
+
 var oChart1;
 $(document).ready(function(){
 	//年份选择
@@ -270,6 +279,7 @@ $(document).ready(function(){
    
 })
 
+
 //
 function changeYear(){
 		var datetime = new Date();
@@ -279,17 +289,22 @@ function changeYear(){
 // 	     var backyear = ${year};
         for(var i = 2018;i<=2022;i++){
         	 
-     	   if(nowyear == i){
-//      		   var ele=<option value="2018" selected>2018</option>;
-               //var e = <div>123</div>
-                
+     	   if(nowyear == i){  
      		   $('#selectYear').append("<option value='"+i+"' selected>"+i+"</option>");
      	   }else{    		   
-     		   
-     		  $('#selectYear').append("<option value='"+i+"' >"+i+"</option>");
+     		   $('#selectYear').append("<option value='"+i+"' >"+i+"</option>");
      	   }
         }
+        formrender();
     }
+    
+function formrender(){
+	layui.use('form',function(){
+		var form = layui.form;
+		form.render('select','renderForm');
+	})
+}
+
 //弹窗框
 /* function moneydetail(monthid){
 	$.ajax({
