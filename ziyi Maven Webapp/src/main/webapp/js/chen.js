@@ -119,38 +119,41 @@ layui.use(['element','table','layer','form','layedit', 'laydate'], function(){
 //sumAllMoney:会员卡折率和打折率之后的付款金额  summoney:页面显示的总金额和形式
 var nums,disnum,numss,sumAllMoney;
 	  form.on('select(paybox)', function(data){
-	  if(data.value=='1'){
-	       $('.crashcard').css('display','block');
-	       $('#card').click(function(){
-    	   	$.ajax({
-    	   	       type:"post",
-    	   	       url:"card_yu",
-    	   	       dataType:"json",
-    	   	       cache:false,
-    	   	       async: false,
-    	   	       success:function(date){
-    	   	    	  nums = date.rebate;
-    	   	    	  $('#meberNum').val(date.msg); 
-    	   	    	  jisuan();
-    	   	       }
-    	   	  });   	       	   
-	       });       
-  	  }else{
-  		$('.crashcard').css('display','none');
-  		nums = null;
-  		$('#meberNum').val(""); 
-  	  }	
-	  jisuan();
+		  nums = null;
+		  if(data.value=='1'){
+		       $('.crashcard').css('display','block');
+		       $('#card').click(function(){
+	    	   	$.ajax({
+	    	   	       type:"post",
+	    	   	       url:"card_yu",
+	    	   	       dataType:"json",
+	    	   	       cache:false,
+	    	   	       async: false,
+	    	   	       success:function(date){
+	    	   	    	  nums = date.rebate;
+	    	   	    	  $('#meberNum').val(date.msg); 
+	    	   	    	  jisuan();
+	    	   	       }
+	    	   	  });   	       	   
+		       });       
+	  	  }else{
+	  		$('.crashcard').css('display','none');
+	  		nums = null;
+	  		$('#meberNum').val(""); 
+	  	  }	
+		  jisuan();
   });
   form.on('select(paybox1)', function(data){
 	  var summoney = document.getElementById('summoney');
 	  //1：打折
+	  disnum = null;
 	  if(data.value=='1'){
-       $('.discounts').css('display','block');
-	       $('#disnum').blur(function(){
-	    	   disnum = $('#disnum').val();
-	    	   jisuan();
-	       });
+		  $('#disnum').val("");
+	      $('.discounts').css('display','block');
+		       $('#disnum').blur(function(){
+		    	   disnum = $('#disnum').val();
+		    	   jisuan();
+		  });
 	       
   	  }else{
   		$('.discounts').css('display','none');
@@ -712,6 +715,7 @@ function pay(number,table){
 					content: $("#layform1"),   //引入html内容
 					yes:function(index,layero){
 	                    layer.close(index);
+	                    //valinner：支付方式  cnumber：获取（输入）卡号
 	                    var valinner = $('#selectBox').val();
 	                    var cnumber = $('#meberNum').val();
 	                    $.ajax({
@@ -725,17 +729,17 @@ function pay(number,table){
 	                            	 //支付成功
 	                            	 //layer.msg(date.msg,{icon:6});
 	                            	 layer.confirm(date.msg+'<br/>是否打印订单？', {
-	     	                    		btn:['打印','关闭'],
+	     	                    		btn:['打印订单','直接关闭'],
 	     	                    		skin: 'layui-layer-molv',
 	     	                    		btnAlign: 'c',
 	     	                    		}, 
 	     	                    		function(){
 	     	                    		  //document.getElementById("right-content").innerHTML="";
 	     	                    		  //alert('1');
-	     	                    		  layer.msg('打印', {icon: 1});	     	                    		   
+	     	                    		  layer.msg('打印订单', {icon: 1});	     	                    		   
 	     	                    		}, 
 	     	                    		function(){
-	     	                    		  layer.msg('支付关闭', {});
+	     	                    		  layer.msg('不打印订单，直接关闭了', {});
 	     	                    	});
 	                            	document.getElementById("right-content").innerHTML="";
 	                             }
@@ -769,30 +773,6 @@ function pay(number,table){
 	})
   
 }
-//nums:返回的会员卡折率  numss:刷卡折率后的值 summoney:页面显示的总金额和形式
-/*var nums,numss,sumAllMoney;
-function recard(){
-	//alert(1);
-	  nums = 0.99;
-	  var summoney = document.getElementById('summoney');
-	   //1.仅刷卡
-	   if($('#selectBox').val()=='1'){
-		   //alert(nums);
-		   numss = (price*nums).toFixed(2);
-		   summoney.innerHTML=price+"*"+nums+'='+numss; 
-	   }
-	   var mebnum = $('#meberNum').val('会员卡号'); 
-	$.ajax({
-	       type:"post",
-	       url:"",
-	       dataType:"json",
-	       cache:false,
-	       async: false,
-	       success:function(date){
-              
-	       }
-	  });
-}*/
 
 //商品种类列表
 function category(){

@@ -550,6 +550,7 @@ public class MainServlet extends ActionSupport{
 							{
 								Common.HOUSE.update_house_tea(orders.getHouseid(), 0);
 								map.put("state", true);
+								map.put("msg", config.PAY_TRUE);
 								Users user = (Users) ActionContext.getContext().getSession().get("user");
 								Common.TOOLS.log_time(user.getName()+"收取了订单号为："+number+"的账单。金额为："+orders.getPrice()+"。现金付款",10);
 							}
@@ -568,6 +569,7 @@ public class MainServlet extends ActionSupport{
 							{
 								Common.HOUSE.update_house_tea(orders.getHouseid(), 0);
 								map.put("state", true);
+								map.put("msg", config.PAY_TRUE);
 								Users user = (Users) ActionContext.getContext().getSession().get("user");
 								Common.TOOLS.log_time(user.getName()+"收取了订单号为："+number+"的账单。金额为："+orders.getPrice()+"。支付宝付款",10);
 							}
@@ -586,6 +588,7 @@ public class MainServlet extends ActionSupport{
 							{
 								Common.HOUSE.update_house_tea(orders.getHouseid(), 0);
 								map.put("state", true);
+								map.put("msg", config.PAY_TRUE);
 								Users user = (Users) ActionContext.getContext().getSession().get("user");
 								Common.TOOLS.log_time(user.getName()+"收取了订单号为："+number+"的账单。金额为："+orders.getPrice()+"。微信付款",10);
 							}
