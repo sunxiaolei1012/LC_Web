@@ -162,10 +162,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							     </style> 
 							     <div class="" id='activecard'>
 							          <p>听到嘀声后连接成功！</p>
-									  <button class="layui-btn" onclick="reset_di">点击</button>
+									  <button class="layui-btn" onclick="ssb('reset_di')">点击</button>
 									  <p>若没有听到嘀声，请点击重新连接！！！</p>
-									  <button class="layui-btn" onclick="reset_reset">重新连接</button>
-								</div>						     							     
+									  <button class="layui-btn" onclick="ssb('reset_reset')">重新连接</button>
+								</div>	
+								<script >
+									function ssb(chen)
+									{
+										window.location.href=chen;
+										
+									}
+								</script>
+													     							     
 							
 							</div>
 						</div>

@@ -21,39 +21,39 @@ public class SerialListener implements SerialPortEventListener {
 	}
 	
 	/**
-	 * 处理监控到的串口事件
+	 * 澶勭悊鐩戞帶鍒扮殑涓插彛浜嬩欢
 	 */
 	@SuppressWarnings("restriction")
 	public void serialEvent(SerialPortEvent serialPortEvent) {
 
 		switch (serialPortEvent.getEventType()) {
 
-		case SerialPortEvent.BI: // 10 通讯中断
-			DialogShowUtils.errorMessage("与串口设备通讯中断");
+		case SerialPortEvent.BI: // 10 閫氳涓柇
+			DialogShowUtils.errorMessage("涓庝覆鍙ｈ澶囬�氳涓柇");
 			break;
 
-		case SerialPortEvent.OE: // 7 溢位（溢出）错误
+		case SerialPortEvent.OE: // 7 婧綅锛堟孩鍑猴級閿欒
 
-		case SerialPortEvent.FE: // 9 帧错误
+		case SerialPortEvent.FE: // 9 甯ч敊璇�
 
-		case SerialPortEvent.PE: // 8 奇偶校验错误
+		case SerialPortEvent.PE: // 8 濂囧伓鏍￠獙閿欒
 
-		case SerialPortEvent.CD: // 6 载波检测
+		case SerialPortEvent.CD: // 6 杞芥尝妫�娴�
 
-		case SerialPortEvent.CTS: // 3 清除待发送数据
+		case SerialPortEvent.CTS: // 3 娓呴櫎寰呭彂閫佹暟鎹�
 
-		case SerialPortEvent.DSR: // 4 待发送数据准备好了
+		case SerialPortEvent.DSR: // 4 寰呭彂閫佹暟鎹噯澶囧ソ浜�
 
-		case SerialPortEvent.RI: // 5 振铃指示
+		case SerialPortEvent.RI: // 5 鎸搩鎸囩ず
 
-		case SerialPortEvent.OUTPUT_BUFFER_EMPTY: // 2 输出缓冲区已清空
+		case SerialPortEvent.OUTPUT_BUFFER_EMPTY: // 2 杈撳嚭缂撳啿鍖哄凡娓呯┖
 			break;
 
-		case SerialPortEvent.DATA_AVAILABLE: // 1 串口存在可用数据
+		case SerialPortEvent.DATA_AVAILABLE: // 1 涓插彛瀛樺湪鍙敤鏁版嵁
 			byte[] data = null;
 			try {
 				if (serialport == null) {
-					DialogShowUtils.errorMessage("串口对象为空！监听失败！");
+					DialogShowUtils.errorMessage("涓插彛瀵硅薄涓虹┖锛佺洃鍚け璐ワ紒");
 				} else {
 					data = SerialPortManager.readFromPort(serialport);
 //					System.out.println(MyUtils.byteArray2HexString(data, data.length, true));
