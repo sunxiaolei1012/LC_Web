@@ -162,10 +162,10 @@ function read_card_select()
 	    	    		 for(var i =0 ; i<d.order.length;i++)
 	    	    		 {
 	    	    			 meborder +='<tr><td>'+d.order[i].number+'</td>'+								 							  
-	 	 					'<td>1314</td>'+								 							  
-	 						'<td>20181023</td>'+								 							  
+	 	 					'<td>'+d.order[i].price+'</td>'+								 							  
+	 						'<td>'+d.order[i].checkouttime+'</td>'+								 							  
 	 						'<td>'+
-	 							'<a href="javascript:detail();" class="layui-btn layui-btn-mini">详情</a>'+
+	 							'<a href="javascript:detail('+d.order[i].orderid+');" class="layui-btn layui-btn-mini">详情</a>'+
 	 						'</td></tr>';
 	    	    		 }
 	    	    	 }
