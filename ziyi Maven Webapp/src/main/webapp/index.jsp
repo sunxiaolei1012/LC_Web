@@ -404,7 +404,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     });
     
     //会员卡查询框
-/* function mebshow(){
+function mebshow(){
 	layer.open({
 		title:'会员卡信息',
 		type: 2,
@@ -417,7 +417,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		area: ['800px', '600px'], //宽高
 		content: 'mebcard.jsp',   //引入html内容		 
 	});
-} */
+}
     
 		/* //注意：导航 依赖 element 模块，否则无法进行功能性操作
 		layui.use(['element','table','layer','form','layedit', 'laydate'], function(){
