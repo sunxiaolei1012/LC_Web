@@ -146,22 +146,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								</p>								
 							</div>
 							<div class="middle-center-middle2">
-							     <style>
+							      <style>
 							         #activecard{
-							             /* border:1px solid red; */
+							             /* border:1px solid red; */ 
 							             margin-top:10%;
+							             margin-left:40%; 
 							             display:flex;
-							             justify-content:center;
+							             flex-direction:column;
+							             justify-content:center;  
 							         }
-							     </style>
-							     <form class='layui-form' id='activecard'>
-							           <div class="layui-form-item">
-									        <label class="layui-form-label" style="padding-right:0px;">激活卡</label>
-									        <div class="layui-input-block">
-									      		<input type="checkbox" name="open" checked="" lay-skin="switch" lay-text="ON|OFF">
-									    	</div>
-									   </div>
-							     </form>							     							     
+							         #activecard .layui-btn{
+							            width:100px;
+							            margin-top:10px;
+							         }
+							     </style> 
+							     <div class="" id='activecard'>
+							          <p>听到嘀声后连接成功！</p>
+									  <button class="layui-btn" onclick="ssb('reset_di')">点击</button>
+									  <p>若没有听到嘀声，请点击重新连接！！！</p>
+									  <button class="layui-btn" onclick="ssb('reset_reset')">重新连接</button>
+								</div>	
+								<script >
+									function ssb(chen)
+									{
+										window.location.href=chen;
+										
+									}
+								</script>
+													     							     
 							
 							</div>
 						</div>
@@ -400,7 +412,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     });
     
     //会员卡查询框
-function mebshow(){
+/* function mebshow(){
 	layer.open({
 		title:'会员卡信息',
 		type: 2,
@@ -413,7 +425,7 @@ function mebshow(){
 		area: ['800px', '600px'], //宽高
 		content: 'mebcard.jsp',   //引入html内容		 
 	});
-}
+} */
     
 		/* //注意：导航 依赖 element 模块，否则无法进行功能性操作
 		layui.use(['element','table','layer','form','layedit', 'laydate'], function(){
