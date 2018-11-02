@@ -1061,5 +1061,12 @@ function goodsta(goodsta,tableid){
 	orderShow(tableid);
 }
 
+//激活卡
+function activefun(){
+	layer.msg('激活');
+}
 
+function relinkfun(){
+	layer.msg('重新连接');
+}
 
