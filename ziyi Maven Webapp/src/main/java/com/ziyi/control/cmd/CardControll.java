@@ -90,7 +90,7 @@ public class CardControll {
 		 int b=Common.CARDDAO.checkCardId(number);
 		 if(b==0){
 				System.out.println("开卡类型："+ctid+"卡号："+number+"会员名称："+name+"电话："+phone+"地址："+address+"身份证"+idcard+"开卡金额："+price);
-				  System.out.println(df.format(new Date()));// new Date()为获取当前系统时间
+				  
 			    	String date_time=df.format(new Date());
 			    	double spend=0;
 			    	double remain=price;
@@ -109,7 +109,7 @@ public class CardControll {
 				card.setUserid(1);
 				
 				int a=Common.CARDDAO.addCard(card);
-				System.out.println(a);
+			
 			 
 				try {
 					AjaxResponse.responseAjax(a);
@@ -130,25 +130,21 @@ public class CardControll {
 	
 	
 	
-	  public void  checkCardByNnmber(){
-		  System.out.println("111111111");
-		  
+
+	public void  checkCardByNnmber() throws IOException{
+		
 		 Card card=Common.CARDDAO.select_card_number(number);
-		 if(card==null &card.equals("")){
+		 
+		 if(card==null  || card.equals(null)){
 			 
-			 try {
+			
 				AjaxResponse.responseAjax(0);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			 
-		 }
-		 System.out.println(card);
+			
+			
+		 }else {
+		
 		 
 		 int a=card.getCardid();
-		 
-		 System.out.println(a);
-		 
 		 List<Order> lists=Common.CARDDAO.check_oder_cardid(a);
 		 if(lists==null &lists.size()==0) {
 			 	
@@ -158,11 +154,7 @@ public class CardControll {
 				e.printStackTrace();
 			}
 		 }
-		  System.out.println(lists);
 		  int b=lists.get(0).getCardid();
-		  
-		 
-		  
 		  
 		 Map<String,Object> map=new  HashMap<String ,Object>(); 
 		 	map.put("card", card);
@@ -174,7 +166,7 @@ public class CardControll {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		  
+		 }
 	  }
 	  
 	  public  void checkOrderList_cardid() {
@@ -203,7 +195,7 @@ public class CardControll {
 			  map.put("xfprice",order.getPrice());
 			  map.put("allprice",order.getPay_price());
 				  json= Json.toJson(map);
-				  System.out.println(json);
+				  //System.out.println(json);
 				 
 		  }
 		  else
