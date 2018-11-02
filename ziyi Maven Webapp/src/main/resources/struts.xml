@@ -134,7 +134,10 @@
          <action name="exit" class="com.ziyi.control.LoginServlet" method="exit">
         	<result name="login">login.jsp</result>
          </action> 
-         
+          <action name="reset_*" class="com.ziyi.control.ResetControl" method="{1}">
+        	 <result name="json" type="json"></result>
+        	<allowed-methods>di,reset</allowed-methods> 
+         </action> 
          <action  name="m_*" class="com.ziyi.control.cmd.MonthPriceControl" method="{1}">
          	<result name="monthPrices">higChartYYE.jsp </result>
          	<result name="sumSellingType">higChartKC.jsp</result>
