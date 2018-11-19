@@ -86,6 +86,11 @@ var navs = [{
 	"icon": "fa-stop-circle",
 	"href": "admin_teahouse",
 	"spread": false
+},
+{
+	"title": "打印",
+	"icon": "fa-stop-circle",
+	"href": "charts/press.jsp",
+	"spread": false
 }
-
 ];
