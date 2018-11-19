@@ -12,6 +12,7 @@ public class SubHouseDaoImpl implements SubHouseDao{
 	public Sub_House select_SubHouse() {
 		@SuppressWarnings("unchecked")
 		List<Sub_House>  sh =Common.UTIL.query("select * from t_subhouse", null, Sub_House.class);
+//		System.out.println(sh.toString());
 		return sh.get(0);
 	}
 

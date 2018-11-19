@@ -100,9 +100,6 @@
             <result name="json" type="json"></result>
          	<allowed-methods>get,set</allowed-methods>
          </action>
-         
-         
-         
          <action name="charts_*" class="com.ziyi.control.ChartsControl" method="{1}">
             <result name="json" type="json"></result>
             <result name="sumprice">/charts/sum_price.jsp</result>
