@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.atgeretg.serialport.ui.Read_Card;
+import com.ziyi.pojo.Sub_House;
 
 /**
  * 一些常量配置
@@ -14,6 +15,16 @@ import com.atgeretg.serialport.ui.Read_Card;
  * @date 2018年9月16日下午2:59:35
  */
 public class config {
+
+	public static String TEA_NAME = "紫怡茶道";
+	public static String TEA_ADDRESS = "广中西路768号";
+	public static String TEA_PHONE = "5677-7388";
+	static{
+		 Sub_House sh = Common.SUBDAO.select_SubHouse();
+		 TEA_NAME = sh.getName();
+		 TEA_ADDRESS = sh.getAddress();
+		 TEA_PHONE = sh.getTel();
+	}
 	
 	public static final String KEY = "123";
 
@@ -66,6 +77,8 @@ public class config {
 	public static final String CARD_NUMBER_NULL="卡编号为空";
 	public static final String CARD_TYPE_NULL="卡类型为空";
 	public static final String CARD_OPEN_TRUE="开卡成功";
+	
+	public static final String DAYIN_CONFIG_IS_NULL="打印参数不为空";
 	
 	//认证
 	public static final byte[] CARD_LOGIN = new byte[]{(byte) 0xAA,(byte) 0xB9,0x00,0x05,(byte) 0x80,0x00,0x00,0x00,0x00,(byte) 0x96};
