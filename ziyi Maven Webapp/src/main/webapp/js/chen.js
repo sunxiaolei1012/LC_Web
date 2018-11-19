@@ -521,20 +521,7 @@ function orderShow(tableid)
 						    "</li>"+							     
 						"</ul>"+						 
 					"</div>"+
-					"<div class='right-middle common-content'>"+
-						/*"<div class='right-middle-top'>"+
-							"<ul class='mui-table-view'>"+
-							    "<li class='mui-table-view-cell mui-media'>"+
-							        "<a href='#'>"+
-							            "<img class='mui-media-object mui-pull-left' src='images/headMeb.png'>"+
-							            "<div class='mui-media-body'>"+
-							                "<span class='title mebTitle'>"+"会员名：孙先生</span>"+
-							                "<p class='mui-ellipsis mebNum'>"+"会员号："+888888+"</p>"+
-							            "</div>"+
-							        "</a>"+
-							    "</li>"+							     
-						    "</ul>"+
-						"</div>"+*/
+					"<div class='right-middle common-content'>"+						 
 						"<div class='devider2'></div>"+
 						"<div class='right-middle-middle right-middle-scroll'>"+							 
 							"<ul class='mui-table-view golist'>";
@@ -550,6 +537,7 @@ function orderShow(tableid)
 	            	   }else{
 	            		   stainner = '已上';
 	            	   }
+	            	    
 	            	   ele +="<li class='mui-table-view-cell mui-media'>"+
 								        "<a href='#'>"+
 								            "<div class='mui-media-body'>"+							               
@@ -584,6 +572,7 @@ function orderShow(tableid)
              //支付判断：管理员和收银员（除服务员）
              if(!date.bool){
             	 $('#pay').attr('disabled','disabled');
+            	 $('.icon-shanchu').removeAttr("onclick");
              }            
        }
    
