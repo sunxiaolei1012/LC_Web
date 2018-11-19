@@ -103,16 +103,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				//page
 				laypage({
 					cont: 'page',
-					pages: ${zong} //总页数
-						,
-					groups: 5 //连续显示分页数
-						,
+					pages: ${zong},//总页数
+						
+					groups: 5, //连续显示分页数
+						
 					curr:${page},
 					jump: function(obj, first) {
 						//得到了当前页，用于向服务端请求对应数据
 						var curr = obj.curr;
 						if(!first) {
-							window.location.href='http://localhost/ziyi/admin_selling?page='+obj.curr;
+							window.location.href='admin_selling?page='+obj.curr;
 							layer.msg('第 '+ obj.curr +' 页');
 							
 						}
