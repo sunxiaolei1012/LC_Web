@@ -581,26 +581,52 @@ function orderShow(tableid)
 	}
 }
 //打印
+var count=0; 
+var flag=null; 
+function done(){ 
+  if(count==0){ 
+    clearInterval(flag); 
+  }  
+  else{ 
+    count=count-1; 
+  } 
+} 
 function press(){
-	var orderNum = document.getElementById("orderNum").innerText;	
-	var tablenum = document.getElementById('tableNum').innerText;
-	var goolist='';
-	$('.golist .mui-media').each(function(index){
-		var goname=$(this).find('.goname').text();
-		var gonum =$(this).find('label').text();
-		var gomoney = $(this).find('.gomoney').text();
-		//var newlist = '{"name":"'+goname+'","num":'+gonum+',"money":'+gomoney+'}'; 
-		if(index!=$('.golist .mui-media').length-1){
-			var newlist1 = goname+','+gonum+','+gomoney+',';
-		}else{
-			var newlist1 = goname+','+gonum+','+gomoney;
-		}
-		goolist += newlist1;
-		//goolist.push(JSON.parse(newlist));
-		
-	}) 
-	console.log(goolist);
+	if(count==0){
+		var orderNum = document.getElementById("orderNum").innerText;	
+		var tablenum = document.getElementById('tableNum').innerText;
+		var goolist='';
+		$('.golist .mui-media').each(function(index){
+			var goname=$(this).find('.goname').text();
+			var gonum =$(this).find('label').text();
+			var gomoney = $(this).find('.gomoney').text();
+			//var newlist = '{"name":"'+goname+'","num":'+gonum+',"money":'+gomoney+'}'; 
+			if(index!=$('.golist .mui-media').length-1){
+				var newlist1 = goname+','+gonum+','+gomoney+',';
+			}else{
+				var newlist1 = goname+','+gonum+','+gomoney;
+			}
+			goolist += newlist1;
+			//goolist.push(JSON.parse(newlist));
+			
+		}) 
+		console.log(goolist);
+		count=3;
+		flag = setInterval(done,2000);
+	}else{
+		layer.msg('还需要'+count+'秒才可点击哦！');
+	}
 	 
+	/*$.ajax({
+	       type:"post",
+	       url:"",
+	       dataType:"json",
+	       cache:false,
+	       async: true,
+	       success:function(d){
+	    	   
+	       }
+	   });*/
 }
 //结算页面
 //number:订单号  table:桌子id price：商品总价格
