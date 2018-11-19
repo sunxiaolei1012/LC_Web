@@ -48,7 +48,7 @@ import com.ziyi.dao.impl.UsersDaoImpl;
 public class Common {
 
 	
-	static Properties pros = null;   //可以帮助读取和处理资源文件中的信息
+	public static Properties pros = null;   //可以帮助读取和处理资源文件中的信息
 	static {   //加载JDBCUtil类的时候调用。注意这里的话，只会被加载一次。
 			pros = new Properties();
 	try {

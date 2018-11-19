@@ -136,27 +136,24 @@ public class CardControll {
 		 Card card=Common.CARDDAO.select_card_number(number);
 		 
 		 if(card==null  || card.equals(null)){
-			 
 			
 				AjaxResponse.responseAjax(0);
 			
-			
 		 }else {
-		
-		 
-		 int a=card.getCardid();
-		 List<Order> lists=Common.CARDDAO.check_oder_cardid(a);
-		 if(lists==null &lists.size()==0) {
-			 	
+			 
+			 	int a=card.getCardid();
+			 	List<Order> lists=Common.CARDDAO.check_oder_cardid(a);
+		 if(lists==null) {
 			 try {
-				AjaxResponse.responseAjax(1);
+				 String cards=Json.toJson(card);
+				 	AjaxResponseJson.responseAjax(cards);
+				
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		 }
+		 }else {
 		  int b=lists.get(0).getCardid();
-		  
-		 Map<String,Object> map=new  HashMap<String ,Object>(); 
+		 Map<String,Object> map=new HashMap<String ,Object>(); 
 		 	map.put("card", card);
 		 	map.put("order", lists);
 		  String jsons=Json.toJson(map);
@@ -166,6 +163,7 @@ public class CardControll {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		  }
 		 }
 	  }
 	  
