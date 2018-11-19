@@ -103,10 +103,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				//page
 				laypage({
 					cont: 'page',
-					pages: ${zong},//总页数
-						
-					groups: 5, //连续显示分页数
-						
+					pages: ${zong}, //总页数
+					groups: 5, //连续显示分页数						
 					curr:${page},
 					jump: function(obj, first) {
 						//得到了当前页，用于向服务端请求对应数据

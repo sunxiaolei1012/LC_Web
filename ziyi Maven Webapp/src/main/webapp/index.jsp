@@ -162,18 +162,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							     </style> 
 							     <div class="" id='activecard'>
 							          <p>听到嘀声后连接成功！</p>
-									  <button class="layui-btn" onclick="ssb('reset_di')">点击</button>
+									  <button class="layui-btn" onclick="reset_di">点击</button>
 									  <p>若没有听到嘀声，请点击重新连接！！！</p>
-									  <button class="layui-btn" onclick="ssb('reset_reset')">重新连接</button>
-								</div>	
-								<script >
-									function ssb(chen)
-									{
-										window.location.href=chen;
-										
-									}
-								</script>
-													     							     
+									  <button class="layui-btn" onclick="reset_reset">重新连接</button>
+								</div>						     							     
 							
 							</div>
 						</div>
@@ -412,7 +404,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     });
     
     //会员卡查询框
-/* function mebshow(){
+function mebshow(){
 	layer.open({
 		title:'会员卡信息',
 		type: 2,
@@ -425,7 +417,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		area: ['800px', '600px'], //宽高
 		content: 'mebcard.jsp',   //引入html内容		 
 	});
-} */
+}
     
 		/* //注意：导航 依赖 element 模块，否则无法进行功能性操作
 		layui.use(['element','table','layer','form','layedit', 'laydate'], function(){
