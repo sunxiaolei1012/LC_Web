@@ -13,6 +13,7 @@ import com.cyb.util.config;
 import com.ziyi.dao.YuYueDao;
 import com.ziyi.dao.impl.YuYueDaoImpl;
 import com.ziyi.pojo.Card;
+import com.ziyi.pojo.Selling_list;
 import com.ziyi.pojo.Tea_House;
 import com.ziyi.pojo.Users;
 import com.ziyi.pojo.YuYue;
@@ -156,6 +157,26 @@ public class Test_Action {
 		List<Double> list = JD.sum_pay_money_type(0, 2018);
 		for (Double double1 : list) {
 			System.out.println(double1);
+		}
+		
+	}
+	
+	//批量添加商品
+	@Test 
+	public void test15(){
+		Selling_list sell = new Selling_list();
+		sell.setName("茶");
+		sell.setNumber(new Integer(10));
+		sell.setPrice(new Double(100));
+		sell.setProportion(new Double(1));
+		sell.setPycode("cs");
+		sell.setRebate(new Integer(1));
+		sell.setTypeid(new Integer(1));
+		sell.setUnit("位");
+		sell.setUserid(3);
+		sell.setXiangxi("便宜又好喝");
+		for(int a=0;a<40;a++){
+			int bool = Common.SLD.insert_Selling_list(sell);
 		}
 		
 	}
