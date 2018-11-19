@@ -2,7 +2,7 @@
 layui.define(['jquery'], function(exports) {
 	"use strict";
 	var $ = layui.jquery;
-   
+    
 	//设置ajax可跨域
 	$.support.cors = true;
 	var Area = function() {
