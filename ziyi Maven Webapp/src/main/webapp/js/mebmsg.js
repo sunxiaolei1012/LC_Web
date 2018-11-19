@@ -32,7 +32,7 @@ function mebshow(){
 }
 //会员卡号，提交
 function submitmsg(){
-	
+	var result='';
 	//输入框获取（输入）卡号
 	var cardnum = $('#cardnum').val();
 //	console.log(cardnum);
@@ -50,28 +50,37 @@ function submitmsg(){
 	       url:"Card_checkCardByNnmber?number="+cardnum,
 	       dataType:"json",
 	       cache:false,
-	       async: false,
+	       
 	       success:function(d){
 	    	   //d==0:无此卡信息 d==1:无消费信息
 	    	   if(d==0){
-	    		   layer.msg('无此卡信息');
-	    	   }else if(d==1){
-	    		   layer.msg('此卡无消费信息');
-	    	   }else{	    		   
-		    	   //会员卡信息
-	    		        var remoney = (d.card.remain).toFixed(2);
+	    		   layer.msg('无此卡相关信息');
+	    	   }else{
+	    		   
+	    		   if("order" in d){
+	    			   //alert('order' in d);
+	    			   //会员卡信息
+	    		       var remoney = (d.card.remain).toFixed(2);
+		    	       mebhtml+='<tr><td>'+d.card.name+'</td>'+
+		    					      '<td>'+d.card.selltime+'</td>'+
+		    					      '<td>'+remoney+'</td></tr>';
+			    	   //消费记录
+			    	   for (var i = 0; i < d.order.length; i++) {
+			    	    	meborder+='<tr><td>'+d.order[i].number+'</td>'+								 							  
+			    						'<td>'+d.order[i].pay_price+'</td>'+								 							  
+			    						'<td>'+d.order[i].checkouttime+'</td>'+								 							  
+			    						'<td>'+
+			    							'<a href="javascript:detail('+d.order[i].orderid+');" class="layui-btn layui-btn-mini">详情</a>'+
+			    						'</td></tr>';
+			    	    }
+	    		   }else{
+	    			   var remoney = (d.card.remain).toFixed(2);
 		    	    	mebhtml+='<tr><td>'+d.card.name+'</td>'+
 		    					      '<td>'+d.card.selltime+'</td>'+
 		    					      '<td>'+remoney+'</td></tr>';
-		    	   //消费记录
-		    	   for (var i = 0; i < d.order.length; i++) {
-		    	    	meborder+='<tr><td>'+d.order[i].number+'</td>'+								 							  
-		    						'<td>'+d.order[i].pay_price+'</td>'+								 							  
-		    						'<td>'+d.order[i].checkouttime+'</td>'+								 							  
-		    						'<td>'+
-		    							'<a href="javascript:detail('+d.order[i].orderid+');" class="layui-btn layui-btn-mini">详情</a>'+
-		    						'</td></tr>';
-		    	    }
+		    	    	meborder+='<tr><td colspan="4" style="text-align:center;">此卡暂无消费记录</td>';
+	    		   }
+		    	   
 	    	   }
 	    	   mebmsg.html(mebhtml);
 	    	   mebOrdermsg.html(meborder);
@@ -90,7 +99,7 @@ function detail(orderid){
 		       url:"Card_checkOrderList_cardid?orderid="+orderid,
 		       dataType:"json",
 		       cache:false,
-		       async: false,
+		       
 		       success:function(d){
 //		    	   alert(1);
 		    	    var goods = $('#goodslists');
@@ -145,7 +154,7 @@ function read_card_select()
 	       url:"card_selectcard",
 	       dataType:"json",
 	       cache:false,
-	       async: false,
+	       
 	       success:function(d){
 	    	console.log(d);
 	       if(d.state=="true")
