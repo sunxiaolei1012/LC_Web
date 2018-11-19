@@ -610,9 +610,9 @@ function press(){
 			//goolist.push(JSON.parse(newlist));
 			
 		}) 
-		console.log(goolist);
+		//console.log(goolist);
 		count=3;
-		flag = setInterval(done,2000);
+		flag = setInterval(done,1000);
 	}else{
 		layer.msg('还需要'+count+'秒才可点击哦！');
 	}
