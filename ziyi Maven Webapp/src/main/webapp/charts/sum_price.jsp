@@ -45,6 +45,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	margin-top: 5px
 }
 </style>
+<script>
+	/* function cc()
+	{
+		var year = ${year};//2020
+		<select>
+		for (var i = 2018; i <= year; i++) {
+			if(i == year)
+				{
+				<option value=i select>i</option>
+				//默认选中
+				}
+			else
+				{
+				<option value=i>i</option>
+				}
+		}
+		</select>
+		
+	} */
+	
+	</script>
 </head>
 
 <body>
@@ -149,7 +170,7 @@ var tabold;
 function daydetail(b){
 	//原月营业额内容
 	 tabold=$('#tabmonth').html();
-	 //console.log(tabold);
+	 console.log(tabold);
 	 <c:forEach var="i" items="${list}" > 
 		var c = ${i.month};
 		if(c == b)
