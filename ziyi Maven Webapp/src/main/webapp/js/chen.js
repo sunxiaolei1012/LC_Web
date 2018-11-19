@@ -87,7 +87,7 @@ function save(func,cmd)
        url:"cmd_"+func+"_"+cmd,
        dataType:"json",
        cache:false,
-       async: false,
+       async: true,
        data: $("#form2").serialize(),
        success:function(d){
        if(d.state=="true")
@@ -128,7 +128,7 @@ var nums,disnum,numss,sumAllMoney;
 	    	   	       url:"card_yu",
 	    	   	       dataType:"json",
 	    	   	       cache:false,
-	    	   	       async: false,
+	    	   	       async: true,
 	    	   	       success:function(date){
 	    	   	    	  nums = date.rebate;
 	    	   	    	  $('#meberNum').val(date.msg); 
@@ -194,7 +194,7 @@ function renderform(){
 //加载
 $(document).ready(function(){
 	//时间
-	    var n;
+	var n;
     setInterval(getTime,1000);
     getTime();	        
 	var interverPrice = setInterval(priceAll,1000);
@@ -252,7 +252,7 @@ function priceAll(){
 	       url:"main_price",
 	       dataType:"json",
 	       cache:false,
-	       async: false,
+	       async: true,
 	       success:function(d){
 	              console.log(d.price);	    	
 	    	      $("#priceAll").text(d.price);				    	     			
@@ -319,7 +319,7 @@ function yuding_show(cl_id)
 	       url:"main_yuyue?index="+cl_id,
 	       dataType:"json",
 	       cache:false,
-	       async: false,
+	       async: true,
 	       success:function(date){
 	    	   console.log(date);
 	    	 //预约信息显示
@@ -349,19 +349,6 @@ function yuding(ele_id)
 			 //提交表单信息以及餐桌id和预定状态
 			 console.log(date);
 			 update_state_two(ele_id,2,date);
-//        	 layer.close(index);        	
-        	/*$.ajax({
-        	       type:"post",
-        	       url:"",
-        	       dataType:"json",
-        	       cache:false,
-        	       async: false,
-        	       data: $("#reform").serialize(),
-        	       success:function(d){
-	                    layer.msg('提交成功')
-        	       }
-        	   });*/
-        	
 		},
 		
 		btn2:function(){	
@@ -408,7 +395,7 @@ function update_state_two(id, index,datas)
 	       url:"main_state?id="+id+"&index="+index+"&"+datas,
 	       dataType:"json",	      
 	       cache:false,
-	       async: false,
+	       async: true,
 	       success:function(date){
 	    	   layer.msg(date.msg,{icon:6});
 	    	   tableShow();
@@ -425,12 +412,8 @@ function update_state(id, index)
 	       url:"main_state?id="+id+"&index="+index,
 	       dataType:"json",
 	       cache:false,
-	       async: false,
+	       async: true,
 	       success:function(date){
-	    	   /*if(index == 2){
-	    		   tableShow();
-//		    	   layer.close(index);	
-	    	   }else */
 	    		if(date.state)
 	    		{
 	    		  layer.msg(date.msg,{icon:6});
@@ -451,7 +434,7 @@ function tablebox(){
 	       url:"main_table",
 	       dataType:"json",
 	       cache:false,
-	       async: false,
+	       async: true,
 	       success:function(d){	    	    
 	    	   var tablebox = $(".middle-center-tableLayout");
 	    	   var n=[];
@@ -482,7 +465,7 @@ function tableShow()
        url:"main_table",
        dataType:"json",
        cache:false,
-       async: false,
+       async: true,
        success:function(d){
     	     var btns = $(".middle-center-tableList button");
     	     var ele =  $(".middle-center-tableList");
@@ -514,7 +497,7 @@ function orderShow(tableid)
        url:"main_order?id="+tableid,
        dataType:"json",
        cache:false,
-       async: false,
+       async: true,
        success:function(date){
 //    	   console.log(date);
     	       var state = date.status;
@@ -554,11 +537,12 @@ function orderShow(tableid)
 						"</div>"+*/
 						"<div class='devider2'></div>"+
 						"<div class='right-middle-middle right-middle-scroll'>"+							 
-							"<ul class='mui-table-view'>";
+							"<ul class='mui-table-view golist'>";
 //			   right_mid.innerHTML+=ele;
     	     if(date.sel != undefined)
     	    	 {
 	               for(var i = 0; i<date.sel.length;i++){
+	            	   //console.log(date.sel.length);
 	            	   var goodsta = date.sel[i].userid;
 	            	   var stainner;
 	            	   if(goodsta==0){
@@ -569,9 +553,9 @@ function orderShow(tableid)
 	            	   ele +="<li class='mui-table-view-cell mui-media'>"+
 								        "<a href='#'>"+
 								            "<div class='mui-media-body'>"+							               
-								                "<p class='mui-ellipsis mui-table-view-cell'>"+"<span class='title mebTitle'>"+date.sel[i].name+"</span>"+
+								                "<p class='mui-ellipsis mui-table-view-cell'>"+"<span class='title mebTitle goname'>"+date.sel[i].name+"</span>"+
 								                	"<span class='mui-badge mui-badge-inverted'>"+"<span class='mui-ellipsis mebTitle'>"+"×"+"<label>"+date.sel[i].number+"</label>"+date.sel[i].unit+"</span>"+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
-								                			"<span class='mui-ellipsis title mebTitle'>"+date.sel[i].price+"</span>" +
+								                			"<span class='mui-ellipsis title mebTitle gomoney'>"+date.sel[i].price+"</span>" +
 								                					"&nbsp;&nbsp;<span onclick='goodsDel("+date.sel[i].sellingid+")' class='iconfont icon-shanchu'></span>" +
 								                					"<span style='position:relative;top:2.5px' onclick='goodsAdd("+date.sel[i].sellingid+")' class='iconfont icon-tianjia'></span><span class='statues mui-badge "+cla_c(goodsta)+"' onclick='goodsta("+date.sel[i].typeid+","+date.houseid+")' style='position:relative;top:-1.5px'>"+stainner+"</span></span>"+
 								                "</p>"+
@@ -589,7 +573,8 @@ function orderShow(tableid)
 						"<p class='title mebNum'>消费总金额</p><p class='title mui-ellipsis'>"+date.price+"</p>"+
 					"</div>"+					 
 					"<div class='right-middle-bottom-pay'>"+
-						"<div class=''><p class='mebNum'>"+"结账状况"+"</p><p class='title mebTitle'>"+inner+"</p></div>"+								
+						"<div class=''><p class='mebNum'>"+"结账状况"+"</p><p class='title mebTitle'>"+inner+"</p></div>"+
+						"<button type='button' id='press' class='mui-btn mui-btn-warning' onclick='press()'>打印</button>"+
 						"<button type='button' id='pay' class='mui-btn mui-btn-warning' onclick='pay("+date.number+","+date.houseid+")'>结算</button>"+
 					"</div>"+
 				"</div>"+				 						
@@ -605,6 +590,28 @@ function orderShow(tableid)
    
    });
 	}
+}
+//打印
+function press(){
+	var orderNum = document.getElementById("orderNum").innerText;	
+	var tablenum = document.getElementById('tableNum').innerText;
+	var goolist='';
+	$('.golist .mui-media').each(function(index){
+		var goname=$(this).find('.goname').text();
+		var gonum =$(this).find('label').text();
+		var gomoney = $(this).find('.gomoney').text();
+		//var newlist = '{"name":"'+goname+'","num":'+gonum+',"money":'+gomoney+'}'; 
+		if(index!=$('.golist .mui-media').length-1){
+			var newlist1 = goname+','+gonum+','+gomoney+',';
+		}else{
+			var newlist1 = goname+','+gonum+','+gomoney;
+		}
+		goolist += newlist1;
+		//goolist.push(JSON.parse(newlist));
+		
+	}) 
+	console.log(goolist);
+	 
 }
 //结算页面
 //number:订单号  table:桌子id price：商品总价格
@@ -666,7 +673,7 @@ function pay(number,table){
 	       url:"main_number?number="+number+"&id="+table,
 	       dataType:"json",
 	       cache:false,
-	       async: false,
+	       async: true,
 	       success:function(d){	
 	    	   if(d.bool==true){
 	            	 //alert('1');	            	 
@@ -723,7 +730,7 @@ function pay(number,table){
 	             	       url:"main_pay?number="+number+"&id="+valinner+"&cnumber="+cnumber,
 	             	       dataType:"json",
 	             	       cache:false,
-	             	       async: false,
+	             	       async: true,
 	             	       success:function(date){
 	                             if(date.state){
 	                            	 //支付成功
@@ -781,7 +788,7 @@ function category(){
 	       url:"main_type",
 	       dataType:"json",
 	       cache:false,
-	       async: false,
+	       async: true,
 	       success:function(d){
 	    	   var ulele = $(".layui-tab-title");
 	    	   var tabcon = document.getElementById("layui-tab-content");
@@ -904,7 +911,7 @@ function othrebate(){
 	       url:"main_xubei?number="+ordernum,
 	       dataType:"json",
 	       cache:false,
-	       async: false,
+	       async: true,
 	       success:function(date){
                 console.log(date.big);
                 for(var obj in date)
@@ -982,7 +989,7 @@ function goodsAdd(id){
 	       url:"main_selling?number="+ordernum+"&id="+id,
 	       dataType:"json",
 	       cache:false,
-	       async: false,
+	       async: true,
 	       success:function(date){
                 if(date.state == "true"){
                 	layer.msg('商品添加成功',{icon:6});
@@ -1006,7 +1013,7 @@ function goodsDel(id){
 	       url:"main_delgoods?number="+ordernum+"&id="+id,
 	       dataType:"json",
 	       cache:false,
-	       async: false,
+	       async: true,
 	       success:function(date){
                 if(date.state == "true"){
                  	layer.msg('商品删除成功',{icon:6});
@@ -1033,7 +1040,7 @@ function goodsta(goodsta,tableid){
 	       url:"main_sellingstate?id="+goodsta,
 	       dataType:"json",
 	       cache:false,
-	       async: false,
+	       async: true,
 	       success:function(date){
                  
 	       }
@@ -1041,12 +1048,4 @@ function goodsta(goodsta,tableid){
 	orderShow(tableid);
 }
 
-//激活卡
-function activefun(){
-	layer.msg('激活');
-}
-
-function relinkfun(){
-	layer.msg('重新连接');
-}
 
