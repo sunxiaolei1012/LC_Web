@@ -754,14 +754,21 @@ function pay(number,table){
 	     	                    		skin: 'layui-layer-molv',
 	     	                    		btnAlign: 'c',
 	     	                    		}, 
-	     	                    		function(){
-	     	                    		  //document.getElementById("right-content").innerHTML="";
-	     	                    		  //alert('1');
-	     	                    		  console.log("订单编号："+number);
-	     	                    		  layer.msg('打印订单编号:'+number, {icon: 1});	     	                    		   
+	     	                    		function(){	     	                    		   	     	                    		  
+//	     	                    		  layer.msg('打印订单编号:'+number, {icon: 1});
+	     	                    		   $.ajax({
+	     	                    		       type:"post",
+	     	                    		       url:"dayin_number?number="+number,
+	     	                    		       dataType:"json",
+	     	                    		       cache:false,
+	     	                    		       async: false,
+	     	                    		       success:function(d){
+	     	                    		    	   layer.msg('成功打印');
+	     	                    		       }
+	     	                    		   });
 	     	                    		}, 
 	     	                    		function(){
-	     	                    		  layer.msg('不打印订单，直接关闭了', {});
+	     	                    		  layer.msg('不打印订单，直接关闭了', {icon: 1});
 	     	                    	});
 	                            	document.getElementById("right-content").innerHTML="";
 	                             }
