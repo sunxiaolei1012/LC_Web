@@ -609,7 +609,10 @@ function press(){
 			goolist += newlist1;
 			//goolist.push(JSON.parse(newlist));
 			
-		}); 			
+		}); 
+//		console.log(goolist);			
+		count=3;
+		flag = setInterval(done,1000);
 		$.ajax({
 		       type:"post",
 		       url:"dayin_get?number="+orderNum+"&table="+tablenum+"&value="+goolist,
@@ -620,9 +623,6 @@ function press(){
 		    	   layer.msg('成功打印');
 		       }
 		   });
-//		console.log(goolist);	
-		count=3;
-		flag = setInterval(done,1000);
 	}else{
 		layer.msg('还需要'+count+'秒才可点击哦！');
 	}
