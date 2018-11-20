@@ -376,6 +376,8 @@ function doube(ele_id)
 			},			
 			btn2:function(){				
                 update_state(ele_id,1);
+                //console.log(ele_id);
+                clc(ele_id,1);
 			},
 			btn3:function(){
 				//预定信息填写弹窗

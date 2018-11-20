@@ -16,35 +16,35 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	 
 	<body>
 	    <br><br>
-		<div>
+		<div id="formbox">
 		    <form class="layui-form">
 		          <div class="layui-form-item">
 				    <label class="layui-form-label">店铺名称</label>
 				    <div class="layui-input-block">
-				      <input type="text" name="title" autocomplete="off" placeholder="请输入" class="layui-input">
+				      <input type="text" name="title" autocomplete="off" placeholder="请输入" class="layui-input" id="title">
 				    </div>
 				  </div>
 				  <div class="layui-form-item">
 				    <label class="layui-form-label">店铺地址</label>
 				    <div class="layui-input-block">
-				      <input type="text" name="address" autocomplete="off" placeholder="请输入" class="layui-input">
+				      <input type="text" name="address" autocomplete="off" placeholder="请输入" class="layui-input" id="address">
 				    </div>
 				  </div>
 				  <div class="layui-form-item">
 				    <label class="layui-form-label">联系电话</label>
 				    <div class="layui-input-block">
-				      <input type="text" name="phone" autocomplete="off" placeholder="请输入" class="layui-input">
+				      <input type="text" name="phone" autocomplete="off" placeholder="请输入" class="layui-input" id="phone">
 				    </div>
 				  </div>
 				  <div class="layui-form-item">
 				    <div class="layui-input-block">
-				      <button class="layui-btn">提交</button>
+				      <button class="layui-btn" onclick="subChange()">提交</button>
 				      <button type="reset" class="layui-btn layui-btn-primary">取消</button>
 				    </div>
 				  </div>
-		    </form>
+		    </form> 
 	   </div>
-		<!-- <script type="text/javascript" src="icheck/icheck.js"></script> -->
+		
 		<script type="text/javascript" src="../layui/layui.js"></script>
 		
 			<script>
@@ -53,8 +53,42 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					  var layer = layui.layer;
 					  var $ = layui.jquery;
 					  var form = layui.form;
- 
 					});
+			 $(document).ready(function(){
+				 navPress();
+			 })
+			 function navPress(){
+				 $.ajax({
+	       		       type:"post",
+	       		       url:"dayin_properties",
+	       		       dataType:"json",
+	       		       cache:false,
+	       		       async: false,
+	       		       success:function(d){ 
+	       		    	    $('#title').val(d.name);
+	       		    	    $('#address').val(d.address);
+	       		    	    $('#phone').val(d.tel);
+	       		        } 
+	       		    });  
+	       		 
+			 }
+			 function subChange(){
+				 var name = $('#title').val();
+	    	     var address = $('#address').val();
+	    	     var tel = $('#phone').val();
+				 $.ajax({
+	       		       type:"post",
+	       		       url:"dayin_set?name="+name+"&address="+address+"&tel="+tel,
+	       		       dataType:"json",
+	       		       cache:false,
+	       		       async: false,
+	       		       success:function(d){
+	       		    	   if(d.status=='true'||d.status==true)
+	       		    		  layer.msg(d.msg,{time:4000});  
+	       		        } 
+	       		    }); 
+				 
+			 }
 		</script>
 	</body>
 
