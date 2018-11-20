@@ -558,7 +558,7 @@ function orderShow(tableid)
 				"</div>"+
 				"<div class='right-middle-bottom'>"+
 					"<div class='right-middle-bottom-pay'>"+
-						"<p class='title mebNum'>消费总金额</p><p class='title mui-ellipsis'>"+date.price+"</p>"+
+						"<p class='title mebNum'>消费总金额</p><p class='title mui-ellipsis' id='allmoney'>"+date.price+"</p>"+
 					"</div>"+					 
 					"<div class='right-middle-bottom-pay'>"+
 						"<div class=''><p class='mebNum'>"+"结账状况"+"</p><p class='title mebTitle'>"+inner+"</p></div>"+
@@ -595,6 +595,8 @@ function press(){
 	if(count==0){
 		var orderNum = document.getElementById("orderNum").innerText;	
 		var tablenum = document.getElementById('tableNum').innerText;
+		var allmoney = document.getElementById('allmoney').innerText;
+		//console.log(allmoney);
 		var goolist='';
 		$('.golist .mui-media').each(function(index){
 			var goname=$(this).find('.goname').text();
@@ -615,7 +617,7 @@ function press(){
 		flag = setInterval(done,1000);
 		$.ajax({
 		       type:"post",
-		       url:"dayin_get?number="+orderNum+"&table="+tablenum+"&value="+goolist,
+		       url:"dayin_get?number="+orderNum+"&table="+tablenum+"&value="+goolist+"&price="+allmoney,
 		       dataType:"json",
 		       cache:false,
 		       async: false,
