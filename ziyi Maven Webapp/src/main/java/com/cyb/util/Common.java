@@ -24,6 +24,7 @@ import com.ziyi.dao.SubHouseDao;
 import com.ziyi.dao.SumDao;
 import com.ziyi.dao.Tea_HouseDao;
 import com.ziyi.dao.UsersDao;
+import com.ziyi.dao.VIEWDAO;
 import com.ziyi.dao.impl.BannerDaoImpl;
 import com.ziyi.dao.impl.CardDaoImpl;
 import com.ziyi.dao.impl.Card_typeDaoImpl;
@@ -41,6 +42,7 @@ import com.ziyi.dao.impl.SubHouseDaoImpl;
 import com.ziyi.dao.impl.SumDaoImpl;
 import com.ziyi.dao.impl.Tea_HouseDaoImpl;
 import com.ziyi.dao.impl.UsersDaoImpl;
+import com.ziyi.dao.impl.VIEWDAOIMPL;
 
 /**
  *常量
@@ -116,6 +118,9 @@ public class Common {
 	 public static final SubHouseDao SUBDAO = new SubHouseDaoImpl();
 	 
 	 public static final DaYin DY = new DaYin();
+	 
+	 //视图
+	 public static final VIEWDAO VIEW = new VIEWDAOIMPL();
 	 
 	 /**
 	  * 会员卡类型接口

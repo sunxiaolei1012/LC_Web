@@ -24,10 +24,12 @@ public class DaYin implements Printable {
 	private static String MEMMOBILE;// 订餐电话
 	private static String MEMADDRESS;// 订餐地址
 	
-	
+	private static boolean BOOL;
+	private static String SHIFU;
+	private static String PRICE;
 
-	private static void chushihua(String shopname,String orderNo, String memName, String memMobile, String memAddress,
-			String[] goodsArray) {
+	private static void chushihua(String shopname, String orderNo, String memName, String memMobile, String memAddress,
+			String[] goodsArray,String price,boolean bool, String shifu) {
 		SHOPNAME = shopname;
 		SHOPTEL = memMobile;
 		ORDERNO = orderNo;
@@ -36,15 +38,18 @@ public class DaYin implements Printable {
 		MEMNAME = memName;
 		MEMMOBILE = memMobile;
 		MEMADDRESS = memAddress;
+		
+		BOOL = bool;
+		SHIFU = shifu;
+		PRICE = price;
 	}
-	
 
 	/**
 	 * 用于将商品零售进行进行打印
 	 */
-	public static void printSheet(String shopname,String orderNo, String memName, String memMobile, String memAddress,
-			String[] goodsArray) {
-		chushihua(shopname,orderNo, memName, memMobile, memAddress, goodsArray);
+	public static void printSheet(String shopname, String orderNo, String memName, String memMobile, String memAddress,
+			String[] goodsArray,String price, boolean bool , String shifu) {
+		chushihua(shopname, orderNo, memName, memMobile, memAddress, goodsArray,price,bool , shifu);
 		// 通俗理解就是书、文档
 		Book book = new Book();
 		// 设置成竖打
@@ -53,7 +58,7 @@ public class DaYin implements Printable {
 		// 通过Paper设置页面的空白边距和可打印区域。必须与实际打印纸张大小相符。
 		Paper p = new Paper();
 		int length = printSize(GOODSARRAY);// 加值参数为115，增加行数需要增加高度
-//		System.out.println("Paper length is:" + length);
+		// System.out.println("Paper length is:" + length);
 		p.setSize(165, length); // 纸张大小A4纸(595, 842),经测试58mm为165
 		p.setImageableArea(5, 5, 155, length); // 设置打印区域，A4纸的默认X,Y边距是72
 		// x - 用来设置此 paper 可成像区域左上角的 x 坐标
@@ -114,6 +119,10 @@ public class DaYin implements Printable {
 				// 设置打印字体（字体名称、样式和点大小）（字体名称可以是物理或者逻辑名称）
 				Font fontTitle = new Font("新宋体", Font.BOLD, 10);
 				g2d.setFont(fontTitle); // 设置字体
+				
+				//多加一行
+				y += fontTitle.getSize2D() + 2;
+				
 				// 打印标题
 				g2d.drawString(DaYin.SHOPNAME, (float) x + 40, (float) y);
 
@@ -124,8 +133,6 @@ public class DaYin implements Printable {
 				// 打印 订单号
 				g2d.drawString("订单号：" + DaYin.ORDERNO, (float) x, (float) y);
 				y += fontContent.getSize2D() + 2;
-//				g2d.drawString("时间：" + Common.df.format(new Date()), (float) x, (float) y);
-//				y += fontContent.getSize2D() + 2;
 				g2d.drawString("桌  号：" + MEMNAME, (float) x, (float) y);
 				y += fontContent.getSize2D() + 2;
 
@@ -136,29 +143,13 @@ public class DaYin implements Printable {
 				g2d.drawString("数量", (float) x + 70, (float) y);
 				g2d.drawString("单价", (float) x + 95, (float) y);
 				y += fontContent.getSize2D() + 2;
-				Double totalCount = 0.0, totalPrice = 0.0;
+				int totalCount = 0;
+//				Double totalPrice = 0.0;
 
 				for (int i = 0; i < (GOODSARRAY.length / 3); i++) {
-					// System.out.println(GOODSARRAY.length-1);
 					String[] goods = GOODSARRAY;
-
 					totalCount += Double.valueOf(goods[3 * i + 1]);
-					totalPrice += Double.valueOf(goods[3 * i + 1]) * Double.valueOf(goods[3 * i + 2]);
-
-					// if(i!=0 ) {
-					// System.out.println("i的值："+i);
-					// g2d.drawString((i+1) + "." + goods[i*3], (float) x,
-					// (float) y);
-					// g2d.drawString(goods[i*3+1], (float) x + 75, (float) y);
-					// g2d.drawString(goods[i*3+2], (float) x + 95, (float) y);
-
-					// }
-					// else {
-					// g2d.drawString((i+1) + "." + goods[i], (float) x, (float)
-					// y);
-					// g2d.drawString(goods[i+1], (float) x + 75, (float) y);
-					// g2d.drawString(goods[i+2], (float) x + 95, (float) y);
-					// }
+//					totalPrice += Double.valueOf(goods[3 * i + 1]) * Double.valueOf(goods[3 * i + 2]);
 					if (goods[i * 3].length() > 8) {// 名称超8个字,换行
 						int index = goods[i * 3].length() / 8 - 1;
 						for (int a = 0; a <= index; a++) {
@@ -189,13 +180,22 @@ public class DaYin implements Printable {
 				g2d.drawString(xuxian, (float) x, (float) y);
 				y += fontContent.getSize2D() + 2;
 				g2d.drawString("数量：" + totalCount, (float) x, (float) y);
-				g2d.drawString("总计：" + String.format("%.2f", totalPrice), (float) x + 70, (float) y);
+				g2d.drawString("总计：" + PRICE , (float) x + 70, (float) y);
 				y += fontContent.getSize2D() + 2;
+				if(BOOL)
+				{
+					g2d.drawString("实付：" + SHIFU, (float) x + 70, (float) y);
+					y += fontContent.getSize2D() + 2;
+				}
+				
 				g2d.drawString(xuxian, (float) x, (float) y);
 				y += fontContent.getSize2D() + 2;
 				g2d.drawString("地址：" + MEMADDRESS, (float) x + 10, (float) y);
 				y += fontContent.getSize2D() + 2;
 				g2d.drawString("联系电话：" + MEMMOBILE, (float) x + 10, (float) y);
+				
+				//多加一行
+				y += fontTitle.getSize2D() + 2;
 				return PAGE_EXISTS;
 			default:
 				return NO_SUCH_PAGE;
@@ -207,9 +207,9 @@ public class DaYin implements Printable {
 	}
 
 	public static void main(String[] args) {
-		String arr1[] = { "茶水", "2", "1001.00", "酒1水酒1水酒1水酒1水酒1水酒1水酒1水", "32", "1020.00", "酒水2", "11", "10.00", "酒1水",
-				"32", "1020.00", "酒1水", "32", "1020.00", "酒1水", "32", "1020.00", "酒1水", "33", "101" };
-		DaYin.printSheet("紫怡茶道","564654878978", "table", "5677-7388", "广中西路768号", arr1);
+//		String arr1[] = { "茶水", "2", "1001.00", "酒1水酒1水酒1水酒1水酒1水酒1水酒1水", "32", "1020.00", "酒水2", "11", "10.00", "酒1水",
+//				"32", "1020.00", "酒1水", "32", "1020.00", "酒1水", "32", "1020.00", "酒1水", "33", "101" };
+//		DaYin.printSheet("紫怡茶道", "564654878978", "table", "5677-7388", "广中西路768号", arr1);
 
 	}
 

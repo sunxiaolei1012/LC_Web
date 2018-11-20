@@ -79,6 +79,10 @@ public class config {
 	public static final String CARD_OPEN_TRUE="开卡成功";
 	
 	public static final String DAYIN_CONFIG_IS_NULL="打印参数不为空";
+	public static final String DAYIN_SELLING_IS_NULL="订单中不存在商品";
+	public static final String DAYIN_TRUE="打印成功";
+	public static final String DAYIN_FALSE="打印失败";
+	
 	
 	//认证
 	public static final byte[] CARD_LOGIN = new byte[]{(byte) 0xAA,(byte) 0xB9,0x00,0x05,(byte) 0x80,0x00,0x00,0x00,0x00,(byte) 0x96};

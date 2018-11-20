@@ -1,6 +1,7 @@
 package com.ziyi.control;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.cyb.util.Common;
@@ -8,6 +9,8 @@ import com.cyb.util.DaYin;
 import com.cyb.util.Tools;
 import com.cyb.util.config;
 import com.google.gson.Gson;
+import com.ziyi.pojo.Sub_House;
+import com.ziyi.pojo.V_ORDER_SELLING;
 
 /**
  * 打印机
@@ -19,6 +22,22 @@ public class DaYinControl {
 	private String number;
 	private String table;
 	private String value;
+	private String price;
+	
+	private String name;
+	private String address;
+	private String tel;
+	private String manager;
+	
+	/**
+	 * 
+	 */
+	public String properties()
+	{
+		Sub_House sh = Common.SUBDAO.select_SubHouse();
+		new Tools().return_object(new Gson().toJson(sh));
+		return "json";
+	}
 	
 	/**
 	 * 設置打印屬性
@@ -26,6 +45,27 @@ public class DaYinControl {
 	 */
 	public String set()
 	{
+		Sub_House sh = new Sub_House();
+		sh.setName(name);
+		sh.setAddress(address);
+		sh.setManager(manager);
+		sh.setTel(tel);
+		boolean bool = Common.SUBDAO.update_subhouse(sh);
+		Map<String , Object> map = new HashMap<String , Object>();
+		if(bool)
+		{
+			config.TEA_NAME = name;
+			config.TEA_ADDRESS=address;
+			config.TEA_PHONE=tel;
+			map.put("status", true);
+			map.put("msg", config.XIU_USER_RIGHT_MSG);
+		}
+		else
+		{
+			map.put("status", false);
+			map.put("msg", config.XIU_USER_ERROR_MSG);
+		}
+		new Tools().return_object(new Gson().toJson(map));
 		return "json";
 	}
 	/**
@@ -42,12 +82,54 @@ public class DaYinControl {
 		}
 		else
 		{
+			map.put("status", true);
+			map.put("msg", config.DAYIN_TRUE);
 			String[] str = value.split(",");
-			DaYin.printSheet(config.TEA_NAME,number, table, config.TEA_PHONE, config.TEA_ADDRESS, str);
+			DaYin.printSheet(config.TEA_NAME,number, table, config.TEA_PHONE, config.TEA_ADDRESS, str , price,false , 0+"");
 		}
 		new Tools().return_object(new Gson().toJson(map));
 		return "json";
 	}
+	
+	/**
+	 * 根据订单号 查询订单信息
+	 * @return
+	 */
+	public String number()
+	{
+		Map<String , Object> map = new HashMap<String , Object>();
+		if(number == null || number.equals(""))
+		{
+			map.put("status", false);
+			map.put("msg", config.DAYIN_CONFIG_IS_NULL);
+		}
+		else
+		{
+			List<V_ORDER_SELLING> list = Common.VIEW.select(number);
+			if(list == null)
+			{
+				map.put("status", false);
+				map.put("msg", config.DAYIN_SELLING_IS_NULL);
+			}
+			else
+			{
+				String[] str = new String[list.size()*3];
+				for (int i = 0; i < list.size(); i++) {
+					str[i*3] = list.get(i).getName();
+					str[i*3+1] = list.get(i).getOlnumber()+"";
+					str[i*3+2] = (list.get(i).getPri()*list.get(i).getOlnumber())+"";
+				}
+				map.put("status", true);
+				map.put("msg", config.DAYIN_TRUE);
+				DaYin.printSheet(config.TEA_NAME,number, list.get(0).getHousename(), config.TEA_PHONE, config.TEA_ADDRESS, str,list.get(0).getPrice()+"" , true , list.get(0).getPay_price()+"");
+			}
+		}
+		new Tools().return_object(new Gson().toJson(map));
+		return "json";
+	}
+	
+	
+	
 	public String getNumber() {
 		return number;
 	}
@@ -65,6 +147,44 @@ public class DaYinControl {
 	}
 	public void setValue(String value) {
 		this.value = value;
+	}
+	public String getPrice() {
+		return price;
+	}
+	public void setPrice(String price) {
+		this.price = price;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getTel() {
+		return tel;
+	}
+
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
+
+	public String getManager() {
+		return manager;
+	}
+
+	public void setManager(String manager) {
+		this.manager = manager;
 	}
 	
 	

@@ -10,4 +10,7 @@ import com.ziyi.pojo.Sub_House;
 public interface SubHouseDao {
 
 	public Sub_House select_SubHouse();
+	
+	
+	public boolean update_subhouse(Sub_House sh);
 }

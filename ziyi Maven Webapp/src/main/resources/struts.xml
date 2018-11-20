@@ -98,8 +98,9 @@
          </action>
          <action name="dayin_*" class="com.ziyi.control.DaYinControl" method="{1}">
             <result name="json" type="json"></result>
-         	<allowed-methods>get,set</allowed-methods>
+         	<allowed-methods>get,set,number,properties</allowed-methods>
          </action>
+         
          <action name="charts_*" class="com.ziyi.control.ChartsControl" method="{1}">
             <result name="json" type="json"></result>
             <result name="sumprice">/charts/sum_price.jsp</result>
