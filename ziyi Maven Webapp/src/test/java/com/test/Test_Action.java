@@ -16,6 +16,7 @@ import com.ziyi.pojo.Card;
 import com.ziyi.pojo.Selling_list;
 import com.ziyi.pojo.Tea_House;
 import com.ziyi.pojo.Users;
+import com.ziyi.pojo.V_ORDER_SELLING;
 import com.ziyi.pojo.YuYue;
 
 public class Test_Action {
@@ -177,6 +178,17 @@ public class Test_Action {
 		sell.setXiangxi("便宜又好喝");
 		for(int a=0;a<40;a++){
 			int bool = Common.SLD.insert_Selling_list(sell);
+		}
+		
+	}
+	
+	
+	@Test
+	public void test16()
+	{
+		List<V_ORDER_SELLING> list = Common.VIEW.select("2018101701334166");
+		for (V_ORDER_SELLING v_ORDER_SELLING : list) {
+			System.out.println(v_ORDER_SELLING.toString());
 		}
 		
 	}

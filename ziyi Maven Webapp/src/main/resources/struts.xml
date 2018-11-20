@@ -96,7 +96,10 @@
          	<result name="main">admin/index.jsp</result>
          	<allowed-methods>adminlogin</allowed-methods>
          </action>
-         
+         <action name="dayin_*" class="com.ziyi.control.DaYinControl" method="{1}">
+            <result name="json" type="json"></result>
+         	<allowed-methods>get,set,number,properties</allowed-methods>
+         </action>
          
          <action name="charts_*" class="com.ziyi.control.ChartsControl" method="{1}">
             <result name="json" type="json"></result>
@@ -105,8 +108,6 @@
            <result name="paytype">/charts/pay_type.jsp</result>
          	<allowed-methods>sumprice,sumprices,paytype</allowed-methods>
          </action>
-         
-         
          	<!-- sxl -->
          	 <action name="UserInfo_*" class="com.ziyi.control.cmd.UserInfoControl" method="{1}">
         	<result name="login">index.jsp</result>
@@ -114,7 +115,6 @@
         	<result type="json"></result>  
         	<allowed-methods>login,productList</allowed-methods>
          </action> 
-          
           <action name="Card_*" class="com.ziyi.control.cmd.CardControll" method="{1}">
         	<result name="sellCard">sellCard.jsp</result>
         	<result type="json"></result>  

@@ -32,7 +32,7 @@ function adds(cmd)
 		  maxmin: true,
 		  content: 'admin/add/'+cmd+'.jsp',
 		});
-	
+	 
 }
 function update_user_password(cmd)
 {

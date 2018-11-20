@@ -20,9 +20,11 @@ import com.ziyi.dao.RoleDao;
 import com.ziyi.dao.Selling_ImageDao;
 import com.ziyi.dao.Selling_listDao;
 import com.ziyi.dao.Selling_typeDao;
+import com.ziyi.dao.SubHouseDao;
 import com.ziyi.dao.SumDao;
 import com.ziyi.dao.Tea_HouseDao;
 import com.ziyi.dao.UsersDao;
+import com.ziyi.dao.VIEWDAO;
 import com.ziyi.dao.impl.BannerDaoImpl;
 import com.ziyi.dao.impl.CardDaoImpl;
 import com.ziyi.dao.impl.Card_typeDaoImpl;
@@ -36,9 +38,11 @@ import com.ziyi.dao.impl.RoleDaoImpl;
 import com.ziyi.dao.impl.Selling_ImageDaoImpl;
 import com.ziyi.dao.impl.Selling_listDaoImpl;
 import com.ziyi.dao.impl.Selling_typeDaoImpl;
+import com.ziyi.dao.impl.SubHouseDaoImpl;
 import com.ziyi.dao.impl.SumDaoImpl;
 import com.ziyi.dao.impl.Tea_HouseDaoImpl;
 import com.ziyi.dao.impl.UsersDaoImpl;
+import com.ziyi.dao.impl.VIEWDAOIMPL;
 
 /**
  *常量
@@ -65,10 +69,10 @@ public class Common {
 	 static final String PASSWORD=pros.getProperty("password");
 	 
 	 
-//	 static{
-//		 Main.openSerialPort(pros.getProperty("com"));
-//		 Main.chen();
-//	 }
+	 static{
+		 Main.openSerialPort(pros.getProperty("com"));
+		 Main.chen();
+	 }
 	 public static final Util UTIL = new Util();
 	
 	 public static final JDBC JD = new JDBC();
@@ -110,6 +114,13 @@ public class Common {
 	 public static final RoleDao ROLE = new RoleDaoImpl();
 	 //老卡接口
 	 public static final Old_CardDao OLDDAO = new Old_CardDaoImpl();
+	 
+	 public static final SubHouseDao SUBDAO = new SubHouseDaoImpl();
+	 
+	 public static final DaYin DY = new DaYin();
+	 
+	 //视图
+	 public static final VIEWDAO VIEW = new VIEWDAOIMPL();
 	 
 	 /**
 	  * 会员卡类型接口
