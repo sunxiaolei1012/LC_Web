@@ -609,24 +609,23 @@ function press(){
 			goolist += newlist1;
 			//goolist.push(JSON.parse(newlist));
 			
-		}) 
-		//console.log(goolist);
+		}); 			
+		$.ajax({
+		       type:"post",
+		       url:"dayin_get?number="+orderNum+"&table="+tablenum+"&value="+goolist,
+		       dataType:"json",
+		       cache:false,
+		       async: false,
+		       success:function(d){
+		    	   layer.msg('成功打印');
+		       }
+		   });
+//		console.log(goolist);	
 		count=3;
 		flag = setInterval(done,1000);
 	}else{
 		layer.msg('还需要'+count+'秒才可点击哦！');
 	}
-	 
-	/*$.ajax({
-	       type:"post",
-	       url:"",
-	       dataType:"json",
-	       cache:false,
-	       async: true,
-	       success:function(d){
-	    	   
-	       }
-	   });*/
 }
 //结算页面
 //number:订单号  table:桌子id price：商品总价格
@@ -758,7 +757,8 @@ function pay(number,table){
 	     	                    		function(){
 	     	                    		  //document.getElementById("right-content").innerHTML="";
 	     	                    		  //alert('1');
-	     	                    		  layer.msg('打印订单', {icon: 1});	     	                    		   
+	     	                    		  console.log("订单编号："+number);
+	     	                    		  layer.msg('打印订单编号:'+number, {icon: 1});	     	                    		   
 	     	                    		}, 
 	     	                    		function(){
 	     	                    		  layer.msg('不打印订单，直接关闭了', {});
