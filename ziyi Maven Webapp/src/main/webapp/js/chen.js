@@ -609,24 +609,23 @@ function press(){
 			goolist += newlist1;
 			//goolist.push(JSON.parse(newlist));
 			
-		}) 
-		//console.log(goolist);
+		}); 
+//		console.log(goolist);			
 		count=3;
 		flag = setInterval(done,1000);
+		$.ajax({
+		       type:"post",
+		       url:"dayin_get?number="+orderNum+"&table="+tablenum+"&value="+goolist,
+		       dataType:"json",
+		       cache:false,
+		       async: false,
+		       success:function(d){
+		    	   layer.msg('成功打印');
+		       }
+		   });
 	}else{
 		layer.msg('还需要'+count+'秒才可点击哦！');
 	}
-	 
-	/*$.ajax({
-	       type:"post",
-	       url:"",
-	       dataType:"json",
-	       cache:false,
-	       async: true,
-	       success:function(d){
-	    	   
-	       }
-	   });*/
 }
 //结算页面
 //number:订单号  table:桌子id price：商品总价格
@@ -755,13 +754,21 @@ function pay(number,table){
 	     	                    		skin: 'layui-layer-molv',
 	     	                    		btnAlign: 'c',
 	     	                    		}, 
-	     	                    		function(){
-	     	                    		  //document.getElementById("right-content").innerHTML="";
-	     	                    		  //alert('1');
-	     	                    		  layer.msg('打印订单', {icon: 1});	     	                    		   
+	     	                    		function(){	     	                    		   	     	                    		  
+//	     	                    		  layer.msg('打印订单编号:'+number, {icon: 1});
+	     	                    		   $.ajax({
+	     	                    		       type:"post",
+	     	                    		       url:"dayin_number?number="+number,
+	     	                    		       dataType:"json",
+	     	                    		       cache:false,
+	     	                    		       async: false,
+	     	                    		       success:function(d){
+	     	                    		    	   layer.msg('成功打印');
+	     	                    		       }
+	     	                    		   });
 	     	                    		}, 
 	     	                    		function(){
-	     	                    		  layer.msg('不打印订单，直接关闭了', {});
+	     	                    		  layer.msg('不打印订单，直接关闭了', {icon: 1});
 	     	                    	});
 	                            	document.getElementById("right-content").innerHTML="";
 	                             }
