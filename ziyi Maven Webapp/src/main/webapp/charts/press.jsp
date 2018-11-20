@@ -38,7 +38,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				  </div>
 				  <div class="layui-form-item">
 				    <div class="layui-input-block">
-				      <button class="layui-btn">提交</button>
+				      <button class="layui-btn" onclick=''>提交</button>
 				      <button type="reset" class="layui-btn layui-btn-primary">取消</button>
 				    </div>
 				  </div>
