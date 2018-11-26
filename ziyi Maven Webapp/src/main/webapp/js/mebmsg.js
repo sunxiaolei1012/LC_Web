@@ -56,17 +56,27 @@ function submitmsg(){
 	       
 	       success:function(d){
 	    	   //d==0:无此卡信息 d==1:无消费信息
+	    	   var cardSta = '';  //0未售1在用2收回3挂失
 	    	   if(d==0){
 	    		   layer.msg('无此卡相关信息');
 	    	   }else{
-	    		   
-	    		   if("order" in d){
+	    		   if("order" in d){	    			   
+	    			   if(d.card.status=='0'){
+	    				   cardSta = '未售'
+	    			   }else if(d.card.status=='1'){
+	    				   cardSta = '在用';
+	    			   }else if(d.card.status=='2'){
+	    				   cardSta = '收回';
+	    			   }else{
+	    				   cardSta = '挂失';
+	    			   }
 	    			   //alert('order' in d);
 	    			   //会员卡信息
 	    		       var remoney = (d.card.remain).toFixed(2);
 		    	       mebhtml+='<tr><td>'+d.card.name+'</td>'+
 		    					      '<td>'+d.card.selltime+'</td>'+
-		    					      '<td>'+remoney+'</td></tr>';
+		    					      '<td>'+remoney+'</td>'+
+		    					      '<td>'+cardSta+'</td></tr>';
 			    	   //消费记录
 			    	   for (var i = 0; i < d.order.length; i++) {
 			    	    	meborder+='<tr><td>'+d.order[i].number+'</td>'+								 							  
@@ -77,10 +87,21 @@ function submitmsg(){
 			    						'</td></tr>';
 			    	    }
 	    		   }else{
-	    			   var remoney = (d.card.remain).toFixed(2);
-		    	    	mebhtml+='<tr><td>'+d.card.name+'</td>'+
-		    					      '<td>'+d.card.selltime+'</td>'+
-		    					      '<td>'+remoney+'</td></tr>';
+	    			   if(d.status=='0'){
+	    				   cardSta = '未售'
+	    			   }else if(d.status=='1'){
+	    				   cardSta = '在用';
+	    			   }else if(d.status=='2'){
+	    				   cardSta = '收回';
+	    			   }else{
+	    				   cardSta = '挂失';
+	    			   }
+	    			   var remoney = (d.remain).toFixed(2);
+		    	    	mebhtml+='<tr><td>'+d.name+'</td>'+
+		    					      '<td>'+d.selltime+'</td>'+
+		    					      '<td>'+remoney+'</td>'+
+		    					      '<td>'+cardSta+'</td></tr>';
+		    					      
 		    	    	meborder+='<tr><td colspan="4" style="text-align:center;">此卡暂无消费记录</td>';
 	    		   }
 		    	   
@@ -167,10 +188,21 @@ function read_card_select()
 	    	   console.log(d);
 		       if(d.state=="true")
 		       		{
+		    	       var cardSta = '';
+			    	   if(d.card.status=='0'){
+	    				   cardSta = '未售'
+	    			   }else if(d.card.status=='1'){
+	    				   cardSta = '在用';
+	    			   }else if(d.card.status=='2'){
+	    				   cardSta = '收回';
+	    			   }else{
+	    				   cardSta = '挂失';
+	    			   }
 		    	   		$("#cardnum").val(d.card.number);
 		    	   		var str = '<tr><td>'+d.card.name+'</td>'+
 					      '<td>'+d.card.selltime+'</td>'+
-					      '<td>'+d.card.remain+'</td></tr>';
+					      '<td>'+d.card.remain+'</td>'+
+					      '<td>'+cardSta+'</td></tr>';
 		    	    	 $('#mebmsg').html(str);
 		    	    	 var meborder ='';
 		    	    	
