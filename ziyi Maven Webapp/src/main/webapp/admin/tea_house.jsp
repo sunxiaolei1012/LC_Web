@@ -71,7 +71,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 
 		<script type="text/javascript" src="plugins/layui/layui.js"></script>
-		<script type="text/javascript" src="js/chen.js"></script>
+		<script type="text/javascript" src="js/chen1.js"></script>
 			<script>
 			 layui.use(['element', 'layer'], function () {
 					  var element = layui.element;
