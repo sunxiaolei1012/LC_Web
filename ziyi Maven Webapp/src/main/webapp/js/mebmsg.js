@@ -55,38 +55,45 @@ function submitmsg(){
 	       cache:false,
 	       
 	       success:function(d){
-	    	   //d==0:无此卡信息 d==1:无消费信息
-	    	   if(d==0){
-	    		   layer.msg('无此卡相关信息');
-	    	   }else{
-	    		   
-	    		   if("order" in d){
-	    			   //alert('order' in d);
-	    			   //会员卡信息
-	    		       var remoney = (d.card.remain).toFixed(2);
-		    	       mebhtml+='<tr><td>'+d.card.name+'</td>'+
-		    					      '<td>'+d.card.selltime+'</td>'+
-		    					      '<td>'+remoney+'</td></tr>';
-			    	   //消费记录
-			    	   for (var i = 0; i < d.order.length; i++) {
-			    	    	meborder+='<tr><td>'+d.order[i].number+'</td>'+								 							  
-			    						'<td>'+d.order[i].pay_price+'</td>'+								 							  
-			    						'<td>'+d.order[i].checkouttime+'</td>'+								 							  
-			    						'<td>'+
-			    							'<a href="javascript:detail('+d.order[i].orderid+');" class="layui-btn layui-btn-mini">详情</a>'+
-			    						'</td></tr>';
-			    	    }
-	    		   }else{
-	    			   var remoney = (d.card.remain).toFixed(2);
-		    	    	mebhtml+='<tr><td>'+d.card.name+'</td>'+
-		    					      '<td>'+d.card.selltime+'</td>'+
-		    					      '<td>'+remoney+'</td></tr>';
-		    	    	meborder+='<tr><td colspan="4" style="text-align:center;">此卡暂无消费记录</td>';
-	    		   }
-		    	   
-	    	   }
-	    	   mebmsg.html(mebhtml);
-	    	   mebOrdermsg.html(meborder);
+	    	   console.log(d);
+		       if(d.state=="true")
+		       		{
+		    	   		$("#cardnum").val(d.card.number);
+		    	   		var str = '<tr><td>'+d.card.name+'</td>'+
+					      '<td>'+d.card.selltime+'</td>'+
+					      '<td>'+d.card.remain+'</td></tr>';
+		    	    	 $('#mebmsg').html(str);
+		    	    	 var meborder ='';
+		    	    	
+		    	    	 if(d.order != "false")
+		    	    	 {
+		    	    		 for(var i =0 ; i<d.order.length;i++)
+		    	    		 {
+		    	    			 meborder +='<tr><td>'+d.order[i].number+'</td>'+								 							  
+		 	 					'<td>'+d.order[i].price+'</td>'+								 							  
+		 						'<td>'+d.order[i].checkouttime+'</td>'+								 							  
+		 						'<td>'+
+		 							'<a href="javascript:detail('+d.order[i].orderid+');" class="layui-btn layui-btn-mini">详情</a>'+
+		 						'</td></tr>';
+		    	    		 }
+		    	    	 }
+		    	    	 else
+		    	    	{
+		    	    		 meborder +='<tr><td colspan="4" style="text-align:center;">暂无数据</td>'
+		    	    		 /*meborder +='<tr><td>201810231314</td>'+								 							  
+			 					'<td>1314</td>'+								 							  
+								'<td>20181023</td>'+								 							  
+								'<td>'+
+									'<a href="javascript:detail();" class="layui-btn layui-btn-mini">详情</a>'+
+								'</td></tr>';*/
+		    	        }
+		    	    	 $('#mebOrdermsg').html(meborder);
+		    	    	 
+		       		}
+		       	else
+		       		{
+		       			alert(d.msg);
+		       		}
 	       },
 	       error:function(){
 	    	   layer.msg('已掉线，即将返回登录页！');
