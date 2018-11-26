@@ -93,10 +93,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!-- 									<a href="javascript:;" data-id="1" data-opt="del" class="layui-btn layui-btn-danger layui-btn-mini">删除</a> -->
 <!-- 								</td> -->
 	
-		<script type="text/javascript" src="http://res.layui.com/layui/release/layer/dist/layer.js?v=3111"></script>
 		<!-- <script type="text/javascript" src="icheck/icheck.js"></script> -->
 		<script type="text/javascript" src="plugins/layui/layui.js"></script>
-		<script type="text/javascript" src="js/chen.js"></script>
+		<script type="text/javascript" src="js/chen1.js"></script>
 		<script>
 			layui.config({
 				base: 'plugins/layui/modules/'
@@ -113,14 +112,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				//page
 				laypage({
 					cont: 'page',
-					pages: ${zong} //总页数
-						,
-					groups: 5 //连续显示分页数
-						,
+					pages: ${zong}, //总页数						
+					groups: 5, //连续显示分页数						
 					curr:${page},
-					jump: function(obj, first) {
+					jump: function(obj, first) {						
 						//得到了当前页，用于向服务端请求对应数据
-						var curr = obj.curr;
+						var curr = obj.curr;					
 						if(!first) {
 							window.location.href='admin_card?page='+obj.curr;
 							layer.msg('第 '+ obj.curr +' 页');

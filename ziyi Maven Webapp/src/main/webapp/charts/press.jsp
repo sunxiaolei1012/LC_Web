@@ -38,7 +38,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				  </div>
 				  <div class="layui-form-item">
 				    <div class="layui-input-block">
-				      <button class="layui-btn" onclick="subChange()">提交</button>
+				      <button type="button" class="layui-btn" onclick="subChange()">提交</button>
 				      <button type="reset" class="layui-btn layui-btn-primary">取消</button>
 				    </div>
 				  </div>
@@ -83,8 +83,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	       		       cache:false,
 	       		       async: false,
 	       		       success:function(d){
-	       		    	   if(d.status=='true'||d.status==true)
-	       		    		  layer.msg(d.msg,{time:4000});  
+	       		    	   if(d.status=='true'||d.status==true){
+	       		    		  layer.msg(d.msg,{time:2000});
+	       		    	   }	       		    	    
 	       		        } 
 	       		    }); 
 				 

@@ -18,9 +18,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="format-detection" content="telephone=no">
 		<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
-			<script type="text/javascript" src="js/chen.js"></script>
 		<script src="layui/layui.js"></script>
-		
+		<script type="text/javascript" src="js/chen1.js"></script>
 		<link rel="stylesheet" href="plugins/layui/css/layui.css" media="all" />
 		<link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
 	</head>
