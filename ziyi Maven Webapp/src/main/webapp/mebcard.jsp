@@ -52,6 +52,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					      <th>会员姓名</th>
 					      <th>开卡时间</th>
 					      <th>会员卡余额</th>
+					      <th>会员卡状态</th>
 					    </tr> 
 					  </thead>
 					  <tbody  id="mebmsg">
