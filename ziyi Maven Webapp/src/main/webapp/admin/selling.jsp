@@ -29,7 +29,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</a>
 			</blockquote>
 			<fieldset class="layui-elem-field">
-				<legend>商品列表</legend>
+				<legend>商品列表
+									
+										</legend>
 				<div class="layui-field-box">
 					<table class="site-table table-hover">
 									<thead>
@@ -84,8 +86,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 		</div>
 	
+		<script type="text/javascript" src="http://res.layui.com/layui/release/layer/dist/layer.js?v=3111"></script>
 		<script type="text/javascript" src="plugins/layui/layui.js"></script>
-		<script type="text/javascript" src="js/chen1.js"></script>
+		<script type="text/javascript" src="js/chen.js"></script>
 		<script>
 			layui.config({
 				base: 'plugins/layui/modules/'
