@@ -84,9 +84,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 		</div>
 	
-		<script type="text/javascript" src="http://res.layui.com/layui/release/layer/dist/layer.js?v=3111"></script>
+<!-- 		<script type="text/javascript" src="http://res.layui.com/layui/release/layer/dist/layer.js?v=3111"></script> -->
 		<script type="text/javascript" src="plugins/layui/layui.js"></script>
-		<script type="text/javascript" src="js/chen.js"></script>
+		<script type="text/javascript" src="js/chen1.js"></script>
 		<script>
 			layui.config({
 				base: 'plugins/layui/modules/'
@@ -103,10 +103,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				//page
 				laypage({
 					cont: 'page',
-					pages: ${zong} //总页数
-						,
-					groups: 5 //连续显示分页数
-						,
+					pages: ${zong}, //总页数						
+					groups: 5, //连续显示分页数					
 					curr:${page},
 					jump: function(obj, first) {
 						//得到了当前页，用于向服务端请求对应数据

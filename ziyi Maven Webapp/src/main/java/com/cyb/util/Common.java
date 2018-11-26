@@ -69,10 +69,10 @@ public class Common {
 	 static final String PASSWORD=pros.getProperty("password");
 	 
 	 
-	 static{
-		 Main.openSerialPort(pros.getProperty("com"));
-		 Main.chen();
-	 }
+//	 static{
+//		 Main.openSerialPort(pros.getProperty("com"));
+//		 Main.chen();
+//	 }
 	 public static final Util UTIL = new Util();
 	
 	 public static final JDBC JD = new JDBC();
