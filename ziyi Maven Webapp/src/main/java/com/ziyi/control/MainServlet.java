@@ -188,9 +188,12 @@ public class MainServlet extends ActionSupport{
 		if(id != null && !id.equals(""))
 			a= new Integer(id);
 		List<Selling_list> list = Common.SLD.select_selling_type(a);
-		for (Selling_list selling_list : list) {
-			//根據商品列表 查詢商品圖片
-			selling_list.setImgurl(Common.SID.select_selling_image(selling_list.getSellingid()));
+		if(list != null)
+		{
+			for (Selling_list selling_list : list) {
+				//根據商品列表 查詢商品圖片
+				selling_list.setImgurl(Common.SID.select_selling_image(selling_list.getSellingid()));
+			}
 		}
 //		System.out.println(list.size());
 		Common.TOOLS.return_object(new Gson().toJson(list));

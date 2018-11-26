@@ -82,7 +82,7 @@ public class Common {
 	 //实例化用户接口
 	 public static final UsersDao USERS = new UsersDaoImpl();
 	 
-	 public static final DecimalFormat double_df = new DecimalFormat("#.00");
+	 public static final DecimalFormat double_df = new DecimalFormat("0.00");
 	 
 	 //用来存储用户登录
 	 public static Map<Integer , String> MAP = new HashMap<Integer , String>();

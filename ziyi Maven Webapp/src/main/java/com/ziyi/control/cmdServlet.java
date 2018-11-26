@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.ziyi.control.cmd.CardControl;
 import com.ziyi.control.cmd.CardTypeControl;
@@ -12,6 +13,7 @@ import com.ziyi.control.cmd.SellingControl;
 import com.ziyi.control.cmd.SellingTypeControl;
 import com.ziyi.control.cmd.TeaHouseControl;
 import com.ziyi.control.cmd.User_Control;
+import com.ziyi.pojo.Users;
 /**
  * 处理后台admin功能
  * @author 陈玉博
@@ -256,6 +258,16 @@ public class cmdServlet extends ActionSupport{
 	public String update_selling()
 	{
 		return new SellingControl().get_selling_id(id);
+	}
+	
+	/**
+	 * 根据修改商品信息
+	 * @return
+	 */
+	public  String xiu_selling()
+	{
+		Users user = (Users) ActionContext.getContext().getSession().get("user");
+		return new SellingControl().xiu_selling(id,name,price,unit,rebate,proportion,user.getUserid()+"","cs",typeid,xiangxi,number);
 	}
 	
 	/**

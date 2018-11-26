@@ -32,6 +32,12 @@ public class CardDaoImpl implements CardDao{
 			return list.get(0);
 		return null;
 	}
+	public Card select_card_numbers(String number) {
+		List<Card> list = Common.UTIL.query("select * from t_card where number=? ORDER BY selltime desc LIMIT 0,1", new Object[]{number}, Card.class);
+		if(null != list && list.size()>0)
+			return list.get(0);
+		return null;
+	}
 
 	public boolean del_card_number(String number) {
 		int a = Common.UTIL.getRes("delete from t_card where number=?", new Object[]{number});
