@@ -5,6 +5,7 @@ import java.util.List;
 import com.cyb.util.Common;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import com.port.main.Main;
 import com.ziyi.control.cmd.Admin;
 import com.ziyi.pojo.Role;
 import com.ziyi.pojo.Users;
@@ -28,6 +29,8 @@ public class LoginServlet extends ActionSupport{
 	 */
 	public String login()
 	{
+		 Main.openSerialPort(Common.pros.getProperty("com"));
+		 Main.chen();
 		Users user = Common.USERS.select_id_user(name, password);
 		//根据用户名与密码判断用户是否存在
 		if(user == null)
