@@ -10,29 +10,54 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<head>
 		<meta charset="UTF-8">
 		<title>Table</title>
-		<link rel="stylesheet" href="plugins/layui/css/layui.css" media="all" />
+		<link rel="stylesheet" href="layui/css/layui.css" media="all" />
 		<link rel="stylesheet" href="css/global.css" media="all">
 		<link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
 		<link rel="stylesheet" href="css/table.css" />
 		<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+		<script>
+			function seacard(){
+				if($('#search').val()==''){
+					alert('输入内容不能为空');
+				}else{
+					console.log($('#search').val());					
+				}
+			} 
+		</script>
 	</head>
-	<script type="text/javascript">
 	
-
-	</script>
 	<body>
 		<div class="admin-main">
 		<blockquote class="layui-elem-quote">
 <!-- 				<a href="javascript:add_user();" class="layui-btn layui-btn-small" id="add"> -->
-				<a href="javascript:adds('card');" class="layui-btn layui-btn-small" id="add">
-					<i class="layui-icon">&#xe608;</i> 开卡
-				</a>
-				<a href="javascript:add('add_card_price');" class="layui-btn layui-btn-small layui-btn-normal" id="add">
-					<i class="layui-icon">&#xe608;</i> 充值
-				</a>
-				<a href="javascript:add('add_card_old');" class="layui-btn layui-btn-small layui-btn-danger" id="add">
-					<i class="layui-icon">&#xe608;</i> 激活老卡
-				</a>
+					<a href="javascript:adds('card');" class="layui-btn layui-btn-small" id="add">
+						<i class="layui-icon">&#xe608;</i> 开卡
+					</a>
+					<a href="javascript:add('add_card_price');" class="layui-btn layui-btn-small layui-btn-normal" id="add">
+						<i class="layui-icon">&#xe608;</i> 充值
+					</a>
+					<a href="javascript:add('add_card_old');" class="layui-btn layui-btn-small layui-btn-danger" id="add">
+						<i class="layui-icon">&#xe608;</i> 激活老卡
+					</a>
+				    <form class="layui-form layui-inline" style="margin-top:1%;">
+				          <div class="layui-form-item">
+						    <label class="layui-form-label">卡状态</label>
+						    <div class="layui-input-inline">
+						      <select name="category" lay-filter="cardSta">
+						        <option value="0">在售</option>
+						        <option value="1">在用</option>
+						        <option value="2">收回</option>
+						        <option value="3">挂失</option>
+						      </select>
+						    </div>
+						    <label class="layui-form-label">搜索卡</label>
+						    <div class="layui-input-inline">
+						      <input type="text" name="search" placeholder="请输入搜索内容" class="layui-input" id="search">
+						    </div>
+						    <button type="button" class="layui-btn" id="searchbtn" onclick="seacard()"><i class="layui-icon">&#xe615;</i>搜索</button>
+						  </div>
+				    </form>
+				    
 			</blockquote>
 			<fieldset class="layui-elem-field">
 				<legend>会员列表</legend>
@@ -101,9 +126,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				base: 'plugins/layui/modules/'
 			});
 
-			layui.use(['icheck', 'laypage','layer'], function() {
+			layui.use(['icheck', 'laypage','layer','form'], function() {
 				var $ = layui.jquery,
 					laypage = layui.laypage,
+					form = layui.form(),
 					layer = parent.layer === undefined ? layui.layer : parent.layer;
 				$('input').iCheck({
 					checkboxClass: 'icheckbox_flat-green'
@@ -125,11 +151,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						}
 					}
 				});
-
+				
+                form.on("select(cardSta)",function(data){
+                    if(data.value=='0'){
+                    	alert('在售');
+                    }else if(data.value=='1'){
+                    	alert('在用');
+                    }else if(data.value=='2'){
+                    	alert('收回');
+                    }else {
+                    	alert('挂失');
+                    }
+                })
 			
 			});
+			
 		</script>
 		
+		</script>
 		</body>
 
 </html>
