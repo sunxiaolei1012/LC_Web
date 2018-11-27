@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<head>
 		<meta charset="UTF-8">
 		<title>Table</title>
-		<link rel="stylesheet" href="plugins/layui/css/layui.css" media="all" />
+		<link rel="stylesheet" href="layui/css/layui.css" media="all" />
 		<link rel="stylesheet" href="css/global.css" media="all">
 		<link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
 		<link rel="stylesheet" href="css/table.css" />
@@ -33,18 +33,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									
 										</legend>
 				<div class="layui-field-box">
-					<table class="site-table table-hover">
+					<table class="layui-table" lay-filter="goodshow" lay-data="{page:true,limit:10}">
 									<thead>
 										<tr>
-											<th>商品名称</th>
-											<th>商品金额</th>
-											<th>商品单位</th>
-											<th>是否折扣</th>
-											<th>折扣比例</th>
-											<th>商品类型</th>
-											<th>商品说明</th>
-											<th>商品数量</th>
-											<th>操作</th>
+											<th lay-data="{field:'name'}">商品名称</th>
+											<th lay-data="{field:'price', sort: true}">商品金额</th>
+											<th lay-data="{field:'unit'}">商品单位</th>
+											<th lay-data="{field:'dis'}">是否折扣</th>
+											<th lay-data="{field:'scale', sort: true}">折扣比例</th>
+											<th lay-data="{field:'category'}">商品类型</th>
+											<th lay-data="{field:'intro'}">商品说明</th>
+											<th lay-data="{field:'number', sort: true}">商品数量</th>
+											<th lay-data="{field:'operation'}">操作</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -72,9 +72,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										<td>${i.xiangxi}</td>
 										<td>${i.number}</td>
 										<td>
-										<a href="javascript:image('${i.sellingid}');" class="layui-btn layui-btn-mini layui-btn-normal">编辑图片</a>
-										<a href="javascript:update('selling','${i.sellingid}');" class="layui-btn layui-btn-mini">编辑</a>
-										<a href="javascript:del('selling','${i.sellingid }')" data-id="1" data-opt="del" class="layui-btn layui-btn-danger layui-btn-mini">删除</a>
+										<a href="javascript:image('${i.sellingid}');" class="layui-btn layui-btn-mini layui-btn-xs">编辑图片</a>
+										<a href="javascript:update('selling','${i.sellingid}');" class="layui-btn layui-btn-xs">编辑</a>
+										<a href="javascript:del('selling','${i.sellingid }')" data-id="1" data-opt="del" class="layui-btn layui-btn-danger layui-btn-xs">删除</a>
 										</td>
 									</tr>
 						</c:forEach>
@@ -86,23 +86,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 		</div>
 	
-		<script type="text/javascript" src="http://res.layui.com/layui/release/layer/dist/layer.js?v=3111"></script>
-		<script type="text/javascript" src="plugins/layui/layui.js"></script>
-		<script type="text/javascript" src="js/chen.js"></script>
+		<script type="text/javascript" src="layui/layui.js"></script>
+		<script type="text/javascript" src="js/chen1.js"></script>
 		<script>
-			layui.config({
+			/* layui.config({
 				base: 'plugins/layui/modules/'
 			});
-
-			layui.use(['icheck', 'laypage','layer'], function() {
+ */
+			layui.use(['element','laypage','layer','table'], function() {
 				var $ = layui.jquery,
+				    element = layui.element,
 					laypage = layui.laypage,
+					table = layui.table,
 					layer = parent.layer === undefined ? layui.layer : parent.layer;
-				$('input').iCheck({
+				    table.init('goodshow');
+				/* $('input').iCheck({
 					checkboxClass: 'icheckbox_flat-green'
-				});
+				}); */
 
-				//page
+				/* //page
 				laypage({
 					cont: 'page',
 					pages: ${zong}, //总页数
@@ -118,7 +120,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						}
 					}
 				});
-
+ */
 			
 			});
 		</script>
