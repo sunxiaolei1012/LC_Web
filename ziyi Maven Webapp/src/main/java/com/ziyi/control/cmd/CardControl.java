@@ -26,7 +26,12 @@ public class CardControl {
 	 */
 	public String get_card_type(String id, String value) {
 		StringBuffer sb = new StringBuffer();
+		boolean bool = true;
+		if(id.equals("-1"))
+			bool = false;
 		if (value != null) {
+			if(bool)
+				sb.append( " and status="+id);
 			sb.append(" and (");
 			sb.append("number like '%" + value + "%' or ");
 			sb.append("name like '%" + value + "%' or ");
@@ -36,7 +41,7 @@ public class CardControl {
 			sb.append("selltime like '%" + value + "%'");
 			sb.append(")");
 		}
-		List<Card> list = Common.CARDDAO.select_cardtype(id, sb.toString());
+		List<Card> list = Common.CARDDAO.select_cardtype(sb.toString());
 		ActionContext.getContext().put("card", list);
 		ActionContext.getContext().put("id", id);
 		ActionContext.getContext().put("value", value);
