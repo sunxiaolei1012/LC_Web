@@ -1,15 +1,25 @@
 package com.ziyi.control;
 
+import java.sql.Connection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.apache.struts2.ServletActionContext;
 
 import com.cyb.util.Common;
 import com.cyb.util.DaYin;
 import com.cyb.util.Tools;
 import com.cyb.util.config;
+import com.et.mvc.RequestContext;
 import com.google.gson.Gson;
+import com.opensymphony.xwork2.ActionContext;
+import com.ziyi.pojo.Order;
 import com.ziyi.pojo.Sub_House;
+import com.ziyi.pojo.Users;
 import com.ziyi.pojo.V_ORDER_SELLING;
 
 /**
@@ -85,7 +95,16 @@ public class DaYinControl {
 			map.put("status", true);
 			map.put("msg", config.DAYIN_TRUE);
 			String[] str = value.split(",");
-			DaYin.printSheet(config.TEA_NAME,number, table, config.TEA_PHONE, config.TEA_ADDRESS, str , price,false , 0+"");
+			//下单时间和 带结账时间
+			Order order=Common.ORDER.select_number_order(number);
+				String begainTime=order.getOrdertime();
+				String endTime=order.getCheckouttime();
+				
+			//收营员
+			 HttpServletRequest request = ServletActionContext.getRequest(); 
+			   HttpSession session = request.getSession(); 
+			Users user=   (Users) session.getAttribute("user");
+			DaYin.printSheet(begainTime,endTime,user.getName(),config.TEA_NAME,number, table, config.TEA_PHONE, config.TEA_ADDRESS, str , price,false , 0+"");
 		}
 		new Tools().return_object(new Gson().toJson(map));
 		return "json";
@@ -121,7 +140,20 @@ public class DaYinControl {
 				}
 				map.put("status", true);
 				map.put("msg", config.DAYIN_TRUE);
-				DaYin.printSheet(config.TEA_NAME,number, list.get(0).getHousename(), config.TEA_PHONE, config.TEA_ADDRESS, str,list.get(0).getPrice()+"" , true , list.get(0).getPay_price()+"");
+				
+				//收营员
+				 HttpServletRequest request = ServletActionContext.getRequest(); 
+				   HttpSession session = request.getSession(); 
+				Users user=   (Users) session.getAttribute("user");
+				System.out.println(user);
+				
+				
+				//下单时间和 带结账时间
+				Order order=Common.ORDER.select_number_order(number);
+					String begainTime=order.getOrdertime();
+					String endTime=order.getCheckouttime();
+				
+				DaYin.printSheet(begainTime,endTime,user.getName(),config.TEA_NAME,number, list.get(0).getHousename(), config.TEA_PHONE, config.TEA_ADDRESS, str,list.get(0).getPrice()+"" , true , list.get(0).getPay_price()+"");
 			}
 		}
 		new Tools().return_object(new Gson().toJson(map));

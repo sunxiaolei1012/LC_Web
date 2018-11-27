@@ -27,8 +27,10 @@ public class DaYin implements Printable {
 	private static boolean BOOL;
 	private static String SHIFU;
 	private static String PRICE;
-
-	private static void chushihua(String shopname, String orderNo, String memName, String memMobile, String memAddress,
+	private static String USERNAME;
+	private static String BEGAINTIME;
+	private static String ENDTIME;
+	private static void chushihua(String begainTime,String endTime,String username,String shopname, String orderNo, String memName, String memMobile, String memAddress,
 			String[] goodsArray,String price,boolean bool, String shifu) {
 		SHOPNAME = shopname;
 		SHOPTEL = memMobile;
@@ -42,14 +44,17 @@ public class DaYin implements Printable {
 		BOOL = bool;
 		SHIFU = shifu;
 		PRICE = price;
+	   USERNAME=username;
+	   BEGAINTIME=begainTime;
+	   ENDTIME=endTime;
 	}
 
 	/**
 	 * 用于将商品零售进行进行打印
 	 */
-	public static void printSheet(String shopname, String orderNo, String memName, String memMobile, String memAddress,
+	public static void printSheet(String begainTime,String endTime,String username,String shopname, String orderNo, String memName, String memMobile, String memAddress,
 			String[] goodsArray,String price, boolean bool , String shifu) {
-		chushihua(shopname, orderNo, memName, memMobile, memAddress, goodsArray,price,bool , shifu);
+		chushihua(begainTime,endTime,username,shopname, orderNo, memName, memMobile, memAddress, goodsArray,price,bool , shifu);
 		// 通俗理解就是书、文档
 		Book book = new Book();
 		// 设置成竖打
@@ -133,9 +138,14 @@ public class DaYin implements Printable {
 				// 打印 订单号
 				g2d.drawString("订单号：" + DaYin.ORDERNO, (float) x, (float) y);
 				y += fontContent.getSize2D() + 2;
-				g2d.drawString("桌  号：" + MEMNAME, (float) x, (float) y);
+				g2d.drawString("桌  号：" +MEMNAME, (float) x, (float) y);
 				y += fontContent.getSize2D() + 2;
-
+				g2d.drawString("收营员：" + USERNAME, (float) x, (float) y);
+				y += fontContent.getSize2D() + 2;
+				g2d.drawString("下单时间：" + BEGAINTIME, (float) x, (float) y);
+				y += fontContent.getSize2D() + 2;
+				g2d.drawString("结账时间：" + ENDTIME, (float) x, (float) y);
+				y += fontContent.getSize2D() + 2;
 				g2d.drawString(xuxian, (float) x, (float) y);
 				y += fontContent.getSize2D() + 2;
 
