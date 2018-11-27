@@ -41,7 +41,7 @@ public class Selling_listDaoImpl implements Selling_listDao{
 	}
 
 	public boolean update_selling_list(Selling_list list) {
-       int a =	Common.UTIL.getRes("update t_selling_list set name=?,price=?,unit=?,rebate=?,proportion=?,pycode=?,typeid=?,xiangxi=? where sellingid=?", new Object[]{list.getName() ,list.getPrice(), list.getUnit() , list.getRebate() , list.getProportion() , list.getPycode() , list.getTypeid() ,list.getXiangxi(),list.getSellingid()});
+       int a =	Common.UTIL.getRes("update t_selling_list set name=?,price=?,unit=?,rebate=?,proportion=?,pycode=?,typeid=?,xiangxi=?,number=? where sellingid=?", new Object[]{list.getName() ,list.getPrice(), list.getUnit() , list.getRebate() , list.getProportion() , list.getPycode() , list.getTypeid() ,list.getXiangxi(),list.getNumber(),list.getSellingid()});
 		return a>0?true:false;
 	}
 

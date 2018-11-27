@@ -32,6 +32,12 @@ public interface CardDao {
 	 * @return
 	 */
 	public Card select_card_number(String number);
+	/**
+	 * 根据卡编号 获取卡信息 //按时间倒序查询
+	 * @param number
+	 * @return
+	 */
+	public Card select_card_numbers(String number);
 	
 	
 	public boolean del_card_number(String number);

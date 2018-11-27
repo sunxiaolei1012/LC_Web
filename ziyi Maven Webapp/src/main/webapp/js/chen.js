@@ -306,10 +306,6 @@ function clc(cl_id , sta)
 	}, 300);
 }
 
-
-function test(){
-	
-}
 //预定信息显示
 //cl_id:餐桌id
 function yuding_show(cl_id)
@@ -321,7 +317,6 @@ function yuding_show(cl_id)
 	       cache:false,
 	       async: true,
 	       success:function(date){
-	    	   console.log(date);
 	    	 //预约信息显示
 	    		layer.open({
 	    			type:1,
@@ -330,6 +325,10 @@ function yuding_show(cl_id)
 	    			content:"<div class='layui-text' style='margin:5%;line-height:40px'><p>联系人：<span>"+date.name+"</span></p><p>手机号：<span>"+date.phone+"</span></p><p>预定时间：<span>"+date.time+"</span></p></div>"
 	    	        ,shade: 0 //不显示遮罩		         				
 	    		})
+	       },
+	       error:function(){
+	    	   layer.msg('已掉线，即将返回登录页！');
+	    	   setTimeout("waitlog()",4000);
 	       }
 	  });
 	
@@ -401,6 +400,10 @@ function update_state_two(id, index,datas)
 	       success:function(date){
 	    	   layer.msg(date.msg,{icon:6});
 	    	   tableShow();
+	       },
+	       error:function(){
+	    	   layer.msg('已掉线，即将返回登录页！');
+	    	   setTimeout("waitlog()",4000);
 	       }
 	  });
 	
@@ -416,6 +419,7 @@ function update_state(id, index)
 	       cache:false,
 	       async: true,
 	       success:function(date){
+	    	    console.log(date);
 	    		if(date.state)
 	    		{
 	    		  layer.msg(date.msg,{icon:6});
@@ -425,9 +429,16 @@ function update_state(id, index)
 	    		}else{
 	    		   layer.msg(date.msg,{icon:5});
 	    		   }
+	       },
+	       error:function(){
+	    	   layer.msg('已掉线，即将返回登录页！');
+	    	   setTimeout("waitlog()",4000);	    	   
 	       }
 	  });
 	
+}
+function waitlog(){
+	window.location.href="login.jsp";
 }
 //桌子列表length
 function tablebox(){
@@ -576,6 +587,10 @@ function orderShow(tableid)
             	 $('#pay').attr('disabled','disabled');
             	 $('.icon-shanchu').removeAttr("onclick");
              }            
+       },
+       error:function(){
+    	   layer.msg('已掉线，即将返回登录页！');
+    	   setTimeout("waitlog()",3000);
        }
    
    
@@ -625,6 +640,10 @@ function press(){
 		       async: false,
 		       success:function(d){
 		    	   layer.msg('成功打印');
+		       },
+		       error:function(){
+		    	   layer.msg('已掉线，即将返回登录页！');
+		    	   setTimeout("waitlog()",3000);
 		       }
 		   });
 	}else{
@@ -768,6 +787,10 @@ function pay(number,table){
 	     	                    		       async: false,
 	     	                    		       success:function(d){
 	     	                    		    	   layer.msg('成功打印');
+	     	                    		       },
+	     	                    		      error:function(){
+	     	                    		    	   layer.msg('已掉线，即将返回登录页！');
+	     	                    		    	   setTimeout("waitlog()",3000);
 	     	                    		       }
 	     	                    		   });
 	     	                    		}, 
@@ -792,6 +815,10 @@ function pay(number,table){
 	     	                    		  layer.msg('支付关闭', {});
 	     	                    	});
 	                             }
+	             	       },
+	             	      error:function(){
+	             	    	   layer.msg('已掉线，即将返回登录页！');
+	             	    	   setTimeout("waitlog()",3000);
 	             	       }
 	             	  });
 	                  
@@ -801,6 +828,10 @@ function pay(number,table){
 					},
 					 
 				});
+	       },
+	       error:function(){
+	    	   layer.msg('已掉线，即将返回登录页！');
+	    	   setTimeout("waitlog()",3000);
 	       }
 	
 	})
@@ -919,6 +950,10 @@ function goodslist(type_id){
 		    	    }
 		    	    
 	    		   }
+	       },
+	       error:function(){
+	    	   layer.msg('已掉线，即将返回登录页！');
+	    	   setTimeout("waitlog()",3000);
 	       }
 	  });
 	 return eles;	
@@ -1024,6 +1059,10 @@ function goodsAdd(id){
                 }else{               	 
                 	layer.msg('添加失败',{icon:5});
                 } 
+	       },
+	       error:function(){
+	    	   layer.msg('已掉线，即将返回登录页！');
+	    	   setTimeout("waitlog()",3000);
 	       }
 	  });
 	 
@@ -1047,6 +1086,10 @@ function goodsDel(id){
                 }else{
                 	layer.msg('删除失败',{icon:5});
                 } 
+	       },
+	       error:function(){
+	    	   layer.msg('已掉线，即将返回登录页！');
+	    	   setTimeout("waitlog()",3000);
 	       }
 	  });
 }
@@ -1069,6 +1112,10 @@ function goodsta(goodsta,tableid){
 	       async: true,
 	       success:function(date){
                  
+	       },
+	       error:function(){
+	    	   layer.msg('已掉线，即将返回登录页！');
+	    	   setTimeout("waitlog()",3000);
 	       }
 	  });
 	orderShow(tableid);

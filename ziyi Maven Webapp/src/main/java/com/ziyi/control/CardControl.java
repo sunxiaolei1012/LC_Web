@@ -61,7 +61,8 @@ public class CardControl extends ActionSupport{
 					map.put("state", "true");
 					map.put("button", "true");
 					map.put("msg", oc.getNumber());
-					Card ca = Common.CARDDAO.select_card_number(oc.getNumber());
+//					Card ca = Common.CARDDAO.select_card_number(oc.getNumber());
+					Card ca = Common.CARDDAO.select_card_numbers(oc.getNumber());
 					if(ca != null)
 					{
 						map.put("rebate", Common.CARDTYPE.select_card_ctid(ca.getCtid()).getRebate());

@@ -42,12 +42,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<label class="layui-form-label">商品类型</label>
 					<div class="layui-input-block">
 						<select name="typeid">
-						    	<c:forEach var="c" items="${typeid}">
-						    		<c:if test="${c.type_id ==sl.typeid}">
-						    			<option value="${c.type_id }" selected="" >${c.type_name }</option>
+						    	<c:forEach var="cs" items="${ty}">
+						    		<c:if test="${cs.type_id ==sl.typeid}">
+						    			<option value="${cs.type_id }" selected="" >${cs.type_name }</option>
 						    		</c:if>
-						    		<c:if test="${c.type_id !=sl.typeid}">
-						    			<option value="${c.type_id }" >${c.type_name }</option>
+						    		<c:if test="${cs.type_id !=sl.typeid}">
+						    			<option value="${cs.type_id }" >${cs.type_name }</option>
 						    		</c:if>
 						    		
 								</c:forEach>
@@ -101,7 +101,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<div class="layui-form-item">
 					<div class="layui-input-block">
-						<button class="layui-btn" onclick="save('xiu','card')">立即提交</button>
+						<button class="layui-btn" onclick="save('xiu','selling')">立即提交</button>
 					</div>
 				</div>
 			</form>

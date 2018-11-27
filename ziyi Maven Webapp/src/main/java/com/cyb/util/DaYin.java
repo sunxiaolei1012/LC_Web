@@ -143,8 +143,11 @@ public class DaYin implements Printable {
 				g2d.drawString("收营员：" + USERNAME, (float) x, (float) y);
 				y += fontContent.getSize2D() + 2;
 				g2d.drawString("下单时间：" + BEGAINTIME, (float) x, (float) y);
+				
+				if(ENDTIME.length()>0 && ENDTIME!=null) {
 				y += fontContent.getSize2D() + 2;
 				g2d.drawString("结账时间：" + ENDTIME, (float) x, (float) y);
+				}
 				y += fontContent.getSize2D() + 2;
 				g2d.drawString(xuxian, (float) x, (float) y);
 				y += fontContent.getSize2D() + 2;

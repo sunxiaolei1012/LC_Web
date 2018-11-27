@@ -15,8 +15,8 @@ import com.cyb.util.Util;
 import com.cyb.util.config;
 import com.opensymphony.xwork2.ActionContext;
 import com.ziyi.pojo.Card;
-import com.ziyi.pojo.Selling_Image;
 import com.ziyi.pojo.Selling_list;
+import com.ziyi.pojo.Selling_type;
 import com.ziyi.pojo.Users;
 
 /**
@@ -114,10 +114,12 @@ public class SellingControl {
 		//查询商品信息
 		Selling_list sl = Common.SLD.selecct_id_list(new Integer(id));
 		//根据商品查询图片信息
-		List<Selling_Image> si = Common.SID.select_selling_image(new Integer(id));
+//		List<Selling_Image> si = Common.SID.select_selling_image(new Integer(id));
 		
+		List<Selling_type> st = Common.STYPE.select_selling_type();
 		ActionContext.getContext().put("sl", sl);
-		ActionContext.getContext().put("si", si);
+		ActionContext.getContext().put("ty", st);
+//		ActionContext.getContext().put("si", si);
 		return "update_selling";
 	}
 	
@@ -138,6 +140,28 @@ public class SellingControl {
 		card.setRemain(new Double(remain));
 		card.setSpend(new Double(spend));
 		boolean bool = Common.CARDDAO.update_card(card);
+		Common.TOOLS.return_map_object(bool, config.XIU_USER_RIGHT_MSG, config.XIU_USER_ERROR_MSG);
+		return "json";
+	}
+	
+	/**
+	 * 修改商品信息
+	 */
+	public String xiu_selling(String id , String name , String price , String unit , String rebate, String proportion , String userid , String pycode , String typeid , String xiangxi , String number)
+	{
+		Selling_list se = new Selling_list();
+		se.setSellingid(new Integer(id));
+		se.setName(name);
+		se.setNumber(new Integer(number));
+		se.setPrice(new Double(price));
+		se.setProportion(new Double(proportion));
+		se.setPycode(pycode);
+		se.setRebate(new Integer(rebate));
+		se.setTypeid(new Integer(typeid));
+		se.setUnit(unit);
+		se.setUserid(new Integer(userid));
+		se.setXiangxi(xiangxi);
+		boolean bool = Common.SLD.update_selling_list(se);
 		Common.TOOLS.return_map_object(bool, config.XIU_USER_RIGHT_MSG, config.XIU_USER_ERROR_MSG);
 		return "json";
 	}

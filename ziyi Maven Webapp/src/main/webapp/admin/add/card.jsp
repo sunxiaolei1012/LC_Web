@@ -19,7 +19,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<meta name="format-detection" content="telephone=no">
 		<script type="text/javascript" src="../../js/jquery-2.1.1.min.js"></script>
 		<script type="text/javascript" src="../../js/layui.js"></script>
-		<script type="text/javascript" src="../../js/chen.js"></script>
+		<script type="text/javascript" src="../../js/chen1.js"></script>
 		<link rel="stylesheet" href="../../plugins/layui/css/layui.css" media="all" />
 		<link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
 	</head>
@@ -88,7 +88,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 	</body>
 <script type="text/javascript">
-	layui.use(['form', 'layedit', 'laydate'], function(){
+	layui.use(['form', 'layedit', 'laydate','layer'], function(){
 	  var form = layui.form
 	  ,layer = layui.layer
 	  ,layedit = layui.layedit

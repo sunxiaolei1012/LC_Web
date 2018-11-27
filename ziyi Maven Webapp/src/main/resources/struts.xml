@@ -63,7 +63,7 @@
      		update_card , xiu_card, del_card,
      		add_sellingtype , del_sellingtype , update_sellingtype , xiu_sellingtype,
      		add_teahouse , update_teahouse , xiu_teahouse,del_teahouse ,
-     		del_selling, add_selling ,update_selling,add_newcard
+     		del_selling, add_selling ,update_selling,add_newcard,xiu_selling
      		</allowed-methods>
      	</action>
      	
@@ -81,22 +81,8 @@
             <result name="image">admin/update/images.jsp</result>
          	<allowed-methods>selling,image,del</allowed-methods>
          </action>
-         	
-      </package>
-      
-      <!--不需要监听的继承默认的拦截器包-->
-	<package name="p1" extends="struts-default,json-default">
-		 <action name="login" class="com.ziyi.control.LoginServlet" method="login">
-         	<result name="login">login.jsp</result>
-         	<result name="main">index.jsp</result>
-         	<allowed-methods>login</allowed-methods>
-         </action>
-         <action name="adminlogin" class="com.ziyi.control.adminLoginServlet" method="adminlogin">
-         	<result name="login">admin/index.jsp</result>
-         	<result name="main">admin/index.jsp</result>
-         	<allowed-methods>adminlogin</allowed-methods>
-         </action>
-         <action name="dayin_*" class="com.ziyi.control.DaYinControl" method="{1}">
+         
+            <action name="dayin_*" class="com.ziyi.control.DaYinControl" method="{1}">
             <result name="json" type="json"></result>
          	<allowed-methods>get,set,number,properties</allowed-methods>
          </action>
@@ -147,5 +133,21 @@
          	<result name="checkByType">ExcelKuCunList.jsp</result>
          	<allowed-methods>monthPrices,sumSellingType,PayTypePrice,YingYePrice,sumlistNumber,checkByType</allowed-methods> 
          	</action>
+         	
+      </package>
+      
+      <!--不需要监听的继承默认的拦截器包-->
+	<package name="p1" extends="struts-default,json-default">
+		 <action name="login" class="com.ziyi.control.LoginServlet" method="login">
+         	<result name="login">login.jsp</result>
+         	<result name="main">index.jsp</result>
+         	<allowed-methods>login</allowed-methods>
+         </action>
+         <action name="adminlogin" class="com.ziyi.control.adminLoginServlet" method="adminlogin">
+         	<result name="login">admin/index.jsp</result>
+         	<result name="main">admin/index.jsp</result>
+         	<allowed-methods>adminlogin</allowed-methods>
+         </action>
+      
 	</package>
 </struts>

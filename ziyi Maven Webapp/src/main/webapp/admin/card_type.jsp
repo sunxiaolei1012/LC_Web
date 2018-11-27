@@ -62,10 +62,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!-- 									<a href="javascript:;" data-id="1" data-opt="del" class="layui-btn layui-btn-danger layui-btn-mini">删除</a> -->
 <!-- 								</td> -->
 	
-		<script type="text/javascript" src="http://res.layui.com/layui/release/layer/dist/layer.js?v=3111"></script>
 		<!-- <script type="text/javascript" src="icheck/icheck.js"></script> -->
 		<script type="text/javascript" src="plugins/layui/layui.js"></script>
-		<script type="text/javascript" src="js/chen.js"></script>
+		<script type="text/javascript" src="js/chen1.js"></script>
 			<script>
 			 layui.use(['element', 'layer'], function () {
 					  var element = layui.element;

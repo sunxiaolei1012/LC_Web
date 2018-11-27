@@ -95,6 +95,7 @@ public class DaYinControl {
 			map.put("status", true);
 			map.put("msg", config.DAYIN_TRUE);
 			String[] str = value.split(",");
+			
 			//下单时间和 带结账时间
 			Order order=Common.ORDER.select_number_order(number);
 				String begainTime=order.getOrdertime();
@@ -133,10 +134,11 @@ public class DaYinControl {
 			else
 			{
 				String[] str = new String[list.size()*3];
+				
 				for (int i = 0; i < list.size(); i++) {
 					str[i*3] = list.get(i).getName();
 					str[i*3+1] = list.get(i).getOlnumber()+"";
-					str[i*3+2] = (list.get(i).getPri()*list.get(i).getOlnumber())+"";
+					str[i*3+2] = list.get(i).getPri()+"";
 				}
 				map.put("status", true);
 				map.put("msg", config.DAYIN_TRUE);
