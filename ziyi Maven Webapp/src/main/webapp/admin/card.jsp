@@ -62,48 +62,48 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<fieldset class="layui-elem-field">
 				<legend>会员列表</legend>
 				<div class="layui-field-box">
-					<table class="site-table table-hover">
+					<table class="layui-table" lay-filter="cardshow" lay-data="{page:true,limit:10}">
 									<thead>
 										<tr>
-											<th>卡编号</th>
-											<th>卡类型</th>
-											<th>卡折扣</th>
-											<th>所属人</th>
-											<th>所属手机</th>
-											<th>所属地址</th>
-											<th>身份证号</th>
-											<th>总金额</th>
-											<th>已消费金额</th>
-											<th>剩余金额</th>
-											<th>售卡时间</th>
-											<th>编辑</th>
+											<th lay-data="{field:'id', sort: true}">卡编号</th>
+											<th lay-data="{field:'cate'}">卡类型</th>
+											<th lay-data="{field:'dis', sort: true}">卡折扣</th>
+											<th lay-data="{field:'name'}">所属人</th>
+											<th lay-data="{field:'phone'}">所属手机</th>
+											<th lay-data="{field:'address'}">所属地址</th>
+											<th lay-data="{field:'idcard'}">身份证号</th>
+											<th lay-data="{field:'allm', sort: true}">总金额</th>
+											<th lay-data="{field:'usem', sort: true}">已消费金额</th>
+											<th lay-data="{field:'rem', sort: true}">剩余金额</th>
+											<th lay-data="{field:'selltime', sort: true}">售卡时间</th>
+											<th lay-data="{field:'edit'}">编辑</th>
 										</tr>
 									</thead>
 									<tbody>
-						<c:forEach var="i" items="${card}">
-									<tr>
-										<td>${i.number}</td>
-										<c:forEach var="c" items="${card_type}">
-											<c:if test="${c.ctid==i.ctid }">
-											<td>${c.cardtype}</td>
-									    	<td>${c.rebate}</td>
-											</c:if>
+										<c:forEach var="i" items="${card}">
+										<tr>
+											<td>${i.number}</td>
+											<c:forEach var="c" items="${card_type}">
+												<c:if test="${c.ctid==i.ctid }">
+												<td>${c.cardtype}</td>
+										    	<td>${c.rebate}</td>
+												</c:if>
+											</c:forEach>
+											<td>${i.name}</td>
+											<td>${i.phone}</td>
+											<td>${i.address}</td>
+											<td>${i.idcard}</td>
+											<td>${i.price}</td>
+											<td>${i.spend}</td>
+											<td>${i.remain}</td>
+											<td>${i.selltime}</td>
+											<td>
+											<a href="javascript:update('card','${i.cardid}');" class="layui-btn layui-btn-xs">编辑</a>
+											<a href="javascript:del('card','${i.cardid }')" data-id="1" data-opt="del" class="layui-btn layui-btn-danger layui-btn-xs">删除</a>
+											</td>
+										</tr>
 										</c:forEach>
-										<td>${i.name}</td>
-										<td>${i.phone}</td>
-										<td>${i.address}</td>
-										<td>${i.idcard}</td>
-										<td>${i.price}</td>
-										<td>${i.spend}</td>
-										<td>${i.remain}</td>
-										<td>${i.selltime}</td>
-										<td>
-										<a href="javascript:update('card','${i.cardid}');" class="layui-btn layui-btn-mini">编辑</a>
-										<a href="javascript:del('card','${i.cardid }')" data-id="1" data-opt="del" class="layui-btn layui-btn-danger layui-btn-mini">删除</a>
-										</td>
-									</tr>
-						</c:forEach>
-						</tbody>
+									</tbody>
 					</table>
 				<div id="page" class="page">
 				</div>
@@ -119,23 +119,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!-- 								</td> -->
 	
 		<!-- <script type="text/javascript" src="icheck/icheck.js"></script> -->
-		<script type="text/javascript" src="plugins/layui/layui.js"></script>
+		<script type="text/javascript" src="layui/layui.js"></script>
 		<script type="text/javascript" src="js/chen1.js"></script>
 		<script>
-			layui.config({
+			/* layui.config({
 				base: 'plugins/layui/modules/'
-			});
+			}); */
 
-			layui.use(['icheck', 'laypage','layer','form'], function() {
+			layui.use(['laypage','layer','form','table'], function() {
 				var $ = layui.jquery,
 					laypage = layui.laypage,
-					form = layui.form(),
+					form = layui.form,
+					table = layui.table,
 					layer = parent.layer === undefined ? layui.layer : parent.layer;
-				$('input').iCheck({
+				/* $('input').iCheck({
 					checkboxClass: 'icheckbox_flat-green'
-				});
-
-				//page
+				}); */
+				table.init('cardshow');
+				/* //page
 				laypage({
 					cont: 'page',
 					pages: ${zong}, //总页数						
@@ -151,7 +152,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						}
 					}
 				});
-				
+				 */
                 form.on("select(cardSta)",function(data){
                     if(data.value=='0'){
                     	alert('在售');
@@ -167,8 +168,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			});
 			
 		</script>
-		
-		</script>
+
 		</body>
 
 </html>
