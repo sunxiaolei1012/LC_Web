@@ -45,7 +45,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						    <div class="layui-input-inline">
 						      <select name="category" lay-filter="cardSta">
 						        <option value="0">在售</option>
-						        <option value="1">在用</option>
+						        <option value="1" selected>在用</option>
 						        <option value="2">收回</option>
 						        <option value="3">挂失</option>
 						      </select>
