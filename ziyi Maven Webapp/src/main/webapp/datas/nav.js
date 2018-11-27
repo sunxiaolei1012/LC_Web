@@ -20,7 +20,7 @@ var navs = [{
 	}, {
 		"title": "会员列表",
 		"icon": "fa-navicon",
-		"href": "admin_card"
+		"href": "admin_cards"
 	}]
 },
 

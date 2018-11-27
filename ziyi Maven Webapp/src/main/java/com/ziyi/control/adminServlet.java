@@ -58,6 +58,14 @@ public class adminServlet extends ActionSupport{
 	{
 		return new CardControl().get_card(page);
 	}
+	/**
+	 * 查询所有会员信息
+	 * @return
+	 */
+	public String cards()
+	{
+		return new CardControl().get_cards();
+	}
 	
 	/**
 	 * 商品类型
