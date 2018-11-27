@@ -19,6 +19,31 @@ import com.ziyi.pojo.Card_type;
  * @date 2018年9月16日下午3:48:53
  */
 public class CardControl {
+	/**
+	 * 获取会员卡信息 //根据类型
+	 * 
+	 * @return
+	 */
+	public String get_card_type(String id, String value) {
+		StringBuffer sb = new StringBuffer();
+		if (value != null) {
+			sb.append(" and (");
+			sb.append("number like '%" + value + "%' or ");
+			sb.append("name like '%" + value + "%' or ");
+			sb.append("phone like '%" + value + "%' or ");
+			sb.append("address like '%" + value + "%' or ");
+			sb.append("idcard like '%" + value + "%' or ");
+			sb.append("selltime like '%" + value + "%'");
+			sb.append(")");
+		}
+		List<Card> list = Common.CARDDAO.select_cardtype(id, sb.toString());
+		ActionContext.getContext().put("card", list);
+		ActionContext.getContext().put("id", id);
+		ActionContext.getContext().put("value", value);
+		ActionContext.getContext().put("card_type", Common.CARDTYPE.select_card_type());
+
+		return "get_card";
+	}
 
 	/**
 	 * 获取会员卡信息 //分页

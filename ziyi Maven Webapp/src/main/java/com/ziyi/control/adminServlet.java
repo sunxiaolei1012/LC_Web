@@ -24,6 +24,11 @@ public class adminServlet extends ActionSupport{
 	
 	
 	private String page;
+	
+	
+	private String id;
+	private String value;
+	
 	/**
 	 * 处理用户登录
 	 * @return
@@ -69,7 +74,10 @@ public class adminServlet extends ActionSupport{
 	/**
 	 * 根据状态查询
 	 */
-	
+	public String cardtype()
+	{
+		return new CardControl().get_card_type(id , value);
+	}
 	/**
 	 * 商品类型
 	 * @return
@@ -130,6 +138,22 @@ public class adminServlet extends ActionSupport{
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getValue() {
+		return value;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
 	}
 	
 	
