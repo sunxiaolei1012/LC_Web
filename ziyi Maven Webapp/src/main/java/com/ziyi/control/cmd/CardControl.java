@@ -28,6 +28,8 @@ public class CardControl {
 	public String get_cards() {
 		List<Card> list = Common.CARDDAO.select_cards();
 		ActionContext.getContext().put("card", list);
+		ActionContext.getContext().put("id", -1);
+		ActionContext.getContext().put("value", null);
 		ActionContext.getContext().put("card_type", Common.CARDTYPE.select_card_type());
 
 		return "get_card";

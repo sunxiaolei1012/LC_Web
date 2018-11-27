@@ -334,6 +334,7 @@ public class MainServlet extends ActionSupport{
 	 */
 	public void create()
 	{
+		Users user = (Users) ActionContext.getContext().getSession().get("user");
 		if(id != null && !id.equals(""))
 		{
 			//1、uuid正确 生成订单 订单号 年月日时分+4位随机数
@@ -343,7 +344,7 @@ public class MainServlet extends ActionSupport{
 			order.setNumber(number);
 			order.setOrdertime(Common.df.format(new Date()));
 			order.setPrice(0.00);
-			order.setUserid(1);
+			order.setUserid(user.getUserid());
 			order.setStatus(0);
 			order.setType(0);
 			order.setCheckouttime("");
