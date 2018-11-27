@@ -39,7 +39,7 @@
          	<result name="get_selling_type">admin/selling_type.jsp</result>
          	<result name="get_selling">admin/selling.jsp</result>
          	<result name="get_tea_house">admin/tea_house.jsp</result>
-     		<allowed-methods>login,user,cardType,card,sellingtype,selling,teahouse,cards
+     		<allowed-methods>login,user,cardType,card,sellingtype,selling,sellings,teahouse,cards
      		</allowed-methods>
      	</action>
      	<action name="adminindex" class="com.ziyi.control.AdminIndex" method="adminindex">

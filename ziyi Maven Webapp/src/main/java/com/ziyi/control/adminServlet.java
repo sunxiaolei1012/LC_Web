@@ -85,6 +85,14 @@ public class adminServlet extends ActionSupport{
 		return new SellingControl().get_selling(page);
 	}
 	/**
+	 * 商品列表
+	 * @return
+	 */
+	public String sellings()
+	{
+		return new SellingControl().get_sellings();
+	}
+	/**
 	 * 添加房屋位置信息
 	 * @return
 	 */

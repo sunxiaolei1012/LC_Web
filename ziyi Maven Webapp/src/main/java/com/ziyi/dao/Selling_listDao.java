@@ -57,6 +57,7 @@ public interface Selling_listDao {
 	 * @return
 	 */
 	public List<Selling_list> select_selling_list_page(int page, int count);
+	public List<Selling_list> select_selling_list_pages();
 	
 	/**
 	 * 根据ID 查询其对应的商品信息
@@ -124,6 +125,7 @@ public interface Selling_listDao {
 		 * @return
 		 */
 		public List<Selling_list> select_price_jusl(double price , String in);
+
 
 	
 

@@ -64,6 +64,10 @@ public class Selling_listDaoImpl implements Selling_listDao{
 		String sql = "select * from t_selling_list limit "+(page-1)*count+","+count+"";
 		return Common.UTIL.query(sql, null, Selling_list.class);
 	}
+	public List<Selling_list> select_selling_list_pages() {
+		String sql = "select * from t_selling_list";
+		return Common.UTIL.query(sql, null, Selling_list.class);
+	}
 
 	public List<Selling_list> select_selling_type(int id) {
 		List<Selling_list> list = Common.UTIL.query("select * from t_selling_list where typeid=?", new Object[]{id}, Selling_list.class);

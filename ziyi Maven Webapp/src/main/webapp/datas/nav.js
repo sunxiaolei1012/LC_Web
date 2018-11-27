@@ -35,7 +35,7 @@ var navs = [{
 	}, {
 		"title": "商品列表",
 		"icon": "fa-navicon",
-		"href": "admin_selling"
+		"href": "admin_sellings"
 	}]
 },
 {
