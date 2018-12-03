@@ -160,7 +160,7 @@ layui.use(['element','form','table','laydate','laypage'], function(){
   //
   form.on('select(yearSelect)', function(data){
           console.log(data.value);
-	     //window.localtion.href='charts_sumprices?year='+data.value;
+	     window.location.href='charts_sumprices?year='+data.value;
 	     
 	  });
 });
@@ -282,14 +282,11 @@ $(document).ready(function(){
 
 //
 function changeYear(){
-		var datetime = new Date();
 		//当前年
-	    var nowyear = datetime.getFullYear();
-	    //window.localtion.href=''; 
-// 	     var backyear = ${year};
-        for(var i = 2018;i<=2022;i++){
-        	 
+	    var nowyear = new Date().getFullYear();
+        for(var i = 2015;i<=nowyear;i++){        	 
      	   if(nowyear == i){  
+     		   //默认选中当前年
      		   $('#selectYear').append("<option value='"+i+"' selected>"+i+"</option>");
      	   }else{    		   
      		   $('#selectYear').append("<option value='"+i+"' >"+i+"</option>");
