@@ -33,7 +33,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <div class="nav-header">
 			<ul class="layui-nav">
 			  <li class="layui-nav-item">
-			    <a href=""><img src="images/logo.png" class="layui-nav-img">紫怡茶道 POS 管理系统 V2018</a>
+			    <a href=""><img src="images/logo.png" class="layui-nav-img"><span id="teaTitle" style="font-size:18px;"></span></a>
 			  </li>			  
 			  <li class="layui-nav-item mui-pull-right">
 			    <a href="#"><img src="images/admin.png" class="layui-nav-img">
@@ -403,7 +403,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    ,limit:10
 		  });
     });
-    
     //会员卡查询框
 /* function mebshow(){
 	layer.open({

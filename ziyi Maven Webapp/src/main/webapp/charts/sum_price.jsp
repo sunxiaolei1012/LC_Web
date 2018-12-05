@@ -15,6 +15,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="charts/js/exporting.js"></script>
 <script type="text/javascript" src="charts/js/drilldown.js"></script>
 <script type="text/javascript" src="charts/js/highcharts-zh_CN.js"></script>
+<script type="text/javascript" src="charts/js/noDate.js"></script>
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="layui/layui.js"></script>
 <style type="text/css">
@@ -45,27 +46,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	margin-top: 5px
 }
 </style>
-<script>
-	/* function cc()
-	{
-		var year = ${year};//2020
-		<select>
-		for (var i = 2018; i <= year; i++) {
-			if(i == year)
-				{
-				<option value=i select>i</option>
-				//默认选中
-				}
-			else
-				{
-				<option value=i>i</option>
-				}
-		}
-		</select>
-		
-	} */
-	
-	</script>
 </head>
 
 <body>
@@ -95,10 +75,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<button class="layui-btn layui-btn-radius layui-btn-sm" id="btnshow"
 				onclick='backmonth()'>返回</button>
 		</div>
-		<div id="chartshow" class="chartshow">
+		<div id="chartshow" class="chartshow">		
 			<div id="container"
 				style="min-width: 310px; height: 600px; margin: 0 auto"></div>
-		</div>
+		    </div>
 		<div id="tableshow" class="tableshow showclass">
 			<fieldset class="layui-elem-field">
 				<legend>营业总额</legend>
@@ -160,8 +140,7 @@ layui.use(['element','form','table','laydate','laypage'], function(){
   //
   form.on('select(yearSelect)', function(data){
           console.log(data.value);
-	     //window.localtion.href='charts_sumprices?year='+data.value;
-	     
+	      window.location.href='charts_sumprices?year='+data.value;	      
 	  });
 });
 
@@ -170,7 +149,7 @@ var tabold;
 function daydetail(b){
 	//原月营业额内容
 	 tabold=$('#tabmonth').html();
-	 console.log(tabold);
+	 //console.log(tabold);
 	 <c:forEach var="i" items="${list}" > 
 		var c = ${i.month};
 		if(c == b)
@@ -190,7 +169,29 @@ function backmonth(){
 	$('#tabmonth').html(tabold);
 	$('#btnshow').css('display','none');
 }
-
+//年份选择
+function changeYear(){
+	    var year = ${list[0].year };
+	    //console.log(year);
+		//当前年
+		//console.log('获取年'+year);
+	    var nowyear = new Date().getFullYear();
+        for(var i = 2015;i<=nowyear;i++){  
+     	   if(year == i){  
+     		   //默认选中当前年
+     		   $('#selectYear').append("<option value='"+i+"' selected>"+i+"</option>");
+     	   }else{    		   
+     		   $('#selectYear').append("<option value='"+i+"' >"+i+"</option>");
+     	   }
+        }
+        formrender();
+    }   
+function formrender(){
+	layui.use('form',function(){
+		var form = layui.form;
+		form.render('select','renderForm');
+	});
+}
 var oChart1;
 $(document).ready(function(){
 	//年份选择
@@ -237,11 +238,32 @@ $(document).ready(function(){
 		},
 		tooltip: {
 			headerFormat: '<span style="font-size:11px">{series.name}</span><br>', 
-			pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> of total<br/>'
+			pointFormat: '<span style="color:{point.color}">{point.name}月</span>: <b>{point.y:.2f}</b>元<br/>'
 		},
+		//无数据时的显示
+		lang: {
+            noData: "暂无数据" //真正显示的文本
+        },
+	    noData: {
+            // Custom positioning/aligning options
+            position: {	
+                //align: 'right',
+                //verticalAlign: 'bottom'
+            },
+            // Custom svg attributes
+            attr: {
+                //'stroke-width': 1,
+                //stroke: '#cccccc'
+            },
+            // Custom css
+            style: {                    
+                //fontWeight: 'bold',     
+                //fontSize: '15px',
+                //color: '#202030'        
+            }
+        },
 		series: [
-			 {
-				 
+			 {				 
 			name: '月营业额',
 			colorByPoint: true,
 			data: [
@@ -275,35 +297,8 @@ $(document).ready(function(){
 				
 				]
 		}
-	});
-   
+	});  
 })
-
-
-//
-function changeYear(){
-		var datetime = new Date();
-		//当前年
-	    var nowyear = datetime.getFullYear();
-	    //window.localtion.href=''; 
-// 	     var backyear = ${year};
-        for(var i = 2018;i<=2022;i++){
-        	 
-     	   if(nowyear == i){  
-     		   $('#selectYear').append("<option value='"+i+"' selected>"+i+"</option>");
-     	   }else{    		   
-     		   $('#selectYear').append("<option value='"+i+"' >"+i+"</option>");
-     	   }
-        }
-        formrender();
-    }
-    
-function formrender(){
-	layui.use('form',function(){
-		var form = layui.form;
-		form.render('select','renderForm');
-	})
-}
 
 //弹窗框
 /* function moneydetail(monthid){

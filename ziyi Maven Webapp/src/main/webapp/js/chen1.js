@@ -5,6 +5,7 @@ function add(cmd)
 		  skin: 'layui-layer-rim',
 		  area: ['700px', '450px'],
 		  fixed: false, //不固定
+		  offset: 't',
 		  maxmin: true,
 		  content: 'admin/add/'+cmd+'.jsp',
 		});
@@ -17,6 +18,7 @@ function image(cmd)
 			  skin: 'layui-layer-rim',
 			  area: ['700px', '450px'],
 			  fixed: false, //不固定
+			  offset: 't',
 			  maxmin: true,
 			  content: 'image_selling?id='+cmd,
 			});
@@ -29,6 +31,7 @@ function adds(cmd)
 		  skin: 'layui-layer-rim',
 		  area: ['700px', '700px'],
 		  fixed: false, //不固定
+		  offset: 't',
 		  maxmin: true,
 		  content: 'admin/add/'+cmd+'.jsp',
 		});
@@ -67,6 +70,7 @@ function update(cmd,id)
 			  skin: 'layui-layer-rim',
 			  area: ['700px', '450px'],
 			  fixed: false, //不固定
+			  offset: 't',
 			  maxmin: true,
 			  content: 'cmd_update_'+cmd+'?id='+id,
 			});

@@ -19,12 +19,13 @@
 <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
 <script>
 	function seacard() {
-		var searchval = $('#search').val();
+		var searchval = $.trim($('#search').val());
 		var selecval = $("#selectbox").val();
-		if ($('#search').val() == '') {
+		if (searchval == ''||searchval == null) {
 			alert('输入内容不能为空');
 		} else {
 			window.location.href = "admin_cardtype?id="+selecval+"&value="+searchval;
+
 		}
 	}
 </script>
@@ -197,20 +198,8 @@
 							 */
 							
 							form.on("select(cardSta)", function(data) {
-								var serval = $("#search").val();
-								window.location.href = "admin_cardtype?id="+data.value+"&value="+serval;
-								/* if(data.value == '-1'){
-									alert('全部');
-                                    alert(serval); 
-								}else if (data.value == '0') {
- 									alert('在售');                                    
-								} else if (data.value == '1') {
-									alert('在用');
-								} else if (data.value == '2') {
-									alert('收回');
-								} else {
-									alert('挂失');
-								} */
+								var serval = $.trim($("#search").val());
+								window.location.href = "admin_cardtype?id="+data.value+"&value="+serval;								 
 							})
 
 						});
