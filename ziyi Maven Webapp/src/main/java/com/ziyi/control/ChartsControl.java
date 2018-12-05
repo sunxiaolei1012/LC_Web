@@ -15,6 +15,19 @@ import com.opensymphony.xwork2.ActionSupport;
  * @date 2018年10月24日下午2:12:42
  */
 public class ChartsControl extends ActionSupport{
+	
+	private  Integer  year;
+	
+	
+	
+	public Integer getYear() {
+		return year;
+	}
+
+	public void setYear(Integer year) {
+		this.year = year;
+	}
+
 	private static final long serialVersionUID = 1L;
 	public String sumprice()
 	{
@@ -41,7 +54,12 @@ public class ChartsControl extends ActionSupport{
 	
 	public String sumprices()
 	{
-		Map<Integer , Object> maps = Common.JD.sum_pay_money(2018);
+		
+		System.out.println(year);
+		if(year==null) {
+			year=2018;
+		}
+		Map<Integer , Object> maps = Common.JD.sum_pay_money(year);
 		List<Map> list = new ArrayList<Map>();
 		
 		for(int i=1 ; i<13;i++)
@@ -52,10 +70,10 @@ public class ChartsControl extends ActionSupport{
 			map_month.put("month", i);
 			map_month.put("value", maps.get(i));
 			if(i<10)
-				map_month.put("day_value", Common.JD.sum_pay_money_day(2018, "0"+i));
+				map_month.put("day_value", Common.JD.sum_pay_money_day(year, "0"+i));
 			else
-				map_month.put("day_value", Common.JD.sum_pay_money_day(2018, i+""));
-			map_month.put("year", 2018);
+				map_month.put("day_value", Common.JD.sum_pay_money_day(year, i+""));
+			map_month.put("year", year);
 			list.add(map_month);
 		}
 		ActionContext.getContext().put("list", list);
