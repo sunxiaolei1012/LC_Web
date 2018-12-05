@@ -24,6 +24,11 @@ public class adminServlet extends ActionSupport{
 	
 	
 	private String page;
+	
+	
+	private String id;
+	private String value;
+	
 	/**
 	 * 处理用户登录
 	 * @return
@@ -58,7 +63,21 @@ public class adminServlet extends ActionSupport{
 	{
 		return new CardControl().get_card(page);
 	}
-	
+	/**
+	 * 查询所有会员信息-全部
+	 * @return
+	 */
+	public String cards()
+	{
+		return new CardControl().get_cards();
+	}
+	/**
+	 * 根据状态查询
+	 */
+	public String cardtype()
+	{
+		return new CardControl().get_card_type(id , value);
+	}
 	/**
 	 * 商品类型
 	 * @return
@@ -75,6 +94,14 @@ public class adminServlet extends ActionSupport{
 	public String selling()
 	{
 		return new SellingControl().get_selling(page);
+	}
+	/**
+	 * 商品列表
+	 * @return
+	 */
+	public String sellings()
+	{
+		return new SellingControl().get_sellings();
 	}
 	/**
 	 * 添加房屋位置信息
@@ -111,6 +138,22 @@ public class adminServlet extends ActionSupport{
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getValue() {
+		return value;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
 	}
 	
 	

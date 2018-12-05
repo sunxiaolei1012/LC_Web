@@ -78,6 +78,15 @@ public class CardDaoImpl implements CardDao{
 		String sql = "select * from t_card limit "+(page-1)*count+","+count+" ";
 		return Common.UTIL.query(sql, null, Card.class);
 	}
+	public List<Card> select_cards() {
+		String sql = "select * from t_card ";
+		return Common.UTIL.query(sql, null, Card.class);
+	}
+	public List<Card> select_cardtype(String str) {
+		String sql = "select * from t_card where  1=1 "+ str;
+		System.out.println(sql);
+		return Common.UTIL.query(sql, null, Card.class);
+	}
 	
 	//sxl
 	public List<Card> showCardType() {

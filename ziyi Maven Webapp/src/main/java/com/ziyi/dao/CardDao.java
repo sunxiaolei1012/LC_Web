@@ -77,6 +77,8 @@ public interface CardDao {
 	 * @return
 	 */
 	public List<Card> select_card(int page, int count);
+	public List<Card> select_cards();
+	public List<Card> select_cardtype( String str);
 	
 	/**
 	 *展示全部卡分类
