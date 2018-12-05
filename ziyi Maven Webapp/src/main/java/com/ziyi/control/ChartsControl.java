@@ -16,7 +16,9 @@ import com.opensymphony.xwork2.ActionSupport;
  */
 public class ChartsControl extends ActionSupport{
 	
-	private Integer year;
+
+	private  Integer  year;
+
 	
 	
 	
@@ -54,8 +56,7 @@ public class ChartsControl extends ActionSupport{
 	
 	public String sumprices()
 	{
-		
-			
+
 		System.out.println(year);
 		if(year==null) {
 			year=2018;

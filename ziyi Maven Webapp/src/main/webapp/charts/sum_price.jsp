@@ -139,8 +139,10 @@ layui.use(['element','form','table','laydate','laypage'], function(){
   });
   //
   form.on('select(yearSelect)', function(data){
+
           console.log(data.value);
 	      window.location.href='charts_sumprices?year='+data.value;	      
+
 	  });
 });
 

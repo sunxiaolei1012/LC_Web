@@ -19,7 +19,7 @@ public class AjaxResponse {
 		PrintWriter out=response.getWriter();
 		out.print(a);
 		out.flush();
-		out.close();
+		out.close();   
 		
 	}
 
