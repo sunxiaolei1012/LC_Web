@@ -147,7 +147,7 @@ public class DaYinControl {
 				 HttpServletRequest request = ServletActionContext.getRequest(); 
 				   HttpSession session = request.getSession(); 
 				Users user=   (Users) session.getAttribute("user");
-				
+				System.out.println(user);
 				
 				
 				//下单时间和 带结账时间
