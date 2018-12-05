@@ -77,15 +77,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>	
 	 </body>
        
-    </body>
-       
 		<script type="text/javascript" src="js/layer.js"></script>
 		<script type="text/javascript" src="icheck/icheck.js"></script>
 		<script type="text/javascript" src="layui/layui.js"></script>
 <script>
 	 layui.use('laydate', function(){
-  var laydate = layui.laydate;
-  		
+        var laydate = layui.laydate; 		
   		laydate.render({
   		  elem: '#test6'
    		 ,range: '~'

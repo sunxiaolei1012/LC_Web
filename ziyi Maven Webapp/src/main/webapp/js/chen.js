@@ -212,14 +212,11 @@ $(document).ready(function(){
            layer.tips('折扣率输入错误（折扣率在0~1之间，如0.8，不打折输入1）', '#disnum', {
 			  tips: [3, 'red'],time:3000
 		   });
-          // return false;
         }
-//        alert(1);
         
     });	
-    /*$('#disnum').blur(function(){
-    	
-    })*/
+    var nowYear = new Date().getFullYear();
+    $('#teaTitle').html("紫怡茶道 POS 管理系统 V"+nowYear);
 });
 
 //时间显示
@@ -1107,7 +1104,7 @@ function goodsta(goodsta,tableid){
 	$.ajax({  
 	       type:"post",
 	       url:"main_sellingstate?id="+goodsta,
-	       dataType:"json",
+	       //dataType:"json",
 	       cache:false,
 	       async: true,
 	       success:function(date){

@@ -347,6 +347,9 @@ public class MainServlet extends ActionSupport{
 			order.setNumber(number);
 			order.setOrdertime(Common.df.format(new Date()));
 			order.setPrice(0.00);
+
+			order.setUserid(user.getUserid());
+
 			//收营员
 			 HttpServletRequest request = ServletActionContext.getRequest(); 
 			   HttpSession session = request.getSession(); 

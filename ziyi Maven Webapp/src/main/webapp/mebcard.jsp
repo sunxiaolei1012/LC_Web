@@ -126,8 +126,4 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="js/jquery.min.js"></script>    
 <script src="layui/layui.js"></script>
 <script type="text/javascript" src="js/mebmsg.js"></script>
-<script type="text/javascript">
-	
-     
-</script>
 </html>

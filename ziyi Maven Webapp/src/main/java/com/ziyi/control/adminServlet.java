@@ -1,5 +1,9 @@
 package com.ziyi.control;
 
+import java.util.List;
+
+import com.cyb.util.Common;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.ziyi.control.cmd.Admin;
 import com.ziyi.control.cmd.CardControl;
@@ -7,6 +11,7 @@ import com.ziyi.control.cmd.CardTypeControl;
 import com.ziyi.control.cmd.SellingControl;
 import com.ziyi.control.cmd.SellingTypeControl;
 import com.ziyi.control.cmd.TeaHouseControl;
+import com.ziyi.pojo.PerEvaluation;
 /**
  * 处理用户登录请求
  * @author 陈玉博
@@ -87,6 +92,7 @@ public class adminServlet extends ActionSupport{
 		return new SellingTypeControl().get_selling_type();
 	}
 	
+	
 	/**
 	 * 商品列表
 	 * @return
@@ -111,6 +117,19 @@ public class adminServlet extends ActionSupport{
 	{
 		return new TeaHouseControl().get_tea_house();
 	}
+	
+	//业绩查询
+public String PerEvaluation() {
+		
+		List<PerEvaluation> list=Common.PED.select_account_user();
+		System.out.println(list);
+		ActionContext.getContext().put("PerEvaluation", list);
+		
+		
+		return "PerEvaluation";
+	}
+	
+	
 	
 	public String getName() {
 		return name;

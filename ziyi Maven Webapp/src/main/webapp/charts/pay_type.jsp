@@ -15,30 +15,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="charts/js/exporting.js"></script>
 	<script type="text/javascript" src="charts/js/drilldown.js"></script>
 	<script type="text/javascript" src="charts/js/highcharts-zh_CN.js"></script>
+	<script type="text/javascript" src="charts/js/noDate.js"></script>
 	<script type="text/javascript" src="js/jquery.min.js"></script>  
 	<script type="text/javascript" src="layui/layui.js"></script>
-	<style type="text/css">
-		.changeshow{
-			display: flex;
-			flex-direction: row;
-		}
-		.changeshow .layui-btn{
-			margin-left: 1%;
-		}
+	<style type="text/css">		 
 		.showclass,.dayshow{
 			display: none;
 		}
 	</style>
 </head>
 <body>   
-
+   <br />
 	<div class="container">
 		<!-- 各支付类型月营业额显示 -->
 		<div class="changeshow">
 			<form class="layui-form">
 				<div class="layui-form-item">
+				    <label class='layui-form-label' style='padding-left: 0;'>选择年份</label>
+					<div class='layui-input-inline'>
+						<select id="selectYear" lay-filter='yearSelect'>
+							<!-- <option value='2018' checked=''>2018</option>
+					        <option value='2019'>2019</option>
+					        <option value='2019'>2020</option> -->
+						</select>
+					</div>
 				    <label class="layui-form-label">月营业额</label>
-				    <div class="layui-input-block">
+				    <div class="layui-input-inline">
 				    	<!-- 关闭状态是图表显示，开启状态是表格显示 -->
 				      <input type="checkbox" name="zzz" lay-skin="switch" lay-filter="switchTest" lay-text="图表显示|表格显示">
 				    </div>
@@ -50,9 +52,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		<div id="tableshow" class="tableshow showclass">
 			<fieldset class="layui-elem-field">
-			    <legend>月营业额
-			       
-		</legend>
+			    <legend>月营业额</legend>
 				<table class="layui-table">
 					<thead>
 					    <tr>
@@ -103,11 +103,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		<div id="daytypetable" class="tableshow dayshow">
 			<fieldset class="layui-elem-field">
-			    <legend>日营业额
-			    
-			    	
-
-</legend>
+			    <legend>日营业额</legend>
 				<table class="layui-table">
 					<thead>
 					    <tr>
@@ -192,7 +188,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
        $('#daytypetable').toggleClass('dayshow');
     }
   });
+    //年份选择
+    form.on('select(yearSelect)', function(data){
+        console.log(data.value);	     
+	  });
 });
+  $(document).ready(function(){
+	  changeYear();
+  })
+  function changeYear(){
+	  //当前年
+	   var nowyear = new Date().getFullYear();
+	   for(var i = 2015;i<=nowyear;i++){        	 
+	   	   if(nowyear == i){  
+	   		   //默认选中当前年
+	   		   $('#selectYear').append("<option value='"+i+"' selected>"+i+"</option>");
+	   	   }else{    		   
+	   		   $('#selectYear').append("<option value='"+i+"' >"+i+"</option>");
+	   	   }
+	    }
+	    formrender();
+  }
+//数据渲染   
+function formrender(){
+	layui.use('form',function(){
+		var form = layui.form;
+		form.render('select','renderForm');
+	})
+}
 
 	//支付方式月营业额
 	var chart = Highcharts.chart('container',{
@@ -234,6 +257,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			borderWidth: 0
 		}
 	},
+	//无数据时的显示
+	lang: {
+        noData: "暂无数据" //真正显示的文本
+    },
+    noData: {
+        // Custom positioning/aligning options
+        position: {	
+            //align: 'right',
+            //verticalAlign: 'bottom'
+        },
+        // Custom svg attributes
+        attr: {
+            //'stroke-width': 1,
+            //stroke: '#cccccc'
+        },
+        // Custom css
+        style: {                    
+            //fontWeight: 'bold',     
+            //fontSize: '15px',
+            //color: '#202030'        
+        }
+    },
 	series: [
 	{
 		name: '现金', //现金支付每月营业额
@@ -241,7 +286,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			 <c:forEach var="i" items="${xianjin}">
 				${i},
 			</c:forEach>
-]
+			]
 	}
 , {
 		name: '会员卡',
@@ -284,10 +329,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		text: ''
 	},
 	xAxis: {
-		categories: [
-			'1日','2日','3日','4日','5日','6日','7日','8日','9日','10日','11日','12日','13日','14日','15日','16日',
-			'17日','18日','19日','20日','21日','22日','23日','24日','25日','26日','27日','28日','29日','30日','31日'
-		],
+		type: 'category',
+// 		categories: [
+// 			'1日','2日','3日','4日','5日','6日','7日','8日','9日','10日','11日','12日','13日','14日','15日','16日',
+// 			'17日','18日','19日','20日','21日','22日','23日','24日','25日','26日','27日','28日','29日','30日','31日'
+// 		],
 		crosshair: true
 	},
 	yAxis: {
@@ -312,7 +358,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	},
 	series: [{
 		name: '现金', //现金支付每月营业额
-		data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4,49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4,49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6]
+		data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4,49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 
+			148.5, 216.4, 194.1, 95.6, 54.4,49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6]
 	}, {
 		name: '会员卡',
 		data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3,83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3]

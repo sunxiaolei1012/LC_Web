@@ -33,7 +33,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <div class="nav-header">
 			<ul class="layui-nav">
 			  <li class="layui-nav-item">
-			    <a href=""><img src="images/logo.png" class="layui-nav-img">紫怡茶道 POS 管理系统 V2018</a>
+			    <a href=""><img src="images/logo.png" class="layui-nav-img"><span id="teaTitle" style="font-size:18px;"></span></a>
 			  </li>			  
 			  <li class="layui-nav-item mui-pull-right">
 			    <a href="#"><img src="images/admin.png" class="layui-nav-img">
@@ -354,35 +354,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!-- start continue -->
 	<div id="regoods" style="display: none;">
 		<div class="regoodlist">
-			<!-- start high -->		     		    	
+			   <!-- start high -->		     		    	
                <div class="mui-table-view-list" id="rebategs">
 			        <!-- goodslist --> 
                </div>		     
                <!-- end high -->               
                <!-- start low -->
                 <div class="mui-table-view-list" id="rebategs1">
-					<!-- <div class="mui-card pattern-list">				 
-						<div class="mui-card-header">
-							<img class="w100" src="images/goods.png"/>
-						</div>
-						<div class="mui-card-content">
-							<div class="mui-card-content-inner" >
-								<p>碧螺春</p>
-							</div>
-						</div>
-						<div class="pattern-list__p" style="">
-							<p class="font-color-pink">￥<label>128</label></p>
-							<p class="font-color-gray"><a href="#"><span class="iconfont icon-tianjia"></span></a></p>
-						</div>				
-		            </div>	 -->	          		             
+                <!-- goodslist -->
                </div> 
                <!-- end low -->
 	    </div>
 	</div>
 	<!-- end continue -->
     <script type="text/javascript" src="js/jquery.min.js"></script>
-
-    
     <script src="layui/layui.js"></script>
     <script type="text/javascript" src="js/chen.js"></script>
     <script type="text/javascript" src="js/sxl.js"></script>
@@ -403,7 +388,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    ,limit:10
 		  });
     });
-    
     //会员卡查询框
 /* function mebshow(){
 	layer.open({
