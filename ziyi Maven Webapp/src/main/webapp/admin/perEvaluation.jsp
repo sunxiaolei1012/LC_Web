@@ -17,9 +17,6 @@
 	href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
 <link rel="stylesheet" href="../css/table.css" />
 <script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
-<script>
-	
-</script>
 </head>
 
 <body>
@@ -98,7 +95,7 @@
 	 
 </div>
 <script type="text/javascript" src="../layui/layui.js"></script>
-	<script type="text/javascript" src="../js/chen1.js"></script>
+<!-- 	<script type="text/javascript" src="../js/chen1.js"></script> -->
 	<script>
 		layui.use(
 						['element','laypage','laydate', 'layer', 'form', 'table' ],
@@ -131,7 +128,6 @@
 								 tableShow(6);
 								 tableRender();	
 							})
-
 						});
 		//表格数据
 		function tableShow(n){
