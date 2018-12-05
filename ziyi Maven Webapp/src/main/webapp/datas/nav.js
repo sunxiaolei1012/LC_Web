@@ -79,10 +79,10 @@ var navs = [{
 		"title": "库存",
 		"icon": "fa-navicon",
 		"href": "m_sumlistNumber"
-	}, {
+	},{
 		"title": "业绩",
 		"icon": "fa-navicon",
-		"href": "admin/perEvaluation.jsp"
+		"href": "admin_PerEvaluation"
 	}]
 },
 {

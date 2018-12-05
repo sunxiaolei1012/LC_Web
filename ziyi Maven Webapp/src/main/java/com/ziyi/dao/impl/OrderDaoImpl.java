@@ -20,7 +20,7 @@ public class OrderDaoImpl implements OrderDao{
 		return null;
 	}
 	public boolean insert_number_order(Order order) {
-		int a = Common.UTIL.getRes("insert into t_order values(null ,?,?,?,?,?,?,?,?,?,?)", new Object[]{order.getNumber() , order.getOrdertime() , order.getPrice() , order.getUserid() ,order.getStatus() , order.getType() , order.getCheckouttime() , order.getPay_price() , order.getCardid(),order.getHouseid()});
+		int a = Common.UTIL.getRes("insert into t_order values(null ,?,?,?,?,?,?,?,?,?,?,?)", new Object[]{order.getNumber() , order.getOrdertime() , order.getPrice() , order.getUserid() ,order.getStatus() , order.getType() , order.getCheckouttime() , order.getPay_price() , order.getCardid(),order.getHouseid(),order.getAccountuserid()});
 		return a>0?true:false;
 	}
 

@@ -11,15 +11,16 @@
 <head>
 <meta charset="UTF-8">
 <title>Table</title>
-<link rel="stylesheet" href="../layui/css/layui.css" media="all" />
-<link rel="stylesheet" href="../css/global.css" media="all">
+<link rel="stylesheet" href="layui/css/layui.css" media="all" />
+<link rel="stylesheet" href="css/global.css" media="all">
 <link rel="stylesheet" type="text/css"
 	href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
-<link rel="stylesheet" href="../css/table.css" />
-<script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
+<link rel="stylesheet" href="css/table.css" />
+<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
 </head>
 
 <body>
+<%-- <div>${PerEvaluation}</div> --%>
 	<div class="admin-main">
 		<blockquote class="layui-elem-quote">			 
 			<form class="layui-form layui-inline" style="margin-top: 1%;">
@@ -71,7 +72,15 @@
 						</tr>
 					</thead>
 					<tbody>
-												 
+						<c:forEach var="i" items="${PerEvaluation}">
+							<tr>
+							    <td>${i.userid}</td>
+								<td>${i.name}</td>
+								<td>${i.count}</td>
+								<td>${i.pay_price}</td>
+								<td><a href="javascript:detail('+i.userid+');" class="layui-btn layui-btn-xs">详情</a></td>
+							</tr>
+						</c:forEach>						 
 					</tbody>
 				</table>
 		</fieldset>
@@ -94,7 +103,7 @@
 				</table>
 	 
 </div>
-<script type="text/javascript" src="../layui/layui.js"></script>
+<script type="text/javascript" src="layui/layui.js"></script>
 <!-- 	<script type="text/javascript" src="../js/chen1.js"></script> -->
 	<script>
 		layui.use(
@@ -125,12 +134,12 @@
 							//选择框触发事件
 							form.on("select(peoSta)", function(data) {
 								 console.log(data.value);
-								 tableShow(6);
+// 								 tableShow(6);
 								 tableRender();	
 							})
 						});
 		//表格数据
-		function tableShow(n){
+		/* function tableShow(n){
 			var tabHTML = "";
 	    	for(var i = 0;i<n;i++){
 	    		tabHTML+='<tr>'+
@@ -142,7 +151,7 @@
 				'</tr>';	    		
 	    	}
 	    	$('#peoTable tbody').html(tabHTML);
-		}
+		} */
 		//表格重新渲染
 		function tableRender(){
 			layui.use('table',function(){
@@ -157,10 +166,7 @@
 	    		//table.render();
 	    	})
 		}
-		
-	    $(document).ready(function(){
-	    	tableShow(10);
-	    })
+
 	    //搜索
 	    function seaPeo() {
 			var searchval = $.trim($('#search').val());
@@ -168,7 +174,8 @@
 			if (searchval == ''||searchval == null) {
 				alert('输入内容不能为空');
 			} else {
-				tableShow(3);
+// 				tableShow(3);
+                //请求数据
 				tableRender();				  
 			}
 		}

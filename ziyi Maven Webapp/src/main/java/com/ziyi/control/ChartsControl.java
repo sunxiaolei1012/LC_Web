@@ -18,6 +18,8 @@ public class ChartsControl extends ActionSupport{
 	
 	private Integer year;
 	
+	
+	
 	public Integer getYear() {
 		return year;
 	}
@@ -53,8 +55,9 @@ public class ChartsControl extends ActionSupport{
 	public String sumprices()
 	{
 		
-		if(year==null||year.equals("")) {
 			
+		System.out.println(year);
+		if(year==null) {
 			year=2018;
 		}
 		Map<Integer , Object> maps = Common.JD.sum_pay_money(year);

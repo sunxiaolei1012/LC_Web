@@ -300,8 +300,30 @@ $(document).ready(function(){
 	});  
 })
 
+//
+function changeYear(){
+		//当前年
+	    var nowyear = new Date().getFullYear();
+        for(var i = 2015;i<=nowyear;i++){        	 
+     	   if(nowyear == i){  
+     		   //默认选中当前年
+     		   $('#selectYear').append("<option value='"+i+"' selected>"+i+"</option>");
+     	   }else{    		   
+     		   $('#selectYear').append("<option value='"+i+"' >"+i+"</option>");
+     	   }
+        }
+        formrender();
+    }
+    
+function formrender(){
+	layui.use('form',function(){
+		var form = layui.form;
+		form.render('select','renderForm');
+	})
+}
+
 //弹窗框
-/* function moneydetail(monthid){
+/*  function moneydetail(monthid){
 	$.ajax({
 	       type:"post",
 	       url:"charts_sumprice",
@@ -377,6 +399,6 @@ $(document).ready(function(){
 	   });
 	
 }
-  */
+ */
 </script>
 </html>
