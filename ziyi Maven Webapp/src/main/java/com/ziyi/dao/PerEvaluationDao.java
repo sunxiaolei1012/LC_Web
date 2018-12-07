@@ -12,4 +12,10 @@ public interface PerEvaluationDao {
 	 */
 	
 		public List<PerEvaluation>  select_account_user();
+	/**
+	 * 
+	 *多条件查询员工业绩 
+	 */
+		public List<PerEvaluation> select_kindAccount_user(String str);
+ 		
 }

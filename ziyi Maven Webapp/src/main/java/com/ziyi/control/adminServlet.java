@@ -3,6 +3,7 @@ package com.ziyi.control;
 import java.util.List;
 
 import com.cyb.util.Common;
+import com.cyb.util.PageCount;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.ziyi.control.cmd.Admin;
@@ -34,6 +35,15 @@ public class adminServlet extends ActionSupport{
 	private String id;
 	private String value;
 	
+	private Integer userid;
+	
+	// 当前页数 和 每页显示条数
+		private int pageNo;
+		private int pageCount;
+		
+		private String begintime;
+		private String endtime;
+		private String userrole;
 	/**
 	 * 处理用户登录
 	 * @return
@@ -119,17 +129,62 @@ public class adminServlet extends ActionSupport{
 	}
 	
 	//业绩查询
-public String PerEvaluation() {
-		
+      public String PerEvaluation() {
+		//根据name 来查询业绩
+    	  
+    	 
 		List<PerEvaluation> list=Common.PED.select_account_user();
 		System.out.println(list);
 		ActionContext.getContext().put("PerEvaluation", list);
 		
 		
 		return "PerEvaluation";
+		
 	}
 	
-	
+	//多条件查询 业绩
+	 public String  term_PerEvaluation() {
+		 //分页
+		 int pageCount = 5;
+			if (pageNo == 0)
+				pageNo = 1;
+		
+		StringBuffer sb=new StringBuffer();
+		//角色查询
+		if(userrole!=null || userrole.equals(""))
+			sb.append("and u.userrole=3 GROUP BY u.userid ");
+			
+		//name值查询
+		if(name!=null || name.equals(""))
+			sb.append("and u.name like '1%' group by `u`.`userid` ");
+			
+		// 拼接日期
+		if (begintime != null && endtime != null)
+			sb.append(" and  o.checkouttime BETWEEN '" + begintime+ "' and '" + endtime+ "'  group by `u`.`userid`");
+		
+		System.out.println(sb.toString());
+		 List<PerEvaluation> lists=Common.PED.select_account_user();
+		 int totalCount=lists.size();
+		 System.out.println("总条数：" + totalCount);
+			int allPage = PageCount.getCount(totalCount, pageCount);
+			System.out.println("总页数：" + allPage);
+			// 拼接页码
+			sb.append(" limit " + (pageNo - 1) * pageCount + "," + pageCount);
+			System.out.println(sb.toString());
+			System.out.println(sb.toString());
+			List<PerEvaluation> list =Common.PED.select_kindAccount_user(sb.toString());
+			System.out.println(list);
+			
+			
+			ActionContext.getContext().put("totalCount", totalCount);
+			ActionContext.getContext().put("allPage", allPage);
+			ActionContext.getContext().put("pageCount", pageCount);
+			ActionContext.getContext().put("PageNo", pageNo);
+			ActionContext.getContext().put("term_PerEvaluation", list);
+		 return "term_PerEvaluation";
+	 }
+
+
 	
 	public String getName() {
 		return name;

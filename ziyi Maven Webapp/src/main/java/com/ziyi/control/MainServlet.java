@@ -343,17 +343,16 @@ public class MainServlet extends ActionSupport{
 			//1、uuid正确 生成订单 订单号 年月日时分+4位随机数
 			String number = new Tools().return_orderid();
 			//2、添加订单信息
-			Order order = new Order();
-			order.setNumber(number);
-			order.setOrdertime(Common.df.format(new Date()));
-			order.setPrice(0.00);
-
-			order.setUserid(user.getUserid());
-
+			
 			//收营员
 			 HttpServletRequest request = ServletActionContext.getRequest(); 
 			   HttpSession session = request.getSession(); 
 			Users user=   (Users) session.getAttribute("user");
+			Order order = new Order();
+			order.setNumber(number);
+			order.setOrdertime(Common.df.format(new Date()));
+			order.setPrice(0.00);
+			order.setUserid(user.getUserid());
 			order.setUserid(new Integer(user.getUserrole()));
 			order.setStatus(0);
 			order.setType(0);
