@@ -89,7 +89,9 @@ public class ChartsControl extends ActionSupport{
 	 */
 	public String paytype()
 	{
-		
+		if(year==null) {
+			year=2018;
+		}
 		System.out.println("支付方式："+year);
 		List<Double> xianjin = Common.JD.sum_pay_money_type(0, year);
 		List<Double> huiyuanka = Common.JD.sum_pay_money_type(1, year);

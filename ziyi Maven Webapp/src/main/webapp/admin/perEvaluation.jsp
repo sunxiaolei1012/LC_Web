@@ -78,7 +78,7 @@
 								<td>${i.name}</td>
 								<td>${i.count}</td>
 								<td>${i.pay_price}</td>
-								<td><a href="javascript:detail('+i.userid+');" class="layui-btn layui-btn-xs">详情</a></td>
+								<td><a href="javascript:detail(${i.userid});" class="layui-btn layui-btn-xs">详情</a></td>
 							</tr>
 						</c:forEach>						 
 					</tbody>
@@ -106,6 +106,8 @@
 <script type="text/javascript" src="layui/layui.js"></script>
 <!-- 	<script type="text/javascript" src="../js/chen1.js"></script> -->
 	<script>
+	var begintime = null;
+	var endtime = null;
 		layui.use(
 						['element','laypage','laydate', 'layer', 'form', 'table' ],
 						function() {
@@ -116,16 +118,22 @@
 						   		 ,range: '~'
 						   		 ,done: function(value, date, endDate){
 						          //点击日期、清空、现在、确定均会触发。回调返回三个参数，分别代表：生成的值、日期开始时间对象、结束的日期时间对象
-						        if(value){						            
-						            console.log(value);
-						            console.log(date);
-						            console.log(date.year);
-						            console.log(endDate);
-						        }else{
-						             layer.msg('未选择时间！');
-						        }
-						 
-						    }
+								        if(value){	
+								        	var strYear = value.split("~");
+								        	    begintime = strYear[0];
+								        	    endtime = strYear[1];
+								        	var userrole = $("#selectbox").val();
+								        	var userid = $("#searchbtn").val();
+								        	window.location.href = "admin_term_PerEvaluation?begintime="+begintime+"&endtime="+endtime+'&userrole='+userrole+'&userid='+userid;
+								            /* console.log(value);
+								            console.log(date);
+								            console.log(date.year);
+								            console.log(endDate); */
+								        }else{
+								        	 
+								             layer.msg('未选择时间！');
+								        }						 
+						          }
 						   		 
 						   		}); 
 							//转换静态表格
@@ -133,32 +141,18 @@
 							table.init('everyShow');
 							//选择框触发事件
 							form.on("select(peoSta)", function(data) {
-								 console.log(data.value);
-// 								 tableShow(6);
-								 tableRender();	
+                                 //请求数据
+								 var userid = $("#searchbtn").val();
+								 window.location.href = "admin_term_PerEvaluation?begintime="+begintime+"&endtime="+endtime+'&userrole='+data.value+'&userid='+userid;
 							})
-						});
-		//表格数据
-		/* function tableShow(n){
-			var tabHTML = "";
-	    	for(var i = 0;i<n;i++){
-	    		tabHTML+='<tr>'+
-					'<td>'+(i+1)+'</td>'+								
-					'<td>name1</td>'+								
-					'<td>100</td>'+								
-					'<td>1000</td>'+								
-					'<td><a href="javascript:detail('+i+');" class="layui-btn layui-btn-xs">详情</a></td>'+
-				'</tr>';	    		
-	    	}
-	    	$('#peoTable tbody').html(tabHTML);
-		} */
+						});		 
 		//表格重新渲染
-		function tableRender(){
+		/* function tableRender(){
 			layui.use('table',function(){
 	    		var table = layui.table;
 	    		table.init('peoShow');
 	    	})
-		}
+		} */
 		function tableRender1(){
 			layui.use('table',function(){
 	    		var table = layui.table;
@@ -174,27 +168,18 @@
 			if (searchval == ''||searchval == null) {
 				alert('输入内容不能为空');
 			} else {
-// 				tableShow(3);
-                //请求数据
-				tableRender();				  
+                //请求数据               
+                var userrole = $("#selectbox").val();
+				var userid = $("#searchbtn").val();
+				window.location.href = "admin_term_PerEvaluation?begintime="+begintime+"&endtime="+endtime+'&userrole='+userrole+'&userid='+userid;
 			}
 		}
 	    //详情
-	    //员工编号：peoId  查看的时间节点：timeDate
-		function detail(peoId){
-	    	var everyHtml = "";
-	    	for(var i = 0;i<4;i++){
-	    		everyHtml+='<tr>'+
-					'<td>'+(i+1)+'</td>'+								
-					'<td>20181005</td>'+								
-					'<td>1000</td>'+								
-				'</tr>';
-	    	}
-	    	$("#everyPeo tbody").html(everyHtml);
-	    	tableRender1();
+	    //员工编号：userid  查看的时间节点：timeDate
+		function detail(userid){	     
 	    	layer.open({
     			title:'业绩详情',
-				type: 1,
+				type: 2,
 				shade: false,
 // 				btn:['确认','取消'],
 				btnAlign:'c',
@@ -205,7 +190,7 @@
                 fixed:false,
 				skin: 'layui-layer-molv', //加上边框
 				area: ['600px', '600px'], //宽高
-				content: $("#detailFram"),
+				content: 'Order_person_score?accountuserid='+userid,
 	    	});
 	    }
 	</script>
