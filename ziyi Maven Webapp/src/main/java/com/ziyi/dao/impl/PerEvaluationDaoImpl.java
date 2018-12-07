@@ -33,6 +33,7 @@ public class PerEvaluationDaoImpl implements PerEvaluationDao {
 				+str;
 		
 		//String sql="select * from v_perEvaluation";//k
+		System.out.println(sql);
 		List<PerEvaluation> list=Common.UTIL.query(sql,null, PerEvaluation.class);
 //				List<PerEvaluation> list=Common.UTIL.query(sql,new Object[]{str}, PerEvaluation.class);
 		if(list.size()>0 && list!=null) {

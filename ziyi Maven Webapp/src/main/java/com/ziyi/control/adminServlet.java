@@ -151,17 +151,18 @@ public class adminServlet extends ActionSupport{
 		
 		StringBuffer sb=new StringBuffer();
 		//角色查询
-		if(userrole!=null || userrole.equals(""))
-			sb.append("and u.userrole=3 GROUP BY u.userid ");
-			
+		if(userrole!=null)
+			sb.append("and u.userrole='"+userrole+"' ");
+		System.out.println("角色后"+sb.toString());
+		
 		//name值查询
-		if(name!=null || name.equals(""))
-			sb.append("and u.name like '1%' group by `u`.`userid` ");
-			
+		if(name!=null )
+			sb.append("and u.name like '"+name+"%'  ");
+		System.out.println("name后"+sb.toString());
 		// 拼接日期
 		if (begintime != null && endtime != null)
-			sb.append(" and  o.checkouttime BETWEEN '" + begintime+ "' and '" + endtime+ "'  group by `u`.`userid`");
-		
+			sb.append(" and  o.checkouttime BETWEEN '" + begintime+ "' and '" + endtime+ "' ");
+		System.out.println("时间后"+sb.toString());
 		System.out.println(sb.toString());
 		 List<PerEvaluation> lists=Common.PED.select_account_user();
 		 int totalCount=lists.size();
@@ -169,7 +170,7 @@ public class adminServlet extends ActionSupport{
 			int allPage = PageCount.getCount(totalCount, pageCount);
 			System.out.println("总页数：" + allPage);
 			// 拼接页码
-			sb.append(" limit " + (pageNo - 1) * pageCount + "," + pageCount);
+			sb.append(" group by `u`.`userid` limit " + (pageNo - 1) * pageCount + "," + pageCount);
 			System.out.println(sb.toString());
 			System.out.println(sb.toString());
 			List<PerEvaluation> list =Common.PED.select_kindAccount_user(sb.toString());
