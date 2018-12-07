@@ -35,7 +35,6 @@ public class ChartsControl extends ActionSupport{
 	{
 		Map<Integer , Object> maps = Common.JD.sum_pay_money(2018);
 		List<Map> list = new ArrayList<Map>();
-		
 		for(int i=1 ; i<13;i++)
 		{
 //			Map<String , Object> map = new HashMap<String , Object>();

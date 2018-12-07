@@ -151,20 +151,33 @@ public class adminServlet extends ActionSupport{
 		
 		StringBuffer sb=new StringBuffer();
 		//角色查询
-		System.out.println(userrole);
-		if(userrole!=null)
+		
+		if(userrole!=null &&!userrole.equals("0"))
 			sb.append("and u.userrole='"+userrole+"' ");
 		
 		System.out.println("角色后"+sb.toString());
 		
 		//name值查询
+		System.out.println("name"+name);
 		if(name!=null )
 			sb.append("and u.name like '"+name+"%'  ");
+		
 		System.out.println("name后"+sb.toString());
 		// 拼接日期
-		if (begintime != null && endtime != null)
-			sb.append(" and  o.checkouttime BETWEEN '" + begintime+ "' and '" + endtime+ "' ");
-		System.out.println("时间后"+sb.toString());
+		System.out.println("时间段："+begintime+endtime);
+//		System.out.println(begintime != null);
+//		System.out.println(endtime != null);
+//		System.out.println(begintime != "null");
+//		System.out.println(endtime != "null");
+	
+//		if (begintime != null && endtime != null && begintime != "null" && endtime != "null")
+//		{
+		if(!begintime.equals("null") && !endtime.equals("null"))
+			sb.append(" and o.checkouttime BETWEEN '" + begintime.trim()+ "' and '" + endtime.trim()+ "' ");
+//		}
+	
+		
+		
 	
 		 List<PerEvaluation> lists=Common.PED.select_account_user();
 		 int totalCount=lists.size();
@@ -183,8 +196,10 @@ public class adminServlet extends ActionSupport{
 			ActionContext.getContext().put("allPage", allPage);
 			ActionContext.getContext().put("pageCount", pageCount);
 			ActionContext.getContext().put("PageNo", pageNo);
-			ActionContext.getContext().put("term_PerEvaluation", list);
+			ActionContext.getContext().put("PerEvaluation", list);
+		
 		 return "term_PerEvaluation";
+		
 	 }
 
 
@@ -231,6 +246,54 @@ public class adminServlet extends ActionSupport{
 
 	public void setValue(String value) {
 		this.value = value;
+	}
+
+	public Integer getUserid() {
+		return userid;
+	}
+
+	public void setUserid(Integer userid) {
+		this.userid = userid;
+	}
+
+	public int getPageNo() {
+		return pageNo;
+	}
+
+	public void setPageNo(int pageNo) {
+		this.pageNo = pageNo;
+	}
+
+	public int getPageCount() {
+		return pageCount;
+	}
+
+	public void setPageCount(int pageCount) {
+		this.pageCount = pageCount;
+	}
+
+	public String getBegintime() {
+		return begintime;
+	}
+
+	public void setBegintime(String begintime) {
+		this.begintime = begintime;
+	}
+
+	public String getEndtime() {
+		return endtime;
+	}
+
+	public void setEndtime(String endtime) {
+		this.endtime = endtime;
+	}
+
+	public String getUserrole() {
+		return userrole;
+	}
+
+	public void setUserrole(String userrole) {
+		this.userrole = userrole;
 	}
 	
 	

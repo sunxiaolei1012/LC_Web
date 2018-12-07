@@ -89,7 +89,7 @@
 <div id="detailFram" style="display:none;">
       
 			<div class="layui-field-box">
-				<table class="layui-table" id="everyPeo" lay-filter="everyShow" lay-data="{page:true,}">
+				<table class="layui-table" id="everyPeo" lay-filter="everyShow" lay-data="{page:true}">
 					<thead>
 						<tr>
 							<th lay-data="{field:'ordnum',sort:true,width:185}">订单编号</th>
@@ -124,7 +124,7 @@
 								        	    endtime = strYear[1];
 								        	var userrole = $("#selectbox").val();
 								        	var userid = $("#searchbtn").val();
-								        	window.location.href = "admin_term_PerEvaluation?begintime="+begintime+"&endtime="+endtime+'&userrole='+userrole+'&userid='+userid;
+								        	window.location.href = "admin_term_PerEvaluation?begintime="+begintime+"&endtime="+endtime+'&userrole='+userrole+'&name='+userid;
 								            /* console.log(value);
 								            console.log(date);
 								            console.log(date.year);
