@@ -123,7 +123,7 @@
 								        	    begintime = strYear[0];
 								        	    endtime = strYear[1];
 								        	var userrole = $("#selectbox").val();
-								        	var userid = $("#searchbtn").val();
+								        	var name = $("#search").val();
 								        	window.location.href = "admin_term_PerEvaluation?begintime="+begintime+"&endtime="+endtime+'&userrole='+userrole+'&name='+userid;
 								            /* console.log(value);
 								            console.log(date);
@@ -142,8 +142,8 @@
 							//选择框触发事件
 							form.on("select(peoSta)", function(data) {
                                  //请求数据
-								 var userid = $("#searchbtn").val();
-								 window.location.href = "admin_term_PerEvaluation?begintime="+begintime+"&endtime="+endtime+'&userrole='+data.value+'&userid='+userid;
+								 var name = $("#search").val();
+								 window.location.href = "admin_term_PerEvaluation?begintime="+begintime+"&endtime="+endtime+'&userrole='+data.value+'&name='+userid;
 							})
 						});		 
 		//表格重新渲染
@@ -170,8 +170,10 @@
 			} else {
                 //请求数据               
                 var userrole = $("#selectbox").val();
-				var userid = $("#searchbtn").val();
-				window.location.href = "admin_term_PerEvaluation?begintime="+begintime+"&endtime="+endtime+'&userrole='+userrole+'&userid='+userid;
+                console.log(userrole);
+				var name = $("#search").val();
+				console.log(name);
+				window.location.href = "admin_term_PerEvaluation?begintime="+begintime+"&endtime="+endtime+'&userrole='+userrole+'&name='+name;
 			}
 		}
 	    //详情
