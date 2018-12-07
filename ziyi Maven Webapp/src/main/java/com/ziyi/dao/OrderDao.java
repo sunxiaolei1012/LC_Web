@@ -119,4 +119,11 @@ public interface OrderDao {
 	 * @return
 	 */
 	public Order select_number_orderId(int orderid);
+	
+	
+	/**
+	 * @author sxl666
+	 * 查询员工个人业绩
+	 */
+	public List<Order> select_person_score(int accountuserid);
 }

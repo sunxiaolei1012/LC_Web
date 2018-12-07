@@ -57,7 +57,7 @@ public class ChartsControl extends ActionSupport{
 	public String sumprices()
 	{
 
-		System.out.println(year);
+		
 		if(year==null) {
 			year=2018;
 		}
@@ -89,10 +89,12 @@ public class ChartsControl extends ActionSupport{
 	 */
 	public String paytype()
 	{
-		List<Double> xianjin = Common.JD.sum_pay_money_type(0, 2018);
-		List<Double> huiyuanka = Common.JD.sum_pay_money_type(1, 2018);
-		List<Double> zhifubao= Common.JD.sum_pay_money_type(2, 2018);
-		List<Double> weixin = Common.JD.sum_pay_money_type(3, 2018);
+		
+		System.out.println("支付方式："+year);
+		List<Double> xianjin = Common.JD.sum_pay_money_type(0, year);
+		List<Double> huiyuanka = Common.JD.sum_pay_money_type(1, year);
+		List<Double> zhifubao= Common.JD.sum_pay_money_type(2, year);
+		List<Double> weixin = Common.JD.sum_pay_money_type(3, year);
 		ActionContext.getContext().put("xianjin", xianjin);
 		ActionContext.getContext().put("huiyuanka", huiyuanka);
 		ActionContext.getContext().put("zhifubao", zhifubao);

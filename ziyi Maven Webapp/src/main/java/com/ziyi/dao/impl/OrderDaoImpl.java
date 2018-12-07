@@ -122,6 +122,14 @@ public class OrderDaoImpl implements OrderDao{
 		return null;
 		
 	}
+	@Override
+	public List<Order> select_person_score(int accountuserid) {
+		String sql="select * from t_order where accountuserid=?";
+		List<Order> list=Common.UTIL.query(sql, new Object[] {accountuserid}, Order.class);
+		if(list.size()>0&&list!=null)
+			return list;
+		return null;
+	}
 
 
 }

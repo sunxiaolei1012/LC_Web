@@ -18,6 +18,7 @@ public class Order {
 	private Integer cardid;//会员卡id
 	private Integer houseid;//房屋ID
 	private Integer accountuserid;//结账userid
+	private Integer xubei;//续杯  0/商品id
 	public Integer getOrderid() {
 		return orderid;
 	}
@@ -90,6 +91,12 @@ public class Order {
 	public void setAccountuserid(Integer accountuserid) {
 		this.accountuserid = accountuserid;
 	}
+	public Integer getXubei() {
+		return xubei;
+	}
+	public void setXubei(Integer xubei) {
+		this.xubei = xubei;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -106,6 +113,7 @@ public class Order {
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		result = prime * result + ((type == null) ? 0 : type.hashCode());
 		result = prime * result + ((userid == null) ? 0 : userid.hashCode());
+		result = prime * result + ((xubei == null) ? 0 : xubei.hashCode());
 		return result;
 	}
 	@Override
@@ -177,6 +185,11 @@ public class Order {
 				return false;
 		} else if (!userid.equals(other.userid))
 			return false;
+		if (xubei == null) {
+			if (other.xubei != null)
+				return false;
+		} else if (!xubei.equals(other.xubei))
+			return false;
 		return true;
 	}
 	@Override
@@ -184,15 +197,11 @@ public class Order {
 		return "Order [orderid=" + orderid + ", number=" + number + ", ordertime=" + ordertime + ", price=" + price
 				+ ", userid=" + userid + ", status=" + status + ", type=" + type + ", checkouttime=" + checkouttime
 				+ ", pay_price=" + pay_price + ", cardid=" + cardid + ", houseid=" + houseid + ", accountuserid="
-				+ accountuserid + "]";
-	}
-	public Order() {
-		super();
-		// TODO Auto-generated constructor stub
+				+ accountuserid + ", xubei=" + xubei + "]";
 	}
 	public Order(Integer orderid, String number, String ordertime, Double price, Integer userid, Integer status,
-			Integer type, String checkouttime, Double pay_price, Integer cardid, Integer houseid,
-			Integer accountuserid) {
+			Integer type, String checkouttime, Double pay_price, Integer cardid, Integer houseid, Integer accountuserid,
+			Integer xubei) {
 		super();
 		this.orderid = orderid;
 		this.number = number;
@@ -206,8 +215,12 @@ public class Order {
 		this.cardid = cardid;
 		this.houseid = houseid;
 		this.accountuserid = accountuserid;
+		this.xubei = xubei;
 	}
-
+	public Order() {
+		super();
+	}
+	
 	
 	
 	

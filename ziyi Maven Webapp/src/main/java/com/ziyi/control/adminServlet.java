@@ -151,8 +151,10 @@ public class adminServlet extends ActionSupport{
 		
 		StringBuffer sb=new StringBuffer();
 		//角色查询
+		System.out.println(userrole);
 		if(userrole!=null)
 			sb.append("and u.userrole='"+userrole+"' ");
+		
 		System.out.println("角色后"+sb.toString());
 		
 		//name值查询
@@ -163,7 +165,7 @@ public class adminServlet extends ActionSupport{
 		if (begintime != null && endtime != null)
 			sb.append(" and  o.checkouttime BETWEEN '" + begintime+ "' and '" + endtime+ "' ");
 		System.out.println("时间后"+sb.toString());
-		System.out.println(sb.toString());
+	
 		 List<PerEvaluation> lists=Common.PED.select_account_user();
 		 int totalCount=lists.size();
 		 System.out.println("总条数：" + totalCount);
@@ -171,7 +173,7 @@ public class adminServlet extends ActionSupport{
 			System.out.println("总页数：" + allPage);
 			// 拼接页码
 			sb.append(" group by `u`.`userid` limit " + (pageNo - 1) * pageCount + "," + pageCount);
-			System.out.println(sb.toString());
+		
 			System.out.println(sb.toString());
 			List<PerEvaluation> list =Common.PED.select_kindAccount_user(sb.toString());
 			System.out.println(list);

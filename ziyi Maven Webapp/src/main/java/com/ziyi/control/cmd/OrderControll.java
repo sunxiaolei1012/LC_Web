@@ -11,11 +11,16 @@ import java.util.Map;
 
 import com.cyb.util.Common;
 import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.ActionSupport;
 import com.ziyi.pojo.Card;
+import com.ziyi.pojo.Order;
 
 
-public class OrderControll {
+public class OrderControll  extends ActionSupport{
 	
+	
+	//员工结账userid
+	private Integer accountuserid;
 	
 	
 	// 开始时间和结束时间
@@ -29,7 +34,6 @@ public class OrderControll {
 //	}
 	@SuppressWarnings("unused")
 	public String sumPrice(){
-		
        
 		if(begintime!=null&&endtime!=null){
 			System.out.println(begintime+1);
@@ -85,6 +89,22 @@ public class OrderControll {
 //			  		List<Order> listIc=Common.od.select_IcOrder(sb.toString());
 		return "sumPrice";
 	}
+	/**
+	 * @author sxl666
+	 * 查询个人的业绩
+	 */
+	
+	public  String  person_score() {
+
+		System.out.println("员工号"+accountuserid);
+		List<Order> list=Common.ORDER.select_person_score(accountuserid);
+			System.out.println(list);
+			
+			ActionContext.getContext().put("person_score",list);
+			
+		return "person_score";
+	}
+	
 	
 	
 	/**
@@ -136,6 +156,12 @@ public class OrderControll {
 
 	public void setEndtime(String endtime) {
 		this.endtime = endtime;
+	}
+	public Integer getAccountuserid() {
+		return accountuserid;
+	}
+	public void setAccountuserid(Integer accountuserid) {
+		this.accountuserid = accountuserid;
 	}
 	
 	

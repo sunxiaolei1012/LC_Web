@@ -110,8 +110,9 @@
          </action> 
          <action name="Order_*" class="com.ziyi.control.cmd.OrderControll" method="{1}">
         	<result name="sumPrice">sumPrice.jsp</result>
+        	<result name="person_score">admin/perEvaluation.jsp</result>
         	<result type="json"></result> 
-        	<allowed-methods>sumPrice</allowed-methods> 
+        	<allowed-methods>sumPrice,person_score</allowed-methods> 
          </action> 
           <action name="Product_*" class="com.ziyi.control.cmd.ProductControll" method="{1}">
         	<result name="sortProduct">Tea_manage/product_sortProduct.jsp</result>
