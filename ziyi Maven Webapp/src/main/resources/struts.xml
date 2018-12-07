@@ -110,7 +110,7 @@
          </action> 
          <action name="Order_*" class="com.ziyi.control.cmd.OrderControll" method="{1}">
         	<result name="sumPrice">sumPrice.jsp</result>
-        	<result name="person_score">admin/perEvaluation.jsp</result>
+        	<result name="person_score">admin/yeji_detail.jsp</result>
         	<result type="json"></result> 
         	<allowed-methods>sumPrice,person_score</allowed-methods> 
          </action> 
