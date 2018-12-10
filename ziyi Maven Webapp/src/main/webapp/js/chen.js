@@ -989,7 +989,7 @@ function othrebate(){
             				'</div>'+	
             				'<div class="pattern-list__p">'+	
             					'<p class="font-color-pink">￥<label>'+date.big[i].price+'</label></p>'+	
-            					'<p class="font-color-gray"><a href="#"><span class="iconfont icon-tianjia"></span></a></p>'+	
+            					'<p class="font-color-gray"><a href="#"><span class="iconfont icon-tianjia" onclick="xubeiAdd('+date.big[i].sellingid+')"></span></a></p>'+	
             				'</div>'+					
                         '</div>'
                 		}
@@ -1009,7 +1009,7 @@ function othrebate(){
             				'</div>'+	
             				'<div class="pattern-list__p">'+	
             					'<p class="font-color-pink">￥<label>'+date.small[i].price+'</label></p>'+	
-            					'<p class="font-color-gray"><a href="#"><span class="iconfont icon-tianjia"></span></a></p>'+	
+            					'<p class="font-color-gray"><a href="#"><span class="iconfont icon-tianjia" onclick="xubeiAdd('+date.small[i].sellingid+')"></span></a></p>'+	
             				'</div>'+					
                         '</div>'
                 		}
@@ -1036,7 +1036,30 @@ function othrebate(){
 		content: $("#regoods"),   //引入html内容
 	});
 }
-
+function xubeiAdd(sellid){
+	var ordernum = document.getElementById("orderNum").innerText;
+//	var tablenum = document.getElementById("tableNum").innerText;
+	$.ajax({
+	       type:"post",
+	       url:"xubei_set?number="+ordernum+"&sellingid="+sellid,
+	       dataType:"json",
+	       cache:false,
+	       async: true,
+	       success:function(date){
+                if(date.state == true || date.state =="true"){
+                	layer.msg('续杯成功',{icon:6});
+                	//date.id:餐桌id
+                	orderShow(date.id);
+                }else{               	 
+                	layer.msg('续杯失败',{icon:5});
+                } 
+	       },
+	       error:function(){
+	    	   layer.msg('已掉线，即将返回登录页！');
+	    	   setTimeout("waitlog()",3000);
+	       }
+	  });
+}
 //添加商品数量
 //id:商品id
 function goodsAdd(id){	
