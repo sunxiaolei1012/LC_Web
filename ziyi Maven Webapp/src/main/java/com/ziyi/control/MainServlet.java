@@ -136,6 +136,14 @@ public class MainServlet extends ActionSupport{
 		if(id != "undefined")
 		{
 			Order order = Common.ORDER.select_houseid_state(0, new Integer(id));
+			//判断订单中是否有续杯茶品
+//			if(order.getXubei() != 0)
+//			{
+//				//查询出最高的茶的商品价格
+//				Selling_list selling = Common.ORDER.select_xubei_order(order.getNumber());
+//				
+//			}
+			
 			Map<String,Object> map = new HashMap<String , Object>();
 			map.put("number", order.getNumber());
 			map.put("ordertime", order.getOrdertime());
