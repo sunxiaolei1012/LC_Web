@@ -107,6 +107,7 @@
 					lay-data="{page:true,limit:10}">
 					<thead>
 						<tr>
+						    <th lay-data="{field:'state', sort: true}">卡状态</th>
 							<th lay-data="{field:'id', sort: true}">卡编号</th>
 							<th lay-data="{field:'cate'}">卡类型</th>
 							<th lay-data="{field:'dis', sort: true}">卡折扣</th>
@@ -123,7 +124,21 @@
 					</thead>
 					<tbody>
 						<c:forEach var="i" items="${card}">
+						
 							<tr>
+								
+							<c:if test="${i.status ==0 }">
+								<td>在售</td>
+							</c:if>
+							<c:if test="${i.status ==1 }">
+								<td>在用</td>
+							</c:if>
+							<c:if test="${i.status ==2 }">
+								<td>收回</td>
+							</c:if>
+							<c:if test="${i.status ==3 }">
+								<td>挂失</td>
+							</c:if>
 								<td>${i.number}</td>
 								<c:forEach var="c" items="${card_type}">
 									<c:if test="${c.ctid==i.ctid }">

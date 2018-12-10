@@ -56,6 +56,7 @@ public class config {
 	public static final String NUMBER_FALSE="无效卡";
 	
 	public static final String OLD_JI_CARD="激活成功";
+	public static final String OLD_JI_CARD_ERROR="激活失败-卡信息已存在";
 
 	
 	public static final String XU_ERROR = "未找到可续杯商品";
@@ -67,6 +68,7 @@ public class config {
 	
 	public static final String CARD_PRICE_FALSE= "卡中余额不足";
 	public static final String CARD_PRICE_ADD_NULL="充值金额不为空";
+	public static final String CARD_USER_NAME_IS_NULL="开卡人姓名不为空";
 	public static final String CARD_NULL="会员卡为空";
 	public static final String CARD_PRICE_ADD_TRUE= "充值成功";
 	

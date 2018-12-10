@@ -45,7 +45,7 @@ public class CardDaoImpl implements CardDao{
 	}
 
 	public boolean update_card_number(Card ca) {
-		int a =Common.UTIL.getRes("update t_card set price=? ,remain=? where number=?", new Object[]{ca.getPrice() , ca.getRemain() ,ca.getNumber()});
+		int a =Common.UTIL.getRes("update t_card set price=? ,remain=? where cardid=?", new Object[]{ca.getPrice() , ca.getRemain() ,ca.getCardid()});
 		return a>0?true:false;
 	}
 
@@ -64,8 +64,8 @@ public class CardDaoImpl implements CardDao{
 	}
 
 	public boolean update_card(Card ca) {
-		int a =Util.getRes("update t_card set number=?,ctid=?,name=?,phone=?,address=?,idcard=?,price=?,spend=?,remain=? where cardid=?", new Object[]{
-						ca.getNumber(),ca.getCtid(),ca.getName(),ca.getPhone(),ca.getAddress(),ca.getIdcard(),ca.getPrice(),ca.getSpend(),ca.getRemain(),ca.getCardid()});
+		int a =Util.getRes("update t_card set number=?,ctid=?,name=?,phone=?,address=?,idcard=?,price=?,spend=?,remain=?,status=? where cardid=?", new Object[]{
+						ca.getNumber(),ca.getCtid(),ca.getName(),ca.getPhone(),ca.getAddress(),ca.getIdcard(),ca.getPrice(),ca.getSpend(),ca.getRemain(),ca.getStatus(),ca.getCardid()});
 		return a>0?true:false;
 	}
 
@@ -90,7 +90,6 @@ public class CardDaoImpl implements CardDao{
 	
 	//sxl
 	public List<Card> showCardType() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -100,8 +99,6 @@ public class CardDaoImpl implements CardDao{
 			List<Card> list=Common.UTIL.query(sql, null, Card.class);
 		return list;
 	}
-
-	
 	public int addCard(Card card) {
 		String sql="insert into  t_card  values(null,?,?,?,?,?,?,?,?,?,?,?,?)";
 			int a =Util.getRes(sql, new Object[]{card.getCtid(),card.getNumber(),card.getName(),
@@ -109,8 +106,6 @@ public class CardDaoImpl implements CardDao{
 					card.getRemain(),card.getSelltime(),card.getStatus(),card.getUserid()});
 		return a;
 	}
-
-	
 	public int checkCardId(String  number) {
 			String sql="select * from t_card where number=?";
 			List<Card> list=Common.UTIL.query(sql, new Object[]{number}, Card.class);

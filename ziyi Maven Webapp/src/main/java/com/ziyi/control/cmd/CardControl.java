@@ -133,7 +133,7 @@ public class CardControl {
 	 * 根据会员卡类型ID 修改会员卡信息
 	 */
 	public String xiu_card(String id, String number, String ctid, String name, String phone, String address,
-			String idcard, String price, String spend, String remain) {
+			String idcard, String price, String spend, String remain , String status) {
 		Card card = new Card();
 		card.setAddress(address);
 		card.setCardid(new Integer(id));
@@ -145,6 +145,7 @@ public class CardControl {
 		card.setPrice(new Double(price));
 		card.setRemain(new Double(remain));
 		card.setSpend(new Double(spend));
+		card.setStatus(new Integer(status));
 		boolean bool = Common.CARDDAO.update_card(card);
 		Common.TOOLS.return_map_object(bool, config.XIU_USER_RIGHT_MSG, config.XIU_USER_ERROR_MSG);
 		return "json";

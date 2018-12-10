@@ -57,14 +57,14 @@ public interface OrderDao {
 	 * 多表连接 更改订单
 	 * @return
 	 */
-	public boolean update_order_card(Double dou , int type , String time , int orderid , int cardid);
+	public boolean update_order_card(Double dou , int type , String time , int orderid , int cardid, int accountuserid);
 	
 	
 	/**
 	 * 现金付款
 	 * @return
 	 */
-	public boolean update_two_order(int type , String time ,Double dou , String number);
+	public boolean update_two_order(int type , String time ,Double dou , String number , int accountuserid);
 	
 	
 	/**
@@ -126,4 +126,7 @@ public interface OrderDao {
 	 * 查询员工个人业绩
 	 */
 	public List<Order> select_person_score(int accountuserid);
+	
+	
+	public boolean update_number_xubei(String number , String sellingid);
 }

@@ -20,7 +20,7 @@ public class OrderDaoImpl implements OrderDao{
 		return null;
 	}
 	public boolean insert_number_order(Order order) {
-		int a = Common.UTIL.getRes("insert into t_order values(null ,?,?,?,?,?,?,?,?,?,?,?)", new Object[]{order.getNumber() , order.getOrdertime() , order.getPrice() , order.getUserid() ,order.getStatus() , order.getType() , order.getCheckouttime() , order.getPay_price() , order.getCardid(),order.getHouseid(),order.getAccountuserid()});
+		int a = Common.UTIL.getRes("insert into t_order values(null ,?,?,?,?,?,?,?,?,?,?,?,?)", new Object[]{order.getNumber() , order.getOrdertime() , order.getPrice() , order.getUserid() ,order.getStatus() , order.getType() , order.getCheckouttime() , order.getPay_price() , order.getCardid(),order.getHouseid(),order.getAccountuserid(),order.getXubei()});
 		return a>0?true:false;
 	}
 
@@ -50,15 +50,15 @@ public class OrderDaoImpl implements OrderDao{
 	return null;
 	}
 
-	public boolean update_order_card(Double dou , int type , String time , int orderid , int cardid) {
+	public boolean update_order_card(Double dou , int type , String time , int orderid , int cardid , int accountuserid) {
 		
-		int a = Util.getRes("update t_order tos ,t_card tc set tc.remain=tc.remain-?,tc.spend=tc.spend+?,tos.`status`=1,tos.type=?,tos.checkouttime=?,tos.pay_price=?,tos.cardid=?  where  tos.orderid=? and tc.cardid=?", 
+		int a = Util.getRes("update t_order tos ,t_card tc set tc.remain=tc.remain-?,tc.spend=tc.spend+?,tos.`status`=1,tos.type=?,tos.checkouttime=?,tos.pay_price=?,tos.cardid=?,tos.accountuserid="+accountuserid+"  where  tos.orderid=? and tc.cardid=?", 
 				new Object[]{dou,dou, type , time , dou, cardid, orderid , cardid});
 		return a>0?true:false;
 	}
 
-	public boolean update_two_order(int type , String time ,Double dou , String number) {
-		int a =Common.UTIL.getRes("update t_order set status=1,type=?,checkouttime=?,pay_price=? where number=?", new Object[]{type ,time , dou,number});
+	public boolean update_two_order(int type , String time ,Double dou , String number , int accountuserid) {
+		int a =Common.UTIL.getRes("update t_order set status=1,type=?,checkouttime=?,pay_price=?,accountuserid=? where number=?", new Object[]{type ,time , dou,accountuserid,number});
 		return a>0?true:false;
 	}
 	public Order select_houseid_state(int status, int houseid) {
@@ -129,6 +129,12 @@ public class OrderDaoImpl implements OrderDao{
 		if(list.size()>0&&list!=null)
 			return list;
 		return null;
+	}
+	@Override
+	public boolean update_number_xubei(String number, String sellingid) {
+		String sql = "update t_order set xubei="+sellingid+" where number="+number;
+		int a = Common.UTIL.getRes(sql, null);
+		return a>0?true:false;
 	}
 
 

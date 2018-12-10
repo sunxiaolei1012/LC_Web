@@ -72,10 +72,10 @@ public class Common {
 	 static final String PASSWORD=pros.getProperty("password");
 	 
 	 
-//	 static{
-//		 Main.openSerialPort(pros.getProperty("com"));
-//		 Main.chen();
-//	 }
+	 static{
+		 Main.openSerialPort(pros.getProperty("com"));
+		 Main.chen();
+	 }
 	 public static final Util UTIL = new Util();
 	
 	 public static final JDBC JD = new JDBC();
@@ -137,6 +137,8 @@ public class Common {
 	 public static final CardDao CARDDAO = new CardDaoImpl();
 	 
 	 public static final int PAGE_CARD_SHOW_NUMBER = 20;
+	 
+//	 public static final boolean bool = false;
 	 
 	 
 	 

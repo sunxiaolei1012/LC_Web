@@ -52,6 +52,8 @@ public class cmdServlet extends ActionSupport{
 	private String xiangxi ;
 	private String proportion;
 	
+	private String status;
+	
 	
 	private List<File> file ; 
 	private List<String> fileFileName ;  
@@ -153,7 +155,7 @@ public class cmdServlet extends ActionSupport{
 	public String xiu_card()
 	{
 		
-		return new CardControl().xiu_card(id, number, ctid, name, phone, address, idcard, price, spend, remain);
+		return new CardControl().xiu_card(id, number, ctid, name, phone, address, idcard, price, spend, remain, status);
 		
 	}
 	/**
@@ -276,7 +278,7 @@ public class cmdServlet extends ActionSupport{
 	 */
 	public String add_newcard()
 	{
-		new New_Card().add_newcard(number, ctid, name, phone, address, price ,idcard);
+		new New_Card().add_newcard_two(ctid, name, phone, address, price ,idcard);
 		return "json";
 	}
 	
@@ -429,6 +431,12 @@ public class cmdServlet extends ActionSupport{
 	}
 	public void setProportion(String proportion) {
 		this.proportion = proportion;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 	

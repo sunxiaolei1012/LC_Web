@@ -140,7 +140,7 @@ public class CardControl extends ActionSupport{
 					map.put("button", "true");
 					map.put("msg", oc.getNumber());
 //					Order or = Common.ORDER.select_number_order(oc.getNumber());
-					Card ca = Common.CARDDAO.select_card_number(oc.getNumber());
+					Card ca = Common.CARDDAO.select_card_numbers(oc.getNumber());
 					if(ca != null)
 					{
 						map.put("rebate", Common.CARDTYPE.select_card_ctid(ca.getCtid()).getRebate());
@@ -188,7 +188,7 @@ public class CardControl extends ActionSupport{
 		else
 		{
 			CardDao cad = new CardDaoImpl();
-			Card card = cad.select_card_number(number);
+			Card card = cad.select_card_numbers(number);
 			if(card != null)
 			{
 				//充值卡

@@ -38,6 +38,7 @@ public interface Tea_HouseDao {
 	 * @return
 	 */
 	public boolean update_house_tea(int id , int status);
+	public boolean update_house_tea(int id , int status  , int jie_pay);
 	
 	/**
 	 * 根据ID 删除桌子信息

@@ -222,8 +222,15 @@ public class Tools {
 //					for (byte by : config.READ_CARD) {
 //						sb.append(by);
 //					}
-					Common.OLDDAO.insert_old_card(new Old_Card(list_String(config.READ_CARD),number ));
-					return config.OLD_JI_CARD;
+					//根据卡内部信息， 查询卡是否存在
+					String str = list_String(config.READ_CARD);
+					Old_Card ocs = Common.OLDDAO.select_value_number(str);
+					if(ocs == null)
+					{
+						Common.OLDDAO.insert_old_card(new Old_Card(str,number ));
+						return config.OLD_JI_CARD;
+					}
+					return config.OLD_JI_CARD_ERROR;
 				}
 				else//该卡编号已经存在
 				{

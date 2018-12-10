@@ -33,6 +33,40 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 			<form id="form2" class="layui-form">
 				<input type="hidden" name="id" value="${card.cardid }">
+				
+				<div class="layui-form-item">
+					<label class="layui-form-label">卡状态</label>
+					<div class="layui-input-block">
+						<select id="selectbox" name="status" lay-filter="cardSta">
+							<c:if test="${card.status ==0 }">
+								<option value="0" selected>在售</option>
+								<option value="1">在用</option>
+								<option value="2">收回</option>
+								<option value="3">挂失</option>
+							</c:if>
+							<c:if test="${card.status ==1 }">
+								<option value="0">在售</option>
+								<option value="1" selected>在用</option>
+								<option value="2">收回</option>
+								<option value="3">挂失</option>
+							</c:if>
+							<c:if test="${card.status ==2 }">
+								<option value="0">在售</option>
+								<option value="1">在用</option>
+								<option value="2" selected>收回</option>
+								<option value="3">挂失</option>
+							</c:if>
+							<c:if test="${card.status ==3 }">
+								<option value="0">在售</option>
+								<option value="1">在用</option>
+								<option value="2">收回</option>
+								<option value="3" selected>挂失</option>
+							</c:if>
+
+						</select>
+					</div>
+				</div>
+				
 				<div class="layui-form-item">
 					<label class="layui-form-label">卡编号</label>
 					<div class="layui-input-block">
@@ -106,8 +140,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</body>
 <script type="text/javascript">
 layui.use('form', function(){
-			var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
-			  form.render();
+		
 			});
 </script>
 </html>

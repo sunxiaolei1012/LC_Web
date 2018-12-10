@@ -356,7 +356,7 @@ public class MainServlet extends ActionSupport{
 			order.setOrdertime(Common.df.format(new Date()));
 			order.setPrice(0.00);
 			order.setUserid(user.getUserid());
-			order.setUserid(new Integer(user.getUserrole()));
+//			order.setUserid(new Integer(user.getUserrole()));
 			order.setStatus(0);
 			order.setType(0);
 			order.setCheckouttime("");
@@ -527,14 +527,14 @@ public class MainServlet extends ActionSupport{
 								Double dou = order.getPrice()*rebate;
 								if(card.getRemain() >= dou)
 								{
+									Users user = (Users) ActionContext.getContext().getSession().get("user");
 									//执行扣钱操作                                                   会员卡是1
-									boolean bool = orderdao.update_order_card(dou, 1, Common.df.format(new Date()), order.getOrderid(), card.getCardid());
+									boolean bool = orderdao.update_order_card(dou, 1, Common.df.format(new Date()), order.getOrderid(), card.getCardid(),user.getUserid());
 									if(bool)
 									{
 										Common.HOUSE.update_house_tea(order.getHouseid(), 0);
 										map.put("state", true);
 										map.put("msg", config.PAY_TRUE);
-										Users user = (Users) ActionContext.getContext().getSession().get("user");
 										Common.TOOLS.log_time(user.getName()+"收取了订单号为："+number+"的账单。金额为："+dou+"。会员卡付款，卡号："+cnumber,10);
 									}
 									else
@@ -564,13 +564,14 @@ public class MainServlet extends ActionSupport{
 						
 						//根据订单编号，查询订单信息
 						Order orders = Common.ORDER.select_number_order(number);
-						boolean bool = orderdao.update_two_order(0, Common.df.format(new Date()),orders.getPrice(), number);
+						Users user = (Users) ActionContext.getContext().getSession().get("user");
+						boolean bool = orderdao.update_two_order(0, Common.df.format(new Date()),orders.getPrice(), number,user.getUserid());
 							if(bool)
 							{
 								Common.HOUSE.update_house_tea(orders.getHouseid(), 0);
 								map.put("state", true);
 								map.put("msg", config.PAY_TRUE);
-								Users user = (Users) ActionContext.getContext().getSession().get("user");
+								
 								Common.TOOLS.log_time(user.getName()+"收取了订单号为："+number+"的账单。金额为："+orders.getPrice()+"。现金付款",10);
 							}
 							else
@@ -583,13 +584,13 @@ public class MainServlet extends ActionSupport{
 					{
 						//根据订单编号，查询订单信息
 						Order orders = Common.ORDER.select_number_order(number);
-						boolean bool = orderdao.update_two_order(2, Common.df.format(new Date()),orders.getPrice(), number);
+						Users user = (Users) ActionContext.getContext().getSession().get("user");
+						boolean bool = orderdao.update_two_order(2, Common.df.format(new Date()),orders.getPrice(), number,user.getUserid());
 							if(bool)
 							{
 								Common.HOUSE.update_house_tea(orders.getHouseid(), 0);
 								map.put("state", true);
 								map.put("msg", config.PAY_TRUE);
-								Users user = (Users) ActionContext.getContext().getSession().get("user");
 								Common.TOOLS.log_time(user.getName()+"收取了订单号为："+number+"的账单。金额为："+orders.getPrice()+"。支付宝付款",10);
 							}
 							else
@@ -601,14 +602,14 @@ public class MainServlet extends ActionSupport{
 					else if(ids == 3)//微信
 					{
 						//根据订单编号，查询订单信息
+						Users user = (Users) ActionContext.getContext().getSession().get("user");
 						Order orders = Common.ORDER.select_number_order(number);
-						boolean bool = orderdao.update_two_order(3, Common.df.format(new Date()),orders.getPrice(), number);
+						boolean bool = orderdao.update_two_order(3, Common.df.format(new Date()),orders.getPrice(), number , user.getUserid());
 							if(bool)
 							{
 								Common.HOUSE.update_house_tea(orders.getHouseid(), 0);
 								map.put("state", true);
 								map.put("msg", config.PAY_TRUE);
-								Users user = (Users) ActionContext.getContext().getSession().get("user");
 								Common.TOOLS.log_time(user.getName()+"收取了订单号为："+number+"的账单。金额为："+orders.getPrice()+"。微信付款",10);
 							}
 							else
@@ -629,145 +630,147 @@ public class MainServlet extends ActionSupport{
 	
 	public String pay_xubei()
 	{
-		System.out.println("pay");
-			Map<String , Object> map = new HashMap<String , Object>();
-			OrderDao orderdao = new OrderDaoImpl();
-			Order order = orderdao.select_number_order(number);
-			if(order == null)
-			{
-				map.put("state", false);
-				map.put("msg", config.PAY_NUMBER_DEL);
-			}
-			else if(order.getStatus() == 1)
-			{
-				map.put("state", false);
-				map.put("msg", config.PAY_NUMBER_TRUE);
-			}
-			else
-			{
-				int ids = new Integer(id);
-				if(ids == 1)//会员卡付款
-				{
-					if(null == cnumber || "".equals(cnumber))
-					{
-						map.put("state", false);
-						map.put("msg", config.CARD_NULL);
-					}
-					else
-					{
-						//有会员卡。根据会员卡号 查询会员卡信息
-						CardDao cdd = new CardDaoImpl();
-						Card card = cdd.select_card_number(cnumber);
-						if(card != null)//卡有效
-						{
-							Card_typeDao cld = new Card_typeDaoImpl();
-							Card_type ctid = cld.select_card_ctid(card.getCtid());
-							Double rebate = 1.00;
-							if(ctid != null)
-								rebate = ctid.getRebate();
-							if(order != null)//订单存在
-							{
-								//判断卡中余额与折扣，是否够付钱
-								Double dou = order.getPrice()*rebate;
-								if(card.getRemain() >= dou)
-								{
-									//执行扣钱操作                                                   会员卡是1
-									boolean bool = orderdao.update_order_card(dou, 1, Common.df.format(new Date()), order.getOrderid(), card.getCardid());
-									if(bool)
-									{
-										Common.HOUSE.update_house_tea(order.getHouseid(), 0);
-										map.put("state", true);
-										map.put("msg", config.PAY_TRUE);
-										Users user = (Users) ActionContext.getContext().getSession().get("user");
-										Common.TOOLS.log_time(user.getName()+"收取了订单号为："+number+"的账单。金额为："+dou+"。会员卡付款，卡号："+cnumber,10);
-									}
-									else
-									{
-										map.put("state", false);
-										map.put("msg", config.PAY_ERROR);
-									}
-								}
-								else
-								{
-									map.put("state", false);
-									map.put("msg", config.CARD_PRICE_FALSE);
-								}
-								
-							}
-								
-							}
-							else//卡无效
-							{
-								map.put("state", false);
-								map.put("msg", config.NUMBER_FALSE);
-							}
-						}
-					}
-					else if(ids == 0)//现金付款
-					{
-						
-						//根据订单编号，查询订单信息
-						Order orders = Common.ORDER.select_number_order(number);
-						boolean bool = orderdao.update_two_order(0, Common.df.format(new Date()),orders.getPrice(), number);
-							if(bool)
-							{
-								Common.HOUSE.update_house_tea(orders.getHouseid(), 0);
-								map.put("state", true);
-								map.put("msg", config.PAY_TRUE);
-								Users user = (Users) ActionContext.getContext().getSession().get("user");
-								Common.TOOLS.log_time(user.getName()+"收取了订单号为："+number+"的账单。金额为："+orders.getPrice()+"。现金付款",10);
-							}
-							else
-							{
-								map.put("state", false);
-								map.put("msg", config.PAY_ERROR);
-							}
-					}
-					else if(ids == 2)//支付宝
-					{
-						//根据订单编号，查询订单信息
-						Order orders = Common.ORDER.select_number_order(number);
-						boolean bool = orderdao.update_two_order(2, Common.df.format(new Date()),orders.getPrice(), number);
-							if(bool)
-							{
-								Common.HOUSE.update_house_tea(orders.getHouseid(), 0);
-								map.put("state", true);
-								map.put("msg", config.PAY_TRUE);
-								Users user = (Users) ActionContext.getContext().getSession().get("user");
-								Common.TOOLS.log_time(user.getName()+"收取了订单号为："+number+"的账单。金额为："+orders.getPrice()+"。支付宝付款",10);
-							}
-							else
-							{
-								map.put("state", false);
-								map.put("msg", config.PAY_ERROR);
-							}
-					}
-					else if(ids == 3)//微信
-					{
-						//根据订单编号，查询订单信息
-						Order orders = Common.ORDER.select_number_order(number);
-						boolean bool = orderdao.update_two_order(3, Common.df.format(new Date()),orders.getPrice(), number);
-							if(bool)
-							{
-								Common.HOUSE.update_house_tea(orders.getHouseid(), 0);
-								map.put("state", true);
-								map.put("msg", config.PAY_TRUE);
-								Users user = (Users) ActionContext.getContext().getSession().get("user");
-								Common.TOOLS.log_time(user.getName()+"收取了订单号为："+number+"的账单。金额为："+orders.getPrice()+"。微信付款",10);
-							}
-							else
-							{
-								map.put("state", false);
-								map.put("msg", config.PAY_ERROR);
-							}
-					}
-					else //待添加
-					{
-						
-					}
-			}
-		new Tools().returns(Gsons.tojson(map));
-		return "json";
+		System.out.println("pay_xubeoi");
+		return "";
+//		System.out.println("pay");
+//			Map<String , Object> map = new HashMap<String , Object>();
+//			OrderDao orderdao = new OrderDaoImpl();
+//			Order order = orderdao.select_number_order(number);
+//			if(order == null)
+//			{
+//				map.put("state", false);
+//				map.put("msg", config.PAY_NUMBER_DEL);
+//			}
+//			else if(order.getStatus() == 1)
+//			{
+//				map.put("state", false);
+//				map.put("msg", config.PAY_NUMBER_TRUE);
+//			}
+//			else
+//			{
+//				int ids = new Integer(id);
+//				if(ids == 1)//会员卡付款
+//				{
+//					if(null == cnumber || "".equals(cnumber))
+//					{
+//						map.put("state", false);
+//						map.put("msg", config.CARD_NULL);
+//					}
+//					else
+//					{
+//						//有会员卡。根据会员卡号 查询会员卡信息
+//						CardDao cdd = new CardDaoImpl();
+//						Card card = cdd.select_card_number(cnumber);
+//						if(card != null)//卡有效
+//						{
+//							Card_typeDao cld = new Card_typeDaoImpl();
+//							Card_type ctid = cld.select_card_ctid(card.getCtid());
+//							Double rebate = 1.00;
+//							if(ctid != null)
+//								rebate = ctid.getRebate();
+//							if(order != null)//订单存在
+//							{
+//								//判断卡中余额与折扣，是否够付钱
+//								Double dou = order.getPrice()*rebate;
+//								if(card.getRemain() >= dou)
+//								{
+//									Users user = (Users) ActionContext.getContext().getSession().get("user");
+//									//执行扣钱操作                                                   会员卡是1
+//									boolean bool = orderdao.update_order_card(dou, 1, Common.df.format(new Date()), order.getOrderid(), card.getCardid(),user.getUserid());
+//									if(bool)
+//									{
+//										Common.HOUSE.update_house_tea(order.getHouseid(), 0);
+//										map.put("state", true);
+//										map.put("msg", config.PAY_TRUE);
+//										Common.TOOLS.log_time(user.getName()+"收取了订单号为："+number+"的账单。金额为："+dou+"。会员卡付款，卡号："+cnumber,10);
+//									}
+//									else
+//									{
+//										map.put("state", false);
+//										map.put("msg", config.PAY_ERROR);
+//									}
+//								}
+//								else
+//								{
+//									map.put("state", false);
+//									map.put("msg", config.CARD_PRICE_FALSE);
+//								}
+//								
+//							}
+//								
+//							}
+//							else//卡无效
+//							{
+//								map.put("state", false);
+//								map.put("msg", config.NUMBER_FALSE);
+//							}
+//						}
+//					}
+//					else if(ids == 0)//现金付款
+//					{
+//						
+//						//根据订单编号，查询订单信息
+//						Order orders = Common.ORDER.select_number_order(number);
+//						boolean bool = orderdao.update_two_order(0, Common.df.format(new Date()),orders.getPrice(), number);
+//							if(bool)
+//							{
+//								Common.HOUSE.update_house_tea(orders.getHouseid(), 0);
+//								map.put("state", true);
+//								map.put("msg", config.PAY_TRUE);
+//								Users user = (Users) ActionContext.getContext().getSession().get("user");
+//								Common.TOOLS.log_time(user.getName()+"收取了订单号为："+number+"的账单。金额为："+orders.getPrice()+"。现金付款",10);
+//							}
+//							else
+//							{
+//								map.put("state", false);
+//								map.put("msg", config.PAY_ERROR);
+//							}
+//					}
+//					else if(ids == 2)//支付宝
+//					{
+//						//根据订单编号，查询订单信息
+//						Order orders = Common.ORDER.select_number_order(number);
+//						boolean bool = orderdao.update_two_order(2, Common.df.format(new Date()),orders.getPrice(), number);
+//							if(bool)
+//							{
+//								Common.HOUSE.update_house_tea(orders.getHouseid(), 0);
+//								map.put("state", true);
+//								map.put("msg", config.PAY_TRUE);
+//								Users user = (Users) ActionContext.getContext().getSession().get("user");
+//								Common.TOOLS.log_time(user.getName()+"收取了订单号为："+number+"的账单。金额为："+orders.getPrice()+"。支付宝付款",10);
+//							}
+//							else
+//							{
+//								map.put("state", false);
+//								map.put("msg", config.PAY_ERROR);
+//							}
+//					}
+//					else if(ids == 3)//微信
+//					{
+//						//根据订单编号，查询订单信息
+//						Order orders = Common.ORDER.select_number_order(number);
+//						boolean bool = orderdao.update_two_order(3, Common.df.format(new Date()),orders.getPrice(), number);
+//							if(bool)
+//							{
+//								Common.HOUSE.update_house_tea(orders.getHouseid(), 0);
+//								map.put("state", true);
+//								map.put("msg", config.PAY_TRUE);
+//								Users user = (Users) ActionContext.getContext().getSession().get("user");
+//								Common.TOOLS.log_time(user.getName()+"收取了订单号为："+number+"的账单。金额为："+orders.getPrice()+"。微信付款",10);
+//							}
+//							else
+//							{
+//								map.put("state", false);
+//								map.put("msg", config.PAY_ERROR);
+//							}
+//					}
+//					else //待添加
+//					{
+//						
+//					}
+//			}
+//		new Tools().returns(Gsons.tojson(map));
+//		return "json";
 	}
 	
 	

@@ -42,7 +42,7 @@
          	<result name="get_selling">admin/selling.jsp</result>
          	<result name="get_tea_house">admin/tea_house.jsp</result>
 <!--      		<allowed-methods>login,user,cardType,card,sellingtype,selling,sellings,teahouse,cards,cardtype -->
-     		<allowed-methods>login,user,cardType,card,sellingtype,selling,teahouse,PerEvaluation,term_PerEvaluation</allowed-methods>
+     		<allowed-methods>login,user,cardType,cardtype,card,cards,sellingtype,selling,sellings,teahouse,PerEvaluation,term_PerEvaluation</allowed-methods>
      	</action>
      	<action name="adminindex" class="com.ziyi.control.AdminIndex" method="adminindex">
      		<result name="index">admin/index.jsp</result>
@@ -82,6 +82,11 @@
             <result name="json" type="json"></result>
             <result name="image">admin/update/images.jsp</result>
          	<allowed-methods>selling,image,del</allowed-methods>
+         </action>
+         
+         <action name="xubei_*" class="com.ziyi.control.XuBeiControl" method="{1}">
+         	 <result name="json" type="json"></result>
+         	 <allowed-methods>set</allowed-methods>
          </action>
          
             <action name="dayin_*" class="com.ziyi.control.DaYinControl" method="{1}">

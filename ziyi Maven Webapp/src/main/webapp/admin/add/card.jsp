@@ -30,12 +30,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<legend>添加新卡</legend>
 			</fieldset>
 			<form id="form2" class="layui-form" onsubmit="return false">
-				<div class="layui-form-item">
-					<label class="layui-form-label">卡编号</label>
-					<div class="layui-input-block">
-						<input type="text" name="number" lay-verify="title" autocomplete="off" placeholder="请输入卡编号" class="layui-input">
-					</div>
-				</div>
+<!-- 				<div class="layui-form-item"> -->
+<!-- 					<label class="layui-form-label">卡编号</label> -->
+<!-- 					<div class="layui-input-block"> -->
+<!-- 						<input type="text" name="number" lay-verify="title" autocomplete="off" placeholder="请输入卡编号" class="layui-input"> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
 				<div class="layui-form-item">
 					<label class="layui-form-label">卡类型</label>
 					<div class="layui-input-block">
