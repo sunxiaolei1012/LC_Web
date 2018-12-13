@@ -10,7 +10,7 @@ public class Card {
 	private Integer ctid;//卡类型id
 	private String number;//编号
 	private String name;//所属人
-	private Integer phone;//所属手机
+	private String phone;//所属手机
 	private String address;//所属地址
 	private String idcard;//身份证号码
 	private Double price;//总金额
@@ -43,10 +43,10 @@ public class Card {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Integer getPhone() {
+	public String getPhone() {
 		return phone;
 	}
-	public void setPhone(Integer phone) {
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 	public String getAddress() {
@@ -96,12 +96,6 @@ public class Card {
 	}
 	public void setUserid(Integer userid) {
 		this.userid = userid;
-	}
-	@Override
-	public String toString() {
-		return "Card [cardid=" + cardid + ", ctid=" + ctid + ", number=" + number + ", name=" + name + ", phone="
-				+ phone + ", address=" + address + ", idcard=" + idcard + ", price=" + price + ", spend=" + spend
-				+ ", remain=" + remain + ", selltime=" + selltime + ", status=" + status + ", userid=" + userid + "]";
 	}
 	@Override
 	public int hashCode() {
@@ -198,26 +192,12 @@ public class Card {
 			return false;
 		return true;
 	}
-	public Card(Integer ctid, String number, String name, Integer phone, String address, String idcard, Double price,
-			Double spend, Double remain, String selltime, Integer status, Integer userid) {
-		super();
-		this.ctid = ctid;
-		this.number = number;
-		this.name = name;
-		this.phone = phone;
-		this.address = address;
-		this.idcard = idcard;
-		this.price = price;
-		this.spend = spend;
-		this.remain = remain;
-		this.selltime = selltime;
-		this.status = status;
-		this.userid = userid;
+	@Override
+	public String toString() {
+		return "Card [cardid=" + cardid + ", ctid=" + ctid + ", number=" + number + ", name=" + name + ", phone="
+				+ phone + ", address=" + address + ", idcard=" + idcard + ", price=" + price + ", spend=" + spend
+				+ ", remain=" + remain + ", selltime=" + selltime + ", status=" + status + ", userid=" + userid + "]";
 	}
-	public Card() {
-		super();
-	}
-	
 	
 	
 	

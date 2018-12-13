@@ -56,7 +56,7 @@ public class Test_Action {
 			ca.setIdcard("测试身份证"+i);
 			ca.setName("测试名称"+i);
 			ca.setNumber("测试卡号"+i);
-			ca.setPhone(321123);
+			ca.setPhone(321123+"{");
 			ca.setPrice(1000.00);
 			ca.setRemain(1000.00);
 			ca.setSpend(0.00);

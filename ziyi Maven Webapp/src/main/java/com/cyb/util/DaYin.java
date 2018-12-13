@@ -30,8 +30,11 @@ public class DaYin implements Printable {
 	private static String USERNAME;
 	private static String BEGAINTIME;
 	private static String ENDTIME;
+	
+	private static String JieZhang;
+	
 	private static void chushihua(String begainTime,String endTime,String username,String shopname, String orderNo, String memName, String memMobile, String memAddress,
-			String[] goodsArray,String price,boolean bool, String shifu) {
+			String[] goodsArray,String price,boolean bool, String shifu , String jiezhang) {
 		SHOPNAME = shopname;
 		SHOPTEL = memMobile;
 		ORDERNO = orderNo;
@@ -47,14 +50,16 @@ public class DaYin implements Printable {
 	   USERNAME=username;
 	   BEGAINTIME=begainTime;
 	   ENDTIME=endTime;
+	   
+	   JieZhang=jiezhang;
 	}
 
 	/**
 	 * 用于将商品零售进行进行打印
 	 */
 	public static void printSheet(String begainTime,String endTime,String username,String shopname, String orderNo, String memName, String memMobile, String memAddress,
-			String[] goodsArray,String price, boolean bool , String shifu) {
-		chushihua(begainTime,endTime,username,shopname, orderNo, memName, memMobile, memAddress, goodsArray,price,bool , shifu);
+			String[] goodsArray,String price, boolean bool , String shifu , String jiezhang) {
+		chushihua(begainTime,endTime,username,shopname, orderNo, memName, memMobile, memAddress, goodsArray,price,bool , shifu , jiezhang);
 		// 通俗理解就是书、文档
 		Book book = new Book();
 		// 设置成竖打
@@ -140,7 +145,13 @@ public class DaYin implements Printable {
 				y += fontContent.getSize2D() + 2;
 				g2d.drawString("桌  号：" +MEMNAME, (float) x, (float) y);
 				y += fontContent.getSize2D() + 2;
-				g2d.drawString("收营员：" + USERNAME, (float) x, (float) y);
+				g2d.drawString("服务员:" + USERNAME, (float) x, (float) y);
+				if(BOOL)
+				{
+					g2d.drawString("收银员：" + JieZhang, (float) x + 70, (float) y);
+					
+				}
+			
 				y += fontContent.getSize2D() + 2;
 				g2d.drawString("下单时间：" + BEGAINTIME, (float) x, (float) y);
 				

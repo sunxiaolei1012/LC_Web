@@ -19,8 +19,7 @@ function image(cmd)
 			  fixed: false, //不固定
 			  maxmin: true,
 			  content: 'image_selling?id='+cmd,
-			});
-	
+			});	
 }
 function adds(cmd)
 {
@@ -634,7 +633,7 @@ function press(){
 		       url:"dayin_get?number="+orderNum+"&table="+tablenum+"&value="+goolist+"&price="+allmoney,
 		       dataType:"json",
 		       cache:false,
-		       async: false,
+		       async: true,
 		       success:function(d){
 		    	   layer.msg('成功打印');
 		       },
@@ -781,7 +780,7 @@ function pay(number,table){
 	     	                    		       url:"dayin_number?number="+number,
 	     	                    		       dataType:"json",
 	     	                    		       cache:false,
-	     	                    		       async: false,
+	     	                    		       async: true,
 	     	                    		       success:function(d){
 	     	                    		    	   layer.msg('成功打印');
 	     	                    		       },
@@ -844,6 +843,7 @@ function category(){
 	       cache:false,
 	       async: true,
 	       success:function(d){
+	    	 
 	    	   var ulele = $(".layui-tab-title");
 	    	   var tabcon = document.getElementById("layui-tab-content");
                var ele="";
@@ -881,7 +881,7 @@ function goodslist(type_id){
 	       url:"main_value?id="+type_id,
 	       dataType:"json",
 	       cache:false,
-	       async: false,
+	       async: true,
 	       success:function(date){
 	    	   if(date != null)
 	    		   {

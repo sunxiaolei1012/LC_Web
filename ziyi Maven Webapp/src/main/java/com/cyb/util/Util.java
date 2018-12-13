@@ -74,10 +74,11 @@ public class Util<T> {
 						if(cname.equalsIgnoreCase(f.getName()))
 						{
 							String methodName="set"+f.getName().substring(0,1).toUpperCase()+f.getName().substring(1);
+							
 							switch(type)
 							{
+							
 							case Types.INTEGER:
-							case 3:
 								method = clazz.getMethod(methodName,Integer.class);
 								method.invoke(obj, rs.getInt(i));
 								break;

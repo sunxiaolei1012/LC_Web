@@ -72,7 +72,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										<td>${i.xiangxi}</td>
 										<td>${i.number}</td>
 										<td>
-										<a href="javascript:image('${i.sellingid}');" class="layui-btn layui-btn-mini layui-btn-xs">编辑图片</a>
+										<a href="javascript:image('${i.sellingid}');" class="layui-btn layui-btn-mini layui-btn-xs">图片</a>
 										<a href="javascript:update('selling','${i.sellingid}');" class="layui-btn layui-btn-xs">编辑</a>
 										<a href="javascript:del('selling','${i.sellingid }')" data-id="1" data-opt="del" class="layui-btn layui-btn-danger layui-btn-xs">删除</a>
 										</td>

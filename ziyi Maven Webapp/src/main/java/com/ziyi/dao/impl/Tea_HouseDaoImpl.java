@@ -15,7 +15,7 @@ public class Tea_HouseDaoImpl implements Tea_HouseDao{
 	}
 
 	public List<Tea_House> select_House() {
-		List<Tea_House> list = Common.UTIL.query("select * from t_tea_house ORDER BY position", null, Tea_House.class);
+		List<Tea_House> list = Common.UTIL.query("select * from t_tea_house ORDER BY position,houseid", null, Tea_House.class);
 		if(null != list && list.size() >0)
 		{
 			return list;

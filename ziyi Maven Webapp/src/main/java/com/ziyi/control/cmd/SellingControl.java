@@ -146,7 +146,7 @@ public class SellingControl {
 		card.setIdcard(idcard);
 		card.setName(name);
 		card.setNumber(number);
-		card.setPhone(new Integer(phone));
+		card.setPhone(phone);
 		card.setPrice(new Double(price));
 		card.setRemain(new Double(remain));
 		card.setSpend(new Double(spend));

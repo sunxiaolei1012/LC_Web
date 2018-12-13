@@ -188,6 +188,7 @@ public class MainServlet extends ActionSupport{
 	public String type()
 	{
 		List<Selling_type> list = Common.STYPE.select_selling_type();
+//		System.out.println(new Gson().toJson(list));
 		Common.TOOLS.return_object(new Gson().toJson(list));
 		return "json";
 	}
@@ -200,7 +201,7 @@ public class MainServlet extends ActionSupport{
 	{
 		//根据类别ID 查询其对应商品信息
 		int a = 1;
-		if(id != null && !id.equals(""))
+		if(id != null && !id.equals("") && !id.equals("undefined"))
 			a= new Integer(id);
 		List<Selling_list> list = Common.SLD.select_selling_type(a);
 		if(list != null)

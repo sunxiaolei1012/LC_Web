@@ -11,7 +11,87 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import com.ziyi.pojo.entity.V_Dian;
+import com.ziyi.pojo.entity.V_Jie;
+
 public class JDBC {
+
+	/**
+	 * 根据支付类型查询信息
+	 * @param year
+	 * @param day
+	 * @return
+	 */
+	public List<V_Jie>  select_jie()
+	{
+		
+		Connection con=null;
+		ResultSet res=null;
+		PreparedStatement ps=null;
+		List<V_Jie> list = new ArrayList<V_Jie>();
+		try
+		{
+			con=Util.getConn();
+			ps=con.prepareStatement("select * from v_yeji_jie");
+			res=ps.executeQuery();
+			while(res.next())
+			{
+				V_Jie vd = new V_Jie();
+				vd.setCount(res.getInt(3));
+				vd.setName(res.getString(1));
+				vd.setUserid(res.getInt(1));
+				list.add(vd);
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			Util.closeRes(con,ps,res);
+		}
+		return list;
+	}
+	/**
+	 * 根据支付类型查询信息
+	 * @param year
+	 * @param day
+	 * @return
+	 */
+	public List<V_Dian>  select_dian()
+	{
+		
+		Connection con=null;
+		ResultSet res=null;
+		PreparedStatement ps=null;
+		List<V_Dian> list = new ArrayList<V_Dian>();
+		try
+		{
+			con=Util.getConn();
+			ps=con.prepareStatement("select * from v_yeji_dian");
+			res=ps.executeQuery();
+			while(res.next())
+			{
+				V_Dian vd = new V_Dian();
+				vd.setCount(res.getInt(3));
+				vd.setName(res.getString(1));
+				vd.setUserid(res.getInt(1));
+				list.add(vd);
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			Util.closeRes(con,ps,res);
+		}
+		return list;
+	}
+	
+	
 	/**
 	 * 根据支付类型查询信息
 	 * @param year

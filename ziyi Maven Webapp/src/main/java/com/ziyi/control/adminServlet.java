@@ -13,6 +13,9 @@ import com.ziyi.control.cmd.SellingControl;
 import com.ziyi.control.cmd.SellingTypeControl;
 import com.ziyi.control.cmd.TeaHouseControl;
 import com.ziyi.pojo.PerEvaluation;
+import com.ziyi.pojo.Users;
+import com.ziyi.pojo.entity.V_Dian;
+import com.ziyi.pojo.entity.V_Jie;
 /**
  * 处理用户登录请求
  * @author 陈玉博
@@ -133,10 +136,17 @@ public class adminServlet extends ActionSupport{
 		//根据name 来查询业绩
     	  
     	 
-		List<PerEvaluation> list=Common.PED.select_account_user();
-		System.out.println(list);
-		ActionContext.getContext().put("PerEvaluation", list);
+//		List<PerEvaluation> list=Common.PED.select_account_user();
+//		ActionContext.getContext().put("PerEvaluation", list);
 		
+    	  List<V_Jie> list =Common.JD.select_jie();
+    	  List<V_Dian> list_dian =Common.JD.select_dian();
+    	  
+    	  List<Users> list_user=Common.USERS.select_show();
+    	  
+    	  ActionContext.getContext().put("list_user", list_user);
+    	  ActionContext.getContext().put("jie", list);
+    	  ActionContext.getContext().put("dian", list_dian);
 		
 		return "PerEvaluation";
 		

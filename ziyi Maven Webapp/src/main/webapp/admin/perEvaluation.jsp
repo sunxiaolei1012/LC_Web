@@ -64,20 +64,32 @@
 					lay-data="{page:true,limit:10}">
 					<thead>
 						<tr>
-							<th lay-data="{field:'id', sort: true}">员工工号</th>
+							
 							<th lay-data="{field:'name'}">员工姓名</th>
-							<th lay-data="{field:'orderNum', sort: true}">操作订单数</th>							 
-							<th lay-data="{field:'performance', sort: true}">总业绩</th>							 
+							<th lay-data="{field:'orderNum', sort: true}">点单数</th>							 
+							<th lay-data="{field:'performance', sort: true}">结单数</th>							 
 							<th lay-data="{field:'edit'}">详情</th>
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="i" items="${PerEvaluation}">
+						<c:forEach var="i" items="${list_user}">
 							<tr>
-							    <td>${i.userid}</td>
+							  
 								<td>${i.name}</td>
-								<td>${i.count}</td>
-								<td>${i.pay_price}</td>
+							     <td><c:forEach var="iss" items="${dian}">
+									
+									<c:if test="${iss.userid == i.userid }">
+										${iss.count}
+									</c:if>
+									
+								</c:forEach></td>
+								<td><c:forEach var="is" items="${jie}">
+									
+									<c:if test="${is.userid == i.userid }">
+										${is.count}
+									</c:if>
+									
+								</c:forEach></td>
 								<td><a href="javascript:detail(${i.userid});" class="layui-btn layui-btn-xs">详情</a></td>
 							</tr>
 						</c:forEach>						 

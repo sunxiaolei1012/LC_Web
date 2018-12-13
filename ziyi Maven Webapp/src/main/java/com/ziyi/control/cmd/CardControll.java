@@ -98,7 +98,7 @@ public class CardControll {
 			card.setCtid(ctid);
 			card.setNumber(number);
 			card.setName(name);
-			card.setPhone(phone);
+			card.setPhone(phone+"");
 			card.setAddress(address);
 			card.setIdcard(idcard);
 			card.setPrice(price);

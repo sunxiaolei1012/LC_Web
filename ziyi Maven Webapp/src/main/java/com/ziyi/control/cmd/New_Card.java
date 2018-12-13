@@ -75,7 +75,7 @@ public class New_Card {
 						if(null != name && !name.equals(""))
 							ca.setName(name);
 						if(null != phone && !phone.equals(""))
-							ca.setPhone(new Integer(phone));
+							ca.setPhone(phone);
 						if(null != address && !address.equals(""))
 							ca.setAddress(address);
 						if(null != idcard && !idcard.equals(""))
@@ -156,7 +156,7 @@ public class New_Card {
 			if(null != name && !name.equals(""))
 				ca.setName(name);
 			if(null != phone && !phone.equals(""))
-				ca.setPhone(new Integer(phone));
+				ca.setPhone(phone);
 			if(null != address && !address.equals(""))
 				ca.setAddress(address);
 			if(null != idcard && !idcard.equals(""))

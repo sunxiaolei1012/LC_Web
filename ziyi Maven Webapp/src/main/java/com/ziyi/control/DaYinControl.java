@@ -104,8 +104,8 @@ public class DaYinControl {
 			//收营员
 			 HttpServletRequest request = ServletActionContext.getRequest(); 
 			   HttpSession session = request.getSession(); 
-			Users user=   (Users) session.getAttribute("user");
-			DaYin.printSheet(begainTime,endTime,user.getName(),config.TEA_NAME,number, table, config.TEA_PHONE, config.TEA_ADDRESS, str , price,false , 0+"");
+//			Users user=   (Users) session.getAttribute("user");
+			DaYin.printSheet(begainTime,endTime,Common.USERS.select_id_name(order.getUserid()),config.TEA_NAME,number, table, config.TEA_PHONE, config.TEA_ADDRESS, str , price,false , 0+"",null);
 		}
 		new Tools().return_object(new Gson().toJson(map));
 		return "json";
@@ -146,7 +146,7 @@ public class DaYinControl {
 				//收营员
 				 HttpServletRequest request = ServletActionContext.getRequest(); 
 				   HttpSession session = request.getSession(); 
-				Users user=   (Users) session.getAttribute("user");
+//				Users user=   (Users) session.getAttribute("user");
 				
 				
 				
@@ -155,7 +155,7 @@ public class DaYinControl {
 					String begainTime=order.getOrdertime();
 					String endTime=order.getCheckouttime();
 				
-				DaYin.printSheet(begainTime,endTime,user.getName(),config.TEA_NAME,number, list.get(0).getHousename(), config.TEA_PHONE, config.TEA_ADDRESS, str,list.get(0).getPrice()+"" , true , list.get(0).getPay_price()+"");
+				DaYin.printSheet(begainTime,endTime,Common.USERS.select_id_name(order.getUserid()),config.TEA_NAME,number, list.get(0).getHousename(), config.TEA_PHONE, config.TEA_ADDRESS, str,list.get(0).getPrice()+"" , true , list.get(0).getPay_price()+"",Common.USERS.select_id_name(order.getAccountuserid()));
 			}
 		}
 		new Tools().return_object(new Gson().toJson(map));
