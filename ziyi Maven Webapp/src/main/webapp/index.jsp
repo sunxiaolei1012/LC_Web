@@ -71,7 +71,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</div>
 							<div class="middle-center-middle1">					
 								<div class="middle-center-box">
-								 	<div class="middle-center-tableLayout">
+								 	<div class="middle-center-tableLayout" id="btnlist">
 								 		<!-- <img class="tableImg" src="images/tableLayout.png"> -->
 								 		<div class="middle-center-tableList">
 								 		    
@@ -114,7 +114,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									 			<div class="middle-btnList"><button class="layui-btn layui-btn-grey"></button><span>空闲</span></div>
 									 			<div class="middle-btnList"><button class="layui-btn layui-btn-orange"></button><span>占用</span></div>
 									 			<div class="middle-btnList"><button class="layui-btn layui-btn-green"></button><span>预定</span></div>
-									 			<div class="middle-btnList"><button class="layui-btn layui-btn-blue"></button><span>打扫中</span></div>
+									 			<div class="middle-btnList"><button class="layui-btn layui-btn-blue"></button><span>打扫</span></div>
 									 		</div>
 								 		</div>
 								 	</div>
@@ -365,6 +365,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                </div> 
                <!-- end low -->
 	    </div>
+	</div>
+	<!-- changeTable -->
+	<div id="changeTable" style="display:none">
+	     <div class="middle-center-tableLayout1">
+	      
+	     </div>
 	</div>
 	<!-- end continue -->
     <script type="text/javascript" src="js/jquery.min.js"></script>

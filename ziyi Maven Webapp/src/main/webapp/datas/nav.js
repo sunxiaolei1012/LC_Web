@@ -1,11 +1,11 @@
 var navs = [{
 	"title": "首页",
-	"icon": "fa-stop-circle",
+	"icon": "fa-home",
 	"href": "zhuan/index.jsp",
 	"spread": false
 },{
 	"title": "员工管理",
-	"icon": "fa-stop-circle",
+	"icon": "fa-user",
 	"href": "admin_user",
 	"spread": false
 },
@@ -96,5 +96,12 @@ var navs = [{
 	"icon": "fa-stop-circle",
 	"href": "charts/press.jsp",
 	"spread": false
-}
+},
+{
+	"title": "日志",
+	"icon": "fa-stop-circle",
+	"href": "admin/logo.jsp",
+	"spread": false
+},
+
 ];

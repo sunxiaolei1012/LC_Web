@@ -330,8 +330,8 @@ function yuding_show(cl_id)
 	
 }
 //预定弹窗
-//ele_id:桌子id
-function yuding(ele_id)
+//ele_id:桌子id 
+function yuding(ele_id,sta)
 {
 	layer.open({
 		title:'预定信息提交',
@@ -349,23 +349,121 @@ function yuding(ele_id)
 		btn2:function(){	
 			layer.msg('关闭');
 			//预定关闭返回该餐桌状态修改
-			doube(ele_id);
+			doube(ele_id,sta);
 		},
 		
 	})
 	
 }
+//换桌
+var index1;
+function changeTable(oldtabId){
+//	var htmlbox = $("#btnlist").html();
+	$.ajax({
+	       type:"post",
+	       url:"main_house?houseid="+oldtabId,
+	       dataType:"json",	      
+	       cache:false,
+	       async: true,
+	       success:function(d){
+	    	   var n=[];
+	    	   var tablength = 0;
+	    	   var tablebox = $('#changeTable .middle-center-tableLayout1');
+	    	   for(var i = 0;i<d.table.length;i++){
+	    	    	if(n.indexOf(d.table[i].position)==-1){
+	    	    		n.push(d.table[i].position);
+	    	    		tablength++;
+	    	    	}	
+	    	    }
+// 	    	    console.log(tablength);
+	    	    for(var i = 0;i<tablength;i++){
+	    	    	var divbox = document.createElement('div');
+	    	    	    divbox.className='middle-center-tableList1';
+	    	    	    tablebox.append(divbox);
+	    	    }
+// 	    	    console.log(tablebox);
+	    	    var btns = $("#changeTable .middle-center-tableList1 button");
+	    	    var ele =  $("#changeTable .middle-center-tableList1");
+	    	    console.log(ele.length);
+	    	    for(var i = 0;i<btns.length;i++){
+	    	    	 btns[i].parentNode.removeChild(btns[i]);
+	    	     }
+	    	     var posi = d.table[0].position; 
+	    	     for(var i = 0;i<d.table.length;i++){
+	    	    	 var pos = d.table[i].position;  //桌子位置
+	    	    	 var id = d.table[i].houseid;  //桌子id
+	    	    	 var sta = d.table[i].status;  //桌子状态
+	    	    	 if(pos!=posi)
+	    	    		posi = pos;	    	 
+	    	    	 var abtn = "<button id='"+id+"' onclick='singleClc("+id+","+d.houseid+","+sta+")' class='layui-btn "+cs_s(sta)+"'>"+d.table[i].housename+"</button>";
+	    	    	 ele[--pos].innerHTML+=abtn; 
+	    	     }
+	    	     index1 = layer.open({
+	    	 		type:1,
+	    	 		title: '调换座位',
+	    	 		shade: false,
+	    	 		content:$('#changeTable'),
+	    	 		area:['900px','600px'],	 
+	    	 		skin: 'layui-layer-skin', //样式类名		 
+	    	 		yes:function(){	
+	    	 		     
+	    	 		},			
+	    	 		btn2:function(){				
+	    	             
+	    	 		},
+	    	 		 
+	    	 	});
+	       },	      
+	  });	 
+}
+//换桌中的单击事件
+//tabid:当前点击桌子id oldtabid:原桌子id status:当前点击的桌子状态  
+function singleClc(newtabid,oldtabid,status){
+	if(status == 0 && newtabid!=oldtabid){
+		layer.confirm('确认要调换位置吗？', {
+     		btn:['确定','取消'],
+     		skin: 'layui-layer-molv',
+     		btnAlign: 'c',
+     		}, 
+     		function(index,layero){	     	                    		   	     	                    		  
+     		   $.ajax({
+     		       type:"post",
+     		       url:"main_huan?houseid="+oldtabid+"&tableid="+newtabid,
+     		       dataType:"json",
+     		       cache:false,
+     		       async: true,
+     		       success:function(d){
+     		    	   if(d.status){
+     		    		  layer.close(index1);
+     		    		  layer.msg(d.msg);
+     		    	   }else{
+     		    		   layer.msg(d.msg);
+     		    	   }
+     		    	   
+     		       },    		      
+     		   });
+     		}, 
+     		function(index){
+     		  layer.msg('不调换，直接关闭了', {icon: 1});
+     	});
+	}else{
+		layer.msg('此位置暂不能调换，请选择其他空闲位置！');
+	}
+}
+
 //按钮触发双击事件修改餐桌状态
-//ele_id:桌子id
-function doube(ele_id)
+//ele_id:桌子id status:桌子状态
+function doube(ele_id,status)
 {
 	clearTimeout(timenull);
 	layer.open({
 			title: '修改餐桌状态',
 			// content: '餐桌状态修改',
 			// offset: 'c',
+			//area:['400px','200px'],
+			btnAlign: 'l',
 			skin: 'layui-layer-skin', //样式类名
-			btn:['空闲','占用','预定','打扫中'],
+			btn:['空闲','占用','预定','打扫','换桌'],
 			yes:function(){	
 			    update_state(ele_id,0);
 			},			
@@ -376,10 +474,18 @@ function doube(ele_id)
 			},
 			btn3:function(){
 				//预定信息填写弹窗
-				yuding(ele_id);
+				yuding(ele_id,status);
 			},
 			btn4:function(){
 				update_state(ele_id,3);
+			},
+			btn5:function(){
+				if(status==1||status==2){
+					changeTable(ele_id);
+				}else{
+					layer.msg('此桌子暂不支持调换！');
+					
+				}				
 			}
 		});
 }
@@ -489,7 +595,7 @@ function tableShow()
     	    	 var sta = d[i].status; 
     	    	 if(pos!=posi)
     	    		posi = pos;	    	 
-    	    	 var abtn = "<button id='"+id+"' onclick='clc("+id+","+sta+")' ondblclick='doube("+id+")' class='layui-btn "+cs_s(sta)+"'>"+d[i].housename+"</button>";
+    	    	 var abtn = "<button id='"+id+"' onclick='clc("+id+","+sta+")' ondblclick='doube("+id+","+sta+")' class='layui-btn "+cs_s(sta)+"'>"+d[i].housename+"</button>";
     	    	 ele[--pos].innerHTML+=abtn; 
     	     }    	    
        }   

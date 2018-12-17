@@ -461,12 +461,34 @@ margin: 0;
 	/*justify-content: space-around;*/
 	align-content: center;
 }
+.middle-center-tableLayout1{
+	display:flex;
+	width:100%;
+	height:100%;
+	display:flex;
+	flex-direction:column;
+	align-content:center;
+	justify-content:center;
+}
 .middle-center-tableList{
 	text-align: center;
 	/*border: 1px solid red;*/
 	margin-top: 5%;
 }
+.middle-center-tableList1{
+	text-align: center;
+	/*border: 1px solid red;*/
+	margin-top: 5%;
+}
 .middle-center-tableList button{
+	width: 10%;
+	height: 5%;	
+	font-size: 20px;
+	margin-bottom: 0.2%;
+	text-align:center;
+	color: #fff;
+}
+.middle-center-tableList1 button{
 	width: 10%;
 	height: 5%;	
 	font-size: 20px;
@@ -559,6 +581,10 @@ margin: 0;
 }
 .layui-layer-skin .layui-layer-btn .layui-layer-btn3 {
     background: #00a0e9;
+    border: 0px;
+}
+.layui-layer-skin .layui-layer-btn .layui-layer-btn4 {
+    background: #EE4000;
     border: 0px;
 }
 /*end*/
