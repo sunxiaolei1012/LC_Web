@@ -11,7 +11,7 @@ var navs = [{
 },
 {
 	"title": "会员管理",
-	"icon": "fa-cogs",
+	"icon": "fa-id-card",
 	"spread": false,
 	"children": [{
 		"title": "会员类型",

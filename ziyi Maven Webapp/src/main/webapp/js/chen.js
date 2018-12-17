@@ -947,9 +947,9 @@ function category(){
 	       url:"main_type",
 	       dataType:"json",
 	       cache:false,
-	       async: true,
+	       async: false,
 	       success:function(d){
-	    	 
+//	    	  console.log(d);
 	    	   var ulele = $(".layui-tab-title");
 	    	   var tabcon = document.getElementById("layui-tab-content");
                var ele="";
@@ -987,8 +987,9 @@ function goodslist(type_id){
 	       url:"main_value?id="+type_id,
 	       dataType:"json",
 	       cache:false,
-	       async: true,
+	       async: false,
 	       success:function(date){
+	    	   console.log(date);
 	    	   if(date != null)
 	    		   {
 		    	    for(var i = 0;i<date.length;i++){
