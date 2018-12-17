@@ -129,4 +129,13 @@ public interface OrderDao {
 	
 	
 	public boolean update_number_xubei(String number , String sellingid);
+	
+	
+	/**
+	 * 根据订单信息 修改桌子信息
+	 * @param number
+	 * @param table
+	 * @return
+	 */
+	public boolean update_number_house(String number , String table);
 }

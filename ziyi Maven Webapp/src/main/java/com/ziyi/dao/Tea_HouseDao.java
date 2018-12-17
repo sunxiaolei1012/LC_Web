@@ -59,5 +59,14 @@ public interface Tea_HouseDao {
 	 * @return
 	 */
 	public boolean update_house(Tea_House th);
+	/**
+	 * 根据桌子ID修改状态ID 
+	 * @param houseid
+	 * @param status
+	 * @return
+	 */
+	public boolean update_number_table(int houseid , int status);
+	
+	
 	
 }

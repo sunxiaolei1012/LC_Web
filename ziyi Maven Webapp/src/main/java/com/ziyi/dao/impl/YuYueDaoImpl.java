@@ -23,4 +23,11 @@ public class YuYueDaoImpl implements YuYueDao{
 		return null;
 	}
 
+	@Override
+	public boolean update_id_tid(int id, int tid) {
+		String sql = "update t_yuyue set tid="+tid+" where id="+id;
+		int a = Common.UTIL.getRes(sql, null);
+		return a>0?true:false;
+	}
+
 }

@@ -59,4 +59,10 @@ public class Tea_HouseDaoImpl implements Tea_HouseDao{
 		return a>0?true:false;
 	}
 
+	@Override
+	public boolean update_number_table(int houseid, int status) {
+		int a = Common.UTIL.getRes("update t_tea_house set status=? where houseid=?", new Object[]{status ,houseid});
+		return a>0?true:false;
+	}
+
 }

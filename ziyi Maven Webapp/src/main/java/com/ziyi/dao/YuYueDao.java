@@ -20,4 +20,11 @@ public interface YuYueDao {
 	 * @return
 	 */
 	public YuYue select_yuyue_tid(int tid);
+	/**
+	 * 根据ID 修改tid信息
+	 * @param id
+	 * @param tid
+	 * @return
+	 */
+	public boolean update_id_tid(int id, int tid);
 }

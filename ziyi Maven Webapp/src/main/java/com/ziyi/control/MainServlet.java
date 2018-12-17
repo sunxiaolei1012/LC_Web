@@ -73,18 +73,66 @@ public class MainServlet extends ActionSupport {
 		else if (houseid == null || houseid.equals("") || tableid.equals("undefined"))
 			map.put("msg", "原来桌号不为空");
 		else {
-			// 根据要换桌子 查询桌子状态
-			Tea_House tea = Common.HOUSE.select_House_id(new Integer(tableid));
-			if (tea != null) {
-				if (tea.getStatus() == 1)
-					map.put("msg", "不可更换，要换位置已有订单");
-				else if (tea.getStatus() == 2)
-					map.put("msg", "不可更换，要换位置已有预约");
-				else {
-
+			Tea_House tea_houseid = Common.HOUSE.select_House_id(new Integer(houseid));
+			if(houseid != null)
+			{
+				if(tea_houseid.getStatus() == 0 || tea_houseid.getStatus() == 3)
+					map.put("msg", "桌子状态不对");
+				else
+				{
+					// 根据要换桌子 查询桌子状态
+					Tea_House tea = Common.HOUSE.select_House_id(new Integer(tableid));
+					if (tea != null) {
+						if (tea.getStatus() == 1)
+							map.put("msg", "不可更换，要换位置已有订单");
+						else if (tea.getStatus() == 2)
+							map.put("msg", "不可更换，要换位置已有预约");
+						else {
+							//查询原来
+							if(tea_houseid.getStatus() == 1)//有订单
+							{
+								//根据桌号查询订单信息
+								Order order = Common.ORDER.select_houseid_state(0, new Integer(houseid));
+								if(order != null)
+								{
+									boolean bool = Common.ORDER.update_number_house(order.getNumber(), tableid);
+									if(bool)
+									{
+										Common.HOUSE.update_number_table(new Integer(tableid), 1);
+										Common.HOUSE.update_number_table(new Integer(houseid), 0);
+										map.put("msg", "修改成功");
+										map.put("status", true);
+									}
+									else
+										map.put("msg", "修改失败");
+								}
+								else
+									map.put("msg", "订单不存在");
+							}
+							else if (tea_houseid.getStatus() == 2)//有预约
+							{
+								YuYueDao yu = new YuYueDaoImpl();
+								YuYue yuyue = yu.select_yuyue_tid(new Integer(houseid));
+								if(yuyue != null)
+								{
+									Common.HOUSE.update_number_table(new Integer(tableid), 2);
+									Common.HOUSE.update_number_table(new Integer(houseid), 0);
+									yu.update_id_tid(yuyue.getId(), new Integer(tableid));
+									map.put("msg", "修改成功");
+									map.put("status", true);
+								}
+								else
+									map.put("msg", "预约不存在");
+							}
+						}
+					} else
+						map.put("msg", "桌子不存在");
 				}
-			} else
+			}
+			else
+			{
 				map.put("msg", "桌子不存在");
+			}
 		}
 		new Tools().return_object(new Gson().toJson(map));
 		return "json";

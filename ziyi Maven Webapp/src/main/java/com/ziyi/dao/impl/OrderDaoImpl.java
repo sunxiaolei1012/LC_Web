@@ -136,6 +136,12 @@ public class OrderDaoImpl implements OrderDao{
 		int a = Common.UTIL.getRes(sql, null);
 		return a>0?true:false;
 	}
+	@Override
+	public boolean update_number_house(String number, String table) {
+		String sql = "update t_order set houseid="+table+" where number="+number;
+		int a = Common.UTIL.getRes(sql, null);
+		return a>0?true:false;
+	}
 
 
 }

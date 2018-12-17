@@ -64,20 +64,20 @@ public class CardTypeControl {
 	 */
 	public String xiu_cardtype(String id , String catdtype , String rebate)
 	{
-		Card_type cardtypes = Common.CARDTYPE.select_name(catdtype);
-		if(cardtypes != null)
-		{
-			Common.TOOLS.return_map_object(false, config.XIU_USER_RIGHT_MSG, config.ADD_CARD_TYPE_ERROR_MSG);
-		}
-		else
-		{
+//		Card_type cardtypes = Common.CARDTYPE.select_name(catdtype);
+//		if(cardtypes != null)
+//		{
+//			Common.TOOLS.return_map_object(false, config.XIU_USER_RIGHT_MSG, config.ADD_CARD_TYPE_ERROR_MSG);
+//		}
+//		else
+//		{
 		Card_type ct = new Card_type();
 		ct.setCardtype(catdtype);
 		ct.setCtid(new Integer(id));
 		ct.setRebate(new Double(rebate));
 		boolean bool = Common.CARDTYPE.update_card_type(ct);
 		Common.TOOLS.return_map_object(bool, config.XIU_USER_RIGHT_MSG, config.XIU_USER_ERROR_MSG);
-		}
+//		}
 		return "json";
 	}
 	/**
