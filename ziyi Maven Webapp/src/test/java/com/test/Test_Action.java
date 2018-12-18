@@ -192,4 +192,10 @@ public class Test_Action {
 		}
 		
 	}
+	
+	@Test
+	public void test17()
+	{
+		System.out.println(6%2);
+	}
 }

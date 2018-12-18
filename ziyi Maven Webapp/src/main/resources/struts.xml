@@ -47,6 +47,10 @@
      	<action name="adminindex" class="com.ziyi.control.AdminIndex" method="adminindex">
      		<result name="index">admin/index.jsp</result>
      	</action>
+     	<action name="log_*" class="com.ziyi.control.LogControl" method="{1}">
+     		<result name="get">admin/log.jsp</result>
+     		<allowed-methods>get</allowed-methods>
+     	</action>
      	 <action name="cmd_*_*" class="com.ziyi.control.cmdServlet" method="{1}_{2}">
      		<result name="json" type="json"></result>
      		<result name="update_user_id">admin/update/user.jsp</result>

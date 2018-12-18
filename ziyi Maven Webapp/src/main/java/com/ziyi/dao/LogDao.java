@@ -20,6 +20,7 @@ public interface LogDao {
 	
 	public List<Log> select_log_string(String str);
 	
+//	public List<Log> select_log_Stringbuffer(String str);
 	
 	
 }
