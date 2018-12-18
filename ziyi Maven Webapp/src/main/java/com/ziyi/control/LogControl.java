@@ -40,16 +40,16 @@ public class LogControl  extends ActionSupport{
 		//用来求总共有多少条数据
 		int zong = Util.sqlCount(sb);
 		//处理当前页与页码
-		int sum = 0;
-		if(zong%Common.PAGE_CARD_SHOW_NUMBER == 0)
-			sum = zong/Common.PAGE_CARD_SHOW_NUMBER;
-		else
-			sum = zong/Common.PAGE_CARD_SHOW_NUMBER+1;
+//		int sum = 0;
+//		if(zong%Common.PAGE_CARD_SHOW_NUMBER == 0)
+//			sum = zong/Common.PAGE_CARD_SHOW_NUMBER;
+//		else
+//			sum = zong/Common.PAGE_CARD_SHOW_NUMBER+1;
 		
 		String str = pinjie("*",true,pages);
 		List<Log> list = Common.LOG.select_log_string(str);
 		
-		ActionContext.getContext().put("sum", sum);
+		ActionContext.getContext().put("sum", zong);
 		ActionContext.getContext().put("page", pages);
 		ActionContext.getContext().put("list", list);
 		ActionContext.getContext().put("begintime", begintime);
