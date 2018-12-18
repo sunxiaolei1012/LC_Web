@@ -51,7 +51,7 @@ public class LogControl  extends ActionSupport{
 		
 		ActionContext.getContext().put("sum", sum);
 		ActionContext.getContext().put("page", pages);
-		ActionContext.getContext().put("value", list);
+		ActionContext.getContext().put("list", list);
 		ActionContext.getContext().put("begintime", begintime);
 		ActionContext.getContext().put("endtime", endtime);
 		ActionContext.getContext().put("type", type);
