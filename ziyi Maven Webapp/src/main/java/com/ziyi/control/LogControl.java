@@ -36,7 +36,7 @@ public class LogControl  extends ActionSupport{
 			pages = new Integer(page);
 		}
 		String sb  = pinjie("count(id)",false ,pages);
-		System.out.println(sb);
+//		System.out.println(sb);
 		//用来求总共有多少条数据
 		int zong = Util.sqlCount(sb);
 		//处理当前页与页码
@@ -52,6 +52,10 @@ public class LogControl  extends ActionSupport{
 		ActionContext.getContext().put("sum", sum);
 		ActionContext.getContext().put("page", pages);
 		ActionContext.getContext().put("value", list);
+		ActionContext.getContext().put("begintime", begintime);
+		ActionContext.getContext().put("endtime", endtime);
+		ActionContext.getContext().put("type", type);
+		ActionContext.getContext().put("value", value);
 		return "get";
 	}
 	
@@ -75,7 +79,7 @@ public class LogControl  extends ActionSupport{
 		
 		if(bool)
 			sb.append("  limit "+(page-1)*Common.PAGE_CARD_SHOW_NUMBER+","+Common.PAGE_CARD_SHOW_NUMBER+"");
-		
+		System.out.println(sb.toString());
 		return sb.toString();
 	}
 	
