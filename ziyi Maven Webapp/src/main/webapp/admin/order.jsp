@@ -48,7 +48,7 @@
 			</form>
 		</blockquote>
 		<fieldset class="layui-elem-field">
-			<legend>操作日志</legend>
+			<legend>订单记录</legend>
 			<div class="layui-field-box">
 				<table class="layui-table" lay-filter="ordershow">
 					<thead>
@@ -56,6 +56,7 @@
 						    <th lay-data="{field:'orderid'}">订单编号</th>
 							<th lay-data="{field:'time', sort: true}">订单时间</th>
 							<th lay-data="{field:'money'}">订单金额</th>
+							<th lay-data="{field:'operation'}">操作</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -64,6 +65,7 @@
 						 	<td>12</td>
 						 	<td>20181102</td>
 						 	<td>1200</td>
+						 	<td><a href="javascript:;" class="layui-btn layui-btn-xs" onclick="press()">打印</a></td>
 						 </tr>
  
 					</tbody>
@@ -113,6 +115,9 @@
 			var begintime = $("#starttime").val();
 			var endtime = $("#endtime").val();
 // 			window.location.href = "";
+		}
+		function press(){
+			console.log('打印订单');
 		}
 	</script>
 
