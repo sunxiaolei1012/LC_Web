@@ -21,9 +21,19 @@ var navs = [{
 		"title": "会员列表",
 		"icon": "fa-navicon",
 		"href": "admin_cards"
-	}]
+	},{
+		"title":"旧卡",
+		"icon":"fa-credit-card",
+		"href":"admin/oldcard.jsp"
+	}
+	]
 },
-
+{
+	"title": "订单记录",
+	"icon": "fa-file-text",
+	"href": "admin/order.jsp",
+	"spread": false
+},
 {
 	"title": "商品管理",
 	"icon": "fa-cogs",
@@ -102,5 +112,6 @@ var navs = [{
 	"icon": "fa-book",
 	"href": "log_get",
 	"spread": false
-}
+},
+
 ];
