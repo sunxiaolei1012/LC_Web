@@ -85,7 +85,7 @@ var navs = [{
 		"href": "admin_PerEvaluation"
 	}]
 },
-{
+{   
 	"title": "位置管理",
 	"icon": "fa-globe",
 	"href": "admin_teahouse",
