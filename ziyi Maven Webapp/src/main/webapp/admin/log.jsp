@@ -17,7 +17,7 @@
 	href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
 <link rel="stylesheet" href="css/table.css" />
 <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
-</head>
+</head>   
 <body>
 	<div class="admin-main">
 		<blockquote class="layui-elem-quote">	 
