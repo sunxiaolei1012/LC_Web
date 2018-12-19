@@ -100,7 +100,7 @@ var navs = [{
 {
 	"title": "日志",
 	"icon": "fa-book",
-	"href": "admin/log.jsp",
+	"href": "log_get",
 	"spread": false
 }
 ];
