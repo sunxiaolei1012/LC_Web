@@ -32,7 +32,7 @@
 				        <div class="layui-input-inline">
 				         <input type="text" class="layui-input" id="endtime" placeholder="结束时间" value="${endtime }">
 				        </div>
-				    </div>
+				    </div> 
 				    <div class="layui-inline">
 				         <label class="layui-form-label">操作选择</label>
 						 <div class="layui-input-inline"> 
