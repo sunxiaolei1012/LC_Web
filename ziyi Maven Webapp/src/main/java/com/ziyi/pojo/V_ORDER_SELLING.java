@@ -15,6 +15,7 @@ public class V_ORDER_SELLING {
 	private String name;
 	private String housename;
 	private Double pri;
+	
 	public String getOnumber() {
 		return onumber;
 	}
@@ -140,13 +141,32 @@ public class V_ORDER_SELLING {
 			return false;
 		return true;
 	}
+	
+
+	public V_ORDER_SELLING() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public V_ORDER_SELLING(String onumber, String checkouttime, Double price, Double pay_price, Integer type,
+			Integer olnumber, String name, String housename, Double pri) {
+		super();
+		this.onumber = onumber;
+		this.checkouttime = checkouttime;
+		this.price = price;
+		this.pay_price = pay_price;
+		this.type = type;
+		this.olnumber = olnumber;
+		this.name = name;
+		this.housename = housename;
+		this.pri = pri;
+	}
 	@Override
 	public String toString() {
 		return "V_ORDER_SELLING [onumber=" + onumber + ", checkouttime=" + checkouttime + ", price=" + price
 				+ ", pay_price=" + pay_price + ", type=" + type + ", olnumber=" + olnumber + ", name=" + name
 				+ ", housename=" + housename + ", pri=" + pri + "]";
 	}
-	
+
 	
 	
 }

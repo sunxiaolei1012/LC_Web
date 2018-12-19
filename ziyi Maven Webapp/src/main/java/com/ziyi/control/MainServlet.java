@@ -231,7 +231,20 @@ public class MainServlet extends ActionSupport {
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("number", order.getNumber());
 			map.put("ordertime", order.getOrdertime());
-			map.put("price", Common.double_df.format(order.getPrice()));
+			//添加差价
+			double xubeiprice=0;
+			if(order.getXubei()!=0 )
+			{
+				Selling_list selling = Common.ORDER.select_xubei_order(order.getNumber());
+				double price=selling.getPrice();
+				Selling_list slll = Common.SLD.selecct_id_list(order.getXubei());
+				double prices=slll.getPrice();
+				if(prices>price) {
+				 xubeiprice=prices-price;
+					
+				}
+			}
+			map.put("price", Common.double_df.format((order.getPrice())+xubeiprice));
 			map.put("houseid", order.getHouseid());
 			map.put("status", order.getStatus());
 			Users user = (Users) ActionContext.getContext().getSession().get("user");
@@ -254,7 +267,25 @@ public class MainServlet extends ActionSupport {
 					sl.setTypeid(se.getId());
 					selling_list.add(sl);
 				}
-
+						
+				if(order.getXubei()!=0 )
+				{
+					Selling_list selling = Common.ORDER.select_xubei_order(order.getNumber());
+					
+					double price=selling.getPrice();
+					Selling_list sll = Common.SLD.selecct_id_list(order.getXubei());
+					sll.setNumber(1);
+					double prices=sll.getPrice();
+					sll.setName("(续)"+sll.getName());
+					if(prices>price) {
+					 xubeiprice=prices-price;
+						sll.setPrice(xubeiprice);
+					}else {
+						sll.setPrice(0.00);
+					}
+					
+					selling_list.add(sll);
+				}
 				map.put("sel", selling_list);
 			}
 			Common.TOOLS.return_object(new Gson().toJson(map));
@@ -306,16 +337,33 @@ public class MainServlet extends ActionSupport {
 		Map<String, Object> map = new HashMap<String, Object>();
 		if (number != null) {
 			// 根据编号查询订单信息
-			Order list = Common.ORDER.select_number_order(number);
-			if (list != null) {
+			Order order = Common.ORDER.select_number_order(number);
+			if (order != null) {
 				// 根据订单信息，查询订单详情
 				// List<Order_list> list_order =
 				// Common.OLD.select_number_order(list.getOrderid());
 
-				map.put("number", list.getNumber());
-				map.put("ordertime", list.getOrdertime());
-				map.put("price", list.getPrice());
-				map.put("status", list.getStatus());
+				map.put("number", order.getNumber());
+				map.put("ordertime", order.getOrdertime());
+				//添加差价
+				double xubeiprice=0;
+				if(order.getXubei()!=0 )
+				{
+					Selling_list selling = Common.ORDER.select_xubei_order(order.getNumber());
+					double price=selling.getPrice();
+					Selling_list slll = Common.SLD.selecct_id_list(order.getXubei());
+					double prices=slll.getPrice();
+					if(prices>price) {
+					 xubeiprice=prices-price;
+						
+					}
+				}
+				map.put("price", Common.double_df.format((order.getPrice())+xubeiprice));
+				
+				
+				
+			
+				map.put("status", order.getStatus());
 				Users user = (Users) ActionContext.getContext().getSession().get("user");
 				if (user.getUserrole().equals("2"))
 					map.put("bool", false);
@@ -323,7 +371,7 @@ public class MainServlet extends ActionSupport {
 					map.put("bool", true);
 				map.put("table", Common.HOUSE.select_House_id(new Integer(id)).getHousename());
 
-				List<Order_list> order_list = Common.OLD.select_number_order(list.getOrderid());
+				List<Order_list> order_list = Common.OLD.select_number_order(order.getOrderid());
 				if (order_list != null) {
 					List<Selling_list> selling_list = new ArrayList<Selling_list>();
 					for (Order_list se : order_list) {
@@ -331,7 +379,26 @@ public class MainServlet extends ActionSupport {
 						sl.setNumber(se.getNumber());
 						selling_list.add(sl);
 					}
-
+					
+					
+					if(order.getXubei()!=0 )
+					{
+						Selling_list selling = Common.ORDER.select_xubei_order(order.getNumber());
+						
+						double price=selling.getPrice();
+						Selling_list slll = Common.SLD.selecct_id_list(order.getXubei());
+						double prices=slll.getPrice();
+						slll.setName("(续)"+slll.getName());
+						if(prices>price) {
+						 xubeiprice=prices-price;
+							slll.setPrice(xubeiprice);
+						}else {
+							slll.setPrice(0.00);
+						}
+						
+						selling_list.add(slll);
+					}
+					
 					map.put("sel", selling_list);
 				}
 
@@ -359,9 +426,68 @@ public class MainServlet extends ActionSupport {
 				falses = config.ORDER_NULL_ERROR_MSG;
 			} else if (null == sl) {
 				falses = config.SELLING_NULL_ERROR_MSG;
-			} else {
+			} 
+			
+				//查询商品是否存在续杯商品 加上差价
+			else if(order.getXubei()!=0) {
+				
+				Selling_list selling = Common.ORDER.select_xubei_order(order.getNumber());
+				System.out.println("下单续杯"+selling);
+				double price=selling.getPrice();
+				Selling_list slll = Common.SLD.selecct_id_list(order.getXubei());
+				double prices=slll.getPrice();
+				double xubeiprice = 0;
+				if(prices>price) {
+					xubeiprice=prices-price;
+					System.out.println("续杯差价"+xubeiprice);
+				}
+				boolean bool_s = Common.ORDER.update_number_order(number, order.getPrice() + sl.getPrice()+xubeiprice);
+				if (bool_s)// 修改成功
+				{
+					// 根据订单与商品表 查询是否有数据
+					int goods = new Integer(id);
+					Order_list order_list = Common.OLD.select_number_order(order.getOrderid(), goods);
+					boolean bools = false;
+					if (null != order_list) {
+						bools = Common.OLD.update_id_numbers(order_list.getId(), 1 + order_list.getNumber());
+					} else {
+						Order_list ol = new Order_list();
+						ol.setOrderid(order.getOrderid());
+						ol.setSellingid(goods);
+						ol.setNumber(1);
+						ol.setState(0);
+						bools = Common.OLD.insert_order_list(ol);
+					}
+
+					if (bools) {
+
+						map.put("state", "true");
+						map.put("msg", config.XIU_USER_RIGHT_MSG);
+						map.put("id", "" + order.getHouseid());
+						Common.TOOLS.log_time("在订单：" + number + "中添加了商品：" + sl.getName(), 7);
+					} else {
+						// 添加失败 数据回滚
+						Common.ORDER.update_number_order(number, order.getPrice());
+					}
+
+				}
+				}
+			else {
 				// order.setPrice(sl.getPrice());
-				boolean bool_s = Common.ORDER.update_number_order(number, order.getPrice() + sl.getPrice());
+				//添加差价
+				double xubeiprice=0;
+				if(order.getXubei()!=0 )
+				{
+					Selling_list selling = Common.ORDER.select_xubei_order(order.getNumber());
+					double price=selling.getPrice();
+					Selling_list slll = Common.SLD.selecct_id_list(order.getXubei());
+					double prices=slll.getPrice();
+					if(prices>price) {
+					 xubeiprice=prices-price;
+						
+					}
+				}
+				boolean bool_s = Common.ORDER.update_number_order(number, order.getPrice() + sl.getPrice()+xubeiprice);
 				if (bool_s)// 修改成功
 				{
 					// 根据订单与商品表 查询是否有数据
@@ -594,7 +720,22 @@ public class MainServlet extends ActionSupport {
 				// 根据订单编号，查询订单信息
 				Order orders = Common.ORDER.select_number_order(number);
 				Users user = (Users) ActionContext.getContext().getSession().get("user");
-				boolean bool = orderdao.update_two_order(0, Common.df.format(new Date()), orders.getPrice(), number,
+				//添加差价
+				double xubeiprice=0;
+				if(order.getXubei()!=0 )
+				{
+					Selling_list selling = Common.ORDER.select_xubei_order(order.getNumber());
+					double price=selling.getPrice();
+					Selling_list slll = Common.SLD.selecct_id_list(order.getXubei());
+					double prices=slll.getPrice();
+					if(prices>price) {
+					 xubeiprice=prices-price;
+						
+					}
+				}
+				
+				
+				boolean bool = orderdao.update_two_order(0, Common.df.format(new Date()), (orders.getPrice()+xubeiprice), number,
 						user.getUserid());
 				if (bool) {
 					Common.HOUSE.update_house_tea(orders.getHouseid(), 0);

@@ -1,6 +1,8 @@
 package com.ziyi.control;
 
+import java.math.BigInteger;
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,9 +20,12 @@ import com.et.mvc.RequestContext;
 import com.google.gson.Gson;
 import com.opensymphony.xwork2.ActionContext;
 import com.ziyi.pojo.Order;
+import com.ziyi.pojo.Selling_list;
 import com.ziyi.pojo.Sub_House;
 import com.ziyi.pojo.Users;
 import com.ziyi.pojo.V_ORDER_SELLING;
+
+import javassist.expr.NewArray;
 
 /**
  * 打印机
@@ -115,6 +120,7 @@ public class DaYinControl {
 	 * 根据订单号 查询订单信息
 	 * @return
 	 */
+	@SuppressWarnings("unused")
 	public String number()
 	{
 		Map<String , Object> map = new HashMap<String , Object>();
@@ -126,6 +132,50 @@ public class DaYinControl {
 		else
 		{
 			List<V_ORDER_SELLING> list = Common.VIEW.select(number);
+			
+			System.out.println(list.toString());
+			
+			//续杯商品添加
+			Order order = Common.ORDER.select_number_order(number);
+			double xubeiprice=0;
+			if(order.getXubei()!=0 )
+			{
+				Selling_list selling = Common.ORDER.select_xubei_order(order.getNumber());
+				System.out.println(selling);
+				double price=selling.getPrice();
+				Selling_list sll = Common.SLD.selecct_id_list(order.getXubei());
+				double prices=sll.getPrice();
+				String name="(续)"+sll.getName();
+				
+				if(prices>price) {
+					 xubeiprice=prices-price;
+						sll.setPrice(xubeiprice);
+					}else {
+						sll.setPrice(0.00);
+					}
+				List<V_ORDER_SELLING> list1=new ArrayList<>(); 
+				V_ORDER_SELLING vs=new V_ORDER_SELLING(order.getNumber(),order.getCheckouttime(),prices,prices,order.getType(),1,name,"",xubeiprice);
+				
+				System.out.println(vs.toString());
+				list.add(vs);
+				System.out.println(list.toString());
+			/*	list1.get(0).setCheckouttime(order.getCheckouttime());
+				list1.get(0).setPri(prices);
+				list1.get(0).setPay_price(prices);
+				list1.get(0).setType(order.getType());
+				list1.get(0).setOlnumber(1);
+				list1.get(0).setName(name);
+				list1.get(0).setPri(prices);
+				list1.get(0).setHousename("");
+				list.add((V_ORDER_SELLING) list1);*/
+		
+				
+				
+				
+			}
+			
+			
+			
 			if(list == null)
 			{
 				map.put("status", false);
@@ -148,13 +198,10 @@ public class DaYinControl {
 				   HttpSession session = request.getSession(); 
 //				Users user=   (Users) session.getAttribute("user");
 				
-				
-				
 				//下单时间和 带结账时间
-				Order order=Common.ORDER.select_number_order(number);
+				//Order order=Common.ORDER.select_number_order(number);
 					String begainTime=order.getOrdertime();
 					String endTime=order.getCheckouttime();
-				
 				DaYin.printSheet(begainTime,endTime,Common.USERS.select_id_name(order.getUserid()),config.TEA_NAME,number, list.get(0).getHousename(), config.TEA_PHONE, config.TEA_ADDRESS, str,list.get(0).getPrice()+"" , true , list.get(0).getPay_price()+"",Common.USERS.select_id_name(order.getAccountuserid()));
 			}
 		}
