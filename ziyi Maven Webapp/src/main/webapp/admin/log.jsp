@@ -19,7 +19,6 @@
 <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
 </head>
 <body>
-  ${ type }
 	<div class="admin-main">
 		<blockquote class="layui-elem-quote">	 
 			<form class="layui-form layui-inline" style="margin-top: 1%;">
@@ -50,9 +49,7 @@
 										<option value="8">取消订单</option>							 
 										<option value="9">充值</option>
 										<option value="10">其他</option>
-									</c:if> --%>
-									
-									
+									</c:if> --%>								
 							 </select>
 						</div>
 				    </div>
