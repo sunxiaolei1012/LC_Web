@@ -71,6 +71,7 @@
 					</tbody>
 				</table>
 				<div id="page" class="page"></div>
+			</div>
 		</fieldset>
 	</div>
 	<script type="text/javascript" src="../layui/layui.js"></script>

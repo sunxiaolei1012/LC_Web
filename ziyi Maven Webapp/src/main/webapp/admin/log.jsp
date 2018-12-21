@@ -66,7 +66,6 @@
 					</div>				
 				</div>
 			</form>
-
 		</blockquote>
 		<fieldset class="layui-elem-field">
 			<legend>操作日志</legend>
@@ -98,6 +97,7 @@
 					</tbody>
 				</table>
 				<div id="page" class="page"></div>
+		  </div>
 		</fieldset>
 	</div>
 	<script type="text/javascript" src="layui/layui.js"></script>
@@ -150,9 +150,8 @@
 					                   start.config.max.month = date.month -1;
 // 					                   endtime = value;
 					               }
-					            });					 
-							
-							table.init('logshow');
+					            });	
+					         //table.init('logshow');
 							 //page					 
 							 laypage.render({
 								 elem:'page'
@@ -173,6 +172,7 @@
 							      }
 							    }
 							 })
+							 
 							//选择框
 							form.on("select(logSta)", function(data) {
 								var searchval = $.trim($("#search").val());

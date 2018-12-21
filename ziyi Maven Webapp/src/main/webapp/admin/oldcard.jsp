@@ -48,6 +48,7 @@
 					</tbody>
 				</table>
 				<div id="page" class="page"></div>
+			</div>
 		</fieldset>
 	</div>
 	<div id="editTable" style="display:none;">
