@@ -127,6 +127,12 @@ public interface OrderDao {
 	 */
 	public List<Order> select_person_score(int accountuserid);
 	
+	/**
+	 * 查询订单中所有已经付款的订单
+	 * Status =1
+	 * @return
+	 */
+	public List<Order> select_order_stats();
 	
 	public boolean update_number_xubei(String number , String sellingid);
 	

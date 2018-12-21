@@ -105,6 +105,25 @@ public class OrderControll  extends ActionSupport{
 		return "person_score";
 	}
 	
+	/**
+	 * 订单查询 
+	 * @author sxl666
+	 * 1.订单编号 number  2.订单时间 checkouttime 3.订单金额 pay_price
+	 */
+	public String  select_orderStatus() {
+		List<Order> list=Common.ORDER.select_order_stats();
+		/*Map<String , Object> map = new HashMap<String , Object>();
+			if(list==null) {
+				map.put("msg", "查询订单为空！");
+			}else {
+				map.put("msg", "成功查询订单！");
+				map.put("order", list);
+			}*/
+		ActionContext.getContext().put("order", list);		
+		
+		return "select_orderStatus";
+	}
+	
 	
 	
 	/**
@@ -138,6 +157,8 @@ public class OrderControll  extends ActionSupport{
 		return map;
 	}
 
+	
+	
 
 	public String getBegintime() {
 		return begintime;

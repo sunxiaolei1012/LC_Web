@@ -11,12 +11,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Table</title>
-<link rel="stylesheet" href="../layui/css/layui.css" media="all" />
-<link rel="stylesheet" href="../css/global.css" media="all">
+<link rel="stylesheet" href="layui/css/layui.css" media="all" />
+<link rel="stylesheet" href="css/global.css" media="all">
 <link rel="stylesheet" type="text/css"
 	href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
-<link rel="stylesheet" href="../css/table.css" />
-<script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
+<link rel="stylesheet" href="css/table.css" />
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
 </head>   
 <body>
 	<div class="admin-main">
@@ -60,20 +61,20 @@
 						</tr>
 					</thead>
 					<tbody>
- 
+ 					<c:forEach  items="${order}" var="o">
 						 <tr>
-						 	<td>12</td>
-						 	<td>20181102</td>
-						 	<td>1200</td>
-						 	<td><a href="javascript:;" class="layui-btn layui-btn-xs" onclick="press()">打印</a></td>
+						 	<td>${o.number }</td>
+						 	<td>${o.checkouttime}</td>
+						 	<td> ${o.pay_price} </td>
+						 	<td><a href="javascript:;" class="layui-btn layui-btn-xs" onclick="press(${o.number})">打印</a></td>
 						 </tr>
- 
+ 					</c:forEach>
 					</tbody>
 				</table>
 				<div id="page" class="page"></div>
 		</fieldset>
 	</div>
-	<script type="text/javascript" src="../layui/layui.js"></script>
+	<script type="text/javascript" src="layui/layui.js"></script>
 	<script>		      
 		layui.use([ 'laypage','laydate', 'form', 'table' ],function() {
 							var $ = layui.jquery, 
@@ -116,7 +117,24 @@
 			var endtime = $("#endtime").val();
 // 			window.location.href = "";
 		}
-		function press(){
+		function press(number){
+			alert(number);
+		
+			  $.ajax({
+				  	 url:"dayin_number?number="+number,
+				  	 type:"POST",
+				  	   success(c){
+				  	 if(null!=c&&c!=0){
+				 
+					alert(c);
+				  	 }
+				  	 else{
+				  	 
+				  	 alert("数量修改失败！");
+				  	 } 
+
+			}
+		    })
 			console.log('打印订单');
 		}
 	</script>
