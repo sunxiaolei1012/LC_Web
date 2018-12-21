@@ -17,5 +17,5 @@ public class Log_Type {
 		this.name = name;
 	}
 	
-	
+	  
 }
