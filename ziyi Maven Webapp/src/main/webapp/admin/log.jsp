@@ -85,7 +85,12 @@
 							<tr>
 								<td>${v.value}</td>
 								<td>${v.time }</td>
-								<td>${v.type }</td>
+								<c:forEach items="${log_type }" var="l">
+									<c:if test="${ l.id == v.type}">
+										<td>${l.name }</td>
+									</c:if>
+								</c:forEach>
+								
 							</tr>
 						
 						</c:forEach>

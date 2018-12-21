@@ -56,6 +56,7 @@ public class LogControl  extends ActionSupport{
 		ActionContext.getContext().put("endtime", endtime);
 		ActionContext.getContext().put("type", type);
 		ActionContext.getContext().put("value", value);
+		ActionContext.getContext().put("log_type", Common.LTD.show());
 		return "get";
 	}
 	
@@ -70,10 +71,13 @@ public class LogControl  extends ActionSupport{
 			sb.append(" and time>'"+begintime+"'");
 		if(endtime != null && !endtime.equals(""))
 		{
-			if(begintime.equals(endtime))
-			{
-				
-			}
+//			if(begintime.equals(endtime))
+//			{	
+				String[] str = endtime.split("-");
+				str[2]=new Integer(str[2])+1+"";
+				sb.append(" and time<'"+str[0]+"-"+str[1]+"-"+str[2]+"'");
+//			}else
+//				sb.append(" and time<'"+endtime+"'");
 		}
 		if(value != null && !value.equals(""))
 			sb.append("  and (value LIKE '%"+value+"%' or time LIKE '%"+value+"%' or type LIKE '%"+value+"%')");

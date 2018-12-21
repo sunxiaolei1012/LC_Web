@@ -6,11 +6,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import com.port.main.Main;
 import com.ziyi.dao.BannerDao;
 import com.ziyi.dao.CardDao;
 import com.ziyi.dao.Card_typeDao;
 import com.ziyi.dao.LogDao;
+import com.ziyi.dao.Log_TypeDao;
 import com.ziyi.dao.MonthPriceDao;
 import com.ziyi.dao.Old_CardDao;
 import com.ziyi.dao.OrderDao;
@@ -30,6 +30,7 @@ import com.ziyi.dao.impl.BannerDaoImpl;
 import com.ziyi.dao.impl.CardDaoImpl;
 import com.ziyi.dao.impl.Card_typeDaoImpl;
 import com.ziyi.dao.impl.LogDaoImpl;
+import com.ziyi.dao.impl.Log_TypeDaoImpl;
 import com.ziyi.dao.impl.MonthPriceDaoImpl;
 import com.ziyi.dao.impl.Old_CardDaoImpl;
 import com.ziyi.dao.impl.OrderDaoImpl;
@@ -45,7 +46,6 @@ import com.ziyi.dao.impl.SumDaoImpl;
 import com.ziyi.dao.impl.Tea_HouseDaoImpl;
 import com.ziyi.dao.impl.UsersDaoImpl;
 import com.ziyi.dao.impl.VIEWDAOIMPL;
-import com.ziyi.pojo.PerEvaluation;
 
 /**
  *常量
@@ -72,10 +72,10 @@ public class Common {
 	 static final String PASSWORD=pros.getProperty("password");
 	 
 	 
-	 static{
-		 Main.openSerialPort(pros.getProperty("com"));
-		 Main.chen();
-	 }
+//	 static{
+//		 Main.openSerialPort(pros.getProperty("com"));
+//		 Main.chen();
+//	 }
 	 public static final Util UTIL = new Util();
 	
 	 public static final JDBC JD = new JDBC();
@@ -137,6 +137,8 @@ public class Common {
 	 public static final CardDao CARDDAO = new CardDaoImpl();
 	 
 	 public static final int PAGE_CARD_SHOW_NUMBER = 20;
+	 
+	 public static final Log_TypeDao LTD = new Log_TypeDaoImpl();
 	 
 //	 public static final boolean bool = false;
 	 
