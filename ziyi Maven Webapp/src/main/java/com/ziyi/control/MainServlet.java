@@ -80,6 +80,7 @@ public class MainServlet extends ActionSupport {
 					map.put("msg", "桌子状态不对");
 				else
 				{
+					Users user = (Users) ActionContext.getContext().getSession().get("user");
 					// 根据要换桌子 查询桌子状态
 					Tea_House tea = Common.HOUSE.select_House_id(new Integer(tableid));
 					if (tea != null) {
@@ -102,6 +103,7 @@ public class MainServlet extends ActionSupport {
 										Common.HOUSE.update_number_table(new Integer(houseid), 0);
 										map.put("msg", "修改成功");
 										map.put("status", true);
+										Common.TOOLS.log_time(user.getUserrole() + "执行换桌,把"+Common.HOUSE.select_House_id(new Integer(houseid)).getHousename()+"换到"+Common.HOUSE.select_House_id(new Integer(houseid)).getHousename(), 4);
 									}
 									else
 										map.put("msg", "修改失败");
@@ -120,6 +122,7 @@ public class MainServlet extends ActionSupport {
 									yu.update_id_tid(yuyue.getId(), new Integer(tableid));
 									map.put("msg", "修改成功");
 									map.put("status", true);
+									Common.TOOLS.log_time(user.getUserrole() + "执行换桌,把"+Common.HOUSE.select_House_id(new Integer(houseid)).getHousename()+"换到"+Common.HOUSE.select_House_id(new Integer(houseid)).getHousename(), 4);
 								}
 								else
 									map.put("msg", "预约不存在");
@@ -176,7 +179,7 @@ public class MainServlet extends ActionSupport {
 		boolean bool = Common.HOUSE.update_house_tea(new Integer(id), new Integer(index));
 		// Tea_House tea = Common.HOUSE.select_House_id(new Integer(id));
 		Order order = Common.ORDER.select_houseid_state(0, new Integer(id));
-
+		Users user = (Users) ActionContext.getContext().getSession().get("user");
 		if (index.equals("1")) {
 			create();
 			Common.TOOLS.return_map_object(bool, config.XIU_USER_RIGHT_MSG, config.XIU_USER_ERROR_MSG);
@@ -189,6 +192,7 @@ public class MainServlet extends ActionSupport {
 			yy.setTid(new Integer(id));
 			yy.setTime(Common.df.format(new Date()));
 			yu.insert_yuyue(yy);
+			Common.TOOLS.log_time(name+"预定了桌子"+Common.HOUSE.select_House_id(new Integer(id)).getHousename()+"。服务员="+user.getName(),2);
 			Common.TOOLS.return_map_object(bool, config.YUDING_TRUE, config.YUDING_FLASE);
 		} else {
 			try {
@@ -460,11 +464,11 @@ public class MainServlet extends ActionSupport {
 					}
 
 					if (bools) {
-
+						Users user = (Users) ActionContext.getContext().getSession().get("user");
 						map.put("state", "true");
 						map.put("msg", config.XIU_USER_RIGHT_MSG);
 						map.put("id", "" + order.getHouseid());
-						Common.TOOLS.log_time("在订单：" + number + "中添加了商品：" + sl.getName(), 7);
+						Common.TOOLS.log_time(user.getName()+"在订单：" + number + "中添加了商品：" + sl.getName(), 5);
 					} else {
 						// 添加失败 数据回滚
 						Common.ORDER.update_number_order(number, order.getPrice());
@@ -563,7 +567,7 @@ public class MainServlet extends ActionSupport {
 			boolean bool = Common.ORDER.insert_number_order(order);
 			System.out.println(bool);
 			if (bool) {
-				Common.TOOLS.log_time(user.getUserrole() + "创建了订单：" + number, 6);
+				Common.TOOLS.log_time(user.getUserrole() + "创建了订单：" + number, 3);
 				Common.TOOLS.return_map_object(true, config.ADD_USER_RIGHT_MSG, config.ADD_ERROR_MSG);
 			} else {
 				Common.TOOLS.return_map_object(false, config.ADD_USER_RIGHT_MSG, config.ADD_ERROR_MSG);
@@ -608,7 +612,8 @@ public class MainServlet extends ActionSupport {
 				if (bools) {
 					Common.TOOLS.return_map_object_id(true, config.ADD_USER_RIGHT_MSG,
 							config.SELLING_NULL_ERROR_MSG_FALSE, order.getHouseid() + "");
-					Common.TOOLS.log_time("1在订单：" + number + "中删除了商品：" + sl.getName(), 8);
+					Users user = (Users) ActionContext.getContext().getSession().get("user");
+					Common.TOOLS.log_time(user.getName()+"在订单：" + number + "中删除了商品：", 6);
 				}
 
 			}
@@ -654,7 +659,7 @@ public class MainServlet extends ActionSupport {
 	}
 
 	public String pay() {
-		System.out.println("pay");
+//		System.out.println("pay");
 		Map<String, Object> map = new HashMap<String, Object>();
 		OrderDao orderdao = new OrderDaoImpl();
 		Order order = orderdao.select_number_order(number);
@@ -696,7 +701,7 @@ public class MainServlet extends ActionSupport {
 									map.put("state", true);
 									map.put("msg", config.PAY_TRUE);
 									Common.TOOLS.log_time(user.getName() + "收取了订单号为：" + number + "的账单。金额为：" + dou
-											+ "。会员卡付款，卡号：" + cnumber, 10);
+											+ "。会员卡付款，卡号：" + cnumber, 7);
 								} else {
 									map.put("state", false);
 									map.put("msg", config.PAY_ERROR);

@@ -198,7 +198,7 @@ public class CardControl extends ActionSupport{
 				if(bool)
 				{
 					Users user = (Users) ActionContext.getContext().getSession().get("user");
-					Common.TOOLS.log_time(user.getName()+"在会员卡："+number+"充值了:"+price+"元",18);
+					Common.TOOLS.log_time(user.getName()+"在会员卡："+number+"充值了:"+price+"元",9);
 					map.put("state",true);
 					map.put("msg", config.CARD_PRICE_ADD_TRUE);
 					

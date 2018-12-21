@@ -1,5 +1,6 @@
 package com.ziyi.control;
 
+import java.util.Date;
 import java.util.List;
 
 import com.cyb.util.Common;
@@ -29,12 +30,6 @@ public class LoginServlet extends ActionSupport{
 	 */
 	public String login()
 	{
-//		if(!Common.bool)
-//		{
-//			 Main.openSerialPort(Common.pros.getProperty("com"));
-//			 Main.chen();
-//		}
-//		
 		Users user = Common.USERS.select_id_user(name, password);
 		//根据用户名与密码判断用户是否存在
 		if(user == null)
@@ -48,6 +43,7 @@ public class LoginServlet extends ActionSupport{
 			ActionContext.getContext().getSession().put("user", user);
 			ActionContext.getContext().getSession().put("role", Common.ROLE.showRole());
 			ActionContext.getContext().getSession().put("ctype",Common.CARDTYPE.select_card_type());
+			Common.TOOLS.log_time(user.getName()+"登录了系统",1);
 			return "main";
 		}
 	}

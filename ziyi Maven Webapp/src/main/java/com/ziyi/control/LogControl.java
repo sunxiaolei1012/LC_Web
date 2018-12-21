@@ -64,7 +64,8 @@ public class LogControl  extends ActionSupport{
 		StringBuffer sb = new StringBuffer();
 		sb.append("select "+types+" from t_log where 1=1 ");
 		if(type != null && !type.equals(""))
-			sb.append(" and type="+type);
+			if(!type.equals("0"))
+				sb.append(" and type="+type);
 		if(begintime != null && !begintime.equals(""))
 			sb.append(" and time>'"+begintime+"'");
 		if(endtime != null && !endtime.equals(""))
@@ -76,7 +77,6 @@ public class LogControl  extends ActionSupport{
 		}
 		if(value != null && !value.equals(""))
 			sb.append("  and (value LIKE '%"+value+"%' or time LIKE '%"+value+"%' or type LIKE '%"+value+"%')");
-		
 		if(bool)
 			sb.append("  limit "+(page-1)*Common.PAGE_CARD_SHOW_NUMBER+","+Common.PAGE_CARD_SHOW_NUMBER+"");
 		System.out.println(sb.toString());
