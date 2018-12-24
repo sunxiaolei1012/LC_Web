@@ -10,14 +10,22 @@ import java.util.List;
 import java.util.Map;
 
 import com.cyb.util.Common;
+import com.cyb.util.PageCount;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.ziyi.pojo.Card;
 import com.ziyi.pojo.Order;
+import com.ziyi.pojo.PerEvaluation;
 
 
 public class OrderControll  extends ActionSupport{
 	
+	// 当前页数 和 每页显示条数
+			private int pageNo;
+			private int pageCount;
+			
+			private Integer orderId;
+			private String userrole;
 	
 	//员工结账userid
 	private Integer accountuserid;
@@ -105,6 +113,71 @@ public class OrderControll  extends ActionSupport{
 		return "person_score";
 	}
 	
+	/**
+	 * 订单查询 
+	 * @author sxl666
+	 * 1.订单编号 number  2.订单时间 checkouttime 3.订单金额 pay_price
+	 */
+	public String  select_orderStatus() {
+		List<Order> list=Common.ORDER.select_order_stats();
+		/*Map<String , Object> map = new HashMap<String , Object>();
+			if(list==null) {
+				map.put("msg", "查询订单为空！");
+			}else {
+				map.put("msg", "成功查询订单！");
+				map.put("order", list);
+			}*/
+		 //分页
+		 int pageCount = 10;
+			if (pageNo == 0)
+				pageNo = 1;
+		
+		StringBuffer sb=new StringBuffer();
+		
+		//orderid值查询 
+	//	System.out.println("orderId"+orderId);
+		if(orderId!=null )
+			sb.append("and number like '"+orderId+"%'  ");
+		
+		//System.out.println("number后"+sb.toString());
+		// 拼接日期
+//		System.out.println("时间段："+begintime+endtime);
+//		System.out.println(begintime != null);
+//		System.out.println(endtime != null);
+//		System.out.println(begintime != "null");
+//		System.out.println(endtime != "null");
+//		System.out.println(begintime != "");
+//		System.out.println(endtime != "");
+		//if(!begintime.equals("null") && !endtime.equals("null"))
+			if(begintime !=null && endtime != null) {
+				if(begintime !="" && endtime != "")
+			sb.append(" and checkouttime BETWEEN '" + begintime.trim()+ "' and '" + endtime.trim()+ "' ");
+			}
+			
+		 int totalCount=list.size();
+		// System.out.println("总条数：" + totalCount);
+			int allPage = PageCount.getCount(totalCount, pageCount);
+		//	System.out.println("总页数：" + allPage);
+			// 拼接页码
+			sb.append(" ORDER BY number  DESC limit " + (pageNo - 1) * pageCount + "," + pageCount);
+		
+			//System.out.println("最后sql"+sb.toString());
+			//List<PerEvaluation> list =Common.PED.select_kindAccount_user(sb.toString());
+			List<Order> lists=Common.ORDER.select_kind_order(sb.toString());
+			//System.out.println(lists);
+			
+			
+			ActionContext.getContext().put("totalCount", totalCount);
+			ActionContext.getContext().put("allPage", allPage);
+			ActionContext.getContext().put("pageCount", pageCount);
+			ActionContext.getContext().put("PageNo", pageNo);
+		
+		
+		ActionContext.getContext().put("order", lists);		
+		
+		return "select_orderStatus";
+	}
+	
 	
 	
 	/**
@@ -138,6 +211,8 @@ public class OrderControll  extends ActionSupport{
 		return map;
 	}
 
+	
+	
 
 	public String getBegintime() {
 		return begintime;
@@ -162,6 +237,30 @@ public class OrderControll  extends ActionSupport{
 	}
 	public void setAccountuserid(Integer accountuserid) {
 		this.accountuserid = accountuserid;
+	}
+	public int getPageNo() {
+		return pageNo;
+	}
+	public void setPageNo(int pageNo) {
+		this.pageNo = pageNo;
+	}
+	public int getPageCount() {
+		return pageCount;
+	}
+	public void setPageCount(int pageCount) {
+		this.pageCount = pageCount;
+	}
+	public String getUserrole() {
+		return userrole;
+	}
+	public void setUserrole(String userrole) {
+		this.userrole = userrole;
+	}
+	public Integer getOrderId() {
+		return orderId;
+	}
+	public void setOrderId(Integer orderId) {
+		this.orderId = orderId;
 	}
 	
 	

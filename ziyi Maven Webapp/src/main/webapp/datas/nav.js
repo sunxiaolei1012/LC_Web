@@ -31,7 +31,7 @@ var navs = [{
 {
 	"title": "订单记录",
 	"icon": "fa-file-text",
-	"href": "admin/order.jsp",
+	"href": "Order_select_orderStatus",
 	"spread": false
 },
 {

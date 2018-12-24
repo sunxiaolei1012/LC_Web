@@ -142,6 +142,22 @@ public class OrderDaoImpl implements OrderDao{
 		int a = Common.UTIL.getRes(sql, null);
 		return a>0?true:false;
 	}
+	@Override
+	public List<Order> select_order_stats() {
+		String sql="select * from t_order where status=1 ORDER BY number  DESC";
+		List<Order> list=Common.UTIL.query(sql, null, Order.class);
+		if(list.size()>0&&list!=null)
+		return list;
+		return null;
+	}
+	@Override
+	public List<Order> select_kind_order(String str) {
+		String sql="select * from t_order where status=1 "+str;
+		List<Order> list=Common.UTIL.query(sql,null, Order.class);
+		if(list.size()>0&&list!=null)
+		return list;
+		return null;
+	}
 
 
 }

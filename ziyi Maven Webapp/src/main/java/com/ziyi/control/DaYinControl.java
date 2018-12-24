@@ -132,6 +132,9 @@ public class DaYinControl {
 		else
 		{
 			List<V_ORDER_SELLING> list = Common.VIEW.select(number);
+			if(list != null)
+			{
+				
 			
 			System.out.println(list.toString());
 			
@@ -202,8 +205,9 @@ public class DaYinControl {
 				//Order order=Common.ORDER.select_number_order(number);
 					String begainTime=order.getOrdertime();
 					String endTime=order.getCheckouttime();
-				DaYin.printSheet(begainTime,endTime,Common.USERS.select_id_name(order.getUserid()),config.TEA_NAME,number, list.get(0).getHousename(), config.TEA_PHONE, config.TEA_ADDRESS, str,list.get(0).getPrice()+"" , true , list.get(0).getPay_price()+"",Common.USERS.select_id_name(order.getAccountuserid()));
+				DaYin.printSheet(begainTime,endTime,Common.USERS.select_id_name(order.getUserid()),config.TEA_NAME,number, list.get(0).getHousename(), config.TEA_PHONE, config.TEA_ADDRESS, str,list.get(0).getPay_price()+"" , true , list.get(0).getPay_price()+"",Common.USERS.select_id_name(order.getAccountuserid()));
 			}
+		}
 		}
 		new Tools().return_object(new Gson().toJson(map));
 		return "json";
