@@ -11,12 +11,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Table</title>
-<link rel="stylesheet" href="../layui/css/layui.css" media="all" />
-<link rel="stylesheet" href="../css/global.css" media="all">
+<link rel="stylesheet" href="layui/css/layui.css" media="all" />
+<link rel="stylesheet" href="css/global.css" media="all">
 <link rel="stylesheet" type="text/css"
 	href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
-<link rel="stylesheet" href="../css/table.css" />
-<script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
+<link rel="stylesheet" href="css/table.css" />
+<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
 </head>   
 <body>
 	<div class="admin-main">
@@ -28,9 +28,9 @@
 				<table class="layui-table" lay-filter="cardshow">
 					<thead>
 						<tr>   
-						    <th lay-data="{field:'orderid', sort: true}">卡编号</th>							
-							<th lay-data="{field:'money'}">操作人</th>
-							<th lay-data="{field:'edit'}">编辑</th>							
+						    <th lay-data="{field:'orderid', sort: true,width:'5%'}">卡编号</th>							
+							<th lay-data="{field:'money',width:'48%'}">操作人</th>
+							<th lay-data="{field:'edit',width:'5%'}">编辑</th>							
 						</tr>
 					</thead>
 					<tbody>
@@ -83,7 +83,7 @@
 	     	</form>
 	     </div>
 	</div> 
-	<script type="text/javascript" src="../layui/layui.js"></script>
+	<script type="text/javascript" src="layui/layui.js"></script>
 	<script>		      
 		layui.use([ 'laypage','laydate', 'form', 'table' ],function() {
 							var $ = layui.jquery, 
@@ -95,8 +95,20 @@
 							 //page					 
 							 laypage.render({
 								 elem:'page'
-								 ,count:30  //总条数
-							      
+								 ,count:${sum}  //总条数
+								 ,limit:20
+							     //,limits:[20, 30, 40]
+							     ,first: '首页'
+							     ,last: '尾页'
+							     ,layout:['prev', 'page', 'next','skip','count']  //排版
+							     ,curr:${page}  //当前页
+							     ,jump: function(obj, first){  
+							    	 //obj（当前分页的所有选项值）、first（是否首次，一般用于初始加载的判断）
+							     if(!first){
+							    	 //do something
+							    	 window.location.href="old_card?page="+obj.curr;
+							      }
+							    }
 							 })						 
 						});		
 	   function editfun(){
