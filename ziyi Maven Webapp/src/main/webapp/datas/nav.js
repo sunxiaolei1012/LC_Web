@@ -24,7 +24,7 @@ var navs = [{
 	},{
 		"title":"旧卡",
 		"icon":"fa-credit-card",
-		"href":"admin/oldcard.jsp"
+		"href":"old_card"
 	}
 	]
 },

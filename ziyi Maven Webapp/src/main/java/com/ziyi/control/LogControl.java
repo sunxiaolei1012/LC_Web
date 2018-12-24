@@ -35,7 +35,7 @@ public class LogControl  extends ActionSupport{
 		{
 			pages = new Integer(page);
 		}
-		String sb  = pinjie("count(id)",false ,pages);
+		String sb  = pinjie("count(id)","t_log",false ,pages);
 //		System.out.println(sb);
 		//用来求总共有多少条数据
 		int zong = Util.sqlCount(sb);
@@ -45,8 +45,7 @@ public class LogControl  extends ActionSupport{
 //			sum = zong/Common.PAGE_CARD_SHOW_NUMBER;
 //		else
 //			sum = zong/Common.PAGE_CARD_SHOW_NUMBER+1;
-		
-		String str = pinjie("*",true,pages);
+		String str = pinjie("*","t_log",true,pages);
 		List<Log> list = Common.LOG.select_log_string(str);
 		
 		ActionContext.getContext().put("sum", zong);
@@ -60,10 +59,10 @@ public class LogControl  extends ActionSupport{
 		return "get";
 	}
 	
-	public String pinjie(String types , boolean bool , int page)
+	public String pinjie(String types ,String table, boolean bool , int page)
 	{
 		StringBuffer sb = new StringBuffer();
-		sb.append("select "+types+" from t_log where 1=1 ");
+		sb.append("select "+types+" from "+table+" where 1=1 ");
 		if(type != null && !type.equals(""))
 			if(!type.equals("0"))
 				sb.append(" and type="+type);
@@ -71,13 +70,9 @@ public class LogControl  extends ActionSupport{
 			sb.append(" and time>'"+begintime+"'");
 		if(endtime != null && !endtime.equals(""))
 		{
-//			if(begintime.equals(endtime))
-//			{	
 				String[] str = endtime.split("-");
 				str[2]=new Integer(str[2])+1+"";
 				sb.append(" and time<'"+str[0]+"-"+str[1]+"-"+str[2]+"'");
-//			}else
-//				sb.append(" and time<'"+endtime+"'");
 		}
 		if(value != null && !value.equals(""))
 			sb.append("  and (value LIKE '%"+value+"%' or time LIKE '%"+value+"%' or type LIKE '%"+value+"%')");

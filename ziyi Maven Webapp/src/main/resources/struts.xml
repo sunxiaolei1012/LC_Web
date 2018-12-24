@@ -92,6 +92,12 @@
          	 <allowed-methods>set</allowed-methods>
          </action>
          
+         <action name="old_*" class="com.ziyi.control.OldCardControl" method="{1}">
+          	 <result name="json" type="json"></result>
+          	 <result name="card">/admin/oldcard.jsp</result>
+         	 <allowed-methods>card</allowed-methods>
+         </action>
+         
             <action name="dayin_*" class="com.ziyi.control.DaYinControl" method="{1}">
             <result name="json" type="json"></result>
          	<allowed-methods>get,set,number,properties</allowed-methods>

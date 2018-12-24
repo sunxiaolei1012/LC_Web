@@ -30,21 +30,22 @@
 						<tr>   
 						    <th lay-data="{field:'orderid', sort: true}">卡编号</th>							
 							<th lay-data="{field:'money'}">操作人</th>
-							<th lay-data="{field:'time', sort: true}">激活时间</th>
 							<th lay-data="{field:'edit'}">编辑</th>							
 						</tr>
 					</thead>
 					<tbody>
- 
-						 <tr>
-						 	<td>12</td>
-						 	<td>20181102</td>
-						 	<td>1200</td>
+ 					<c:forEach var="is" items="${list }">
+ 						<tr>
+<%-- 						 	<td>${is.number }</td> --%>
+							<td>${is.number }</td>
+						 	<td>${is.value}</td>
 						 	<td>
 						 	  <a href="javascript:;" class="layui-btn layui-btn-xs" onclick="editfun()">编辑</a> 
 						 	  <a href="javascript:;" class="layui-btn layui-btn-danger layui-btn-xs">删除</a>
 							</td>
 						 </tr>
+ 					</c:forEach>
+						 
 					</tbody>
 				</table>
 				<div id="page" class="page"></div>

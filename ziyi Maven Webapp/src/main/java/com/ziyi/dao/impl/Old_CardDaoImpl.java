@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.cyb.util.Common;
 import com.ziyi.dao.Old_CardDao;
+import com.ziyi.pojo.Log;
 import com.ziyi.pojo.Old_Card;
 
 public class Old_CardDaoImpl implements Old_CardDao{
@@ -42,6 +43,14 @@ public class Old_CardDaoImpl implements Old_CardDao{
 	public boolean del_id_old_card(int id) {
 		int a = Common.UTIL.getRes("delete from t_old_card where id=?", new Object[]{id});
 		return a>0?true:false;
+	}
+
+	@Override
+	public List<Old_Card> show(String str) {
+		List<Old_Card> list = Common.UTIL.query(str, null, Old_Card.class);
+		if(list != null && list.size()>0)
+			return list;
+		return null;
 	}
 
 }

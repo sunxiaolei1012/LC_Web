@@ -748,7 +748,7 @@ public class MainServlet extends ActionSupport {
 					map.put("msg", config.PAY_TRUE);
 
 					Common.TOOLS.log_time(
-							user.getName() + "收取了订单号为：" + number + "的账单。金额为：" + orders.getPrice() + "。现金付款", 10);
+							user.getName() + "收取了订单号为：" + number + "的账单。金额为：" + orders.getPrice() + "。现金付款", 7);
 				} else {
 					map.put("state", false);
 					map.put("msg", config.PAY_ERROR);
@@ -765,7 +765,7 @@ public class MainServlet extends ActionSupport {
 					map.put("state", true);
 					map.put("msg", config.PAY_TRUE);
 					Common.TOOLS.log_time(
-							user.getName() + "收取了订单号为：" + number + "的账单。金额为：" + orders.getPrice() + "。支付宝付款", 10);
+							user.getName() + "收取了订单号为：" + number + "的账单。金额为：" + orders.getPrice() + "。支付宝付款", 7);
 				} else {
 					map.put("state", false);
 					map.put("msg", config.PAY_ERROR);
@@ -782,7 +782,7 @@ public class MainServlet extends ActionSupport {
 					map.put("state", true);
 					map.put("msg", config.PAY_TRUE);
 					Common.TOOLS.log_time(
-							user.getName() + "收取了订单号为：" + number + "的账单。金额为：" + orders.getPrice() + "。微信付款", 10);
+							user.getName() + "收取了订单号为：" + number + "的账单。金额为：" + orders.getPrice() + "。微信付款", 7);
 				} else {
 					map.put("state", false);
 					map.put("msg", config.PAY_ERROR);

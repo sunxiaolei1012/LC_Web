@@ -1,5 +1,7 @@
 package com.ziyi.dao;
 
+import java.util.List;
+
 import com.ziyi.pojo.Old_Card;
 
 /**
@@ -39,5 +41,7 @@ public interface Old_CardDao {
 	 * @return
 	 */
 	public boolean del_id_old_card(int id);
+	
+	public List<Old_Card> show(String str);
 
 }
