@@ -150,6 +150,14 @@ public class OrderDaoImpl implements OrderDao{
 		return list;
 		return null;
 	}
+	@Override
+	public List<Order> select_kind_order(String str) {
+		String sql="select * from t_order where status=1 "+str;
+		List<Order> list=Common.UTIL.query(sql,null, Order.class);
+		if(list.size()>0&&list!=null)
+		return list;
+		return null;
+	}
 
 
 }

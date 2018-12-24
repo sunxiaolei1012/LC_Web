@@ -134,6 +134,14 @@ public interface OrderDao {
 	 */
 	public List<Order> select_order_stats();
 	
+	
+	/**
+	 * 多条件查询订单中所有已经付款的订单 
+	 * Status =1
+	 * @return
+	 */
+	public List<Order> select_kind_order(String str);
+	
 	public boolean update_number_xubei(String number , String sellingid);
 	
 	

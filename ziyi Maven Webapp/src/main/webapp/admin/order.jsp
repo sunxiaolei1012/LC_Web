@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+ <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	String path = request.getContextPath();
@@ -113,8 +113,12 @@
 		//搜索
 		function searOrder() {
 			var searchval = $.trim($('#search').val());
+			
 			var begintime = $("#starttime").val();
 			var endtime = $("#endtime").val();
+				alert(begintime);
+			 window.location.href = "Order_select_orderStatus?begintime="+begintime+"&endtime="+endtime+"&orderId="+searchval;
+				
 // 			window.location.href = "";
 		}
 		function press(number){
@@ -130,7 +134,7 @@
 				  	 }
 				  	 else{
 				  	 
-				  	 alert("数量修改失败！");
+				  	 alert("打印失败！");
 				  	 } 
 
 			}
