@@ -161,7 +161,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					  laypage({
 					    cont: 'page'
 					    ,pages: ${allPage}//总页数
-					    ,groups: 4//连续显示分页数
+					    ,groups: 10//连续显示分页数
 					    ,curr: ${PageNo} //当前页数
 					    ,jump: function(obj, first) { //obj（当前分页的所有选项值）、first（是否首次，一般用于初始加载的判断）
 						 

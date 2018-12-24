@@ -137,7 +137,7 @@ public class OrderControll  extends ActionSupport{
 		//orderid值查询 
 	//	System.out.println("orderId"+orderId);
 		if(orderId!=null )
-			sb.append("and number like '"+orderId+"%'  ");
+			sb.append("and (number like '%"+orderId+"%' or  checkouttime like '%"+orderId+"%'  or  pay_price like '%"+orderId+"%' )");
 		
 		//System.out.println("number后"+sb.toString());
 		// 拼接日期
@@ -154,26 +154,31 @@ public class OrderControll  extends ActionSupport{
 			sb.append(" and checkouttime BETWEEN '" + begintime.trim()+ "' and '" + endtime.trim()+ "' ");
 			}
 			
-		 int totalCount=list.size();
-		// System.out.println("总条数：" + totalCount);
-			int allPage = PageCount.getCount(totalCount, pageCount);
-		//	System.out.println("总页数：" + allPage);
-			// 拼接页码
-			sb.append(" ORDER BY number  DESC limit " + (pageNo - 1) * pageCount + "," + pageCount);
 		
-			//System.out.println("最后sql"+sb.toString());
-			//List<PerEvaluation> list =Common.PED.select_kindAccount_user(sb.toString());
+			
 			List<Order> lists=Common.ORDER.select_kind_order(sb.toString());
 			//System.out.println(lists);
+			 int totalCount = 0;
+			if(lists!=null) 
+				 totalCount=lists.size();
+			 
 			
+				// System.out.println("总条数：" + totalCount);
+					int allPage = PageCount.getCount(totalCount, pageCount);
+				//	System.out.println("总页数：" + allPage);
+					// 拼接页码
+					sb.append(" ORDER BY number  DESC limit " + (pageNo - 1) * pageCount + "," + pageCount);
+					List<Order> listss=Common.ORDER.select_kind_order(sb.toString());
 			
 			ActionContext.getContext().put("totalCount", totalCount);
 			ActionContext.getContext().put("allPage", allPage);
 			ActionContext.getContext().put("pageCount", pageCount);
 			ActionContext.getContext().put("PageNo", pageNo);
+			ActionContext.getContext().put("begintime", begintime);
+			ActionContext.getContext().put("endtime", endtime);
 		
-		
-		ActionContext.getContext().put("order", lists);		
+			ActionContext.getContext().put("orderId", orderId);
+		ActionContext.getContext().put("order", listss);		
 		
 		return "select_orderStatus";
 	}

@@ -27,18 +27,18 @@
 					<div class="layui-inline">				     
 				        <label class="layui-form-label">日期范围</label>
 				        <div class="layui-input-inline">
-				         <input type="text" class="layui-input" id="starttime" placeholder="开始时间" value="">
+				         <input type="text" class="layui-input" id="starttime" placeholder="开始时间" value="${begintime }">
 				        </div>
 				        <div class="layui-form-mid">~</div>
 				        <div class="layui-input-inline">
-				         <input type="text" class="layui-input" id="endtime" placeholder="结束时间" value="">
+				         <input type="text" class="layui-input" id="endtime" placeholder="结束时间" value="${endtime }">
 				        </div>
 				    </div> 				    
 					<div class="layui-inline">
 						<label class="layui-form-label">搜索</label>
 						<div class="layui-input-inline">
 							<input type="text" name="search" placeholder="请输入搜索内容"
-								class="layui-input" id="search" value=" ">
+								class="layui-input" id="search" value="${orderId} ">
 						</div>
 						<button type="button" class="layui-btn" id="searchbtn"
 							onclick="searOrder()">
@@ -106,8 +106,25 @@
 							table.init("ordershow");
 							 //page					 
 							 laypage.render({
-								 elem:'page'
-								 ,count:30  //总条数							      
+								  elem:'page'
+									 ,count:${totalCount}   //总条数
+								     ,limit:${pageCount}
+								     //,limits:[10, 20, 30]
+								     ,first: '首页'
+								     ,last: '尾页'
+								     ,layout:['prev', 'page', 'next','skip','count']  //排版
+								     ,curr:${PageNo}  //当前页
+								     ,jump: function(obj, first){  //obj（当前分页的所有选项值）、first（是否首次，一般用于初始加载的判断）
+								    	 
+								    	 
+								     if(!first){
+								    	var searchval = $.trim($('#search').val());
+								    	var begintime = $("#starttime").val();
+										var endtime = $("#endtime").val();
+										
+								      	window.location.href='Order_select_orderStatus?pageNo='+obj.curr+'&begintime='+begintime+'&endtime='+endtime+'&orderId='+searchval;							       
+								      }
+								    }					      
 							 })							 
 						});
 		//搜索
@@ -116,7 +133,7 @@
 			
 			var begintime = $("#starttime").val();
 			var endtime = $("#endtime").val();
-				alert(begintime);
+			
 			 window.location.href = "Order_select_orderStatus?begintime="+begintime+"&endtime="+endtime+"&orderId="+searchval;
 				
 // 			window.location.href = "";
