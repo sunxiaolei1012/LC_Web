@@ -53,4 +53,18 @@ public class Old_CardDaoImpl implements Old_CardDao{
 		return null;
 	}
 
+	@Override
+	public Old_Card select_number_card(int id) {
+		List<Old_Card> list = Common.UTIL.query("select * from t_old_card where id=?", new Object[]{id}, Old_Card.class);
+		if(list != null && list.size()>0)
+			return list.get(0);
+		return null;
+	}
+
+	@Override
+	public boolean update_id_number(int id, String number) {
+		int a = Common.UTIL.getRes("update t_old_card set number=? where id=?", new Object[]{number,id});
+		return a>0?true:false;
+	}
+
 }

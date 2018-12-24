@@ -57,6 +57,7 @@
      		<result name="update_cardtype">admin/update/card_type.jsp</result>
      		<result name="update_card">admin/update/card.jsp</result>
      		<result name="update_selling_type">admin/update/selling_type.jsp</result>
+     		<result name="update_old_card">admin/update/old_card.jsp</result>
      		<result name="update_tea_house">admin/update/tea_house.jsp</result>
      		<result name="update_selling">admin/update/selling.jsp</result>
      		<result name="del_user" type="chain">admin_user</result>
@@ -69,7 +70,7 @@
      		update_card , xiu_card, del_card,
      		add_sellingtype , del_sellingtype , update_sellingtype , xiu_sellingtype,
      		add_teahouse , update_teahouse , xiu_teahouse,del_teahouse ,
-     		del_selling, add_selling ,update_selling,add_newcard,xiu_selling
+     		del_selling, add_selling ,update_selling,add_newcard,xiu_selling,update_oldcard , xiu_oldcard
      		</allowed-methods>
      	</action>
      	

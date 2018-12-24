@@ -9,6 +9,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.ziyi.control.cmd.CardControl;
 import com.ziyi.control.cmd.CardTypeControl;
 import com.ziyi.control.cmd.New_Card;
+import com.ziyi.control.cmd.OldCardsControl;
 import com.ziyi.control.cmd.SellingControl;
 import com.ziyi.control.cmd.SellingTypeControl;
 import com.ziyi.control.cmd.TeaHouseControl;
@@ -280,6 +281,15 @@ public class cmdServlet extends ActionSupport{
 	{
 		new New_Card().add_newcard_two(ctid, name, phone, address, price ,idcard);
 		return "json";
+	}
+	
+	public String update_oldcard()
+	{
+		return new OldCardsControl().update(id);
+	}
+	public String xiu_oldcard()
+	{
+		return new OldCardsControl().xiu(id,number);
 	}
 	
 	public String getName() {

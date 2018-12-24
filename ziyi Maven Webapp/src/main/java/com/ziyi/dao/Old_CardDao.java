@@ -43,5 +43,14 @@ public interface Old_CardDao {
 	public boolean del_id_old_card(int id);
 	
 	public List<Old_Card> show(String str);
+	
+	public Old_Card select_number_card(int id);
+	/**
+	 * 根据id 修改编号
+	 * @param id
+	 * @param number
+	 * @return
+	 */
+	public boolean update_id_number(int id , String number);
 
 }

@@ -40,7 +40,7 @@
 							<td>${is.number }</td>
 						 	<td>${is.value}</td>
 						 	<td>
-						 	  <a href="javascript:;" class="layui-btn layui-btn-xs" onclick="editfun()">编辑</a> 
+						 	  <a href="javascript:update('oldcard',${is.id});" class="layui-btn layui-btn-xs">编辑</a> 
 						 	  <a href="javascript:;" class="layui-btn layui-btn-danger layui-btn-xs">删除</a>
 							</td>
 						 </tr>
@@ -52,37 +52,38 @@
 			</div>
 		</fieldset>
 	</div>
-	<div id="editTable" style="display:none;">
-	<br>
-	     <div>
-	     	<form action="" class="layui-form">
-	     		<div class="layui-form-item">
-					<label class="layui-form-label">卡编号</label>
-					<div class="layui-input-block">
-						<input type="text" name="cardtype" value="" class="layui-input">
-					</div>
-				</div>
+<!-- 	<div id="editTable" style="display:none;"> -->
+<!-- 	<br> -->
+<!-- 	     <div> -->
+<!-- 	     	<form action="" class="layui-form"> -->
+<!-- 	     		<div class="layui-form-item"> -->
+<!-- 					<label class="layui-form-label">卡编号</label> -->
+<!-- 					<div class="layui-input-block"> -->
+<!-- 						<input type="text" name="cardtype" value="" class="layui-input"> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
 				
-				<div class="layui-form-item">
-					<label class="layui-form-label">操作人</label>
-					<div class="layui-input-block">
-						<input type="text" name="cardname"  value="" class="layui-input">
-					</div>
-				</div>
-				<div class="layui-form-item">
-					<label class="layui-form-label">操作时间</label>
-					<div class="layui-input-block">
-						<input type="text" name="cardtime"  value="" class="layui-input">
-					</div>
-				</div>				 
-				<div class="layui-form-item">
-					<div class="layui-input-block">
-						<button class="layui-btn" onclick="">立即提交</button>
-					</div>
-				</div>
-	     	</form>
-	     </div>
-	</div> 
+<!-- 				<div class="layui-form-item"> -->
+<!-- 					<label class="layui-form-label">操作人</label> -->
+<!-- 					<div class="layui-input-block"> -->
+<!-- 						<input type="text" name="cardname"  value="" class="layui-input"> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 				<div class="layui-form-item"> -->
+<!-- 					<label class="layui-form-label">操作时间</label> -->
+<!-- 					<div class="layui-input-block"> -->
+<!-- 						<input type="text" name="cardtime"  value="" class="layui-input"> -->
+<!-- 					</div> -->
+<!-- 				</div>				  -->
+<!-- 				<div class="layui-form-item"> -->
+<!-- 					<div class="layui-input-block"> -->
+<!-- 						<button class="layui-btn" onclick="">立即提交</button> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 	     	</form> -->
+<!-- 	     </div> -->
+<!-- 	</div>  -->
+<script type="text/javascript" src="js/chen1.js"></script>
 	<script type="text/javascript" src="layui/layui.js"></script>
 	<script>		      
 		layui.use([ 'laypage','laydate', 'form', 'table' ],function() {
@@ -111,23 +112,23 @@
 							    }
 							 })						 
 						});		
-	   function editfun(){
-		   layer.open({
-			   title:'旧卡修改',
-			   type: 1,
-				shade: false,
-// 				btn:['确认','取消'],
-// 				btnAlign:'c',
-				// offset:'t',   //弹出框位置
-				closeBtn:1,      //按钮位置
-               anim: 1,         //弹窗弹出动画
-               maxmin:true,
-               fixed:true,
-				skin: 'layui-layer-molv', //加上边框
-				area: ['500px', '600px'], //宽高
-				content: $("#editTable"),   //引入html内容
-		   });
-	   }
+// 	   function editfun(){
+// 		   layer.open({
+// 			   title:'旧卡修改',
+// 			   type: 1,
+// 				shade: false,
+// // 				btn:['确认','取消'],
+// // 				btnAlign:'c',
+// 				// offset:'t',   //弹出框位置
+// 				closeBtn:1,      //按钮位置
+//                anim: 1,         //弹窗弹出动画
+//                maxmin:true,
+//                fixed:true,
+// 				skin: 'layui-layer-molv', //加上边框
+// 				area: ['500px', '600px'], //宽高
+// 				content: $("#editTable"),   //引入html内容
+// 		   });
+// 	   }
 	</script>
 
 </body>
