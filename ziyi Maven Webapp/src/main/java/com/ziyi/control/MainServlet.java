@@ -74,12 +74,10 @@ public class MainServlet extends ActionSupport {
 			map.put("msg", "原来桌号不为空");
 		else {
 			Tea_House tea_houseid = Common.HOUSE.select_House_id(new Integer(houseid));
-			if(houseid != null)
-			{
-				if(tea_houseid.getStatus() == 0 || tea_houseid.getStatus() == 3)
+			if (houseid != null) {
+				if (tea_houseid.getStatus() == 0 || tea_houseid.getStatus() == 3)
 					map.put("msg", "桌子状态不对");
-				else
-				{
+				else {
 					Users user = (Users) ActionContext.getContext().getSession().get("user");
 					// 根据要换桌子 查询桌子状态
 					Tea_House tea = Common.HOUSE.select_House_id(new Integer(tableid));
@@ -89,51 +87,47 @@ public class MainServlet extends ActionSupport {
 						else if (tea.getStatus() == 2)
 							map.put("msg", "不可更换，要换位置已有预约");
 						else {
-							//查询原来
-							if(tea_houseid.getStatus() == 1)//有订单
+							// 查询原来
+							if (tea_houseid.getStatus() == 1)// 有订单
 							{
-								//根据桌号查询订单信息
+								// 根据桌号查询订单信息
 								Order order = Common.ORDER.select_houseid_state(0, new Integer(houseid));
-								if(order != null)
-								{
+								if (order != null) {
 									boolean bool = Common.ORDER.update_number_house(order.getNumber(), tableid);
-									if(bool)
-									{
+									if (bool) {
 										Common.HOUSE.update_number_table(new Integer(tableid), 1);
 										Common.HOUSE.update_number_table(new Integer(houseid), 0);
 										map.put("msg", "修改成功");
 										map.put("status", true);
-										Common.TOOLS.log_time(user.getUserrole() + "执行换桌,把"+Common.HOUSE.select_House_id(new Integer(houseid)).getHousename()+"换到"+Common.HOUSE.select_House_id(new Integer(houseid)).getHousename(), 4);
-									}
-									else
+										Common.TOOLS.log_time(user.getUserrole() + "执行换桌,把"
+												+ Common.HOUSE.select_House_id(new Integer(houseid)).getHousename()
+												+ "换到"
+												+ Common.HOUSE.select_House_id(new Integer(houseid)).getHousename(), 4);
+									} else
 										map.put("msg", "修改失败");
-								}
-								else
+								} else
 									map.put("msg", "订单不存在");
-							}
-							else if (tea_houseid.getStatus() == 2)//有预约
+							} else if (tea_houseid.getStatus() == 2)// 有预约
 							{
 								YuYueDao yu = new YuYueDaoImpl();
 								YuYue yuyue = yu.select_yuyue_tid(new Integer(houseid));
-								if(yuyue != null)
-								{
+								if (yuyue != null) {
 									Common.HOUSE.update_number_table(new Integer(tableid), 2);
 									Common.HOUSE.update_number_table(new Integer(houseid), 0);
 									yu.update_id_tid(yuyue.getId(), new Integer(tableid));
 									map.put("msg", "修改成功");
 									map.put("status", true);
-									Common.TOOLS.log_time(user.getUserrole() + "执行换桌,把"+Common.HOUSE.select_House_id(new Integer(houseid)).getHousename()+"换到"+Common.HOUSE.select_House_id(new Integer(houseid)).getHousename(), 4);
-								}
-								else
+									Common.TOOLS.log_time(user.getUserrole() + "执行换桌,把"
+											+ Common.HOUSE.select_House_id(new Integer(houseid)).getHousename() + "换到"
+											+ Common.HOUSE.select_House_id(new Integer(houseid)).getHousename(), 4);
+								} else
 									map.put("msg", "预约不存在");
 							}
 						}
 					} else
 						map.put("msg", "桌子不存在");
 				}
-			}
-			else
-			{
+			} else {
 				map.put("msg", "桌子不存在");
 			}
 		}
@@ -192,7 +186,8 @@ public class MainServlet extends ActionSupport {
 			yy.setTid(new Integer(id));
 			yy.setTime(Common.df.format(new Date()));
 			yu.insert_yuyue(yy);
-			Common.TOOLS.log_time(name+"预定了桌子《"+Common.HOUSE.select_House_id(new Integer(id)).getHousename()+"》。服务员："+user.getName(),2);
+			Common.TOOLS.log_time(name + "预定了桌子《" + Common.HOUSE.select_House_id(new Integer(id)).getHousename()
+					+ "》。服务员：" + user.getName(), 2);
 			Common.TOOLS.return_map_object(bool, config.YUDING_TRUE, config.YUDING_FLASE);
 		} else {
 			try {
@@ -235,20 +230,19 @@ public class MainServlet extends ActionSupport {
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("number", order.getNumber());
 			map.put("ordertime", order.getOrdertime());
-			//添加差价
-			double xubeiprice=0;
-			if(order.getXubei()!=0 )
-			{
+			// 添加差价
+			double xubeiprice = 0;
+			if (order.getXubei() != 0) {
 				Selling_list selling = Common.ORDER.select_xubei_order(order.getNumber());
-				double price=selling.getPrice();
+				double price = selling.getPrice();
 				Selling_list slll = Common.SLD.selecct_id_list(order.getXubei());
-				double prices=slll.getPrice();
-				if(prices>price) {
-				 xubeiprice=prices-price;
-					
+				double prices = slll.getPrice();
+				if (prices > price) {
+					xubeiprice = prices - price;
+
 				}
 			}
-			map.put("price", Common.double_df.format((order.getPrice())+xubeiprice));
+			map.put("price", Common.double_df.format((order.getPrice()) + xubeiprice));
 			map.put("houseid", order.getHouseid());
 			map.put("status", order.getStatus());
 			Users user = (Users) ActionContext.getContext().getSession().get("user");
@@ -271,23 +265,22 @@ public class MainServlet extends ActionSupport {
 					sl.setTypeid(se.getId());
 					selling_list.add(sl);
 				}
-						
-				if(order.getXubei()!=0 )
-				{
+
+				if (order.getXubei() != 0) {
 					Selling_list selling = Common.ORDER.select_xubei_order(order.getNumber());
-					
-					double price=selling.getPrice();
+
+					double price = selling.getPrice();
 					Selling_list sll = Common.SLD.selecct_id_list(order.getXubei());
 					sll.setNumber(1);
-					double prices=sll.getPrice();
-					sll.setName("(续)"+sll.getName());
-					if(prices>price) {
-					 xubeiprice=prices-price;
+					double prices = sll.getPrice();
+					sll.setName("(续)" + sll.getName());
+					if (prices > price) {
+						xubeiprice = prices - price;
 						sll.setPrice(xubeiprice);
-					}else {
+					} else {
 						sll.setPrice(0.00);
 					}
-					
+
 					selling_list.add(sll);
 				}
 				map.put("sel", selling_list);
@@ -349,20 +342,19 @@ public class MainServlet extends ActionSupport {
 
 				map.put("number", order.getNumber());
 				map.put("ordertime", order.getOrdertime());
-				//添加差价
-				double xubeiprice=0;
-				if(order.getXubei()!=0 )
-				{
+				// 添加差价
+				double xubeiprice = 0;
+				if (order.getXubei() != 0) {
 					Selling_list selling = Common.ORDER.select_xubei_order(order.getNumber());
-					double price=selling.getPrice();
+					double price = selling.getPrice();
 					Selling_list slll = Common.SLD.selecct_id_list(order.getXubei());
-					double prices=slll.getPrice();
-					if(prices>price) {
-					 xubeiprice=prices-price;
-						
+					double prices = slll.getPrice();
+					if (prices > price) {
+						xubeiprice = prices - price;
+
 					}
 				}
-				map.put("price", Common.double_df.format((order.getPrice())+xubeiprice));
+				map.put("price", Common.double_df.format((order.getPrice()) + xubeiprice));
 				map.put("status", order.getStatus());
 				Users user = (Users) ActionContext.getContext().getSession().get("user");
 				if (user.getUserrole().equals("2"))
@@ -379,26 +371,24 @@ public class MainServlet extends ActionSupport {
 						sl.setNumber(se.getNumber());
 						selling_list.add(sl);
 					}
-					
-					
-					if(order.getXubei()!=0 )
-					{
+
+					if (order.getXubei() != 0) {
 						Selling_list selling = Common.ORDER.select_xubei_order(order.getNumber());
-						
-						double price=selling.getPrice();
+
+						double price = selling.getPrice();
 						Selling_list slll = Common.SLD.selecct_id_list(order.getXubei());
-						double prices=slll.getPrice();
-						slll.setName("(续)"+slll.getName());
-						if(prices>price) {
-						 xubeiprice=prices-price;
+						double prices = slll.getPrice();
+						slll.setName("(续)" + slll.getName());
+						if (prices > price) {
+							xubeiprice = prices - price;
 							slll.setPrice(xubeiprice);
-						}else {
+						} else {
 							slll.setPrice(0.00);
 						}
-						
+
 						selling_list.add(slll);
 					}
-					
+
 					map.put("sel", selling_list);
 				}
 
@@ -426,22 +416,23 @@ public class MainServlet extends ActionSupport {
 				falses = config.ORDER_NULL_ERROR_MSG;
 			} else if (null == sl) {
 				falses = config.SELLING_NULL_ERROR_MSG;
-			} 
-			
-				//查询商品是否存在续杯商品 加上差价
-			else if(order.getXubei()!=0) {
-				
+			}
+
+			// 查询商品是否存在续杯商品 加上差价
+			else if (order.getXubei() != 0) {
+
 				Selling_list selling = Common.ORDER.select_xubei_order(order.getNumber());
-				System.out.println("下单续杯"+selling);
-				double price=selling.getPrice();
+				System.out.println("下单续杯" + selling);
+				double price = selling.getPrice();
 				Selling_list slll = Common.SLD.selecct_id_list(order.getXubei());
-				double prices=slll.getPrice();
+				double prices = slll.getPrice();
 				double xubeiprice = 0;
-				if(prices>price) {
-					xubeiprice=prices-price;
-					System.out.println("续杯差价"+xubeiprice);
+				if (prices > price) {
+					xubeiprice = prices - price;
+					System.out.println("续杯差价" + xubeiprice);
 				}
-				boolean bool_s = Common.ORDER.update_number_order(number, order.getPrice() + sl.getPrice()+xubeiprice);
+				boolean bool_s = Common.ORDER.update_number_order(number,
+						order.getPrice() + sl.getPrice() + xubeiprice);
 				if (bool_s)// 修改成功
 				{
 					// 根据订单与商品表 查询是否有数据
@@ -464,30 +455,29 @@ public class MainServlet extends ActionSupport {
 						map.put("state", "true");
 						map.put("msg", config.XIU_USER_RIGHT_MSG);
 						map.put("id", "" + order.getHouseid());
-						Common.TOOLS.log_time(user.getName()+"在订单：" + number + "中添加了商品：" + sl.getName(), 5);
+						Common.TOOLS.log_time(user.getName() + "在订单：" + number + "中添加了商品：" + sl.getName(), 5);
 					} else {
 						// 添加失败 数据回滚
 						Common.ORDER.update_number_order(number, order.getPrice());
 					}
 
 				}
-				}
-			else {
+			} else {
 				// order.setPrice(sl.getPrice());
-				//添加差价
-				double xubeiprice=0;
-				if(order.getXubei()!=0 )
-				{
+				// 添加差价
+				double xubeiprice = 0;
+				if (order.getXubei() != 0) {
 					Selling_list selling = Common.ORDER.select_xubei_order(order.getNumber());
-					double price=selling.getPrice();
+					double price = selling.getPrice();
 					Selling_list slll = Common.SLD.selecct_id_list(order.getXubei());
-					double prices=slll.getPrice();
-					if(prices>price) {
-					 xubeiprice=prices-price;
-						
+					double prices = slll.getPrice();
+					if (prices > price) {
+						xubeiprice = prices - price;
+
 					}
 				}
-				boolean bool_s = Common.ORDER.update_number_order(number, order.getPrice() + sl.getPrice()+xubeiprice);
+				boolean bool_s = Common.ORDER.update_number_order(number,
+						order.getPrice() + sl.getPrice() + xubeiprice);
 				if (bool_s)// 修改成功
 				{
 					// 根据订单与商品表 查询是否有数据
@@ -609,7 +599,7 @@ public class MainServlet extends ActionSupport {
 					Common.TOOLS.return_map_object_id(true, config.ADD_USER_RIGHT_MSG,
 							config.SELLING_NULL_ERROR_MSG_FALSE, order.getHouseid() + "");
 					Users user = (Users) ActionContext.getContext().getSession().get("user");
-					Common.TOOLS.log_time(user.getName()+"在订单：" + number + "中删除了商品：", 6);
+					Common.TOOLS.log_time(user.getName() + "在订单：" + number + "中删除了商品：", 6);
 				}
 
 			}
@@ -653,9 +643,73 @@ public class MainServlet extends ActionSupport {
 		}
 		Common.TOOLS.return_object(new Gson().toJson(map));
 	}
+	public String pay_two()
+	{
+		Map<String, Object> map = new HashMap<String, Object>();
+		OrderDao orderdao = new OrderDaoImpl();
+		Order order = orderdao.select_number_order(number);
+		if (order == null) {
+			map.put("state", false);
+			map.put("msg", config.PAY_NUMBER_DEL);
+		} else if (order.getStatus() == 1) {
+			map.put("state", false);
+			map.put("msg", config.PAY_NUMBER_TRUE);
+		} 
+		else
+		{
+			if (null == cnumber || "".equals(cnumber)) {
+				map.put("state", false);
+				map.put("msg", config.CARD_NULL);
+			} else {
+				// 有会员卡。根据会员卡号 查询会员卡信息
+				CardDao cdd = new CardDaoImpl();
+				Card card = cdd.select_card_number(cnumber);
+				if (card != null)// 卡有效
+				{
+					Card_typeDao cld = new Card_typeDaoImpl();
+					Card_type ctid = cld.select_card_ctid(card.getCtid());
+					Double rebate = 1.00;
+					if (ctid != null)
+						rebate = ctid.getRebate();
+					if (order != null)// 订单存在
+					{
+						// 判断卡中余额与折扣，是否够付钱
+						Double dou = order.getPrice() * rebate;
+						if (card.getRemain() >= dou) {
+							Users user = (Users) ActionContext.getContext().getSession().get("user");
+							// 执行扣钱操作 会员卡是1
+							boolean bool = orderdao.update_order_card(dou, 1, Common.df.format(new Date()),
+									order.getOrderid(), card.getCardid(), user.getUserid());
+							if (bool) {
+								Common.HOUSE.update_house_tea(order.getHouseid(), 0);
+								map.put("state", true);
+								map.put("msg", config.PAY_TRUE);
+								Common.TOOLS.log_time(user.getName() + "收取了订单号为：" + number + "的账单。金额为：" + dou
+										+ "。会员卡付款，卡号：" + cnumber, 7);
+							} else {
+								map.put("state", false);
+								map.put("msg", config.PAY_ERROR);
+							}
+						} else {
+							map.put("number",number);
+							map.put("card", cnumber);
+							map.put("state", false);
+							map.put("status", false);
+							map.put("msg", "卡中余额不足,<br/>缺少"+Common.double_df.format(dou-card.getRemain())+"<br/>是否选择用其他方式加会员卡付款");
+						}
+					}
+				} else// 卡无效
+				{
+					map.put("state", false);
+					map.put("msg", config.NUMBER_FALSE);
+				}
+			}
+		}
+		return "json";
+	}
 
 	public String pay() {
-//		System.out.println("pay");
+		// System.out.println("pay");
 		Map<String, Object> map = new HashMap<String, Object>();
 		OrderDao orderdao = new OrderDaoImpl();
 		Order order = orderdao.select_number_order(number);
@@ -685,10 +739,10 @@ public class MainServlet extends ActionSupport {
 							rebate = ctid.getRebate();
 						if (order != null)// 订单存在
 						{
+							Users user = (Users) ActionContext.getContext().getSession().get("user");
 							// 判断卡中余额与折扣，是否够付钱
 							Double dou = order.getPrice() * rebate;
 							if (card.getRemain() >= dou) {
-								Users user = (Users) ActionContext.getContext().getSession().get("user");
 								// 执行扣钱操作 会员卡是1
 								boolean bool = orderdao.update_order_card(dou, 1, Common.df.format(new Date()),
 										order.getOrderid(), card.getCardid(), user.getUserid());
@@ -703,12 +757,10 @@ public class MainServlet extends ActionSupport {
 									map.put("msg", config.PAY_ERROR);
 								}
 							} else {
-								map.put("state", false);
-								map.put("msg", config.CARD_PRICE_FALSE);
+								//卡中余额不足。选择会员卡加其他方式付款
+								
 							}
-
 						}
-
 					} else// 卡无效
 					{
 						map.put("state", false);
@@ -721,23 +773,21 @@ public class MainServlet extends ActionSupport {
 				// 根据订单编号，查询订单信息
 				Order orders = Common.ORDER.select_number_order(number);
 				Users user = (Users) ActionContext.getContext().getSession().get("user");
-				//添加差价
-				double xubeiprice=0;
-				if(order.getXubei()!=0 )
-				{
+				// 添加差价
+				double xubeiprice = 0;
+				if (order.getXubei() != 0) {
 					Selling_list selling = Common.ORDER.select_xubei_order(order.getNumber());
-					double price=selling.getPrice();
+					double price = selling.getPrice();
 					Selling_list slll = Common.SLD.selecct_id_list(order.getXubei());
-					double prices=slll.getPrice();
-					if(prices>price) {
-					 xubeiprice=prices-price;
-						
+					double prices = slll.getPrice();
+					if (prices > price) {
+						xubeiprice = prices - price;
+
 					}
 				}
-				
-				
-				boolean bool = orderdao.update_two_order(0, Common.df.format(new Date()), (orders.getPrice()+xubeiprice), number,
-						user.getUserid());
+
+				boolean bool = orderdao.update_two_order(0, Common.df.format(new Date()),
+						(orders.getPrice() + xubeiprice), number, user.getUserid());
 				if (bool) {
 					Common.HOUSE.update_house_tea(orders.getHouseid(), 0);
 					map.put("state", true);

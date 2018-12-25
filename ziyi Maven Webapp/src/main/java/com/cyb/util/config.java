@@ -66,7 +66,7 @@ public class config {
 	public static final String PAY_ERROR= "付款失败，请查询日志信息";
 	public static final String PAY_TRUE= "支付成功";
 	
-	public static final String CARD_PRICE_FALSE= "卡中余额不足";
+	public static final String CARD_PRICE_FALSE= "卡中余额不足,是否选择用其他方式加会员卡付款";
 	public static final String CARD_PRICE_ADD_NULL="充值金额不为空";
 	public static final String CARD_USER_NAME_IS_NULL="开卡人姓名不为空";
 	public static final String CARD_NULL="会员卡为空";
