@@ -141,13 +141,7 @@ public class OrderControll  extends ActionSupport{
 		
 		//System.out.println("number后"+sb.toString());
 		// 拼接日期
-//		System.out.println("时间段："+begintime+endtime);
-//		System.out.println(begintime != null);
-//		System.out.println(endtime != null);
-//		System.out.println(begintime != "null");
-//		System.out.println(endtime != "null");
-//		System.out.println(begintime != "");
-//		System.out.println(endtime != "");
+//	
 		//if(!begintime.equals("null") && !endtime.equals("null"))
 			if(begintime !=null && endtime != null) {
 				System.out.println(begintime==endtime);

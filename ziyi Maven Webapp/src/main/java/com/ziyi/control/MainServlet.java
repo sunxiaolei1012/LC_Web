@@ -675,7 +675,21 @@ public class MainServlet extends ActionSupport {
 					{
 						Users user = (Users) ActionContext.getContext().getSession().get("user");
 						// 判断卡中余额与折扣，是否够付钱
-						Double dou = order.getPrice() * rebate;
+						//添加差价
+						double xubeiprice=0;
+						if(order.getXubei()!=0 )
+						{
+							Selling_list selling = Common.ORDER.select_xubei_order(order.getNumber());
+							double price=selling.getPrice();
+							Selling_list slll = Common.SLD.selecct_id_list(order.getXubei());
+							double prices=slll.getPrice();
+							if(prices>price) {
+							 xubeiprice=prices-price;
+								
+							}
+						}
+						
+						Double dou = (order.getPrice() * rebate+xubeiprice);
 						if (card.getRemain() >= dou) {
 							// 执行扣钱操作 会员卡是1
 							boolean bool = orderdao.update_order_card(dou, 1, Common.df.format(new Date()),
@@ -761,11 +775,27 @@ public class MainServlet extends ActionSupport {
 							rebate = ctid.getRebate();
 						if (order != null)// 订单存在
 						{
+							//添加差价
+							double xubeiprice=0;
+							if(order.getXubei()!=0 )
+							{
+								Selling_list selling = Common.ORDER.select_xubei_order(order.getNumber());
+								double price=selling.getPrice();
+								Selling_list slll = Common.SLD.selecct_id_list(order.getXubei());
+								double prices=slll.getPrice();
+								if(prices>price) {
+								 xubeiprice=prices-price;
+									
+								}
+							}
+								
 							// 判断卡中余额与折扣，是否够付钱
-							Double dou = order.getPrice() * rebate;
+							Double dou = (order.getPrice() * rebate+xubeiprice);
 							if (card.getRemain() >= dou) {
 								Users user = (Users) ActionContext.getContext().getSession().get("user");
 								// 执行扣钱操作 会员卡是1
+								
+								
 								boolean bool = orderdao.update_order_card(dou, 1, Common.df.format(new Date()),
 										order.getOrderid(), card.getCardid(), user.getUserid());
 								if (bool) {
@@ -829,7 +859,51 @@ public class MainServlet extends ActionSupport {
 				// 根据订单编号，查询订单信息
 				Order orders = Common.ORDER.select_number_order(number);
 				Users user = (Users) ActionContext.getContext().getSession().get("user");
-				boolean bool = orderdao.update_two_order(2, Common.df.format(new Date()), orders.getPrice(), number,
+				// 添加差价
+				double xubeiprice = 0;
+				if (order.getXubei() != 0) {
+					Selling_list selling = Common.ORDER.select_xubei_order(order.getNumber());
+					double price = selling.getPrice();
+					Selling_list slll = Common.SLD.selecct_id_list(order.getXubei());
+					double prices = slll.getPrice();
+					if (prices > price) {
+						xubeiprice = prices - price;
+
+					}
+				}
+
+				boolean bool = orderdao.update_two_order(0, Common.df.format(new Date()),
+						(orders.getPrice() + xubeiprice), number, user.getUserid());
+				if (bool) {
+					Common.HOUSE.update_house_tea(orders.getHouseid(), 0);
+					map.put("state", true);
+					map.put("msg", config.PAY_TRUE);
+
+					Common.TOOLS.log_time(
+							user.getName() + "收取了订单号为：" + number + "的账单。金额为：" + orders.getPrice() + "。现金付款", 7);
+				} else {
+					map.put("state", false);
+					map.put("msg", config.PAY_ERROR);
+				}
+			} else if (ids == 2)// 支付宝
+			{
+				//添加差价
+				double xubeiprice=0;
+				if(order.getXubei()!=0 )
+				{
+					Selling_list selling = Common.ORDER.select_xubei_order(order.getNumber());
+					double price=selling.getPrice();
+					Selling_list slll = Common.SLD.selecct_id_list(order.getXubei());
+					double prices=slll.getPrice();
+					if(prices>price) {
+					 xubeiprice=prices-price;
+						
+					}
+				}
+				// 根据订单编号，查询订单信息
+				Order orders = Common.ORDER.select_number_order(number);
+				Users user = (Users) ActionContext.getContext().getSession().get("user");
+				boolean bool = orderdao.update_two_order(2, Common.df.format(new Date()), orders.getPrice()+xubeiprice, number,
 						user.getUserid());
 				if (bool) {
 					Common.HOUSE.update_house_tea(orders.getHouseid(), 0);
@@ -846,8 +920,24 @@ public class MainServlet extends ActionSupport {
 				// 根据订单编号，查询订单信息
 				Users user = (Users) ActionContext.getContext().getSession().get("user");
 				Order orders = Common.ORDER.select_number_order(number);
-				boolean bool = orderdao.update_two_order(3, Common.df.format(new Date()), orders.getPrice(), number,
+				//添加差价
+				double xubeiprice=0;
+				if(order.getXubei()!=0 )
+				{
+					Selling_list selling = Common.ORDER.select_xubei_order(order.getNumber());
+					double price=selling.getPrice();
+					Selling_list slll = Common.SLD.selecct_id_list(order.getXubei());
+					double prices=slll.getPrice();
+					if(prices>price) {
+					 xubeiprice=prices-price;
+						
+					}
+				}
+				boolean bool = orderdao.update_two_order(3, Common.df.format(new Date()), orders.getPrice()+xubeiprice, number,
 						user.getUserid());
+				
+				
+				
 				if (bool) {
 					Common.HOUSE.update_house_tea(orders.getHouseid(), 0);
 					map.put("state", true);
