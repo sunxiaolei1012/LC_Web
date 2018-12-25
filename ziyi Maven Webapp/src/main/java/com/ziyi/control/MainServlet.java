@@ -698,7 +698,7 @@ public class MainServlet extends ActionSupport {
 								Common.HOUSE.update_house_tea(order.getHouseid(), 0);
 								map.put("state", true);
 								map.put("msg", config.PAY_TRUE);
-								Common.TOOLS.log_time(user.getName() + "收取了订单号为：" + number + "的账单。金额为：" + dou
+								Common.TOOLS.log_time(user.getName() + "收取了订单号为：" + number + "的账单。金额为：" + Common.double_df.format(dou)
 										+ "。会员卡付款，卡号：" + cnumber, 7);
 							} else {
 								map.put("state", false);
@@ -722,7 +722,7 @@ public class MainServlet extends ActionSupport {
 										str = "支付宝";
 									else
 										str = "微信";
-									Common.TOOLS.log_time(user.getName() + "收取了订单号为：" + number + "的账单。会员卡和"+str+"收款,会员卡付款，卡号：" + cnumber+",收款："+dou+","+str+"收款"+Common.double_df.format((dou-card.getRemain())), 7);
+									Common.TOOLS.log_time(user.getName() + "收取了订单号为：" + number + "的账单。会员卡和"+str+"收款,会员卡付款，卡号：" + cnumber+",收款："+Common.double_df.format(dou)+","+str+"收款"+Common.double_df.format((dou-card.getRemain())), 7);
 									map.put("state", true);
 									map.put("msg", config.PAY_TRUE);
 								}
