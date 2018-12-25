@@ -80,7 +80,7 @@
          </action>
          <action name="main_*" class="com.ziyi.control.MainServlet" method="{1}">
             <result name="json" type="json"></result>
-         	<allowed-methods>price,table,state,order,type,value,create,selling,delgoods , yuyue , number,sellingstate,xubei,pay,huan,house</allowed-methods>
+         	<allowed-methods>price,table,state,order,type,value,create,selling,delgoods , yuyue , number,sellingstate,xubei,pay,huan,house,pay_two</allowed-methods>
          </action>
           <action name="image_*" class="com.ziyi.control.ImageServlet" method="{1}">
             <result name="json" type="json"></result>
