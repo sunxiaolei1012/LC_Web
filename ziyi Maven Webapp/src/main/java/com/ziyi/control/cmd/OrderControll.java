@@ -150,22 +150,30 @@ public class OrderControll  extends ActionSupport{
 //		System.out.println(endtime != "");
 		//if(!begintime.equals("null") && !endtime.equals("null"))
 			if(begintime !=null && endtime != null) {
-				if(begintime !="" && endtime != "")
-			sb.append(" and checkouttime BETWEEN '" + begintime.trim()+ "' and '" + endtime.trim()+ "' ");
+				System.out.println(begintime==endtime);
+				if(begintime !="" && endtime != "") {
+					System.out.println(begintime==endtime);
+					if(begintime.equals(endtime)) {
+						System.out.println(begintime==endtime);
+						sb.append("and TO_DAYS(checkouttime)=TO_DAYS('"+getEndtime()+"')");
+						System.out.println(sb.toString());
+					}else {
+			sb.append(" and checkouttime BETWEEN '" + begintime.trim()+ "' and '" + endtime+"(now(), interval 1 day)".trim()+ "' ");
+					}
+				}
 			}
 			
-		
-			
+			System.out.println(sb.toString());
 			List<Order> lists=Common.ORDER.select_kind_order(sb.toString());
-			//System.out.println(lists);
+			System.out.println(lists);
 			 int totalCount = 0;
 			if(lists!=null) 
 				 totalCount=lists.size();
 			 
 			
-				// System.out.println("总条数：" + totalCount);
+				
 					int allPage = PageCount.getCount(totalCount, pageCount);
-				//	System.out.println("总页数：" + allPage);
+				
 					// 拼接页码
 					sb.append(" ORDER BY number  DESC limit " + (pageNo - 1) * pageCount + "," + pageCount);
 					List<Order> listss=Common.ORDER.select_kind_order(sb.toString());
