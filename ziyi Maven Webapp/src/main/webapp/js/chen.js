@@ -753,6 +753,12 @@ function press(){
 	}
 }
 //结算页面
+function renderform1(){
+	layui.use('form',function(){
+		var form = layui.form;
+		form.render('select','renForm1');
+	})
+}
 //number:订单号  table:桌子id price：商品总价格
 var goodsPrice;
 function pay(number,table){	
@@ -903,19 +909,75 @@ function pay(number,table){
 	                             }
 	                             else{
 	                            	 //支付失败
-	                            	 layer.confirm(date.msg+'<br/>返回重新选择支付方式？', {
-	     	                    		btn:['返回','关闭'],
-	     	                    		skin: 'layui-layer-molv',
-	     	                    		btnAlign: 'c',
-	     	                    		}, 
-	     	                    		function(index,layero){
-//	     	                    		  layer.msg('返回', {icon: 1});
-	     	                    			layer.close(index);
-	     	                    			pay(number,table);
-	     	                    		}, 
-	     	                    		function(){
-	     	                    		  layer.msg('支付关闭', {});
-	     	                    	});
+	                            	 var repaybox = $('#repaybox');
+	                            	 var repayhtml = '<div id="msg">'+date.msg+'?'+'</div><br>'+
+												     '<div id="reselect">'+
+												        '<form class="layui-form" lay-filter="renForm1">'+
+												           '<div class="layui-form-item">'+
+												                '<label class="layui-form-label" style="padding-left:0px;">支付方式</label>'+
+												                '<div class="layui-input-block">'+
+												                    '<select id="reselectBox1" lay-filter="repaybox1">'+
+												                        '<option value="0" name="cash1">现金</option>'+
+												                        '<option value="1" name="zhifubao1">支付宝</option>'+
+												                        '<option value="2" name="weixin">微信</option>'+
+												                    '</select>'+
+												                '</div>'+
+												           '</div>'+
+												        '</form>'+
+												     '</div>';		                            	
+	                            	 repaybox.html(repayhtml);
+	                            	 renderform1(); 
+	                            	 if(!date.status){
+	                            		 layer.open({
+	                            			title:'会员卡余额不足',
+	                            			content:$('#repay'),
+	                            			type: 1,
+	                     					shade: false,
+	                     					btn:['确认','取消'],
+	                     					btnAlign:'c',
+	                     					// offset:'t',   //弹出框位置
+	                     					closeBtn:1,      //按钮位置
+	                     	                anim: 1,         //弹窗弹出动画
+	                     	                maxmin:true,
+	                     	                fixed:true,
+	                     					skin: 'layui-layer-molv', //加上边框
+	                     					area: ['400px', '400px'], //宽高
+	                     					yes:function(index,layero){
+	                     						var payselect = $("#reselectBox1").val();	                     							                     						
+	                     						$.ajax({
+	                     					       type:"post",
+	                     					       url:"main_pay_two?number="+number+"&cnumber="+cnumber+"&id="+payselect,
+	                     					       dataType:"json",
+	                     					       cache:false,
+	                     					       async: true,
+	                     					       success:function(date){
+	                     					    	   layer.close(index);
+	                     				               layer.msg(date.msg);
+	                     				               document.getElementById("right-content").innerHTML="";
+	                     					       },	                     					       
+	                     					  });
+	                     					},
+	                     					btn2:function(index,layero){
+	                     						layer.close(index);
+	 	     	                    			pay(number,table);
+	                     					}
+	                            		 })	                            		
+	                            	 }else{
+	                            		 layer.confirm('支付失败！'+'<br/>是否返回重新选择支付方式？', {
+	 	     	                    		btn:['返回','取消'],
+	 	     	                    		skin: 'layui-layer-molv',
+	 	     	                    		btnAlign: 'c',
+	 	     	                    		}, 
+	 	     	                    		function(index,layero){
+//	 	     	                    		  layer.msg('返回', {icon: 1});
+	 	     	                    			layer.close(index);
+	 	     	                    			pay(number,table);
+	 	     	                    		}, 
+	 	     	                    		function(){
+	 	     	                    		  layer.msg('支付取消', {});
+	 	     	                    	});
+	                            	 }
+	                            	 
 	                             }
 	             	       },
 	             	      error:function(){
@@ -1034,23 +1096,7 @@ function goodslist(type_id){
 								"<p class='font-color-gray'><a href='#'><span onclick='goodsAdd("+date[i].sellingid+")' class='iconfont icon-tianjia'></a></p>"+
 							"</div>"+				
 			            "</div>";
-		    	    	}
-		    	    	//start
-		    	    	/*eles+="<div class='mui-card pattern-list'>"+				 
-						"<div class='mui-card-header'>"+
-						"<img class='w100' src='images/goods.png'/>"+
-					"</div>"+
-					"<div class='mui-card-content'>"+
-						"<div class='mui-card-content-inner'>"+
-							"<p>"+date[i].name+"</p>"+
-						"</div>"+
-					"</div>"+
-					"<div class='pattern-list__p'>"+
-						"<p class='font-color-pink'>￥<label>"+date[i].price+"</label></p>"+
-						"<p class='font-color-gray'><a href='#'><span onclick='goodsAdd("+date[i].sellingid+")' class='iconfont icon-tianjia'></a></p>"+
-					"</div>"+				
-	            "</div>";*/
-		    	    	//end
+		    	    	}		    	    	 
 		    	    }
 		    	    
 	    		   }
@@ -1064,6 +1110,7 @@ function goodslist(type_id){
 }
 
 //其他商品（续杯，打折）
+var xubeiindex;
 function othrebate(){
 	var ordernum = document.getElementById("orderNum").innerText;
 	//rebox:high price   rebox1:low price
@@ -1127,7 +1174,7 @@ function othrebate(){
 	       }
 	  });
 	
-	layer.open({
+	xubeiindex=layer.open({
 		title:'续杯商品查看',
 		type: 1,
 		shade: false,
@@ -1154,11 +1201,12 @@ function xubeiAdd(sellid){
 	       async: true,
 	       success:function(date){
                 if(date.state == true || date.state =="true"){
+                	layer.close(xubeiindex);
                 	layer.msg('续杯成功',{icon:6});
                 	//date.id:餐桌id
                 	orderShow(date.id);
                 }else{               	 
-                	layer.msg('续杯失败',{icon:5});
+                	layer.msg(date.msg,{icon:5});
                 } 
 	       },
 	       error:function(){

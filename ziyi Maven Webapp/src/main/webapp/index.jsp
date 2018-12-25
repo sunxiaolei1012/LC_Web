@@ -274,76 +274,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id='layform1' style='display:none;'>
 		<br>	
 		<div id='payformbox'>	 
-		<!-- <form class='layui-form' id="payform">
-			 <div class='layui-form-item'>
-			    <label class='layui-form-label' style='padding-left:0;'>支付方式</label>
-			    <div class='layui-input-block'>
-				      <select id="selectBox" lay-filter='paybox'>
-				        <option value=''></option>
-				        <option value='0' name='cash' checked=''>现金</option>
-				        <option value='1' name='member'>会员卡</option>
-				        <option value='2' name='zhifub'>支付宝</option>
-				        <option value='3' name='weixin'>微信</option>
-				      </select>
-			    </div>			    	
-			</div>
-			<div class="crashcard">
-				<div class="cardbox">
-				    <button type="button" id="card" class="mui-btn mui-btn-warning">刷卡</button>
-					<div class="layui-form-item" style='width:100%;'>
-					    <div class="layui-input-block" style="margin-left:48px;width:63%;">
-					      <input type="text" id="meberNum" class="layui-input meberNum">
-					    </div>
-					</div>												
-				</div>
-			</div>	
-		    <div class='layui-form-item' id='mebrebate'>
-			    <label class='layui-form-label' style='padding-left:0;'>是否打折</label>
-			    <div class='layui-input-block'>
-				      <select id="selectBox1" lay-filter='paybox1'>
-				        <option value=''></option>
-				        <option value='0' name='ndis'>不打折</option>
-				        <option value='1' name='ydis'>打折</option>
-				      </select>
-			    </div>			    	
-			</div>
-			<div class='discounts'>
-	           <div class="layui-form-item">
-				    <label class="layui-form-label">折扣率</label>
-				    <div class="layui-input-block">
-				      <input type="text" id="disnum" name="title" placeholder="请输入折扣率" class="layui-input">
-				    </div>
-			   </div>        
-	           <div class="layui-form-item layui-form-text">
-				    <label class="layui-form-label" style='padding-left:0;'>折扣说明</label>
-				    <div class="layui-input-block">
-				      <textarea placeholder="请输入内容"  class="layui-textarea" id='textare'></textarea>
-				    </div>
-			   </div>
-	        </div> 			 		 
-		</form> -->
+            <!-- 支付方式表单 -->		 
         </div>
 		<div class="right-middle-middle">
 			<ul class="mui-table-view goodslists" id="goodslists">			  
-			    <!-- <li class="mui-table-view-cell mui-media">
-			        <a href="javascript:;">
-			            <div class="mui-media-body">
-			                <span class="mebNum mui-table-view-cell">ZY003</span>
-			                <p class="mui-ellipsis mui-table-view-cell"><span class="title mebTitle">碧螺春</span>
-			                	<span class="mui-badge mui-badge-inverted"><span class="mui-ellipsis mebTitle">×<label>1</label>壶</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="mui-ellipsis title mebTitle">100.00</span>&nbsp;&nbsp;<span class="iconfont icon-shanchu"></span><span class='iconfont icon-tianjia'></span></span>
-			                </p>
-			            </div>
-			        </a>
-			    </li>
-			    <li class="mui-table-view-cell mui-media">
-			        <a href="javascript:;">
-			            <div class="mui-media-body">
-			                <p class="mui-ellipsis mui-table-view-cell"><span class="title mebTitle">碧螺春</span>
-			                	<span class="mui-badge mui-badge-inverted"><span class="mui-ellipsis mebTitle">×<label>1</label>壶</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="mui-ellipsis title mebTitle">100.00</span>&nbsp;&nbsp;<span class="iconfont icon-shanchu"></span><span class='iconfont icon-tianjia'></span></span>
-			                </p>
-			            </div>
-			        </a>
-			    </li>		 -->			     
+			    <!-- 支付订单商品列表 -->			     
 			</ul>
 		</div>
 		<div class="right-middle-bottom-pay" style="display: flex;justify-content: flex-end;padding-right: 10%">
@@ -366,11 +301,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                <!-- end low -->
 	    </div>
 	</div>
-	<!-- changeTable -->
+	<!-- changeTable 换桌-->
 	<div id="changeTable" style="display:none">
 	     <div class="middle-center-tableLayout1">
-	      
+	         	      
 	     </div>
+	</div>
+	<!-- 会员卡余额不足 -->
+	<div id="repay" style='display:none;'>
+	     <div id="repaybox" style="padding:3%"></div>
 	</div>
 	<!-- end continue -->
     <script type="text/javascript" src="js/jquery.min.js"></script>
