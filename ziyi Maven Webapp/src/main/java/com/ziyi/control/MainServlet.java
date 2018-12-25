@@ -673,10 +673,10 @@ public class MainServlet extends ActionSupport {
 						rebate = ctid.getRebate();
 					if (order != null)// 订单存在
 					{
+						Users user = (Users) ActionContext.getContext().getSession().get("user");
 						// 判断卡中余额与折扣，是否够付钱
 						Double dou = order.getPrice() * rebate;
 						if (card.getRemain() >= dou) {
-							Users user = (Users) ActionContext.getContext().getSession().get("user");
 							// 执行扣钱操作 会员卡是1
 							boolean bool = orderdao.update_order_card(dou, 1, Common.df.format(new Date()),
 									order.getOrderid(), card.getCardid(), user.getUserid());
@@ -691,11 +691,32 @@ public class MainServlet extends ActionSupport {
 								map.put("msg", config.PAY_ERROR);
 							}
 						} else {
-							map.put("number",number);
-							map.put("card", cnumber);
-							map.put("state", false);
-							map.put("status", false);
-							map.put("msg", "卡中余额不足,<br/>缺少"+Common.double_df.format(dou-card.getRemain())+"<br/>是否选择用其他方式加会员卡付款");
+							// 执行扣钱操作 会员卡是1
+							boolean bool = orderdao.update_order_card(card.getRemain(), 1, Common.df.format(new Date()),
+									order.getOrderid(), card.getCardid(), user.getUserid());
+							if (bool) {
+								int ids = new Integer(id);
+								boolean bools = orderdao.update_two_order(ids, Common.df.format(new Date()), (dou-card.getRemain()), number,
+										user.getUserid());
+								if(bools)
+								{
+									Common.HOUSE.update_house_tea(order.getHouseid(), 0);
+									map.put("state", true);
+									map.put("msg", config.PAY_TRUE);
+									String str = "现金";
+									if(ids == 2)
+										str = "支付宝";
+									else
+										str = "微信";
+									Common.TOOLS.log_time(user.getName() + "收取了订单号为：" + number + "的账单。会员卡和"+str+"收款,会员卡付款，卡号：" + cnumber+",收款："+dou+","+str+"收款"+Common.double_df.format((dou-card.getRemain())), 7);
+									map.put("state", true);
+									map.put("msg", config.PAY_TRUE);
+								}
+							
+							} else {
+								map.put("state", false);
+								map.put("msg", config.PAY_ERROR);
+							}
 						}
 					}
 				} else// 卡无效
@@ -705,6 +726,7 @@ public class MainServlet extends ActionSupport {
 				}
 			}
 		}
+		new Tools().returns(Gsons.tojson(map));
 		return "json";
 	}
 
@@ -739,10 +761,10 @@ public class MainServlet extends ActionSupport {
 							rebate = ctid.getRebate();
 						if (order != null)// 订单存在
 						{
-							Users user = (Users) ActionContext.getContext().getSession().get("user");
 							// 判断卡中余额与折扣，是否够付钱
 							Double dou = order.getPrice() * rebate;
 							if (card.getRemain() >= dou) {
+								Users user = (Users) ActionContext.getContext().getSession().get("user");
 								// 执行扣钱操作 会员卡是1
 								boolean bool = orderdao.update_order_card(dou, 1, Common.df.format(new Date()),
 										order.getOrderid(), card.getCardid(), user.getUserid());
@@ -757,8 +779,11 @@ public class MainServlet extends ActionSupport {
 									map.put("msg", config.PAY_ERROR);
 								}
 							} else {
-								//卡中余额不足。选择会员卡加其他方式付款
-								
+								map.put("number",number);
+								map.put("card", cnumber);
+								map.put("state", false);
+								map.put("status", false);
+								map.put("msg", "卡中余额不足,<br/>缺少"+Common.double_df.format(dou-card.getRemain())+"<br/>是否选择用其他方式加会员卡付款");
 							}
 						}
 					} else// 卡无效
