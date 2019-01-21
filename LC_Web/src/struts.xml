@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+
+		<constant name="struts.action.excludePattern" value="/static/.*?" /><!-- default locale -->
+<constant name="struts.i18n.encoding" value="utf-8"></constant>
+ <package name="struts_json" extends="json-default,struts-default">
+          <action name="check_*" class="com.lc.control.WordContol" method="{1}">
+        	<result name="checkTest">manage/test.jsp</result>
+        	<result name="checkImage">manage/showImage.jsp</result>
+        	<result name="changeContent">manage/Update.jsp</result>
+        	<result  type="json"></result>
+         </action> 
+         
+         
+         <action name="Update_*" class="com.lc.control.WordContol" method="{1}">
+        	<result name="updateContent">manage/MyJsp.jsp</result>
+        	<result name="changeContent">manage/Update.jsp</result>
+        	<result  type="json"></result>
+         </action> 
+         
+         <action name="upload_*" class="com.lc.control.UploadImageAction"  method="{1}">
+        	<result name="input">manage/MyJsp.jsp</result>
+        	<result name="image">/jsp/UploadImage.jsp</result>
+         </action> 
+         
+         		
+         
+    </package>  
+   
+
+</struts>    
